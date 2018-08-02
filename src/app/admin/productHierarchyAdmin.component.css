@@ -1,0 +1,21 @@
+.page_title{
+	text-align: center;
+    font-size: x-large;
+    margin-top: 1rem;
+}
+
+.detail_form{
+        margin: auto;
+        color: #565454;
+}
+.padding{
+    padding: 30px;
+}
+
+th:nth-of-type(1) {width: 140px;}
+th:nth-of-type(2) {width: 245px;}
+td:nth-of-type(1) {width: 140px;}
+td:nth-of-type(2) {width: 245px;}
+thead{display: block;}
+tbody{display: block; overflow-y: auto; max-height: 12rem;}
+

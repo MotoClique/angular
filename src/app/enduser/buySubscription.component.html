@@ -1,0 +1,51 @@
+<div class="scrollContainerStyle" style="height:100%; overflow-y: auto; overflow-x: hidden;" >
+	<div [hidden]="hidden.view" class="container">
+			<div class="padding">
+				<div>
+					<div *ngFor="let plan of plans" class="planWrapper">
+						<div class="plan">
+							<div class="planDetail">
+								<div>
+									<div class="planName">{{plan.subscription_name}}</div>
+									<div class="validity">{{plan.validity_period}} {{plan.validity_unit}}</div>
+								</div>
+								<div class="price">{{plan.amount}} {{plan.currency}}</div>
+							</div>
+							<div class="features">
+								<div>
+									<div><i class="glyphicon glyphicon-hand-up"></i> Posts allowed -> {{plan.post_allowed}}</div>
+									<div><i class="glyphicon glyphicon-hourglass"></i> Post life in days -> {{plan.post_day}}</div>
+									<div [hidden]="!plan.notification_sms"><i class="glyphicon glyphicon-phone"></i> Notification via SMS</div>
+								</div>
+								<div>
+									<div [hidden]="!plan.featureOnTop"><i class="glyphicon glyphicon-gift"></i> Feature on top of search result</div>
+									<div [hidden]="!plan.getHighlighted"><i class="glyphicon glyphicon-bell"></i> Get Highlighted on your Match</div>
+									<div [hidden]="!plan.notification_email"><i class="glyphicon glyphicon-envelope"></i> Notification via Email</div>
+									<div [hidden]="!plan.notification_app"><i class="glyphicon glyphicon-th-large"></i> Notification via App</div>
+								</div>
+							</div>
+							<div class="continue">
+								<button style="width: 100%" class="form-control btn btn-success" (click)="onBuy($event,plan)">Buy</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--<button class="btn btn-default" (click)="onCancel($event)">
+				  <span class="glyphicon glyphicon-remove"></span> Cancel
+				</button>-->
+			</div>
+			<div style="height: 100px"></div>	
+			<div class="footerStyle">
+				<div class="row" style="padding: 10px;">
+					<div class="col-xs-6">
+						  <button type="submit" class="btn btn-default" style="width:100%;" (click)="onCancel($event)">
+							   <span class="glyphicon glyphicon-remove"></span> Cancel
+						   </button>
+					</div>
+					<div class="col-xs-6" style="display:flex; justify-content:flex-end;">						
+						 						  
+					 </div>
+			   </div>
+		   </div>
+	</div>
+</div>

@@ -1,0 +1,223 @@
+<div class="scrollContainerStyle" style="height:100%; overflow-y: auto; overflow-x: hidden;" (scroll)="handleScroll($event)">
+	<div [hidden]="hidden.view" class="container">
+            <table class='mtable'>
+                   <thead>
+						<th></th>
+						<th></th>
+                       <th>Address</th>
+                       <th>Pin Code</th>
+                       <th>Country</th>
+                       <th>State</th>
+                       <th>City</th>
+                       <th>Locality</th>
+                       <th>Map Point</th>
+                       <th>Default</th>
+                   </thead>
+                   <tr *ngFor="let address of addresses">
+						<td data-header=" "><div style="height:40px; padding: 3px;"><i class="glyphicon glyphicon-remove" (click)="onDelete($event,address)"></i></div></td>
+						<td data-header=" "><div style="height:40px; padding: 3px;"><i class="glyphicon glyphicon-pencil" (click)="onEdit($event,address)"></i></div></td>
+                       <td data-header="Address"><div style="height:40px; padding: 3px;"><button class="btn btn-link" (click)="onAddressClick($event,address)">{{address.address}}</button></div></td>
+                       <td data-header="Pin Code"><div style="height:40px; padding: 3px;">{{address.pin_code}}</div></td>
+                       <td data-header="Country"><div style="height:40px; padding: 3px;">{{address.country}}</div></td>
+                       <td data-header="State"><div style="height:40px; padding: 3px;">{{address.state}}</div></td>
+                       <td data-header="City"><div style="height:40px; padding: 3px;">{{address.city}}</div></td>
+                       <td data-header="Locality"><div style="height:40px; padding: 3px;">{{address.locality}}</div></td>
+                       <td data-header="Map Point"><div style="height:40px; padding: 3px;">{{address.map_point}}</div></td>
+                       <td data-header="Default"><div style="height:40px; padding: 3px;"><input type="checkbox" [disabled]="true"  name="default" [(ngModel)]="address.default_flag"></div></td>
+                   </tr>
+            </table>
+            <!--<button style="width: 100%" class="btn btn-default" (click)="onAddressAdd($event)">
+              <span class="glyphicon glyphicon-plus"></span> Add
+            </button> --> 
+	</div>
+
+ 
+
+ 
+
+ 
+
+	<div [hidden]="hidden.add" class="container">
+		<div class="padding">
+			  <form class="form-horizontal" id="address_form">
+				<div class="form-group">
+					  <!--<label class="control-label col-sm-2" for="address">Address:</label>
+					  <div class="col-sm-10">
+						<input type="text" class="form-control" id="address" [(ngModel)]="item.address" placeholder="Enter Full Address" name="address" [disabled]="disabled.field" required>
+					  </div>-->
+					  
+					  <div class="col-sm-12">
+							<mat-form-field style="width: 100%;">
+								<input matInput placeholder="Address" [(ngModel)] = "item.address" name="address" [disabled]="disabled.field" required>
+							</mat-form-field>
+						</div>
+				</div>
+				<div class="form-group">
+					  <!--<label class="control-label col-sm-2" for="pin_code">Pin Code:</label>
+					  <div class="col-sm-10">         
+						<input type="number" class="form-control" id="pin_code" [(ngModel)]="item.pin_code" placeholder="Enter Area Pin Code" name="pin_code" [disabled]="disabled.field">
+					  </div>-->
+					  
+					  <div class="col-sm-12">
+							<mat-form-field style="width: 100%;">
+								<input matInput placeholder="Pin Code" maxlength="6" [(ngModel)] = "item.pin_code" name="pin_code" [disabled]="disabled.field" (keyup)="onPinEnter($event)">
+							</mat-form-field>
+						</div>
+				</div>
+				<div class="form-group">
+					<!--<label class="control-label col-sm-2" for="country">Country:</label>
+					<div class="col-sm-10">
+						 <select class="form-control" id="country" [(ngModel)]="item.country" name="country" [disabled]="disabled.field" (change)="locate($event)">
+							  <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
+						 </select>
+					</div>-->
+					
+					<div class="col-sm-12"> 
+						<mat-form-field style="width: 100%;" *ngIf="!disabled.field">
+							<mat-select placeholder="Country" name="country" [attr.data-val]="item.country" [(ngModel)]="item.country" (change)="locate($event)" required>
+								  <mat-option *ngFor="let country of countries" [value]="country.country">{{country.country}}</mat-option>
+							</mat-select>
+						</mat-form-field>
+						
+						<mat-form-field style="width: 100%;" *ngIf="disabled.field">
+								<input matInput placeholder="Country" [(ngModel)] = "item.country" name="country" [disabled]=true required>
+						</mat-form-field>
+					</div>
+				</div>
+				<div class="form-group">
+					<!--<label class="control-label col-sm-2" for="state">State:</label>
+					<div class="col-sm-10">
+						<select class="form-control" id="state" [(ngModel)]="item.state" name="state" [disabled]="disabled.field" (change)="locate($event)">
+							  <option *ngFor="let state of states" [value]="state.name">{{state.name}}</option>
+						</select>
+					</div>-->
+					
+					<div class="col-sm-12"> 
+						<mat-form-field style="width: 100%;" *ngIf="!disabled.field">
+							<mat-select placeholder="State" name="state" [attr.data-val]="item.state" [(ngModel)]="item.state" (change)="locate($event)" required>
+								  <mat-option *ngFor="let state of states" [value]="state.state">{{state.state}}</mat-option>
+							</mat-select>
+						</mat-form-field>
+						
+						<mat-form-field style="width: 100%;" *ngIf="disabled.field">
+								<input matInput placeholder="State" [(ngModel)] = "item.state" name="state" [disabled]=true required>
+						</mat-form-field>
+					</div>
+				</div>
+				<div class="form-group">
+					 <!--<label class="control-label col-sm-2" for="city">City:</label>
+					 <div class="col-sm-10">
+						  <select class="form-control" id="city" [(ngModel)]="item.city" name="city" [disabled]="disabled.field" (change)="locate($event)">
+								<option *ngFor="let city of cities" [value]="city.name">{{city.name}}</option>
+						  </select>
+					 </div>-->
+					 
+					 <div class="col-sm-12"> 
+						<mat-form-field style="width: 100%;" *ngIf="!disabled.field">
+							<mat-select placeholder="City" name="city" [attr.data-val]="item.city" [(ngModel)]="item.city" (change)="locate($event)" required>
+								  <mat-option *ngFor="let city of cities" [value]="city.city">{{city.city}}</mat-option>
+							</mat-select>
+						</mat-form-field>
+						
+						<mat-form-field style="width: 100%;" *ngIf="disabled.field">
+								<input matInput placeholder="City" [(ngModel)] = "item.city" name="city" [disabled]=true required>
+						</mat-form-field>
+					</div>
+				</div>
+				<div class="form-group">
+				   <!--<label class="control-label col-sm-2" for="locality">Locality:</label>
+				   <div class="col-sm-10">
+					  <select class="form-control" id="locality" [(ngModel)]="item.locality" name="locality" [disabled]="disabled.field" (change)="locate($event)">
+						   <option *ngFor="let locality of localities" [value]="locality.name">{{locality.name}}</option>
+					  </select>
+				   </div>-->
+				   
+				   <div class="col-sm-12"> 
+						<mat-form-field style="width: 100%;" *ngIf="!disabled.field">
+							<mat-select placeholder="Locality" name="locality" [attr.data-val]="item.locality" [(ngModel)]="item.locality" (change)="locate($event)" required>
+								  <mat-option *ngFor="let locality of localities" [value]="locality.location">{{locality.location}}</mat-option>
+							</mat-select>
+						</mat-form-field>
+						
+						<mat-form-field style="width: 100%;" *ngIf="disabled.field">
+								<input matInput placeholder="Locality" [(ngModel)] = "item.locality" name="locality" [disabled]=true required>
+						</mat-form-field>
+					</div>
+				</div>
+				<div class="form-group"> 
+				  <!--<label class="control-label col-sm-2" for="map_point"></label>-->
+				  <div class="col-sm-12">
+						<div id="googleMap_address" style="width:100%;height:300px;"></div>
+						<!--<div style="position: relative;">
+						  <div class="gMapSearchStyle">
+							  <input id="searchBox" style="border: transparent; outline: none;" placeholder="Search Google Map">
+							  <span class="glyphicon glyphicon-search"></span>
+						  </div>
+						  <div id="googleMap" style="width:100%;height:300px;"></div>
+						  <div id="googleMapOverlay" [hidden]="!disabled.field" ></div>
+						</div>-->
+				  </div>
+				</div>
+				<div class="form-group">       
+					<!--<label class="control-label col-sm-2" for="default">Default:</label>
+					<div class="col-sm-10">
+						<input type="checkbox" style="width:50px" [disabled]="disabled.field"  id="default" [(ngModel)]="item.default_flag" name="default">
+					</div>-->
+					<div class="col-sm-12">
+						<mat-checkbox style="width:100%;" [disabled]="disabled.field || item.default_flag" [(ngModel)]="item.default_flag" name="default" >Default</mat-checkbox>
+					</div>
+				</div>
+				<!--<div class="form-group">       
+				  <div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" style="width: 100%" class="btn btn-default" (click)="onAddressSaveCancel($event)">
+						 <span class="glyphicon glyphicon-remove"></span> Cancel
+					</button>
+					<button type="submit" style="width: 100%" class="btn btn-default" [hidden]="disabled.field" (click)="onAddressSave($event)">
+						 <span class="glyphicon glyphicon-floppy-disk"></span> Save
+					</button>
+				  </div>
+				</div>-->
+			  </form>
+		</div>
+	</div>
+	<div style="width:100%; height:100px;"></div>
+</div>
+
+<div class="footerStyle">
+		<div class="row" style="padding: 10px;">
+					<div class="col-xs-6">
+						   <button type="submit" class="btn btn-default" style="width:100%;" (click)="onAddressSaveCancel($event)" [hidden]="hidden.add">
+							   <span class="glyphicon glyphicon-remove"></span> Cancel
+						   </button>
+						   
+					</div>
+					<div class="col-xs-6" style="display:flex; justify-content:flex-end;">						
+						  <button type="submit" class="btn btn-default" style="width:100%;" (click)="onAddressSave($event)" [hidden]="hidden.add || disabled.field">
+							   <span class="glyphicon glyphicon-floppy-disk"></span> Save
+						  </button>
+						  					
+						 
+						  <button type="submit" style="width: 100%" class="btn btn-default" (click)="onAddressAdd($event)" [hidden]="hidden.view">
+							  <span class="glyphicon glyphicon-plus"></span> Add
+							</button>
+						
+					 </div>
+		</div>
+</div>
+
+
+<app-dialog [(visible)]="showPostListDialog">
+	<div style="padding: 40px;">
+		<div class="listHeader">Below posts are using the selected address</div>
+		<div>
+			<div class="listItem" *ngFor="let itm of posts">
+				<span *ngIf="itm.sell_id !== undefined && itm.sell_id !== null && itm.sell_id !== ''">Sale -</span>
+				<span *ngIf="itm.buy_req_id !== undefined && itm.buy_req_id !== null && itm.buy_req_id !== ''">Buy Request -</span>
+				<span *ngIf="itm.bid_id !== undefined && itm.bid_id !== null && itm.bid_id !== ''">Bid -</span>
+				<span *ngIf="itm.service_id !== undefined && itm.service_id !== null && itm.service_id !== ''">Service -</span>
+				{{itm.product_type_name}} {{itm.brand_name}} {{itm.model}}
+			</div>
+		</div>
+	</div>
+	
+</app-dialog>

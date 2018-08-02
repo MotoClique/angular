@@ -1,0 +1,15 @@
+[hidden] {
+  display: none !important;
+}
+
+/*.menu_icon:before {
+	content: url("./image/menu_white.png");
+}*/
+
+.user_icon:before {
+	content: url("./image/account_circle_white.png");
+}
+
+/*.user_icon_black:before {
+	content: url("./image/account_circle_black.png");
+}*/

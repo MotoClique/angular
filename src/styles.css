@@ -1,0 +1,382 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+html, body {
+	height:100%;
+}
+
+input{
+	margin-bottom:5px;
+}
+
+.mtable{
+	margin-bottom:5px !important;
+}
+
+/*Overwrite material css*/
+.mat-select-value {
+    color: rgba(0,0,0,.87) !important;
+}
+.mat-input-element {
+    color: rgba(0,0,0,.87) !important;
+}
+
+
+/* Center the loader */
+#loader {
+  z-index: 100;
+  border: 7px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 7px solid #E71B03;
+  width: 60px;
+  height: 60px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+ 
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+ 
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+ 
+#loaderContainer{
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 101;
+}
+
+
+/* GLOBAL MESSAGE BOX STYLE */
+.global_msg_dialog_overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 89;
+}
+
+.global_msg_dialog {
+  z-index: 90;
+  position: fixed;
+  right: 0;
+  left: 0;
+  top: 20px;
+  margin-right: auto;
+  margin-left: auto;
+  min-height: 150px;
+  width: 90%;
+  max-width: 520px;
+  background-color: #fff;
+  box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2), 0 13px 19px 2px rgba(0, 0, 0, 0.14), 0 5px 24px 4px rgba(0, 0, 0, 0.12);
+}
+ 
+@media (min-width: 768px) {
+  .global_msg_dialog {
+    top: 30%;
+  }
+}
+ 
+.global_msg_dialog__close-btn {
+  border: 0;
+  background: none;
+  color: #2d2d2d;
+  position: absolute;
+  right: 0;
+  font-size: 2em;
+  outline: none;
+}
+
+.global_msg_dialog_header{
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  background-color: #f1f1f1;
+  border-bottom: 1px solid #ddd;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.global_msg_dialog_error_icon:before{
+   content: url('/assets/error.png');
+   position: relative;
+   top: 5px;
+}
+
+.global_msg_dialog_info_icon:before{
+   content: url('/assets/info.png');
+   position: relative;
+   top: 5px;
+}
+
+.global_msg_dialog_text {
+    padding: 35px;
+    text-align: center;
+}
+.global_msg_dialog_footer{
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	padding: 10px;
+    background-color: gray;
+}
+.global_msg_dialog_footer button{
+	background: none !important;
+    border: none !important;
+    color: white !important;
+    outline: none !important;
+}
+
+
+
+
+/*Google Map*/
+.gMapSearchStyle{
+    z-index: 1;
+    position: absolute;
+    left: 10px;
+    top: 45px;
+	background-color: white;
+    width: 270px;
+    font-size: 15px;
+    padding: 12px;
+    color: black;
+    border: transparent;
+    font-weight: 500;
+    outline: none;
+    text-indent: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2), 0 -1px 0px rgba(0,0,0,0.02);
+}
+
+.googleMapOverlay{
+	animation: opac 0.8s;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2;
+	cursor:pointer;
+}
+
+#googleMapOverlay{
+	animation: opac 0.8s;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2;
+	cursor:pointer;
+}
+
+
+
+/*Table Style*/
+	.mtable{
+		width: 100%;
+	}
+	.mtable tr:nth-of-type(odd) { 
+		background: #eee; 
+	}
+	.mtable th { 
+		background: #b6b7ba; 
+		color: white; 
+		font-weight: bold;
+		padding: 8px;
+	}
+	.mtable td, .mtable th {		
+		border: 1px solid #ccc;
+	}
+	.mtable td button{
+		padding: 0 !important;
+	}
+	.mtable td div{
+		overflow-wrap: break-word;
+	}
+
+	/*
+	Max width before this PARTICULAR table gets nasty
+	This query will take effect for any screen smaller than 760px
+	and also iPads specifically.
+	*/
+	@media only screen and (max-width: 1024px),	(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+		/* Force table to not be like tables anymore */
+		.mtable table, .mtable thead, .mtable tbody, .mtable th, .mtable td, .mtable tr {
+			display: block;
+		}
+
+		/* Hide table headers (but not display: none;, for accessibility) */
+		.mtable thead th {
+			position: absolute;
+			top: -9999px;
+			left: -9999px;
+		}
+
+		.mtable tr { border: 1px solid #ccc; }
+
+		.mtable td {
+			/* Behave  like a "row" */
+			border: none;
+			border-bottom: 1px solid #eee;
+			position: relative;
+			padding-left: 50%;
+			line-height: 25px;
+			overflow-wrap: break-word;
+		}
+
+		.mtable td:before {
+			/* Now like a table header */
+			position: absolute;
+			/* Top/left values mimic padding */			
+			left: 6px;
+			width: 45%;
+			padding-right: 10px;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			white-space: nowrap;
+			font-weight: bold;
+			content: attr(data-header) ":";
+		}
+		
+		.mtable td[data-header = ' ']:before {
+			color: transparent !important;
+		}
+		
+				
+		.mtable td div{
+			padding: 0 !important;
+		}
+
+	}
+
+	/* Smartphones (portrait and landscape) ----------- */
+	@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+		/*body {
+			padding: 0;
+			margin: 0;
+			width: 320px; 
+		}*/
+	}
+
+	/* iPads (portrait and landscape) ----------- */
+	@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+		/*body {
+			width: 495px;
+		}*/
+	}
+
+
+	
+	
+/* Common CSS styling */	
+.container{
+	padding: 2%;
+	width: auto !important;
+}
+
+.userscreen-frame{
+    padding-top: 60px;
+	height: inherit;
+}
+	
+
+.footerStyle {
+   position: fixed;
+   top: 100%;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   height: 0;
+   background-color: #7c7e82;
+   color: white; 
+   z-index: 1;
+	-webkit-transition: height 0.6s;
+	-moz-transition: height 0.6s;
+	transition: height 0.6s;
+	-webkit-transition-timing-function: cubic-bezier( 0.215, 0.610, 0.355, 1.000);
+	transition-timing-function: cubic-bezier( 0.215, 0.610, 0.355, 1.000);
+	-webkit-transition-delay: .5s;
+	/* Safari */
+	transition-delay: .5s;
+}
+
+
+.footerStyle button{
+	width: auto !important;
+    background: transparent !important;
+    border: transparent !important;
+    box-shadow: none !important;
+    color: white !important;
+}
+
+.on-canvas {
+	top: auto;
+	height:52px;
+}
+
+
+.footerStyleAdmin {
+   position: fixed;
+   bottom: 0;
+   width: calc(100% - 250px);
+   background-color: #7c7e82;
+   color: white; 
+   z-index: 1;
+}
+.footerStyleAdmin button{
+	width: auto !important;
+    background: transparent !important;
+    border: transparent !important;
+    box-shadow: none !important;
+    color: white !important;
+}
+
+
+.rupeeRed:before{
+	content: url('/assets/inr.png');
+}
+	
+
+.createNewDiv{
+	padding:10px; position: relative;
+	display: flex;
+    justify-content: center;
+}
+.createNewInnerDiv{
+	max-width: 340px;
+    max-height: 290px;
+	min-height: 275px;
+	width: 100%;
+	border: 1px solid gray;
+	cursor:pointer;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.createNewInnerDiv:active{
+	border: 4px solid #8ac3d8;
+}
+.createNewIcon{
+	font-size: 100px; width: 140px; height: 140px; text-align: center; border: 1px solid; border-radius: 140px;
+}
+	

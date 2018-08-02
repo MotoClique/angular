@@ -1,0 +1,473 @@
+<div [hidden]="hidden.view" class="container">
+	
+    <div class="detail_form">
+        <div class="padding">
+			<label>Type Product ID or Type below to search.</label>
+			<input class="form-control" style="width: 100%;" type="text" [(ngModel)]="term" placeholder="Search..">
+            <table class='mtable'>
+				<thead>
+					<tr>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th>Product ID</th>
+						<th>Product Type</th>
+						<th>Brand</th>
+						<th>Model</th>
+						<th>Variant</th>						
+						<th></th>						
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor='let product of products | filter : {product_id:term, product_type_name:term, brand_name:term}' [hidden]="product.deleted">
+						<td data-header=" "><div style="height:40px; padding: 3px;"><i class="glyphicon glyphicon-remove" style="cursor:pointer;" (click)="onDelete($event,product)"></i></div></td>
+						<td data-header=" "><div style="height:40px; padding: 3px;"><i class="glyphicon glyphicon-pencil" style="cursor:pointer;" (click)="onEdit($event,product)"></i></div></td>
+						<td data-header=" "><div style="height:40px; padding: 3px;"><i class="glyphicon glyphicon-picture" style="cursor:pointer;" (click)="onImageClick($event,product)"></i></div></td>
+						<td data-header="Product ID"><div style="height:40px; padding: 3px;"><button class="btn btn-link" (click)="onPrdClick($event,product)">{{product.product_id}}</button></div></td>
+						<td data-header="Product Type"><div style="height:40px; padding: 3px;">{{product.product_type_name}}</div></td>
+						<td data-header="Brand"><div style="height:40px; padding: 3px;">{{product.brand_name}}</div></td>
+						<td data-header="Model"><div style="height:40px; padding: 3px;">{{product.model}}</div></td>
+						<td data-header="Variant"><div style="height:40px; padding: 3px;">{{product.variant}}</div></td>						
+						<td data-header=" "><div style="height:40px; padding: 3px;"><button class="btn btn-link" (click)="onSeeSpecClick($event,product)">Specifications</button></div></td>
+					</tr>
+				</tbody>
+			</table>
+			
+        </div>
+    </div>
+</div>
+
+
+
+<!-- -->
+
+<div [hidden]="hidden.add" class="container">
+    <div class="detail_form">
+        <div class="padding">		
+            <form class="form-horizontal" autocomplete="off">
+                <div class="form-group">
+                    <div class="form-inline">
+                        <label class="control-label col-sm-2" for="product_id">Product ID:</label>
+                        <div class="col-sm-10">
+                            <input style="width: 100%;" [disabled]="disabled.product_id" type="text" class="form-control" id="product_id" placeholder="Enter Product ID" [value] = "newItem.product_id" (input) = "newItem.product_id = $event.target.value">
+                        </div>
+                    </div>
+                </div>
+				<div class="form-group">
+                    <div class="form-inline">
+                        <label class="control-label col-sm-2" >Product Type:</label>
+                        <div class="col-sm-10">
+							<select class="form-control" [hidden]="disabled.others" style="width: 100%;" name="prdTyp" [(ngModel)]="selectedPrdTyp" (change)="onPrdTypChange()">
+								<option [ngValue]=""></option>
+								<option *ngFor='let prdTyp of prdTyps' [ngValue]="prdTyp">{{prdTyp.product_type_name}}</option>
+							</select>
+							<input style="width: 100%;" [disabled]="true" [hidden]="!disabled.others" type="text" class="form-control" [value] = "newItem.product_type_name">
+						</div>
+                    </div>
+                </div>
+				<div class="form-group" [hidden]="newItem.product_type_name === 'Service'">
+                    <div class="form-inline">
+                        <label class="control-label col-sm-2" >Brand:</label>
+                        <div class="col-sm-10">
+							<select class="form-control" style="width: 100%;" [hidden]="disabled.others" name="brand" [(ngModel)]="selectedBrand">
+								<option [ngValue]=""></option>
+								<option *ngFor='let brand of brands' [ngValue]="brand">{{brand.brand_name}}</option>
+							</select>
+							<input style="width: 100%;" [disabled]="true" [hidden]="!disabled.others" type="text" class="form-control" [value] = "newItem.brand_name">
+						</div>
+                    </div>
+                </div>
+				<div class="form-group" [hidden]="newItem.product_type_name !== 'Service'">
+                    <div class="form-inline">
+                        <label class="control-label col-sm-2" >For:</label>
+                        <div class="col-sm-10">
+							<select class="form-control" style="width: 100%;" [hidden]="disabled.others" name="brand" [(ngModel)]="selectedBrand">
+								<option [ngValue]=""></option>
+								<option *ngFor='let prdTyp of prdTyps' [ngValue]="prdTyp">{{prdTyp.product_type_name}}</option>
+							</select>
+							<input style="width: 100%;" [disabled]="true" [hidden]="!disabled.others" type="text" class="form-control" [value] = "newItem.brand_name">
+						</div>
+                    </div>
+                </div>
+				<div class="form-group">
+                    <div class="form-inline">
+                        <label class="control-label col-sm-2" for="model">Model:</label>
+                        <div class="col-sm-10">
+							<input style="width: 100%;" [disabled]="disabled.others" type="text" class="form-control" id="model" placeholder="Enter Model" [value] = "newItem.model" (input) = "newItem.model = $event.target.value">
+						</div>
+                    </div>
+                </div>
+				<div class="form-group" [hidden]="newItem.product_type_name === 'Service'">
+                    <div class="form-inline">
+                        <label class="control-label col-sm-2" for="variant">Variant:</label>
+                        <div class="col-sm-10">
+							<input style="width: 100%;" [disabled]="disabled.others" type="text" class="form-control" id="variant" placeholder="Enter Variant" [value] = "newItem.variant" (input) = "newItem.variant = $event.target.value">
+						</div>
+                    </div>
+                </div>
+				<div class="form-group" [hidden]="disabled.upload">
+                    <div class="form-inline">
+                        <label class="control-label col-sm-2" for="image">Image:</label>
+                        <div class="col-sm-10">
+							<input style="width: 100%;" type="file" accept="image/*" class="form-control" id="image" placeholder="Upload Image" (change)="onUpload($event)">
+						</div>
+                    </div>
+                </div>
+				<div class="form-group" [hidden]="disabled.upload || newItem.product_type_name === 'Service'">
+                    <div class="form-inline">
+                        <label class="control-label col-sm-2" for="color">Default Image Color:</label>
+                        <div class="col-sm-10">
+							<select id="color" class="form-control" style="width: 100%;" name="upload_color" [(ngModel)]="newItem.defaultImageColor">
+								<option *ngFor='let color of colors' [ngValue]="color.name">{{color.name}}</option>
+							</select>
+						</div>
+                    </div>
+                </div>
+				<div class="form-group" [hidden]="disabled.upload || newItem.product_type_name === 'Service'">
+                    <div class="form-inline">
+                        <label class="control-label col-sm-2" for="color">Year of Model:</label>
+                        <div class="col-sm-5">
+							<select id="year_from" class="form-control" style="width: 100%;" name="year_from" [(ngModel)]="newItem.year_from">
+								<option *ngFor='let yr of years' [ngValue]="yr.name">{{yr.name}}</option>
+							</select>
+						</div>
+						<div class="col-sm-5">
+							<select id="year_to" class="form-control" style="width: 100%;" name="year_to" [(ngModel)]="newItem.year_to">
+								<option *ngFor='let yr of years' [ngValue]="yr.name">{{yr.name}}</option>
+							</select>
+						</div>
+                    </div>
+                </div>
+			</form>
+			
+        </div>
+    </div>
+</div>
+
+<!--footer-->
+<div style="padding: 10px;"></div>
+<div class="footerStyleAdmin">
+				<div class="row" style="padding: 5px;">
+					<div class="col-sm-6">
+						   <button type="submit" class="btn btn-default" (click)="onAddCancel($event)" [hidden]="hidden.add">
+								<span class="glyphicon glyphicon-remove"></span> Cancel
+							</button>
+							<button type="submit" class="btn btn-default" (click)="onImageCancel($event)" [hidden]="hidden.image">
+								<span class="glyphicon glyphicon-remove"></span> Cancel
+							</button>
+							<button type="submit" class="btn btn-default" (click)="onSpecCancel($event)" [hidden]="hidden.spec">
+								<span class="glyphicon glyphicon-remove"></span> Cancel
+							</button>							
+					</div>
+					<div class="col-sm-6" style="display:flex; justify-content:flex-end;">
+							<button type="submit" class="btn btn-default" (click)="onAddClick($event)" [hidden]="hidden.view">
+								<span class="glyphicon glyphicon-plus"></span> Add
+							</button>
+							<button type="submit" class="btn btn-default" (click)="onUploadFromExcelClick($event)" [hidden]="hidden.view">
+								<span class="glyphicon glyphicon-open"></span> Upload
+							</button>
+							<button type="submit" class="btn btn-default" (click)="onSave($event)" [hidden]="disabled.others || hidden.add">
+								<span class="glyphicon glyphicon-floppy-disk"></span> Save
+							</button>
+							<button type="submit" class="btn btn-default" (click)="onAddImage($event)" [hidden]="hidden.image">
+								<span class="glyphicon glyphicon-plus"></span> Add
+							</button>
+							<button type="submit" class="btn btn-default" (click)="onSpecAddClick($event)" [hidden]="hidden.spec">
+								<span class="glyphicon glyphicon-plus"></span> Add
+							</button>
+							<button type="submit" class="btn btn-default" (click)="onSpecCopyClick($event)" [hidden]="hidden.spec">
+								<span class="glyphicon glyphicon-copy"></span> Copy From
+							</button>
+					 </div>
+			   </div>
+</div>
+
+
+
+
+<!-- -->
+
+<div [hidden]="hidden.image" class="container">
+	<h3 class="page_title">Images</h3>
+    <div class="detail_form">
+        <div class="padding">
+			<div class="container-fluid">
+			  <div class="row">
+				<div class="col-sm-3" style="background-color:lavender;" *ngFor="let image of thumbnails">
+					<div style="display:flex; justify-content:space-between; width:90%; margin-top:5px;">
+						<div><span class="glyphicon glyphicon-remove-circle" (click)="removeImage($event,image)"></span></div>
+						<div [hidden]=true style="background-color: red; width: 50px; height: 20px; color: white; position: absolute; top: 5px; left: 10px; border-radius: 10px; font-size: 10px; font-weight: bold; text-align: center; line-height: 20px;">Default</div>
+					</div>
+					<div style="width: 100%; justify-content: space-around; display: flex;  flex-wrap: nowrap;">
+						<img title={{image.name}} class="img-thumbnail" src={{image.thumbnail}} width="100" height="100" (click)="getImage($event,image)">
+					</div>
+					<div style="text-align: center; overflow: hidden; text-overflow: ellipsis;">{{image.name}}</div>
+				</div>
+			  </div>
+			</div>		
+			
+		</div>
+	</div>
+</div>
+
+
+<!-- -->
+<app-dialog [(visible)]="showDialog">
+	<div>
+		<div style="text-align: center; font-size: 20px; margin-top: 1rem; border-bottom: 1px solid gray; line-height: 30px;">Upload Image (JPEG, PNG, GIF)</div>
+			<div class="padding">
+				<form autocomplete="off">
+					<div class="form-group">
+						<div class="form-inline">
+							<label class="control-label col-sm-2" >Upload File:</label>
+							<div class="col-sm-10">
+								<input class="form-control" style="width: 100%;" type="file" accept="image/*" (change)="onUpload($event)">
+							</div>
+						</div>
+					</div>
+					<div class="form-group" [hidden]="selectedPrd.product_type_name === 'Service'">
+						<div class="form-inline">
+							<label class="control-label col-sm-2" >Color:</label>
+							<div class="col-sm-10">
+								<select class="form-control" style="width: 100%; margin-top: 5px;" name="upload_color" [(ngModel)]="uploadColor">
+									<option *ngFor='let color of colors' [ngValue]="color.name">{{color.name}}</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="form-group" [hidden]="selectedPrd.product_type_name === 'Service'">
+						<div class="form-inline">
+							<label class="control-label col-sm-2" >Year of Model:</label>
+							<div class="col-sm-5">
+								<select class="form-control" style="width: 100%; margin-top: 5px;" name="upload_year_from" [(ngModel)]="uploadYearFrom">
+									<option *ngFor='let yr of years' [ngValue]="yr.name">{{yr.name}}</option>
+								</select>
+							</div>
+							<div class="col-sm-5">
+								<select class="form-control" style="width: 100%; margin-top: 5px;" name="upload_year_to" [(ngModel)]="uploadYearTo">
+									<option *ngFor='let yr of years' [ngValue]="yr.name">{{yr.name}}</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</form>
+				<button type="submit" class="btn btn-default" style="width:100%; margin-top: 10px;" (click)="onImageUpload($event)">
+					<span class="glyphicon glyphicon-open"></span> Upload
+				</button>
+			</div>
+	</div>
+</app-dialog>
+
+
+
+
+<!-- SPECIFICATION -->
+<div [hidden]="hidden.spec" class="container">
+	<h3 class="page_title">Specifications</h3>
+    <div class="detail_form">
+        <div class="padding">
+			<label>Type Specification Name below to search.</label>
+			<input class="form-control" style="width: 100%;" type="text" [(ngModel)]="spec_term" placeholder="Search..">
+            <table class='mtable'>
+				<thead>
+					<tr>
+						<th>Specification</th>
+						<th>Value</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor='let spec of specs | filter : {specification_field_name: spec_term}' [hidden]="spec.deleted">
+						<td data-header="Specification"><div style="height:40px; padding: 3px;">{{spec.specification_field_name}}</div></td>
+						<td data-header="Value"><div style="height:40px; padding: 3px;">{{spec.specification_field_value}}</div></td>
+						<td data-header=" "><div style="height:40px; padding: 3px;"><i class="glyphicon glyphicon-remove" (click)="onSpecDelete($event,spec)"></i></div></td>
+					</tr>
+				</tbody>
+			</table>
+			
+        </div>
+    </div>
+</div>
+
+<!-- Add Specification Dialog -->
+<app-dialog [(visible)]="showSpecDialog">
+	<div>
+		<h3 class="page_title">Add Specification</h3>
+			<div class="padding">
+				<label>Specification</label>
+				<select class="form-control"  style="width: 100%;" name="spec" [(ngModel)]="selectedSpecField">
+					<option *ngFor='let specField of specFields' [ngValue]="specField">{{specField.specification_field_name}}</option>
+				</select>		
+				<label>Value</label>
+				<input style="width: 100%;" type="text" class="form-control" placeholder="Enter Specification Value" [value] = "specFieldValue" (input) = "specFieldValue = $event.target.value">
+			</div>
+			<button type="submit" class="btn btn-default" (click)="onSpecAdd($event)">
+                <span class="glyphicon glyphicon-floppy-disk"></span> Save
+            </button>
+	</div>
+</app-dialog>
+
+
+<!-- Add Specification Copy Dialog -->
+<app-dialog [(visible)]="showCopySpecDialog">
+	<div>
+		<h3 class="page_title">Copy Specification From</h3>
+			<div class="padding">
+				<label>Type Product ID or Type or Brand below to search.</label>
+				<input class="form-control" style="width: 100%;" type="text" [(ngModel)]="prd_term" placeholder="Search..">
+				<table class='mtable'>
+					<thead>
+						<tr>
+							<th>Product ID</th>
+							<th>Product Type</th>
+							<th>Brand</th>
+							<th>Model</th>
+							<th>Variant</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor='let product of products | filter : {product_id:prd_term, product_type_name:prd_term, brand_name:prd_term}' [hidden]="product.deleted" (click)="onPrdCopySelect($event,product)">
+							<td data-header="Product ID"><div style="height:40px; padding: 3px;">{{product.product_id}}</div></td>
+							<td data-header="Product Type"><div style="height:40px; padding: 3px;">{{product.product_type_name}}</div></td>
+							<td data-header="Brand"><div style="height:40px; padding: 3px;">{{product.brand_name}}</div></td>
+							<td data-header="Model"><div style="height:40px; padding: 3px;">{{product.model}}</div></td>
+							<td data-header="Variant"><div style="height:40px; padding: 3px;">{{product.variant}}</div></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+	</div>
+</app-dialog>
+
+
+
+
+
+
+<app-dialog [(visible)]="showUploadExcelDialog">
+	<div>
+		<div style="text-align: center; font-size: 20px; margin-top: 1rem; border-bottom: 1px solid gray; line-height: 30px;">
+			<span *ngIf="sheetToUpload !== 'Image'">Upload from Excel (XLSX)</span>
+			<span *ngIf="sheetToUpload === 'Image'">Upload Product Images</span>
+		</div>
+			<div class="padding">
+				<p style="text-align: center; font-weight: 900;" [style.color]="(uploadValidation.state === 'S')?'green':'red'">{{uploadValidation.msg}}</p>
+				<form autocomplete="off">
+					<div class="form-group">
+						<div class="form-inline">
+							<div class="col-sm-12">
+								<select class="form-control"  style="width: 100%;" name="sheetType" [(ngModel)]="sheetToUpload">
+									<option value=""></option>
+									<option value="Product">Product</option>
+									<option value="Specification">Specification</option>
+									<option value="Image">Image</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="form-group" [hidden]="sheetToUpload === 'Image'">
+						<div class="form-inline">
+							<div class="col-sm-12">
+								<input id="prdExcelUploadInput" class="form-control" style="width: 100%;" type="file" (change)="onExcelUpload($event)">
+							</div>
+						</div>
+					</div>
+					<div class="form-group" [hidden]="sheetToUpload !== 'Image'">
+						<div class="form-inline">
+							<div class="col-sm-12">
+								<input id="prdImageUploadInput" class="form-control" style="width: 100%;" accept="image/*" type="file" (change)="onMultipleImageUpload($event)" multiple>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="form-inline">
+							<div class="col-sm-12">
+								<p style="color:red;">***Maximum of 1000 entries can be uploaded at a time.</p>
+							</div>
+						</div>
+					</div>
+				</form>
+				<div style="height:50px;"></div>
+			</div>
+	</div>
+</app-dialog>
+
+<!-- Discrepancy Item Dialog -->
+<app-dialog [(visible)]="showUploadPreviewDialog">
+	<div>
+		<h3 class="page_title">Review data to upload</h3>
+			<div class="padding">
+				<table [hidden]="products_to_upload.length<1" class='mtable'>
+					<thead>
+						<tr>
+							<th></th>
+							<th>Row#</th>
+							<th>Product Type</th>
+							<th>Brand</th>
+							<th>Model</th>
+							<th>Variant</th>
+							<th>Comment</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor='let product of products_to_upload; let indx = index'>
+							<td data-header=" "><div style="height:40px; padding: 3px;"><i class="glyphicon glyphicon-remove" style="cursor:pointer;" (click)="onDeleteUploadData($event,products_to_upload,indx)"></i></div></td>
+							<td data-header="Row#"><div style="height:40px; padding: 3px;">{{product.row}}</div></td>
+							<td data-header="Product Type"><div style="height:40px; padding: 3px;">{{product.product_type_name}}</div></td>
+							<td data-header="Brand"><div style="height:40px; padding: 3px;">{{product.brand_name}}</div></td>
+							<td data-header="Model"><div style="height:40px; padding: 3px;">{{product.model}}</div></td>
+							<td data-header="Variant"><div style="height:40px; padding: 3px;">{{product.variant}}</div></td>
+							<td data-header="Comment"><div style="height:40px; padding: 3px; color:red;">{{product.msg}}</div></td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<table [hidden]="specs_to_upload.length<1" class='mtable'>
+					<thead>
+						<tr>
+							<th></th>
+							<th>Row#</th>
+							<th>Product ID</th>
+							<th>Specification</th>
+							<th>Value</th>
+							<th>Comment</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor='let spec of specs_to_upload; let indx = index'>
+							<td data-header=" "><div style="height:40px; padding: 3px;"><i class="glyphicon glyphicon-remove" style="cursor:pointer;" (click)="onDeleteUploadData($event,specs_to_upload,indx)"></i></div></td>
+							<td data-header="Row#"><div style="height:40px; padding: 3px;">{{spec.row}}</div></td>
+							<td data-header="Product ID"><div style="height:40px; padding: 3px;">{{spec.product_id}}</div></td>
+							<td data-header="Specification"><div style="height:40px; padding: 3px;">{{spec.spec_field}}</div></td>
+							<td data-header="Value"><div style="height:40px; padding: 3px;">{{spec.spec_value}}</div></td>
+							<td data-header="Comment"><div style="height:40px; padding: 3px; color:red;">{{spec.msg}}</div></td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<table [hidden]="images_to_upload.length<1" class='mtable'>
+					<thead>
+						<tr>
+							<th></th>
+							<th>Product ID</th>
+							<th>Image</th>
+							<th>Comment</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor='let img of images_to_upload; let indx = index'>
+							<td data-header=" "><div style="height:40px; padding: 3px;"><i class="glyphicon glyphicon-remove" style="cursor:pointer;" (click)="onDeleteUploadData($event,images_to_upload,indx)"></i></div></td>
+							<td data-header="Product ID"><div style="height:40px; padding: 3px;">{{img.product_id}}</div></td>
+							<td data-header="Image"><div style="height:40px; padding: 3px;">{{img.image}}</div></td>
+							<td data-header="Comment"><div style="height:40px; padding: 3px; color:red;">{{img.msg}}</div></td>
+						</tr>
+					</tbody>
+				</table>
+				
+				
+				<button type="submit" class="btn btn-default" style="width:100%; margin-top: 10px;" [disabled]="hasDiscrepancy" (click)="onUploadSubmit($event)">
+					<span class="glyphicon glyphicon-open"></span> Upload
+				</button>
+			</div>
+	</div>
+</app-dialog>

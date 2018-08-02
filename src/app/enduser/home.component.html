@@ -1,0 +1,71 @@
+<div class="scrollContainerStyle" style="height:100%; overflow-y: auto; overflow-x: hidden;" (scroll)="handleScroll($event)">
+	<div class="container">
+	   <div style="margin-top: 10px;">
+			
+            <div class="row">
+                <div class="col-sm-2" >                   
+				   <div style="padding:10px;">
+					   <form autocomplete="off" >	
+								<div class="form-control">
+									<div  style="display: flex;">
+										<input id="cityInput" style="background: transparent; margin-bottom:0; width: 100%;  border: transparent; outline: none;" type="text" name="city" placeholder="Location" [(ngModel)]="city" (keyup)="suggestCity($event)">
+										<span [hidden]="city == undefined || city == ''" class="glyphicon glyphicon-remove-circle" (click)="onRemoveCitySearch($event)" style="width:10px; cursor:pointer; color:gray; font-size: 16px;"></span>
+									</div>
+								</div>
+								<div style="position: relative;">
+									<div class="autocomplete-items">
+										<div *ngFor="let item of city_suggestion" class="autocomplete-item citySuggestions"
+											[attr.data-country]="item.country" [attr.data-state]="item.state" [attr.data-city]="item.city" [attr.data-location]="item.location"
+												(click)="onCitySuggestSelect($event,item)">{{item.text}}</div>
+									</div>
+								</div>						
+						</form>
+					</div>
+				</div>
+                 <div class="col-sm-8" >
+					<div style="padding:10px;">
+						<form autocomplete="off" >	
+							<div class="form-control">
+								<div  style="display: flex;">
+									<input id="searchInput" style="background: transparent; margin-bottom:0; width: 100%;  border: transparent; outline: none;" type="text" name="searchInput" placeholder="Type here to search..." [(ngModel)]="search" (keyup)="suggest($event)">
+									<span [hidden]="search == undefined || search == ''" class="glyphicon glyphicon-remove-circle" (click)="onRemoveSearch($event)" style="width:20px; cursor:pointer; color:gray; font-size: 16px;"></span>
+									<span class="glyphicon glyphicon-search" (click)="onSearch($event)" style="width:10px; cursor:pointer;"></span>
+								</div>
+							</div>
+							<div style="position: relative;">
+								<div class="autocomplete-items">
+									<div *ngFor="let item of suggestion" class="autocomplete-item searchSuggestions" 
+										[attr.data-product_type_name]="item.product_type_name" [attr.data-brand_name]="item.brand_name" [attr.data-model]="item.model" [attr.data-variant]="item.variant" 
+											(click)="onSuggestSelect($event,item)">{{item.text}}</div>
+								</div>
+							</div>						
+						</form>						
+                   </div>
+                </div>
+                 <div class="col-sm-2" >
+					<div style="padding:10px;">
+						<form autocomplete="off" >
+							<select class="form-control" id="type" [(ngModel)]="type" name="type" (change)="onTypeSelect($event)">
+								 <option *ngFor="let typ of types" [value]="typ.name">{{typ.name}}</option>
+							</select>
+						</form>
+					</div>
+                 </div>
+             </div>
+		</div>
+	</div>
+
+ 
+
+	<div class="container" style="padding-right: 0px; padding-left: 0px;">			
+			<b style="line-height: 50px; margin-left: 15px;">Results:</b>
+			<div class="container-fluid">
+			  <div class="row">
+				<div class="col-xs-12 col-md-6 col-lg-4" *ngFor="let result of results">
+					<tile-template [item]="result" [parentComponent]="self" (openItem)="onItemSelect($event)"></tile-template>
+				</div>
+			  </div>
+			</div>   
+	</div>
+
+</div>

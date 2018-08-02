@@ -1,0 +1,353 @@
+<div class="scrollContainerStyle" style="height:100%; overflow-y: auto; overflow-x: hidden;" (scroll)="handleScroll($event)">
+	<div [hidden]="hidden.view" class="container">
+            <table class='mtable'>
+                   <thead>
+						<th></th>
+						<th></th>
+                       <th>Bid/Sale/Buy</th>
+                       <!--<th>Individual/Dealer</th>-->
+                       <th>Product Type</th>
+                       <th>Brand</th>
+                       <th>Model</th>
+                       <!--<th>Variant</th>
+                       <th>Fuel Type</th>
+                       <th>City</th>
+                       <th>Price</th>
+                       <th>KM Done</th>
+                       <th>Year of Registration</th>-->
+                       <th>SMS</th>
+                       <th>Email</th>
+                       <!--<th>App</th>-->
+                       <th>Active</th>
+                   </thead>
+                   <tr *ngFor="let alert of alerts">
+						<td data-header=" "><div style="height:40px; padding: 3px;"><i class="glyphicon glyphicon-remove" (click)="onDelete($event,alert)"></i></div></td>
+						<td data-header=" "><div style="height:40px; padding: 3px;"><i class="glyphicon glyphicon-pencil" (click)="onEdit($event,alert)"></i></div></td>
+                       <td data-header="Bid/Sale/Buy"><div style="height:40px; padding: 3px;"><button class="btn btn-link" (click)="onAlertSelect($event,alert)">{{alert.bid_sell_buy}}</button></div></td>
+                       <!--<td>{{alert.individual_dealer}}</td>-->
+                       <td data-header="Product Type"><div style="height:40px; padding: 3px;">{{alert.product_type_name}}</div></td>
+                       <td data-header="Brand"><div style="height:40px; padding: 3px;">{{alert.brand_name}}</div></td>
+                       <td data-header="Model"><div style="height:40px; padding: 3px;">{{alert.model}}</div></td>
+                       <!--<td>{{alert.variant}}</td>
+                       <td>{{alert.fuel_type}}</td>
+                       <td>{{alert.city}}</td>
+                       <td>{{alert.price_from}} - {{alert.price_to}}</td>
+                       <td>{{alert.km_run_from}} - {{alert.km_run_to}}</td>
+                       <td>{{alert.year_reg_from}} - {{alert.year_reg_to}}</td>-->
+                       <td data-header="SMS"><div style="height:40px; padding: 3px;"><input type="checkbox" [disabled]="true" [checked]="alert.sms"></div></td>
+                       <td data-header="Email"><div style="height:40px; padding: 3px;"><input type="checkbox" [disabled]="true" [checked]="alert.email"></div></td>
+                       <!--<td data-header="App"><input type="checkbox" [disabled]="true" [checked]="alert.app"></td>-->
+                       <td data-header="Active"><div style="height:40px; padding: 3px;"><input type="checkbox" [disabled]="true" [checked]="alert.active"></div></td>
+                   </tr>
+            </table>
+            <!--<button style="width: 100%" class="btn btn-default" (click)="onAlertAdd($event)">
+              <span class="glyphicon glyphicon-plus"></span> Add
+            </button>-->
+	</div>
+
+
+
+
+	<div [hidden]="hidden.add" class="container">
+        <div class="padding">
+              <form class="form-horizontal" >
+                  <div class="form-group">
+                        <div class="col-sm-12"> 
+							<mat-form-field style="width: 100%;">
+								<mat-select placeholder="Bid/Sale/Buy" name="bid_sell_buy" [attr.data-val]="item.bid_sell_buy" [(ngModel)]="item.bid_sell_buy" [disabled]="disabled.field" >
+									  <mat-option *ngFor="let typ of alertTypes" [value]="typ.name">{{typ.name}}</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+                  </div>				  
+				  <div class="form-group">
+                        <div class="col-sm-12"> 
+							<mat-form-field style="width: 100%;">
+								<mat-select placeholder="Owner Type" name="owner_type" [attr.data-val]="item.owner_type" [(ngModel)]="item.owner_type" [disabled]="disabled.field" >
+									<mat-option value="All">Any</mat-option>
+									  <mat-option *ngFor="let itm of ownerTypes" [value]="itm.name">{{itm.name}}</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+                  </div>
+                  <div class="form-group">
+                         <div class="col-sm-12"> 
+							<mat-form-field style="width: 100%;">
+								<mat-select placeholder="Individual/Dealer" name="individual_dealer" [attr.data-val]="item.individual_dealer" [(ngModel)]="item.individual_dealer" [disabled]="disabled.field" >
+									  <mat-option value="All">Any</mat-option>
+									  <mat-option *ngFor="let typ of userTypes" [value]="typ.name">{{typ.name}}</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+                  </div>
+                  <div class="form-group">
+                        <div class="col-sm-12"> 
+							<mat-form-field style="width: 100%;" [hidden]="disabled.field">
+								<mat-select placeholder="Product Type" name="product_type_name" [attr.data-val]="item.product_type_name" [(ngModel)]="item.product_type_name" (ngModelChange)="onPrdTypSelect($event)" >
+									  <mat-option value="All">Any</mat-option>
+									  <mat-option *ngFor="let typ of productTypes" [value]="typ" >{{typ.product_type_name}}</mat-option>
+								</mat-select>
+							</mat-form-field>
+							<mat-form-field style="width: 100%;" [hidden]="!disabled.field">
+								<input matInput placeholder="Product Type"  [disabled]="true" [(ngModel)]="item.product_type_name" name="product_type_name_display" >
+							</mat-form-field>
+						</div>
+                  </div>
+                  <div class="form-group">
+                        <div class="col-sm-12"> 
+							<mat-form-field style="width: 100%;" [hidden]="disabled.field">
+								<mat-select placeholder="Brand" name="brand" [attr.data-val]="item.brand_name" [(ngModel)]="item.brand_name" (ngModelChange)="onBrandSelect($event)" >
+									  <mat-option value="All">Any</mat-option>
+									  <mat-option *ngFor="let brand of brands" [value]="brand" >{{brand}}</mat-option>
+								</mat-select>
+							</mat-form-field>
+							<mat-form-field style="width: 100%;" [hidden]="!disabled.field">
+								<input matInput placeholder="Brand"  [disabled]="true" [(ngModel)]="item.brand_name" name="brand_name_display">
+							</mat-form-field>
+						</div>
+                 </div>
+                  <div class="form-group">
+                      <div class="col-sm-12"> 
+							<mat-form-field style="width: 100%;" [hidden]="disabled.field" >
+								<mat-select placeholder="Model" name="model" [attr.data-val]="item.model" [(ngModel)]="item.model" (ngModelChange)="onModelSelect($event)" >
+									  <mat-option value="All">Any</mat-option>
+									  <mat-option *ngFor="let model of models" [value]="model" >{{model.model}}</mat-option>
+								</mat-select>
+							</mat-form-field>
+							<mat-form-field style="width: 100%;" [hidden]="!disabled.field">
+								<input matInput placeholder="Model"  [disabled]="true" [(ngModel)]="item.model" name="model_display">
+							</mat-form-field>
+						</div>
+                 </div>
+                 <div class="form-group">
+                       
+					   <div class="col-sm-12"> 
+							<mat-form-field style="width: 100%;" [hidden]="disabled.field">
+								<mat-select placeholder="Variant" name="variant" [attr.data-val]="item.variant" [(ngModel)]="item.variant" >
+									  <mat-option value="All">Any</mat-option>
+									  <mat-option *ngFor="let variant of variants" [value]="variant.variant">{{variant.variant}}</mat-option>
+								</mat-select>
+							</mat-form-field>
+							<mat-form-field style="width: 100%;" [hidden]="!disabled.field" >
+								<input matInput placeholder="Variant" [disabled]="true" [(ngModel)]="item.variant" name="variant_display">
+							</mat-form-field>
+						</div>
+               </div>
+                <div class="form-group">
+                        
+					   <div class="col-sm-12"> 
+							<mat-form-field style="width: 100%;">
+								<mat-select placeholder="Fuel Type" name="fuel_type" [attr.data-val]="item.fuel_type" [(ngModel)]="item.fuel_type" [disabled]="disabled.field"  >
+									  <mat-option value="All">Any</mat-option>
+									  <mat-option *ngFor="let typ of fuelTypes" [value]="typ.name">{{typ.name}}</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+               </div>
+			   <div class="form-group">
+                        <div class="col-sm-12"> 
+							<mat-form-field style="width: 100%;">
+								<mat-select placeholder="Color" name="color" [attr.data-val]="item.color" [(ngModel)]="item.color" [disabled]="disabled.field" >
+									<mat-option value="All">Any</mat-option>
+									  <mat-option *ngFor="let itm of colors" [value]="itm.name">{{itm.name}}</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+                </div>
+				<div class="form-group">
+                        <div class="col-sm-12"> 
+							<mat-form-field style="width: 100%;">
+								<mat-select placeholder="Transmission" name="transmission" [attr.data-val]="item.transmission" [(ngModel)]="item.transmission" [disabled]="disabled.field" >
+									<mat-option value="All">Any</mat-option>
+									  <mat-option *ngFor="let itm of transmissions" [value]="itm.name">{{itm.name}}</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+                </div>
+			   <div class="form-group">
+                        <div class="col-sm-12"> 
+							<mat-form-field style="width: 100%;">
+								<mat-select placeholder="Country" name="country" [attr.data-val]="item.country" [(ngModel)]="item.country" [disabled]="disabled.field" (ngModelChange)="onCountrySelect($event)">
+									<mat-option value="All">Any</mat-option>
+									  <mat-option *ngFor="let itm of countries" [value]="itm.country">{{itm.country}}</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+                  </div>
+				<div class="form-group">
+                        <div class="col-sm-12"> 
+							<mat-form-field style="width: 100%;">
+								<mat-select placeholder="State" name="state" [attr.data-val]="item.state" [(ngModel)]="item.state" [disabled]="disabled.field" (ngModelChange)="onStateSelect($event)">
+									<mat-option value="All">Any</mat-option>
+									  <mat-option *ngFor="let itm of states" [value]="itm.state">{{itm.state}}</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+                  </div>				
+               <div class="form-group">
+                        
+						 <div class="col-sm-12"> 
+							<mat-form-field style="width: 100%;" [hidden]="disabled.field">
+								<mat-select placeholder="City" name="city" [attr.data-val]="item.city" [(ngModel)]="item.city"  (ngModelChange)="onCitySelect($event)">
+									  <mat-option value="All">Any</mat-option>
+									  <mat-option *ngFor="let city of cities" [value]="city.city">{{city.city}}</mat-option>
+								</mat-select>
+							</mat-form-field>
+							<mat-form-field style="width: 100%;" [hidden]="!disabled.field" >
+								<input matInput placeholder="City" [disabled]="true" [(ngModel)]="item.city" name="city_display">
+							</mat-form-field>
+						</div>
+               </div>
+			   <div class="form-group">
+                        <div class="col-sm-12"> 
+							<mat-form-field style="width: 100%;">
+								<mat-select placeholder="Location" name="location" [attr.data-val]="item.location" [(ngModel)]="item.location" [disabled]="disabled.field" >
+									<mat-option value="All">Any</mat-option>
+									  <mat-option *ngFor="let itm of locations" [value]="itm.location">{{itm.location}}</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+                  </div>
+               <div class="form-group">
+                       
+					   <div class="col-sm-6">
+							<!--<mat-form-field style="width: 100%;" [hidden]="disabled.field">
+								<mat-select placeholder="Price(Min)" name="price_from" [attr.data-val]="item.price_from" [(ngModel)]="item.price_from"  (change)="validatePrice()">
+									  <mat-option *ngFor="let price of prices" [value]="price.key">{{price.value}}</mat-option>
+								</mat-select>
+							</mat-form-field>-->
+							
+						   <mat-form-field style="width: 100%;" >
+								<input matInput placeholder="Price(Min)" type="number" [disabled]="disabled.field" [(ngModel)]="item.price_from" name="price_from" (focusout)="validatePrice()">
+							</mat-form-field>
+						</div>
+						<div class="col-sm-6">
+							<!--<mat-form-field style="width: 100%;" [hidden]="disabled.field">
+								<mat-select placeholder="Price(Max)" name="price_to" [attr.data-val]="item.price_to" [(ngModel)]="item.price_to"  (change)="validatePrice()">
+									  <mat-option *ngFor="let price of prices" [value]="price.key">{{price.value}}</mat-option>
+								</mat-select>
+							</mat-form-field>-->
+							
+						   <mat-form-field style="width: 100%;" >
+								<input matInput placeholder="Price(Max)" type="number" [disabled]="disabled.field" [(ngModel)]="item.price_to" name="price_to" (focusout)="validatePrice()" >
+							</mat-form-field>
+						</div>
+					   
+              </div>
+			  <div class="form-group">                       
+					   <div class="col-sm-6">
+							<!--<mat-form-field style="width: 100%;" [hidden]="disabled.field">
+								<mat-select placeholder="Discount(Min)" name="discount_from" [attr.data-val]="item.discount_from" [(ngModel)]="item.discount_from"  (change)="validateDiscount()">
+									  <mat-option *ngFor="let price of prices" [value]="price.key">{{price.value}}</mat-option>
+								</mat-select>
+							</mat-form-field>-->
+							
+						   <mat-form-field style="width: 100%;" >
+								<input matInput placeholder="Discount(Min)" type="number" [disabled]="disabled.field" [(ngModel)]="item.discount_from" name="discount_from" (focusout)="validateDiscount()">
+							</mat-form-field>
+						</div>
+						<div class="col-sm-6">
+							<!--<mat-form-field style="width: 100%;" [hidden]="disabled.field">
+								<mat-select placeholder="Discount(Max)" name="discount_to" [attr.data-val]="item.discount_to" [(ngModel)]="item.discount_to"  (change)="validateDiscount()">
+									  <mat-option *ngFor="let price of prices" [value]="price.key">{{price.value}}</mat-option>
+								</mat-select>
+							</mat-form-field>-->
+							
+						   <mat-form-field style="width: 100%;" >
+								<input matInput placeholder="Discount(Max)" type="number" [disabled]="disabled.field" [(ngModel)]="item.discount_to" name="discount_to" (focusout)="validateDiscount()" >
+							</mat-form-field>
+						</div>
+					   
+              </div>
+               <div class="form-group">
+                      
+					   <div class="col-sm-6">
+							<!--<mat-form-field style="width: 100%;" [hidden]="disabled.field">
+								<mat-select placeholder="KM(Min)" name="km_run_from" [attr.data-val]="item.km_run_from" [(ngModel)]="item.km_run_from"  (change)="validateKM()">
+									  <mat-option *ngFor="let km of kms" [value]="km.key">{{km.value}}</mat-option>
+								</mat-select>
+							</mat-form-field>-->
+							
+						   <mat-form-field style="width: 100%;" >
+								<input matInput placeholder="KM(Min)" type="number" [disabled]="disabled.field" [(ngModel)]="item.km_run_from" name="km_run_from" (focusout)="validateKM()">
+							</mat-form-field>
+						</div>
+						<div class="col-sm-6">
+							<!--<mat-form-field style="width: 100%;" [hidden]="disabled.field">
+								<mat-select placeholder="KM(Max)" name="km_run_to" [attr.data-val]="item.km_run_to" [(ngModel)]="item.km_run_to"  (change)="validateKM()">
+									  <mat-option *ngFor="let km of kms" [value]="km.key">{{km.value}}</mat-option>
+								</mat-select>
+							</mat-form-field>-->
+							
+						   <mat-form-field style="width: 100%;" >
+								<input matInput placeholder="KM(Max)" type="number" [disabled]="disabled.field" [(ngModel)]="item.km_run_to" name="km_run_to" (focusout)="validateKM()" >
+							</mat-form-field>
+						</div>
+					   
+				</div>
+                <div class="form-group">
+                       						
+						<div class="col-sm-6"> 
+							<mat-form-field style="width: 100%;">
+								<mat-select placeholder="Year of Registration(From)" name="year_reg_from" [attr.data-val]="item.year_reg_from" [(ngModel)]="item.year_reg_from" [disabled]="disabled.field" (focusout)="validateReg()">
+									  <mat-option *ngFor="let yr of years" [value]="yr.name">{{yr.name}}</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+						<div class="col-sm-6"> 
+							<mat-form-field style="width: 100%;">
+								<mat-select placeholder="Year of Registration(To)" name="year_reg_to" [attr.data-val]="item.year_reg_to" [(ngModel)]="item.year_reg_to" [disabled]="disabled.field" (focusout)="validateReg()">
+									  <mat-option *ngFor="let yr of years" [value]="yr.name">{{yr.name}}</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+                </div>
+                <div class="form-group">
+                       
+						<div class="col-sm-12">
+							<mat-checkbox [disabled]="disabled.field" [(ngModel)]="item.sms" name="sms" >SMS</mat-checkbox>
+						</div>
+                </div>
+                <div class="form-group">
+                        
+						 <div class="col-sm-12">
+							<mat-checkbox [disabled]="disabled.field"  [(ngModel)]="item.email" name="email" >Email</mat-checkbox>
+						</div>
+               </div>
+                
+               <div class="form-group">
+                       
+						<div class="col-sm-12">
+							<mat-checkbox [disabled]="disabled.field"  [(ngModel)]="item.active" name="active" >Active</mat-checkbox>
+						</div>
+               </div>
+               
+           </form>
+         </div>
+	</div>
+	<div style="width:100%; height:100px;"></div>
+</div>
+
+
+
+<div class="footerStyle">
+		<div class="row" style="padding: 10px;">
+					<div class="col-xs-6">
+						   <button type="submit" class="btn btn-default" style="width:100%;" (click)="onAlertSaveCancel($event)" [hidden]="hidden.add">
+							   <span class="glyphicon glyphicon-remove"></span> Cancel
+						   </button>
+						   
+					</div>
+					<div class="col-xs-6" style="display:flex; justify-content:flex-end;">						
+						  <button type="submit" class="btn btn-default" style="width:100%;" (click)="onAlertSave($event)" [hidden]="hidden.add || disabled.field">
+							   <span class="glyphicon glyphicon-floppy-disk"></span> Save
+						  </button>
+						  					
+						 
+						  <button type="submit" style="width: 100%" class="btn btn-default" (click)="onAlertAdd($event)" [hidden]="hidden.view">
+							  <span class="glyphicon glyphicon-plus"></span> Add
+							</button>
+						
+					 </div>
+		</div>
+</div>

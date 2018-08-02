@@ -1,0 +1,55 @@
+<div class="scrollContainerStyle" style="height:100%; overflow-y: auto; overflow-x: hidden;" (scroll)="handleScroll($event)">
+	<div [hidden]="hidden.view" class="container">
+            <table class='mtable'>
+                   <thead>
+					   <th></th>
+                       <th>Application</th>
+                       <th>Subscription</th>
+                       <th>Valid From</th>
+                       <th>Valid To</th>
+                       <th>Amount Paid</th>
+                       <th>Remaining Posts</th>
+                       <th>Posts Life in days</th>
+                       <th>Posts Priority</th>
+                       <th>Notification via SMS</th>
+                       <th>Notification via Email</th>
+                       <!--<th>Notification via App</th>-->
+                   </thead>
+                   <tr *ngFor="let subscription of subscriptions">
+						<td data-header="Active"><div style="height:40px; padding: 3px;"><i class="glyphicon glyphicon-ok" style="width: 30px;" [hidden]="subscription.active !== 'X'"></i></div></td>
+                       <td data-header="Application"><div style="height:40px; padding: 3px;">{{subscription.app_name}}</div></td>
+                       <td data-header="Subscription"><div style="height:40px; padding: 3px;">{{subscription.subscription_name}}</div></td>
+                       <td data-header="Valid From"><div style="height:40px; padding: 3px;">{{subscription.valid_from}}</div></td>
+                       <td data-header="Valid To"><div style="height:40px; padding: 3px;">{{subscription.valid_to}}</div></td>
+                       <td data-header="Amount Paid"><div style="height:40px; padding: 3px;">{{subscription.amt_paid}}</div></td>
+                       <td data-header="Remaining Posts"><div style="height:40px; padding: 3px;">{{subscription.remain_post}}</div></td>
+                       <td data-header="Posts Life in days"><div style="height:40px; padding: 3px;">{{subscription.post_day}}</div></td>
+                       <td data-header="Posts Priority"><div style="height:40px; padding: 3px;">{{subscription.post_priority}}</div></td>
+                       <td data-header="Notification via SMS"><div style="height:40px; padding: 3px;">{{subscription.notification_sms}}</div></td>
+                       <td data-header="Notification via Email"><div style="height:40px; padding: 3px;">{{subscription.notification_email}}</div></td>
+                       <!--<td data-header="Notification via App">{{subscription.notification_app}}</td>-->
+                   </tr>
+            </table>
+            <button style="width: 100%;" class="btn btn-default" (click)="onBuySub($event)">
+              <span class="glyphicon glyphicon-shopping-cart"></span> Buy Subscription
+            </button>  
+	</div>
+
+	 <div [hidden]="hidden.buy">
+		<buy-subscription [buyItem]="buyItem" [parentComponent]="self"></buy-subscription>
+	 </div>
+ 
+</div>
+ 
+<app-dialog [(visible)]="showApplicationListDialog">
+	<div style="padding: 40px;">
+		<div class="appListHeader">Select an application</div>
+		<div>
+		<div class="appListItem" *ngFor="let app of applications" (click)="onAppSelect($event,app)">{{app.app_name}}</div>
+		</div>
+	</div>
+</app-dialog>
+ 
+ 
+ 
+ 
