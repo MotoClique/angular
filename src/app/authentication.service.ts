@@ -90,6 +90,10 @@ export class AuthenticationService {
     return this.request('post', 'login', user);
   }
   
+  public verifyOTP(detail: any): Observable<any> {
+    return this.request('post', 'verifyOtp', detail);
+  }
+  
 	setBusy(state){
 		if(state)
 			document.getElementById("loaderContainer").style.display = "block";

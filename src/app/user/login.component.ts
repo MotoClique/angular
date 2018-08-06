@@ -149,5 +149,9 @@ export   class   AppLogin  implements OnInit {
 			this.loginError = "Please enter your mobile number.";
 		}	  
   }
+  
+  forgotPassword(){
+	  this.router.navigateByUrl("/ChangePassword");
+  }
 
 }

@@ -47,8 +47,8 @@
 										<div *ngIf="item.transactionTyp === 'Service'" title="Service"><img src="assets/service_icon.png"></div>
 									  <div [hidden]="item.user_id === userDetail.user_id">
 										<!--<div style="height:60px; width:100px; position:absolute; margin-top: -15px; margin-left: -15px;" [hidden]="editMode"></div>-->
-										  <span [hidden]="!(currentImage.fav)" style="font-size:40px; color:#FDB400; cursor: pointer;" id="fav" (click)="onFav($event)">&#9733;</span>
-										  <span [hidden]="(currentImage.fav)" style="font-size:40px; color:gray; cursor: pointer;" id="not-fav" (click)="onFav($event)">&#9734;</span>
+										  <span [hidden]="!(currentImage.fav)" style="font-size:40px; color:#FDB400; cursor: pointer; text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white;" id="fav" (click)="onFav($event)">&#9733;</span>
+										  <span [hidden]="(currentImage.fav)" style="font-size:40px; color:gray; cursor: pointer; text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white;" id="not-fav" (click)="onFav($event)">&#9734;</span>
 									  </div>
 									  <!--<div id="default" [hidden]="!(item.user_id === userDetail.user_id)" >
 										<div style="height:60px; width:100px; position:absolute; margin-top: -15px; margin-left: -15px;" [hidden]="editMode"></div>

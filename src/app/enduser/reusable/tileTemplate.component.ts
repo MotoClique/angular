@@ -133,6 +133,9 @@ export class AppTileTemplate implements OnInit {
 					});
 			}
 		}
+		if (!evt) var evt:any = window.event;
+			evt.cancelBubble = true;
+		if (evt.stopPropagation) evt.stopPropagation();
 	}
 	
 	

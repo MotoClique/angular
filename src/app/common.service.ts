@@ -69,5 +69,9 @@ export class CommonService {
     return request;
   }
   
+  changePassword(detail){
+	  return this.sharedService.call('changePassword', "post", detail, true);
+  }
+  
     
 }

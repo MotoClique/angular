@@ -134,7 +134,8 @@ export class AppAccountDetail implements OnInit {
 	}
 	
 	onPasswordChangeClick(){
-		
+		if(this.userDetail.mobile)
+			this.router.navigate(['/ChangePassword',this.userDetail.mobile]);
 	}
 	
 	onEditCancel(evt){

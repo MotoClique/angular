@@ -90,7 +90,7 @@ export class AppBid implements OnInit {
                                    that.localData = data;
 									//Generate Years
                                     that.years = [];
-                                    var y = data.years.from;
+                                    var y = Number(data.years.from);
                                     var cy = (new Date()).getFullYear();
                                     if(Number(y) < Number(cy)){
 												do {
@@ -100,6 +100,8 @@ export class AppBid implements OnInit {
                                                 while (y != cy);
                                     }
                                     that.years.push( {name: cy});//Add Current Year
+									that.years.sort((a: any, b: any)=> {return b.name - a.name;});//decending sort
+									
                      }, error => {
                                   console.log(error);
                      });

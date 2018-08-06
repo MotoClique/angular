@@ -226,7 +226,9 @@ export class AppHome implements OnInit {
 		  }
 		  var that = this;
 		  this.search = selected.text;
+		  this.city = (this.citySelected.text !== undefined)?this.citySelected.text:"" ;
 		  this.suggestion = [];
+		  this.city_suggestion = [];
 		  var queries = {
 			product_type_name: selected.product_type_name,
 			brand_name: selected.brand_name,

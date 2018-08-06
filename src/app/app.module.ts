@@ -20,6 +20,7 @@ import { AppComponent } from './app.component';
 
 import { AppLogin } from './user/login.component';
 import { AppSignup } from './user/signup.component';
+import { AppChangePassword } from './user/changePassword.component';
 
 import { AppContainerAdmin } from './admin/containerAdmin.component';
 import { AppApplicationAdmin } from './admin/applicationAdmin.component';
@@ -60,6 +61,8 @@ import { AppTileTemplate } from './enduser/reusable/tileTemplate.component';
 const appRoutes: Routes = [
 	{ path: '', component: AppLogin },
 	{ path: 'Signup', component: AppSignup },
+	{ path: 'ChangePassword', component: AppChangePassword },
+	{ path: 'ChangePassword/:id', component: AppChangePassword },
 	{ path: 'ContainerAdmin', component: AppContainerAdmin, 
 	children:[
 		{path: '', redirectTo: 'SubscriptionAdmin', pathMatch: 'full'},
@@ -148,6 +151,7 @@ const appRoutes: Routes = [
 	  AppApplicationAdmin,
 	  AppContainerAdmin,
 	  //User Login
+	  AppChangePassword,
 	  AppSignup,
 	  AppLogin,
 	  AppComponent,

@@ -147,17 +147,22 @@ export class SharedService {
     }
                                
     openMessageBox(type,msg,callback){
+		var duration = 2000;
+		if(msg && msg.length>20){
+			duration = 5000;
+		}
+		
 		if(type == "S"){
 			var message = 'Success: '+msg;
 			this.snackBar.open(message, '', {
-			  duration: 2000,
+			  duration: duration,
 			});
 		}
 		else if(type == "E"){
 			var message = 'Error: '+msg;
 			if(callback){
 				var snackBarRef = this.snackBar.open(message, 'Show', {
-				  duration: 2000,
+				  duration: duration,
 				});
 				snackBarRef.onAction().subscribe(() => {
 				  callback();
@@ -165,14 +170,14 @@ export class SharedService {
 			}
 			else{
 				this.snackBar.open(message, '', {
-				  duration: 2000,
+				  duration: duration,
 				});
 			}
 		}
 		else if(type == "I"){
 			var message = 'Information: '+msg;
 			this.snackBar.open(message, '', {
-			  duration: 2000,
+			  duration: duration,
 			});
 		}
 		else{

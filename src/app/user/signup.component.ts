@@ -26,6 +26,7 @@ export   class   AppSignup  implements OnInit {
 	hidden: hidden;
 	//mobile:string;
 	login_password:string = "";
+	confirm_password:string = "";
 	login_mobile:string = "";
 	sendOTP: string = "";
 	loginError: string = '';
@@ -110,6 +111,7 @@ export   class   AppSignup  implements OnInit {
 	  var login_otp = this.login_otp;
 	  
 	 if(login_mobile && login_otp && login_password){
+			if(this.login_password === this.confirm_password){
 				  /*this.commonService.loginByOtp(login_mobile,login_otp)
 				   .subscribe( data => {	
 					if(data[0] && data[0].mobile == login_mobile && data[0].otp == login_otp){*/
@@ -148,11 +150,10 @@ export   class   AppSignup  implements OnInit {
 									that.loginError = "Unable to sign up.";
 							}		  
 						  });
-					/*}
-					else{
-						that.loginError = "Invalid OTP";
-					}
-				   });*/
+			}
+			else{
+				that.loginError = "Password not matching.";
+			}
 	  }	  
 	  else{
 		  that.loginError =  "Please enter a valid credential.";

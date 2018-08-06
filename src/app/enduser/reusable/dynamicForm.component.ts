@@ -154,7 +154,8 @@ export class AppDynamicForm implements OnInit {
 									|| o.field_path === 'brand_name'
 									|| o.field_path === 'model'
 									|| o.field_path === 'variant'
-									|| o.field_path === 'color'){
+									|| o.field_path === 'color'
+									|| o.field_path === 'current_bid_amount'){
 									o.editable = false;
 								}
 							}
@@ -553,6 +554,9 @@ export class AppDynamicForm implements OnInit {
 				if(v.field_path == 'min_bid_hike'){
 					var pc = (!isNaN(that.parentComponent.bidHikePc))?that.parentComponent.bidHikePc:'0';
 					v.value = Math.round(field.value * (pc/100));
+				}
+				else if(v.field_path == 'current_bid_amount'){
+					v.value = (field.value == undefined)?"NA":field.value ;
 				}
 			});
 			this.parentComponent.item['current_bid_amount'] = (field.value == undefined)?"NA":field.value ;

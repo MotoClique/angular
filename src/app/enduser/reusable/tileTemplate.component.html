@@ -10,8 +10,8 @@
 					<div *ngIf="item.transactionTyp === 'Bid'" title="Bid" ><img src="assets/bid_icon.png"></div>
 					<div *ngIf="item.transactionTyp === 'Service'" title="Service" ><img src="assets/service_icon.png"></div>
 					<div [hidden]="item.user_id === userDetail.user_id">
-						<span (click)="onFavClick($event)" [hidden]="!(item.fav)" class="fav-icon" id="fav">&#9733;</span>
-						<span (click)="onFavClick($event)" [hidden]="(item.fav)" class="nonfav-icon" id="not-fav">&#9734;</span>
+						<span (click)="onFavClick($event)" style="text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white;" [hidden]="!(item.fav)" class="fav-icon" id="fav">&#9733;</span>
+						<span (click)="onFavClick($event)" style="text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white;" [hidden]="(item.fav)" class="nonfav-icon" id="not-fav">&#9734;</span>
 					</div>
 				</div>
 				<div style="text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white;">
