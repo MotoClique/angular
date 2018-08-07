@@ -307,6 +307,7 @@ export class AppServiceForm implements OnInit {
 					   //debugger;
 						if(data.statusCode=="S"){
 							this.parentComponent.openItem(this.serviceItem);
+              feedback.thumbs_up_no = feedback.thumbs_up_no - (-1);
 						}
 						else{
 							this.sharedService.openMessageBox("E","Unable to Thumbs Up.",null);
@@ -330,6 +331,7 @@ export class AppServiceForm implements OnInit {
 						   //debugger;
 							if(data.statusCode=="S"){
 								this.parentComponent.openItem(this.serviceItem);
+                feedback.thumbs_down_no = feedback.thumbs_down_no - (-1);
 							}
 							else{
 								this.sharedService.openMessageBox("E","Unable to Thumbs Down.",null);
