@@ -105,6 +105,7 @@ export class AppBidBy implements OnInit {
 				  // debugger;
 					if(data.statusCode=="S"){
 						this.sharedService.openMessageBox("S","Successfully submitted.",null);
+            this.router.navigate(['/Container/Bid',this.bid.bid_id]);
 						//this.updateBid();
 					}
 					else{
