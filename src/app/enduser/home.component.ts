@@ -247,6 +247,13 @@ export class AppHome implements OnInit {
 		  service = {count: this.searchResponse.service.count, skip: this.searchResponse.service.skip, limit: limit};
 		  this.commonService.enduserService.searchload(queries,type,city,location,sale,buy,bid,service)
 			  .subscribe( data => {
+				  if(data.statusCode === 'F'){
+					var message = "Unable to load data.";
+					if(data.msg)
+						message = data.msg;
+					this.sharedService.openMessageBox("E",message,null);
+				  }
+				  else{
 						if(data.results && data.results.length<=0){
 							this.noMoreData = true;
 						}
@@ -269,6 +276,7 @@ export class AppHome implements OnInit {
 						  }
 					  });
 					  this.loading = false;
+				  }
 			  });
 	  }
 	  

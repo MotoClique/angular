@@ -16,7 +16,7 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient, private router: Router, public snackBar: MatSnackBar) {
 	if(this.hostname === 'localhost')
-		this.fullhost = "http://nodejs-mongo-persistent-mav.7e14.starter-us-west-2.openshiftapps.com";//this.protocol+"//"+ this.hostname+":8080";
+		this.fullhost = "http://nodemav-nodemav.7e14.starter-us-west-2.openshiftapps.com";//this.protocol+"//"+ this.hostname+":8080";
 	else
 		this.fullhost = this.protocol+"//"+ this.host;
   }
