@@ -15,6 +15,7 @@ import { SharedService } from './shared.service';
 import { AdminService } from './admin.service';
 import { EndUserService } from './enduser.service';
 import { DialogComponent } from './dialog.component';
+import { SuccessSnackBarComponent, ErrorSnackBarComponent, InfoSnackBarComponent } from './customSnackbar.component';
 
 import { AppComponent } from './app.component';
 
@@ -156,6 +157,7 @@ const appRoutes: Routes = [
 	  AppLogin,
 	  AppComponent,
 	  //Commons
+    SuccessSnackBarComponent, ErrorSnackBarComponent, InfoSnackBarComponent,
 	  DialogComponent,
 	  FilterPipe, SortByPipe	  
   ],
@@ -170,6 +172,7 @@ const appRoutes: Routes = [
 	BrowserAnimationsModule
   ],
   providers: [AuthenticationService, AuthGuardService, ConfirmDeactivateGuard, CommonService,SharedService, AdminService,EndUserService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [SuccessSnackBarComponent, ErrorSnackBarComponent, InfoSnackBarComponent]
 })
 export class AppModule { }
