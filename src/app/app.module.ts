@@ -15,7 +15,7 @@ import { SharedService } from './shared.service';
 import { AdminService } from './admin.service';
 import { EndUserService } from './enduser.service';
 import { DialogComponent } from './dialog.component';
-import { SuccessSnackBarComponent, ErrorSnackBarComponent, InfoSnackBarComponent } from './customSnackbar.component';
+import { SuccessSnackBarComponent, ErrorSnackBarComponent, InfoSnackBarComponent } from './customSnackBar.component';
 
 import { AppComponent } from './app.component';
 
