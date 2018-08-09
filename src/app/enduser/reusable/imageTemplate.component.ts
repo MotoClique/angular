@@ -443,8 +443,9 @@ export class AppImageTemplate implements OnInit {
 		//this.parentComponent.participate = true;
 		this.parentComponent.bidItem = this.item;
 		this.parentComponent.bidItem.bid_hike_by = (this.item.min_bid_hike)?this.item.min_bid_hike: '0';
+    this.parentComponent.bidItem.previous_bid_amount = (this.item.current_bid_amount)?this.item.current_bid_amount: this.item.bid_amount;
 		this.parentComponent.bidItem.current_bid_amount = (this.item.current_bid_amount)?(this.item.current_bid_amount - (- this.parentComponent.bidItem.bid_hike_by)): (this.item.bid_amount - (- this.parentComponent.bidItem.bid_hike_by));
-		this.parentComponent.bidItem.previous_bid_amount = (this.item.current_bid_amount)?this.item.current_bid_amount: this.item.bid_amount;
+		
 		this.sharedService.sharedObj.postItem = jQuery.extend(true, {}, this.parentComponent.bidItem);
 		this.router.navigate(['/Container/Bid',this.item.bid_id,'participate']);
 	}
