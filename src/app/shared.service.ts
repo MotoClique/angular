@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from './authentication.service';
 import { MatSnackBar } from '@angular/material';
-import { SuccessSnackBarComponent, ErrorSnackBarComponent, InfoSnackBarComponent } from './snackbar.component';
+import { SuccessSnackBarComponent, ErrorSnackBarComponent, InfoSnackBarComponent } from './customSnackBar.component';
 declare var jQuery:any;
 
 @Injectable()
