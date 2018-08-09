@@ -391,8 +391,10 @@ export class SharedService {
 			fmsgBox.appendChild(dummyButton);
 			var subscribeButton = document.createElement('BUTTON');
 			subscribeButton.addEventListener("click", function(){
-				if(callback)
+				if(callback){
 					callback();
+          jQuery("#noSubscriptionMessageBox").remove();
+        }
 			});
 			subscribeButton.innerHTML+= "Subscribe";
 			fmsgBox.appendChild(subscribeButton);
