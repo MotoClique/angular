@@ -124,7 +124,8 @@ export class AppTileTemplate implements OnInit {
 				this.commonService.enduserService.addFav(newFav)
 					.subscribe( res => {					    
 						if(res.statusCode=="S"){
-							this.parentComponent.reloadItems();
+							//this.parentComponent.reloadItems();
+              this.item.fav = true;
 							this.sharedService.openMessageBox("S","Marked as your favourite.",null);
 						}
 						else{
@@ -148,7 +149,8 @@ export class AppTileTemplate implements OnInit {
 					.subscribe( res => {					    
 						if(res.ok === 1){
 							that.sharedService.closeMessageBox();
-							that.parentComponent.reloadItems();
+							//that.parentComponent.reloadItems();
+              that.item.fav = false;
 							that.sharedService.openMessageBox("S","Removed from your favourite.",null);
 						}
 						else{
