@@ -1,20 +1,28 @@
 <div class="scrollContainerStyle" style="height:100%; overflow-y: auto; overflow-x: hidden;" (scroll)="handleScroll($event)">
 	<div [hidden]="hidden.view" class="container">
+		<div style="overflow-x:auto;">
             <table class='mtable'>
                    <thead>
 						<th></th>
 						<th></th>
                        <th>Bid/Sale/Buy</th>
-                       <!--<th>Individual/Dealer</th>-->
+					   <th>Owner Type</th>
+                       <th>Individual/Dealer</th>
                        <th>Product Type</th>
                        <th>Brand</th>
                        <th>Model</th>
-                       <!--<th>Variant</th>
+                       <th>Variant</th>
                        <th>Fuel Type</th>
+					   <th>Color</th>
+					   <th>Transmission</th>
+					   <th>Country</th>
+					   <th>State</th>
                        <th>City</th>
+					   <th>Location</th>
                        <th>Price</th>
+					   <th>Discount</th>
                        <th>KM Done</th>
-                       <th>Year of Registration</th>-->
+                       <th>Year of Registration</th>
                        <th>SMS</th>
                        <th>Email</th>
                        <!--<th>App</th>-->
@@ -23,23 +31,31 @@
                    <tr *ngFor="let alert of alerts">
 						<td data-header=" "><div style="height:40px; padding: 3px;"><i class="glyphicon glyphicon-remove" (click)="onDelete($event,alert)"></i></div></td>
 						<td data-header=" "><div style="height:40px; padding: 3px;"><i class="glyphicon glyphicon-pencil" (click)="onEdit($event,alert)"></i></div></td>
-                       <td data-header="Bid/Sale/Buy"><div style="height:40px; padding: 3px;"><button class="btn btn-link" (click)="onAlertSelect($event,alert)">{{alert.bid_sell_buy}}</button></div></td>
-                       <!--<td>{{alert.individual_dealer}}</td>-->
+                       <td data-header="Bid/Sale/Buy"><div style="height:40px; padding: 3px;"><button class="btn btn-link" (click)="onAlertSelect($event,alert)">{{(alert.bid_sell_buy)?alert.bid_sell_buy:'---'}}</button></div></td>
+					   <td data-header="Owner Type"><div style="height:40px; padding: 3px;">{{alert.owner_type}}</div></td>
+                       <td data-header="Individual/Dealer"><div style="height:40px; padding: 3px;">{{alert.individual_dealer}}</div></td>
                        <td data-header="Product Type"><div style="height:40px; padding: 3px;">{{alert.product_type_name}}</div></td>
                        <td data-header="Brand"><div style="height:40px; padding: 3px;">{{alert.brand_name}}</div></td>
                        <td data-header="Model"><div style="height:40px; padding: 3px;">{{alert.model}}</div></td>
-                       <!--<td>{{alert.variant}}</td>
-                       <td>{{alert.fuel_type}}</td>
-                       <td>{{alert.city}}</td>
-                       <td>{{alert.price_from}} - {{alert.price_to}}</td>
-                       <td>{{alert.km_run_from}} - {{alert.km_run_to}}</td>
-                       <td>{{alert.year_reg_from}} - {{alert.year_reg_to}}</td>-->
+                       <td data-header="Variant"><div style="height:40px; padding: 3px;">{{alert.variant}}</div></td>
+                       <td data-header="Fuel Type"><div style="height:40px; padding: 3px;">{{alert.fuel_type}}</div></td>
+                       <td data-header="Color"><div style="height:40px; padding: 3px;">{{alert.color}}</div></td>
+					   <td data-header="Transmission"><div style="height:40px; padding: 3px;">{{alert.transmission}}</div></td>
+					   <td data-header="Country"><div style="height:40px; padding: 3px;">{{alert.country}}</div></td>
+					   <td data-header="State"><div style="height:40px; padding: 3px;">{{alert.state}}</div></td>
+					   <td data-header="City"><div style="height:40px; padding: 3px;">{{alert.city}}</div></td>
+					   <td data-header="Location"><div style="height:40px; padding: 3px;">{{alert.location}}</div></td>
+                       <td data-header="Price"><div style="min-width:120px; height:40px; padding: 3px;">{{(alert.price_from)?alert.price_from:'Any'}} - {{(alert.price_to)?alert.price_to:'Any'}}</div></td>
+                       <td data-header="Discount"><div style="min-width:120px; height:40px; padding: 3px;">{{(alert.discount_from)?alert.discount_from:'Any'}} - {{(alert.discount_to)?alert.discount_to:'Any'}}</div></td>
+                       <td data-header="KM Done"><div style="min-width:120px; height:40px; padding: 3px;">{{(alert.km_run_from)?alert.km_run_from:'Any'}} - {{(alert.km_run_to)?alert.km_run_to:'Any'}}</div></td>
+					   <td data-header="Year of Registration"><div style="min-width:120px; height:40px; padding: 3px;">{{(alert.year_reg_from)?alert.year_reg_from:'Any'}} - {{(alert.year_reg_to)?alert.year_reg_to:'Any'}}</div></td>
                        <td data-header="SMS"><div style="height:40px; padding: 3px;"><input type="checkbox" [disabled]="true" [checked]="alert.sms"></div></td>
                        <td data-header="Email"><div style="height:40px; padding: 3px;"><input type="checkbox" [disabled]="true" [checked]="alert.email"></div></td>
                        <!--<td data-header="App"><input type="checkbox" [disabled]="true" [checked]="alert.app"></td>-->
                        <td data-header="Active"><div style="height:40px; padding: 3px;"><input type="checkbox" [disabled]="true" [checked]="alert.active"></div></td>
                    </tr>
             </table>
+		</div>
             <!--<button style="width: 100%" class="btn btn-default" (click)="onAlertAdd($event)">
               <span class="glyphicon glyphicon-plus"></span> Add
             </button>-->

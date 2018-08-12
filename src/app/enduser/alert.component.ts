@@ -210,17 +210,21 @@ export class AppAlert implements OnInit {
 	}
 		
 	onDelete(evt,doc){
-	  var that = this;			   
-	  doc.deleted = true;
-	  this.commonService.enduserService.updateAlert(doc)
-		 .subscribe( data => {					
-			if(data.statusCode=="S"){
-				this.onAlertSaveCancel("");
+		var that = this;
+		this.sharedService.openMessageBox("C","Are you sure you want to delete?",function(flag){
+			if(flag){		   
+				  doc.deleted = true;
+				  that.commonService.enduserService.updateAlert(doc)
+					 .subscribe( data => {					
+						if(data.statusCode=="S"){
+							that.loadAlerts();
+						}
+						else{
+							that.sharedService.openMessageBox("E","Unable to delete.",null);
+						}		  
+				  });
 			}
-			else{
-				this.sharedService.openMessageBox("E","Unable to delete.",null);
-			}		  
-	  }); 
+		});			
 	}
 	  
 	  
@@ -339,6 +343,11 @@ export class AppAlert implements OnInit {
 				  }); 
 			}
       }
+	  
+	  loadAlerts(){
+		this.commonService.enduserService.getAlert(this.userDetail.user_id,"")
+			.subscribe( result => this.alerts = result.results);
+	  }
 
       onAlertSaveCancel(evt){
              /*this.hidden = {view: false, add: true};

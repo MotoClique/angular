@@ -149,6 +149,9 @@
 <div class="footerStyleAdmin">
 				<div class="row" style="padding: 5px;">
 					<div class="col-sm-6">
+							<button type="submit" class="btn btn-default" (click)="onDownoadTemplateClick($event)" [hidden]="hidden.view">
+								<span class="glyphicon glyphicon-download-alt"></span> Download Template
+							</button>
 						   <button type="submit" class="btn btn-default" (click)="onAddCancel($event)" [hidden]="hidden.add">
 								<span class="glyphicon glyphicon-remove"></span> Cancel
 							</button>

@@ -67,7 +67,13 @@ export class AppFieldAdmin implements OnInit {
                                            that.types = data.fieldTypes;
 										   that.categories = data.categories;
 										   that.paths = data.tableAttributes;
-										   that.paths.sort((a: any, b: any)=> {return a.name - b.name;});//ascending sort
+										   that.paths.sort((a: any, b: any)=> {
+												if (a.name < b.name)
+												  return -1;
+												if ( a.name > b.name)
+												  return 1;
+												return 0;
+											});//ascending sort
 										   that.services = data.serviceName;
                      }, error => {
                                   console.log(error);

@@ -640,8 +640,9 @@ export class AppProductAdmin implements OnInit {
 			  }); 
 	  }
 	onSpecAddClick(evt){
-		this.commonService.adminService.getSpecification("")
+		this.commonService.adminService.getPrdTypSpecFieldMap(this.selectedPrd.product_type_id)
 		  .subscribe( specificationFields => this.specFields = specificationFields.results);
+		
 		this.showSpecDialog = true;
 		this.specFieldValue = "";
 		this.selectedSpecField = {};
@@ -994,6 +995,10 @@ export class AppProductAdmin implements OnInit {
 	onDeleteUploadData(evt,to_upload,index){
 		to_upload.splice(index, 1);
 		this.checkDiscrepancy(to_upload);
+	}
+	
+	onDownoadTemplateClick(){
+		window.open("/assets/product_template.xlsx","_blank");
 	}
 
 
