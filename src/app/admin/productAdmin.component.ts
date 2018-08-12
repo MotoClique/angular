@@ -997,7 +997,7 @@ export class AppProductAdmin implements OnInit {
 		this.checkDiscrepancy(to_upload);
 	}
 	
-	onDownoadTemplateClick(){
+	onDownoadTemplateClick(evt){
 		window.open("/assets/product_template.xlsx","_blank");
 	}
 
