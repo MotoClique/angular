@@ -2,8 +2,8 @@
 	<div [hidden]="hidden.view" class="container">
             <table class='mtable'>
                    <thead>
-						<th></th>
-						<th></th>
+						<th>Delete</th>
+						<th>Edit</th>
                        <th>Address</th>
                        <th>Pin Code</th>
                        <th>Country</th>
@@ -14,8 +14,8 @@
                        <th>Default</th>
                    </thead>
                    <tr *ngFor="let address of addresses">
-						<td data-header=" "><div style="height:40px; padding: 3px;"><i class="glyphicon glyphicon-remove" (click)="onDelete($event,address)"></i></div></td>
-						<td data-header=" "><div style="height:40px; padding: 3px;"><i class="glyphicon glyphicon-pencil" (click)="onEdit($event,address)"></i></div></td>
+						<td data-header="Delete"><div style="height:40px; padding: 3px;"><button class="btn btn-link glyphicon glyphicon-remove" (click)="onDelete($event,address)"></button></div></td>
+						<td data-header="Edit"><div style="height:40px; padding: 3px;"><button class="btn btn-link glyphicon glyphicon-pencil" (click)="onEdit($event,address)"></button></div></td>
                        <td data-header="Address"><div style="height:40px; padding: 3px;"><button class="btn btn-link" (click)="onAddressClick($event,address)">{{address.address}}</button></div></td>
                        <td data-header="Pin Code"><div style="height:40px; padding: 3px;">{{address.pin_code}}</div></td>
                        <td data-header="Country"><div style="height:40px; padding: 3px;">{{address.country}}</div></td>

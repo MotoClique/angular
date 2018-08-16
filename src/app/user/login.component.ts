@@ -52,7 +52,7 @@ export   class   AppLogin  implements OnInit {
 						that.commonService.getProfile(userDetail.user_id)
 						   .subscribe( data => {							
 								that.sharedService.sharedObj["userProfile"] = data.results[0];
-								if(userDetail.admin == 'A'){
+								if(userDetail.admin == 'A' || userDetail.admin == 'S'){
 									that.router.navigateByUrl('/ContainerAdmin');
 								}
 								else{
