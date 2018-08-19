@@ -472,6 +472,7 @@ export class AppBid implements OnInit {
 				  });
 			}
 			else{//Create New Bid
+				saveItem.current_bid_amount = saveItem.bid_amount;
 				this.commonService.enduserService.addBid(saveItem)
 				  .subscribe( data => {	
 				   //debugger;
@@ -546,7 +547,7 @@ export class AppBid implements OnInit {
 								saveItem[v.field_path] = v.value;
 						  });
 					  });
-					  saveItem.current_bid_amount = saveItem.bid_amount;
+					  //saveItem.current_bid_amount = saveItem.bid_amount;
 					  that.save(Object.assign(that.item,saveItem));
 				  }
 				  else{
