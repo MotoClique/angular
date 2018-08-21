@@ -36,18 +36,18 @@
 													<label >{{field.field}}:</label>
 													<div>
 														<mat-form-field style="width:calc(100% - 135px);">
-														  <input matInput [matDatepicker]="dp" placeholder="Date" [(ngModel)] = "field.date" name="{{field.name}}" required="{{field.field_required}}" disabled>
+														  <input matInput [matDatepicker]="dp" placeholder="Date" [(ngModel)] = "field.date" name="{{field.name}}" required="{{field.field_required}}" (dateChange)="onDateTimeChange($event,field.field)" disabled>
 														  <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
 														  <mat-datepicker touchUi #dp [disabled]="!field.editable"></mat-datepicker>
 														</mat-form-field>
 														<mat-form-field style="width:58px;" >
-															<mat-select placeholder="hrs" [(ngModel)]="field.hour" name="{{field.name}}hrs" [attr.data-val]="field.hour" required="{{field.field_required}}" [disabled]="!field.editable" >
+															<mat-select placeholder="hrs" [(ngModel)]="field.hour" name="{{field.name}}hrs" [attr.data-val]="field.hour" required="{{field.field_required}}" [disabled]="!field.editable" (change)="onDateTimeChange($event,field.field)" >
 																<mat-option *ngFor="let optn of hours" [value]="optn">{{optn}}</mat-option>
 															</mat-select>
 														</mat-form-field>
 														: 
 														<mat-form-field style="width:58px;" >
-															<mat-select placeholder="mins" [(ngModel)]="field.minute" name="{{field.name}}mins" [attr.data-val]="field.minute" required="{{field.field_required}}" [disabled]="!field.editable" >
+															<mat-select placeholder="mins" [(ngModel)]="field.minute" name="{{field.name}}mins" [attr.data-val]="field.minute" required="{{field.field_required}}" [disabled]="!field.editable" (change)="onDateTimeChange($event,field.field)" >
 																<mat-option *ngFor="let optn of minutes" [value]="optn">{{optn}}</mat-option>
 															</mat-select>
 														</mat-form-field>
