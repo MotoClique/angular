@@ -67,7 +67,7 @@
 										<img [hidden]="!currentImage.no_image" src="/assets/noimage.jpg">
 									</div>
 								  
-								  <div [hidden]="(item.user_id === userDetail.user_id) || (item.bid_id === undefined) || (item.bid_id === null) || (item.bid_id === '')" style="display: flex; justify-content: flex-end; position: absolute; bottom: 25px; width: 100%;">
+								  <div [hidden]="(item.user_id === userDetail.user_id) || (item.bid_id === undefined) || (item.bid_id === null) || (item.bid_id === '') || (item.sold)" style="display: flex; justify-content: flex-end; position: absolute; bottom: 25px; width: 100%;">
                                       <div (click)="onParticipate($event)" style="cursor: pointer; font-size: 15px; font-weight: bolder; color: white; background-color: #E71B03;  border-radius: 10px; width: 90px; line-height: 30px; text-align: center;">Participate</div>
                                   </div>
 								  									
