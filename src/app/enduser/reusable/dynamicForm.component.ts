@@ -712,7 +712,7 @@ export class AppDynamicForm implements OnInit {
     var mins = field.minute;
     var selectedDateObj = new Date(dateObj.getFullYear() +"/"+ (dateObj.getMonth() - (-1)) +"/"+ dateObj.getDate() +" "+ hrs +":"+ mins +":00");
     var minDateObj = new Date();
-    minDateObj.setMinute(minDateObj.getMinute() - (-30));//30 minute before now
+    minDateObj.setMinutes(minDateObj.getMinutes() - (-30));//30 minute before now
     if(selectedDateObj < minDateObj){
       this.sharedService.openMessageBox("E","Bid should be valid for atleast 30 minutes.",null);
       var todayDateObj = new Date(); todayDateObj.setDate(todayDateObj.getDate() - (-1));

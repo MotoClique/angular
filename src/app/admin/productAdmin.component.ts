@@ -415,28 +415,28 @@ export class AppProductAdmin implements OnInit {
   }
   
   
-  onUpload(evt){ 
+onUpload(evt){ 
     var that = this; 
     var files = evt.target.files; 
-		var file = files[0];
-		if (files && file) { 
-					var fileName = file.name; 
-					var fileType = file.type; 
-					var fileSize = file.size; 
-					//Read Image
-					var binaryString = ""; 
-					var reader = new FileReader(); 
-					reader.readAsArrayBuffer(file); 
-					reader.onload = function(e) {
-            var blob = new Blob([event.target.result]); // create blob...
-            window.URL = window.URL || window.webkitURL;
+	var file = files[0];
+	if (files && file) { 
+		var fileName = file.name; 
+		var fileType = file.type; 
+		var fileSize = file.size; 
+		//Read Image
+		var binaryString = ""; 
+		var reader = new FileReader(); 
+		reader.readAsArrayBuffer(file); 
+		reader.onload = function(e:any) {
+            var blob = new Blob([e.target.result]); // create blob...
+            //window.URL = window.URL || window.webkitURL;
             var blobURL = window.URL.createObjectURL(blob); // and get it's URL
 
             var image = new Image();
             image.src = blobURL;
             image.onload = function() {
-              var resizedImage = that.resizeImage(image,500,300); // send it to canvas for actual image
-              var resizedThumbnail = that.resizeImage(image,100,100); // send it to canvas for thumbnail
+              var resizedImage = that.resizeImage(image,"image"); // send it to canvas for actual image
+              var resizedThumbnail = that.resizeImage(image,"thumbnail"); // send it to canvas for thumbnail
               var stringImage = resizedImage.replace(/^data:image\/[a-z]+;base64,/, "");
               var stringThumbnail = resizedThumbnail.replace(/^data:image\/[a-z]+;base64,/, "");
               that.newImage = {
@@ -458,29 +458,37 @@ export class AppProductAdmin implements OnInit {
                   default: false
               };
             }
-					}
-			} 
-	}
-  resizeImage(img,max_width,max_height) {
-    //var max_width = 500;
-    //var max_height = 300;
+		}
+	} 
+}
+resizeImage(img,type) {
+    var max_width = 500;
+    var max_height = 300;
     var canvas = document.createElement('canvas');
+	var width = 0;
+	var height = 0;
+	
+	if(type==='thumbnail'){
+		width = 100;
+		height = 100;
+	}
+	else{
+		width = img.width;
+		height = img.height;
 
-    var width = img.width;
-    var height = img.height;
-
-    // calculate the width and height, constraining the proportions
-    if (width > height) {
-      if (width > max_width) {
-        height = Math.round(height *= max_width / width);
-        width = max_width;
-      }
-    } else {
-      if (height > max_height) {
-        width = Math.round(width *= max_height / height);
-        height = max_height;
-      }
-    }
+		// calculate the width and height, constraining the proportions
+		if (width > height) {
+		  if (width > max_width) {
+			height = Math.round(height *= max_width / width);
+			width = max_width;
+		  }
+		} else {
+		  if (height > max_height) {
+			width = Math.round(width *= max_height / height);
+			height = max_height;
+		  }
+		}
+	}
 
     // resize the canvas and draw the image data into it
     canvas.width = width;
@@ -488,7 +496,7 @@ export class AppProductAdmin implements OnInit {
     var ctx = canvas.getContext("2d");
     ctx.drawImage(img, 0, 0, width, height);
     return canvas.toDataURL("image/jpeg",0.7); // get the data from canvas as 70% JPG 
-  }
+}
   
   
   /*onUpload(evt){ 
