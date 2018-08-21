@@ -705,6 +705,22 @@ export class AppDynamicForm implements OnInit {
 					this.participantMemberDetail = result.results[0];
 			});
 	}
+  
+  onDateTimeChange(evt,field){
+    var dateObj = field.date;
+    var hrs = field.hour;
+    var mins = field.minute;
+    var selectedDateObj = new Date(dateObj.getFullYear() +"/"+ (dateObj.getMonth() - (-1)) +"/"+ dateObj.getDate() +" "+ hrs +":"+ mins +":00");
+    var minDateObj = new Date();
+    minDateObj.setMinute(minDateObj.getMinute() - (-30));//30 minute before now
+    if(selectedDateObj < minDateObj){
+      this.sharedService.openMessageBox("E","Bid should be valid for atleast 30 minutes.",null);
+      var todayDateObj = new Date(); todayDateObj.setDate(todayDateObj.getDate() - (-1));
+		  field.date = todayDateObj;
+			field.hour = '00';
+			field.minute = '00';
+    }
+  }
 	
 	
 	
