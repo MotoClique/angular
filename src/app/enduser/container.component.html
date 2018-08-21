@@ -17,7 +17,7 @@
 				  <button class="dropbtn">
 					<span class="glyphicon glyphicon-user user_menu_icon"></span>
 				  </button>
-				  <div class="dropdown-content">
+				  <div style="display:none;" class="dropdown-content">
 					<div style="display: flex;  flex-direction: column;">
 						<button [disabled]="!enableAccount" style="text-align:left; text-indent:5px; padding: 10px;" class="btn btn-link" (click)="onNameClick($event)">{{userDetail.name}}</button>
 						<button *ngIf="enableAddress" style="text-align:left; text-indent:5px; padding: 10px;" class="btn btn-link" (click)="onAddressClick($event)">Address</button>
