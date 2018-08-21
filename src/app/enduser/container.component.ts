@@ -137,6 +137,11 @@ export class AppContainer implements OnInit{
 			//});
 			
 			//jQuery('.footerStyle').addClass('on-canvas');
+      jQuery(".dropdown").hover(function(){
+            jQuery(".dropdown-content").css("display", "block");
+          }, function(){
+            jQuery(".dropdown-content").css("display", "none");
+      });
 			
 			document.getElementById('userscreen_frame').addEventListener('dblclick',function(e){
 				that.sharedService.showFooter();
