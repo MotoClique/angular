@@ -142,6 +142,10 @@ export class AppContainer implements OnInit{
           }, function(){
             jQuery(".dropdown-content").css("display", "none");
       });
+      
+      document.body.addEventListener("click",function(){
+				jQuery(".dropdown-content").css("display", "none");
+			});
 			
 			document.getElementById('userscreen_frame').addEventListener('dblclick',function(e){
 				that.sharedService.showFooter();
