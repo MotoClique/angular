@@ -5,7 +5,7 @@
 			<button mat-button class="home_icon" (click)="onHome()"><span class="glyphicon glyphicon-home"></span></button>
 		</div>
 		
-		<div [hidden]="title === undefined || title === null || title === ''" style="font-size: 18px; padding: 12px;"><span>{{title}} @{{application}}</span></div>
+		<div [hidden]="title === undefined || title === null || title === ''" style="font-size: 18px; padding: 12px; display:flex; flex-direction:column; line-height:18px;"><span style="font-weight:800; text-align:center;">{{title}}</span> <span style="font-size:13px; text-align:center;">@{{application}}</span></div>
 		<div [hidden]="title !== undefined && title !== null && title !== ''" style="font-size: 18px; padding: 12px;"><span>{{application}}</span></div>
 		<!--<input type="number" [(ngModel)]="create_count"><span> * 10</span>
 		<button (click)="generateData()">Generate</button>-->
