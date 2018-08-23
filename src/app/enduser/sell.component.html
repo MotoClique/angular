@@ -126,6 +126,7 @@
 		<div class="listHeader">Select a colour</div>
 		<div>
 		<div class="listItem" *ngFor="let clr of colors" (click)="onPrdColorSelect($event,clr)">{{clr}}</div>
+		<div class="listItem" (click)="onPrdColorSelect($event,'NA')">Without System Image</div>
 		</div>
 	</div>
 	

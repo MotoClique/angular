@@ -935,7 +935,69 @@ resizeImage(img,type) {
 			this.hasDiscrepancy = false;
 	}
 	
+	
+	
 	onMultipleImageUpload(evt){ 
+        var that = this; 
+		var count = 0;
+        var files = evt.target.files;
+		jQuery.each(files,function(f,file){
+			//var file = files[f];
+			if (file) { 
+						var fileName = file.name; 
+						var fileType = file.type; 
+						var fileSize = file.size; 
+						//Read File
+						var binaryString = ""; 
+						var reader = new FileReader(); 
+						reader.readAsArrayBuffer(file); 
+						reader.onload = function(e:any) {
+							var blob = new Blob([e.target.result]); // create blob...
+							//window.URL = window.URL || window.webkitURL;
+							var blobURL = window.URL.createObjectURL(blob); // and get it's URL
+
+							var image = new Image();
+							image.src = blobURL;
+							image.onload = function() {
+								var resizedImage = that.resizeImage(image,"image"); // send it to canvas for actual image
+								var stringImage = resizedImage.replace(/^data:image\/[a-z]+;base64,/, "");
+															 
+								var splitName = fileName.replace(/.jpg/g,'');
+								splitName = splitName.replace(/.jpeg/g,'');
+								splitName = splitName.replace(/.png/g,'');
+								splitName = splitName.replace(/.gif/g,'');
+								splitName = splitName.split('_');
+								var product_id = '';
+								var msg = '';
+								if(splitName.length > 3){
+									product_id = splitName[0]+'_'+splitName[1]+'_'+splitName[2]+'_'+splitName[3];									
+								}
+								if(splitName.length < 7){
+									msg = 'Invalid file name';
+								}
+								var newImage = {
+								  product_id: product_id,
+								  data: stringImage,
+								  type: fileType,
+								  name: "",
+								  msg: msg,
+								  default: false
+								};
+								
+								that.images_to_upload.push(newImage);
+								
+								count = count - (-1);
+								if(count === files.length)
+									that.prepareUploadData(that.images_to_upload,that.sheetToUpload);
+						  };
+						  
+						}; 
+						
+			}
+		});		
+	}
+	
+	/*onMultipleImageUpload(evt){ 
         var that = this; 
 		var count = 0;
         var files = evt.target.files;
@@ -991,17 +1053,7 @@ resizeImage(img,type) {
 								  msg: msg,
 								  default: false
 								};
-								/*var newThumbnail = {
-								  product_id: "",
-								  type: fileType,
-								  name: "",
-								  color: "",
-								  year_from: "",
-								  year_to: "",
-								  thumbnail: compressed,
-								  image_id: "",
-								  default: false
-								};*/
+								
 								that.images_to_upload.push(newImage);
 								
 								count = count - (-1);
@@ -1013,7 +1065,7 @@ resizeImage(img,type) {
 						
 			}
 		});		
-	}
+	}*/
 	
 	onUploadSubmit(evt){
 		if(this.products_to_upload.length>0){

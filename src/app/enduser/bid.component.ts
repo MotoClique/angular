@@ -463,7 +463,9 @@ export class AppBid implements OnInit {
 									   });
 
 							}
-						});							
+						});
+						if(!(that.imageTemplateComponent.thumbnails) || that.imageTemplateComponent.thumbnails.length===0)
+							that.displayItem();
 					}
 					else{
 						//alert("Unable to save");
@@ -518,7 +520,9 @@ export class AppBid implements OnInit {
 									   });
 
 							//}
-						});							
+						});
+						if(!(that.imageTemplateComponent.thumbnails) || that.imageTemplateComponent.thumbnails.length===0)
+							that.gotoMainScreen();
 					}
 					else{
 						//alert("Unable to save");

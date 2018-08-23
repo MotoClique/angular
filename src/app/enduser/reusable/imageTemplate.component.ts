@@ -458,7 +458,101 @@ export class AppImageTemplate implements OnInit {
 		this.showUploadImageDialog = true;
 	}
 	
+	
 	onUpload(evt){ 
+        var that = this; 
+        var files = evt.target.files; 
+		var file = files[0];
+		if (files && file) { 
+					var fileName = file.name; 
+					var fileType = file.type; 
+					var fileSize = file.size; 
+					//Read file
+					var binaryString = ""; 
+					var reader = new FileReader(); 
+					reader.readAsArrayBuffer(file); 
+					reader.onload = function(e:any) {
+						var blob = new Blob([e.target.result]); // create blob...
+						//window.URL = window.URL || window.webkitURL;
+						var blobURL = window.URL.createObjectURL(blob); // and get it's URL
+
+						var image = new Image();
+						image.src = blobURL;
+						image.onload = function() {
+						  var resizedImage = that.resizeImageUsingCanvas(image,"image"); // send it to canvas for actual image
+						  var resizedThumbnail = that.resizeImageUsingCanvas(image,"thumbnail"); // send it to canvas for thumbnail
+						  var stringImage = resizedImage.replace(/^data:image\/[a-z]+;base64,/, "");
+						  var stringThumbnail = resizedThumbnail.replace(/^data:image\/[a-z]+;base64,/, "");
+						
+						  var newThumbnail = {
+							  transaction_id: "",
+							  type: fileType,
+							  name: "",
+							  thumbnail: stringThumbnail,
+							  data: resizedThumbnail,
+							  image_id: "",							  
+							  index: (that.thumbnails.length - (-1)),
+							  selected: false,
+							  newImage: true,
+							  newImageLink: (that.newImages.length),
+							  default: false
+						  };
+						  that.thumbnails.push(newThumbnail);
+						  that.item.number_of_image = (that.thumbnails.length).toString();
+						  
+						  var newImage = {
+							  transaction_id: "",
+							  data: stringImage,
+							  type: fileType,
+							  name: "",
+							  default: false
+						  };
+						  that.newImages.push(newImage);
+                      };
+					  
+					}; 
+				this.showUploadImageDialog = false;	
+			} 
+	}
+	
+	resizeImageUsingCanvas(img,type) {
+		var max_width = 500;
+		var max_height = 300;
+		var canvas = document.createElement('canvas');
+		var width = 0;
+		var height = 0;
+		
+		if(type==='thumbnail'){
+			width = 100;
+			height = 100;
+		}
+		else{
+			width = img.width;
+			height = img.height;
+
+			// calculate the width and height, constraining the proportions
+			if (width > height) {
+			  if (width > max_width) {
+				height = Math.round(height *= max_width / width);
+				width = max_width;
+			  }
+			} else {
+			  if (height > max_height) {
+				width = Math.round(width *= max_height / height);
+				height = max_height;
+			  }
+			}
+		}
+
+		// resize the canvas and draw the image data into it
+		canvas.width = width;
+		canvas.height = height;
+		var ctx = canvas.getContext("2d");
+		ctx.drawImage(img, 0, 0, width, height);
+		return canvas.toDataURL("image/jpeg",0.7); // get the data from canvas as 70% JPG 
+	}
+	
+	/*onUpload(evt){ 
         var that = this; 
         var files = evt.target.files; 
 		var file = files[0];
@@ -524,7 +618,7 @@ export class AppImageTemplate implements OnInit {
 					} 
 				this.showUploadImageDialog = false;	
 			} 
-	}
+	}*/
 	
 	/*onImageUpload(evt){
 		//Upload Image
