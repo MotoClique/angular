@@ -1069,26 +1069,40 @@ resizeImage(img,type) {
 	
 	onUploadSubmit(evt){
 		if(this.products_to_upload.length>0){
-			this.commonService.adminService.addMultipleProduct(this.products_to_upload)
-			.subscribe( data => {
-				if(data.statusCode=="S"){
-					this.sharedService.openMessageBox("S",data.msg,null);
-				}
-				else{
-					this.sharedService.openMessageBox("E",data.msg,null);
-				}
+			var toUpload = [];
+			jQuery.each(this.products_to_upload,function(i,v){
+				if(!(v.msg))
+					toUpload.push(v);
 			});
+			if(toUpload.length>0){
+				this.commonService.adminService.addMultipleProduct(toUpload)
+				.subscribe( data => {
+					if(data.statusCode=="S"){
+						this.sharedService.openMessageBox("S",data.msg,null);
+					}
+					else{
+						this.sharedService.openMessageBox("E",data.msg,null);
+					}
+				});
+			}
 		}
 		else if(this.specs_to_upload.length>0){
-			this.commonService.adminService.addMultiProductSpec(this.specs_to_upload)
-			.subscribe( data => {
-				if(data.statusCode=="S"){
-					this.sharedService.openMessageBox("S",data.msg,null);
-				}
-				else{
-					this.sharedService.openMessageBox("E",data.msg,null);
-				}
+			var toUpload = [];
+			jQuery.each(this.specs_to_upload,function(i,v){
+				if(!(v.msg))
+					toUpload.push(v);
 			});
+			if(toUpload.length>0){
+				this.commonService.adminService.addMultiProductSpec(toUpload)
+				.subscribe( data => {
+					if(data.statusCode=="S"){
+						this.sharedService.openMessageBox("S",data.msg,null);
+					}
+					else{
+						this.sharedService.openMessageBox("E",data.msg,null);
+					}
+				});
+			}
 		}
 		else if(this.images_to_upload.length>0){
 			/*this.commonService.adminService.addMultiProductImage(this.images_to_upload)
