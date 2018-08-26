@@ -430,7 +430,7 @@
 						<tr>
 							<th></th>
 							<th>Row#</th>
-							<th>Product ID</th>
+							<th>Product</th>
 							<th>Specification</th>
 							<th>Value</th>
 							<th>Comment</th>
@@ -440,9 +440,9 @@
 						<tr *ngFor='let spec of specs_to_upload; let indx = index'>
 							<td data-header=" "><div style="height:40px; padding: 3px;"><i class="glyphicon glyphicon-remove" style="cursor:pointer;" (click)="onDeleteUploadData($event,specs_to_upload,indx)"></i></div></td>
 							<td data-header="Row#"><div style="height:40px; padding: 3px;">{{spec.row}}</div></td>
-							<td data-header="Product ID"><div style="height:40px; padding: 3px;">{{spec.product_id}}</div></td>
-							<td data-header="Specification"><div style="height:40px; padding: 3px;">{{spec.spec_field}}</div></td>
-							<td data-header="Value"><div style="height:40px; padding: 3px;">{{spec.spec_value}}</div></td>
+							<td data-header="Product"><div style="height:40px; padding: 3px;">{{spec.product_type_name}} {{spec.brand_name}} {{spec.model}} {{spec.variant}}</div></td>
+							<td data-header="Specification"><div style="height:40px; padding: 3px;">{{spec.specification_field_name}}</div></td>
+							<td data-header="Value"><div style="height:40px; padding: 3px;">{{spec.specification_field_value}}</div></td>
 							<td data-header="Comment"><div style="height:40px; padding: 3px; color:red;">{{spec.msg}}</div></td>
 						</tr>
 					</tbody>

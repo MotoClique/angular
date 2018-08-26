@@ -844,6 +844,13 @@ resizeImage(img,type) {
 				if(!(currentItem.row))
 					currentItem.row = currentItem.__rowNum__ - (-1);
 			});
+			this.products_to_upload.sort((a: any, b: any)=> {
+												if (a.row < b.row)
+												  return -1;
+												if ( a.row > b.row)
+												  return 1;
+												return 0;
+											});//ascending sort
 		}
 		if(this.sheetToUpload === 'Specification'){
 			this.specs_to_upload = data;
@@ -851,6 +858,13 @@ resizeImage(img,type) {
 				if(!(currentItem.row))
 					currentItem.row = currentItem.__rowNum__ - (-1);
 			});
+			this.specs_to_upload.sort((a: any, b: any)=> {
+												if (a.row < b.row)
+												  return -1;
+												if ( a.row > b.row)
+												  return 1;
+												return 0;
+											});//ascending sort
 		}
 		if(this.sheetToUpload === 'Image'){
 			this.images_to_upload = data;
@@ -961,12 +975,14 @@ resizeImage(img,type) {
 							image.onload = function() {
 								var resizedImage = that.resizeImage(image,"image"); // send it to canvas for actual image
 								var stringImage = resizedImage.replace(/^data:image\/[a-z]+;base64,/, "");
+								var resizedThumbnail = that.resizeImage(image,"thumbnail"); // send it to canvas for actual image
+								var stringThumbnail = resizedThumbnail.replace(/^data:image\/[a-z]+;base64,/, "");
 															 
-								var splitName = fileName.replace(/.jpg/g,'');
-								splitName = splitName.replace(/.jpeg/g,'');
-								splitName = splitName.replace(/.png/g,'');
-								splitName = splitName.replace(/.gif/g,'');
-								splitName = splitName.split('_');
+								var fname = fileName.replace(/.jpg/g,'');
+								fname = fname.replace(/.jpeg/g,'');
+								fname = fname.replace(/.png/g,'');
+								fname = fname.replace(/.gif/g,'');
+								var splitName = fname.split('_');
 								var product_id = '';
 								var msg = '';
 								if(splitName.length > 3){
@@ -978,9 +994,13 @@ resizeImage(img,type) {
 								var newImage = {
 								  product_id: product_id,
 								  data: stringImage,
+								  thumbnail: stringThumbnail,
 								  type: fileType,
-								  name: "",
+								  name: fname,
 								  msg: msg,
+								  year_from: splitName[5],
+								  year_to: splitName[6],
+								  color: splitName[4],
 								  default: false
 								};
 								
@@ -1125,20 +1145,26 @@ resizeImage(img,type) {
 			this.sharedService.setBusy(true);
 		}
 		jQuery.each(this.images_to_upload, function(i,v){
-			var images = []; images.push(v);
-			that.commonService.adminService.addMultiProductImage(images)
-			.subscribe( data => {
-				count = count - (-1);
-				if(data.statusCode=="S"){
-					//that.sharedService.openMessageBox("S",data.msg,null);
-				}
-				else{
-					//that.sharedService.openMessageBox("E",data.msg,null);
-				}
-				
-				if(count === that.images_to_upload.length)
-					this.sharedService.setBusy(false);
-			});
+			if(!v.msg){
+				var images = []; images.push(v);
+				that.commonService.adminService.addMultiProductImage(images)
+				.subscribe( data => {
+					count = count - (-1);
+					if(data.statusCode=="S"){
+						//that.sharedService.openMessageBox("S",data.msg,null);
+					}
+					else{
+						//that.sharedService.openMessageBox("E",data.msg,null);
+					}
+					
+					if(count === that.images_to_upload.length){
+						that.sharedService.setBusy(false);
+						that.showUploadExcelDialog = false;
+						that.showUploadPreviewDialog = false;
+						that.sharedService.openMessageBox("S","Upload completed.",null);
+					}
+				});
+			}
 		});
 	}
 	

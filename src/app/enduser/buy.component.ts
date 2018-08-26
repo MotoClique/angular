@@ -248,7 +248,16 @@ export class AppBuy implements OnInit {
 	  onPrdTypSelect(evt,prdTyp){
 			this.selectedPrdTyp = prdTyp.product_type_id;
 			this.commonService.adminService.getUniqueBrandBasedOnPrdTyp(this.selectedPrdTyp)
-				.subscribe( brands => this.brands = brands.results);
+				.subscribe( brands => {
+					this.brands = brands.results;
+					this.brands.sort((a: any, b: any)=> {
+												if (a < b)
+												  return -1;
+												if ( a > b)
+												  return 1;
+												return 0;
+											});//ascending sort
+				});
 			
 			this.showProductTypeListDialog = false;
 			this.showProductListDialog = false;
@@ -257,7 +266,16 @@ export class AppBuy implements OnInit {
 	  
 	  onBrandSelect(evt,brand){
 			this.commonService.adminService.getProduct("",this.selectedPrdTyp,brand)
-				.subscribe( products => this.products = products.results);
+				.subscribe( products => {
+					this.products = products.results;
+					this.products.sort((a: any, b: any)=> {
+												if (a.product_id < b.product_id)
+												  return -1;
+												if ( a.product_id > b.product_id)
+												  return 1;
+												return 0;
+											});//ascending sort
+				});
 			this.showBrandListDialog = false;
 			this.showProductTypeListDialog = false;
 			this.showProductListDialog = true;
@@ -274,7 +292,16 @@ export class AppBuy implements OnInit {
 		  this.item.variant = prd.variant;
 		  this.item.transactionTyp = "Buy";
 		  this.commonService.adminService.getPrdThumbnailColors(prd.product_id)
-				.subscribe( res => this.colors = res.results);
+				.subscribe( res => {
+					this.colors = res.results;
+					this.colors.sort((a: any, b: any)=> {
+												if (a.color < b.color)
+												  return -1;
+												if ( a.color > b.color)
+												  return 1;
+												return 0;
+											});//ascending sort
+				});
 				
 		  this.showProductListDialog = false;
 		  this.showProductColorDialog = true;	

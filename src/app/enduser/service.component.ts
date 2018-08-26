@@ -216,6 +216,13 @@ export class AppService implements OnInit {
 			this.commonService.adminService.getServiceProduct(this.selectedPrdTyp)
 				.subscribe( service => {
 					this.products = service.results;
+					this.products.sort((a: any, b: any)=> {
+												if (a.product_id < b.product_id)
+												  return -1;
+												if ( a.product_id > b.product_id)
+												  return 1;
+												return 0;
+											});//ascending sort
 				});
 			
 			this.showProductTypeListDialog = false;
