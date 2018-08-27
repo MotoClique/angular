@@ -133,86 +133,95 @@ export class AppDynamicForm implements OnInit {
 					that.sharedService.openMessageBox("E","Error in fetching.",null);
 				}
 				else{
-					var fieldConfig = result.results;
-					jQuery.each(fieldConfig,function(i,v){
-						if(v.field_category){
-							var category = (v.field_category).replace(/\s/g,'');
-							if(!(that.screenConfig[category])){
+					that.loadProductSpec(that.current_product_id,function(prdSpecs){
+						  var fieldConfig = result.results;
+						  jQuery.each(fieldConfig,function(i,v){
+							if(v.field_category){
+							  var category = (v.field_category).replace(/\s/g,'');
+							  if(!(that.screenConfig[category])){
 								that.screenConfig[category] = []
-							}
-							var o = jQuery.extend(true, {}, v);
-							o.type = "text";
-							o.value = (that.item[v.field_path] != undefined)? that.item[v.field_path] : "";
-							o.name = (v.field).replace(/\s/g,'');
-							o.field_type = (v.field_type).toLowerCase();
-							o.option = [];
-							
-							if(o.screen !== 'Filter'){
+							  }
+							  var o = jQuery.extend(true, {}, v);
+							  o.type = "text";							  
+							  o.value = (that.item[v.field_path] != undefined)? that.item[v.field_path] : "";
+                if(!(o.value)){
+                  jQuery.each(prdSpecs,function(prdSpec_i,prdSpec_v){
+                    if(prdSpec_v.specification_field_name === o.field){
+                    o.value = prdSpec_v.specification_field_value;
+                    }
+                  });   
+                }
+							  o.name = (v.field).replace(/\s/g,'');
+							  o.field_type = (v.field_type).toLowerCase();
+							  o.option = [];
+
+							  if(o.screen !== 'Filter'){
 								if(o.field_path === 'product_type_id'
-									|| o.field_path === 'product_type_name'
-									|| o.field_path === 'brand_id'
-									|| o.field_path === 'brand_name'
-									|| o.field_path === 'model'
-									|| o.field_path === 'variant'
-									|| o.field_path === 'color'
-									|| o.field_path === 'current_bid_amount'){
-									o.editable = false;
+								  || o.field_path === 'product_type_name'
+								  || o.field_path === 'brand_id'
+								  || o.field_path === 'brand_name'
+								  || o.field_path === 'model'
+								  || o.field_path === 'variant'
+								  || o.field_path === 'color'
+								  || o.field_path === 'current_bid_amount'){
+								  o.editable = false;
 								}
-							}
-							if(o.screen === 'Buy'){
+							  }
+							  if(o.screen === 'Buy'){
 								if(o.field_path === 'year_of_reg')
-									o.field = o.field + ' (Greater than)';
+								  o.field = o.field + ' (Greater than)';
 								if(o.field_path === 'net_price')
-									o.field = o.field + ' (Less than)';
+								  o.field = o.field + ' (Less than)';
 								if(o.field_path === 'km_done')
-									o.field = o.field + ' (Less than)';
-							}
-							
-							if(o.field_path === 'min_bid_hike'){
+								  o.field = o.field + ' (Less than)';
+							  }
+
+							  if(o.field_path === 'min_bid_hike'){
 								o.editable = false;
-							}
-							
-							if(o.field_type === 'datetime'){
+							  }
+
+							  if(o.field_type === 'datetime'){
 								if(o.value){
-									var val = (o.value).split('T');
-									if(val[0]){
-										var dateSplit = (val[0]).split('/');
-										o.date = new Date(dateSplit[1] +'/'+ dateSplit[0] +'/'+ dateSplit[2]);
-									}
-									if(val[1]){
-										o.hour = (val[1].split(':'))[0];
-										o.minute = (val[1].split(':'))[1];
-									}
+								  var val = (o.value).split('T');
+								  if(val[0]){
+									var dateSplit = (val[0]).split('/');
+									o.date = new Date(dateSplit[1] +'/'+ dateSplit[0] +'/'+ dateSplit[2]);
+								  }
+								  if(val[1]){
+									o.hour = (val[1].split(':'))[0];
+									o.minute = (val[1].split(':'))[1];
+								  }
 								}
 								else{
-									var todayDateObj = new Date(); todayDateObj.setDate(todayDateObj.getDate() - (-1));
-									o.date = todayDateObj;
-									o.hour = '00';
-									o.minute = '00';
+								  var todayDateObj = new Date(); todayDateObj.setDate(todayDateObj.getDate() - (-1));
+								  o.date = todayDateObj;
+								  o.hour = '00';
+								  o.minute = '00';
 								}
+							  }
+
+							  (that.screenConfig[category]).push(o);
 							}
-							
-							(that.screenConfig[category]).push(o);
-						}
-					});
-					
-					this.fields = this.screenConfig["Detail"];
-					jQuery.each(this.screenConfig,function(key,value){
-						//Sort Fields sequence
-						value.sort((a: any, b: any)=> {return a.field_sequence - b.field_sequence;});//ascending sort
-						
-						jQuery.each(value,function(i,v){
-							if(v.field_type == 'select')
+						  });
+
+						  this.fields = this.screenConfig["Detail"];
+						  jQuery.each(this.screenConfig,function(key,value){
+							//Sort Fields sequence
+							value.sort((a: any, b: any)=> {return a.field_sequence - b.field_sequence;});//ascending sort
+
+							jQuery.each(value,function(i,v){
+							  if(v.field_type == 'select')
 								that.fetchSelectOption(v);
-						});
+							});
+						  });
+						  this.fields = this.screenConfig["Detail"];
+						  this.dynamicTabGroup.selectedIndex = 0;
+						  //var ele = document.getElementById('detail');
+						  //this.setSelectedTab(ele);
 					});
-					this.fields = this.screenConfig["Detail"];
-					this.dynamicTabGroup.selectedIndex = 0;
-					//var ele = document.getElementById('detail');
-					//this.setSelectedTab(ele);
 				}
 			});
-	  }
+	}
 	  
 	  fetchSelectOption(fieldData){
 		  var that = this;
@@ -464,9 +473,8 @@ export class AppDynamicForm implements OnInit {
 		  var that = this;
 		  this.fields = [];
 		  if(id){
-			  this.commonService.adminService.getProductSpec(id)
-			  .subscribe( prdSpecs => {
-				  jQuery.each(prdSpecs.results,function(i,v){
+			  this.loadProductSpec(id,function(data){
+				  jQuery.each(data,function(i,v){
 							var spec_name = (v.specification_field_name)?v.specification_field_name:'';
 							var o = {
 								field : v.specification_field_name,
@@ -484,6 +492,16 @@ export class AppDynamicForm implements OnInit {
 			  });
 		  }
 	  }
+  
+    loadProductSpec(id,callback){
+      this.commonService.adminService.getProductSpec(id)
+          .subscribe( prdSpecs => {
+        if(prdSpecs.results)
+           callback(prdSpecs.results);
+        else
+           callback([]);
+      });
+    }
 	  
 	  /*getContactDetails(){
 			var that = this;
