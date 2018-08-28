@@ -35,7 +35,7 @@
 					</ol>
 					<div class="carousel-inner">
                          <div class="item active">
-                             <div id="imageFrame" style="position: relative;">
+                             <div id="imageFrame" style="position: relative; min-height:200px;">
 								  <div [hidden]="(item.transactionTyp !== 'Bid') || (item.bid_id === undefined) || (item.bid_id === null) || (item.bid_id === '')" style="font-size:12px; display: flex; justify-content: flex-end; color:#E71B03; font-weight: 900; position: absolute; width:100%; z-index:2;">
 										<span>{{time_left}}</span>
 								  </div>
