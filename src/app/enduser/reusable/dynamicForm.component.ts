@@ -497,9 +497,9 @@ export class AppDynamicForm implements OnInit {
       this.commonService.adminService.getProductSpec(id)
           .subscribe( prdSpecs => {
         if(prdSpecs.results)
-           callback(prdSpecs.results);
+           callback.apply(this,[prdSpecs.results]);
         else
-           callback([]);
+           callback.apply(this,[[]]);
       });
     }
 	  
