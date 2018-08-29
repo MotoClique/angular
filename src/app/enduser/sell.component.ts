@@ -77,6 +77,8 @@ export class AppSell implements OnInit {
 		showAddressListDialog: boolean = false;
 		lastScroll: any = 0;
 		noMoreData: boolean = false;
+    model_term: string = '';
+    variant_term: string = '';
 		@ViewChild(AppDynamicForm) dynamicFormComponent: AppDynamicForm;
 		@ViewChild(AppImageTemplate) imageTemplateComponent: AppImageTemplate;
 		@ViewChild(AppTileTemplate) tileTemplateComponent: AppTileTemplate;
