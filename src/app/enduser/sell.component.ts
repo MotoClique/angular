@@ -46,8 +46,12 @@ export class AppSell implements OnInit {
 		image_item: any;
 		hidden: any;
 		userDetail: any = {};
+    models: any = [];		
+		variants: any = [];
+		showProductModelListDialog: boolean = false;
+		showProductVariantListDialog: boolean = false;
 		showListDialog: boolean = false;
-		showProductListDialog: boolean = false;
+		//showProductListDialog: boolean = false;
 		showProductTypeListDialog: boolean = false;
 		showBrandListDialog: boolean = false;
 		showProductColorDialog: boolean = false;
@@ -224,7 +228,8 @@ export class AppSell implements OnInit {
 				.subscribe( productTypes => this.productTypes = productTypes.results);		
 		this.showListDialog = true;
 		this.showProductTypeListDialog = true;  			
-		this.showProductListDialog = false;
+		this.showProductModelListDialog = false;
+		this.showProductVariantListDialog = false;
 		this.showBrandListDialog = false;
 		this.showProductColorDialog = false;
 		this.showProductYearDialog = false;
@@ -258,7 +263,8 @@ export class AppSell implements OnInit {
 				});
 			
 			this.showProductTypeListDialog = false;
-			this.showProductListDialog = false;
+			this.showProductModelListDialog = false;
+			this.showProductVariantListDialog = false;
 			this.showBrandListDialog = true;
 	  }
 	  
@@ -266,7 +272,8 @@ export class AppSell implements OnInit {
 			this.commonService.adminService.getProduct("",this.selectedPrdTyp,brand)
 				.subscribe( products => {
 					this.products = products.results;
-					this.products.sort((a: any, b: any)=> {
+					this.models = this.extractProductUniqueModels();
+					this.models.sort((a: any, b: any)=> {
 												if (a.product_id < b.product_id)
 												  return -1;
 												if ( a.product_id > b.product_id)
@@ -276,11 +283,49 @@ export class AppSell implements OnInit {
 				});
 			this.showBrandListDialog = false;
 			this.showProductTypeListDialog = false;
-			this.showProductListDialog = true;
+			this.showProductModelListDialog = true;
+			this.showProductVariantListDialog = false;
+	  }
+  
+    extractProductUniqueModels(){
+		  var productsWithoutVariant = [];
+		  for(var i=0; i<this.products.length; i++){
+			var foundEle = false;
+			for(var j=0; j<productsWithoutVariant.length; j++){
+				var prdName = this.products[i].product_type_name +' '+ this.products[i].brand_name +' '+ this.products[i].model;
+				var unqPrdName = productsWithoutVariant[j].product_type_name +' '+ productsWithoutVariant[j].brand_name +' '+ productsWithoutVariant[j].model;
+				if(prdName === unqPrdName){
+					var variant_entry = jQuery.extend(true, {}, this.products[i]);
+					productsWithoutVariant[j].variantList.push(variant_entry);
+					foundEle = true;
+					break;
+				}
+			}
+			if(!foundEle){
+				var entry = jQuery.extend(true, {}, this.products[i]);
+				entry['variantList'] = [];
+				entry.variantList.push(entry);
+				productsWithoutVariant.push(entry);
+			}
+		  }
+		  return productsWithoutVariant;		  	  
+	  }
+  
+    onPrdModelSelect(evt,prdModel){
+		  this.variants = prdModel.variantList;
+		  this.variants.sort((a: any, b: any)=> {
+												if (a.product_id < b.product_id)
+												  return -1;
+												if ( a.product_id > b.product_id)
+												  return 1;
+												return 0;
+											});//ascending sort
+		  this.showProductModelListDialog = false;
+		  this.showProductVariantListDialog = true;
 	  }
 	  
 	  
-	  onPrdSelect(evt,prd){
+	  onPrdVariantSelect(evt,prd){
 		  this.item.product_id = prd.product_id;
 		  this.item.product_type_id = prd.product_type_id;
 		  this.item.product_type_name = prd.product_type_name;
@@ -301,7 +346,8 @@ export class AppSell implements OnInit {
 											});//ascending sort
 				});
 				
-		  this.showProductListDialog = false;
+		  this.showProductModelListDialog = false;
+		  this.showProductVariantListDialog = false;
 		  this.showProductColorDialog = true;
 	  }
 	  
