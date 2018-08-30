@@ -12,7 +12,7 @@
 				   <form style="max-width: 350px;" class="login-form" autocomplete="off">
 						 <mat-form-field class="mobile-field" style="width:100%;">
 							  <span matPrefix>+91 &nbsp;</span>
-							  <input type="tel" matInput placeholder="Enter Mobile Number*" maxlength="10" [(ngModel)]="login_mobile" name="login_mobile" (keypress)="onMobileEnter($event)">
+							  <input type="tel" matInput placeholder="Enter Mobile Number*" maxlength="10" [(ngModel)]="login_mobile" name="login_mobile" (keyup)="onMobileEnter($event)">
 						 </mat-form-field>
 										 
 						 <mat-form-field class="otp-field" style="width:100%;" >
