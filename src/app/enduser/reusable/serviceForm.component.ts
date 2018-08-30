@@ -83,22 +83,7 @@ export class AppServiceForm implements OnInit {
 								this.sharedService.openMessageBox("E","No data found.",null);
 							}
 			  
-						  //this.serviceItem = itm;
-						  var no_of_rating = this.serviceItem.no_of_rating ? this.serviceItem.no_of_rating : '0';
-						  if(no_of_rating == '0'){
-							  this.serviceItem.fiveStar = 0 + '%';
-							  this.serviceItem.fourStar = 0 + '%';
-							  this.serviceItem.threeStar = 0 + '%';
-							  this.serviceItem.twoStar = 0 + '%';
-							  this.serviceItem.oneStar = 0 + '%';
-						  }
-						  else{
-							  this.serviceItem.fiveStar = ((this.serviceItem.no_of_five_star ? this.serviceItem.no_of_five_star : '0')/(no_of_rating)) * 100 + '%';
-							  this.serviceItem.fourStar = ((this.serviceItem.no_of_four_star ? this.serviceItem.no_of_four_star : '0')/(no_of_rating)) * 100 + '%';
-							  this.serviceItem.threeStar = ((this.serviceItem.no_of_three_star ? this.serviceItem.no_of_three_star : '0')/(no_of_rating)) * 100 + '%';
-							  this.serviceItem.twoStar = ((this.serviceItem.no_of_two_star ? this.serviceItem.no_of_two_star : '0')/(no_of_rating)) * 100 + '%';
-							  this.serviceItem.oneStar = ((this.serviceItem.no_of_one_star ? this.serviceItem.no_of_one_star : '0')/(no_of_rating)) * 100 + '%';
-						  }
+						  this.prepareRatingData();
 						  if(itm.service_id)
 							this.loadRatingFeedback();
 						
@@ -109,6 +94,27 @@ export class AppServiceForm implements OnInit {
 		  }
 		  this.serviceTabGroup.selectedIndex = 0;
 	  }
+  
+    prepareRatingData(){
+			//this.serviceItem = itm;
+			var no_of_rating = this.serviceItem.no_of_rating ? this.serviceItem.no_of_rating : '0';
+			if(no_of_rating == '0'){
+				this.serviceItem.fiveStar = 0 + '%';
+				this.serviceItem.fourStar = 0 + '%';
+				this.serviceItem.threeStar = 0 + '%';
+				this.serviceItem.twoStar = 0 + '%';
+				this.serviceItem.oneStar = 0 + '%';
+			}
+			else{
+				this.serviceItem.fiveStar = ((this.serviceItem.no_of_five_star ? this.serviceItem.no_of_five_star : '0')/(no_of_rating)) * 100 + '%';
+				this.serviceItem.fourStar = ((this.serviceItem.no_of_four_star ? this.serviceItem.no_of_four_star : '0')/(no_of_rating)) * 100 + '%';
+				this.serviceItem.threeStar = ((this.serviceItem.no_of_three_star ? this.serviceItem.no_of_three_star : '0')/(no_of_rating)) * 100 + '%';
+				this.serviceItem.twoStar = ((this.serviceItem.no_of_two_star ? this.serviceItem.no_of_two_star : '0')/(no_of_rating)) * 100 + '%';
+				this.serviceItem.oneStar = ((this.serviceItem.no_of_one_star ? this.serviceItem.no_of_one_star : '0')/(no_of_rating)) * 100 + '%';
+			}
+			
+	  }
+  
 	  onTabClick(event: MatTabChangeEvent) {
 		var tabname= event.tab.textLabel;
 		if(tabname == "Details"){
@@ -242,8 +248,12 @@ export class AppServiceForm implements OnInit {
 			   //debugger;
 				if(data.statusCode=="S"){
 					this.userRating = saveItem.rating;
-					//this.parentComponent.openItem(this.serviceItem);
-					
+					if(data.updatedService){
+						this.serviceItem = data.updatedService;
+						this.parentComponent.item = data.updatedService;
+						this.serviceItem.transactionTyp = "Service";
+						this.prepareRatingData();
+					}
 					this.showRateUsDialog = false;
 					this.showFeedbackDialog = true;
 					this.showDialog = true;
@@ -267,7 +277,9 @@ export class AppServiceForm implements OnInit {
 			.subscribe( data => {	
 			   //debugger;
 				if(data.statusCode=="S"){
-					this.loadService(this.serviceItem);
+          if(data.result)
+						this.feedbacks.push(data.result);
+					//this.loadService(this.serviceItem);
 				}
 				else{
 					this.sharedService.openMessageBox("E","Unable to rate.",null);
