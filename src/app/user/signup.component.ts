@@ -70,10 +70,15 @@ export   class   AppSignup  implements OnInit {
 	  this.loginError = "";
 	  this.sendOTP = "Resend OTP";
 	  if(this.login_mobile){
-		  this.commonService.sendOtp(this.login_mobile)
-			   .subscribe( data => {
-			   
-			  });	
+      if(this.login_mobile.length === 10){
+        this.commonService.sendOtp(this.login_mobile)
+          .subscribe( data => {
+
+        });
+      }
+      else{
+			  this.loginError = "Please enter a valid mobile number.";
+		  }
 	  }
 	  else{
 			this.loginError = "Please enter your mobile number.";
@@ -101,8 +106,9 @@ export   class   AppSignup  implements OnInit {
   
   onSubmit() {
 	  if(!(this.validatePassword(this.login_password))){
-		this.login_password = "";
-		return false;  
+		  this.login_password = "";
+      this.confirm_password = "";
+		  return false;  
 	  }
 	  
 	  var that = this;	  
@@ -110,7 +116,7 @@ export   class   AppSignup  implements OnInit {
 	  var login_password = this.login_password;
 	  var login_otp = this.login_otp;
 	  
-	 if(login_mobile && login_otp && login_password){
+	 if(login_mobile && (login_mobile.length === 10) && login_otp && login_password){
 			if(this.login_password === this.confirm_password){
 				  /*this.commonService.loginByOtp(login_mobile,login_otp)
 				   .subscribe( data => {	
