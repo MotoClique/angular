@@ -41,7 +41,7 @@ export class SharedService {
 	
 	call(entity, method, obj, admin) {
 		if(!(entity.includes("image/") && method==='get')){
-			this.setBusy(true);
+			this.setBusyWithCountCheck(true);
 			this.callCount = this.callCount - (-1);
 		}
 		this.token = this.auth.getToken();
@@ -70,13 +70,15 @@ export class SharedService {
 		const request = base.map((res: any) => {
 			if(!(entity.includes("image/") && method==='get')){
 				this.callCount = this.callCount - 1;
-				if(this.callCount <= 0)
-					this.setBusy(false);
+				this.setBusyWithCountCheck(false);
 			}
 			return res;
 		})
 		.catch((err: any) => {
-			this.setBusy(false);
+			if(!(entity.includes("image/") && method==='get')){
+				this.callCount = this.callCount - 1;
+				this.setBusyWithCountCheck(false);
+			}
 			var message = "Error: Unable to process your request. Please contact admin.";
 			if(err.error.error && err.error.error.message)
 				message = err.error.error.message;
@@ -84,6 +86,17 @@ export class SharedService {
 		});
 
 		return request;
+	}
+  
+  setBusyWithCountCheck(state){
+		var that = this;
+		if(state)
+			document.getElementById("loaderContainer").style.display = "block";
+		else
+			setTimeout(function(){
+				if(that.callCount <= 0)
+					document.getElementById("loaderContainer").style.display = "none"; 
+			}, 500);			
 	}
 	
 	setBusy(state){
