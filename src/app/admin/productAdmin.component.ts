@@ -1127,6 +1127,23 @@ resizeImage(img,type) {
 					}
 				});
 			}
+			else{
+				this.from_rec = this.to_rec - (-1);
+				this.to_rec = ((this.products_to_upload.length - this.to_rec) >= 1000)? (this.to_rec - (-1000)) : this.products_to_upload.length ;
+				if(this.from_rec >= this.to_rec){
+					this.products_to_upload = [];
+					this.batch_to_upload = {data:[],sheet:""};
+					this.totalRecords = 0;
+					this.from_rec = 0;
+					this.to_rec = 0;
+					this.uploadValidation = {state: null, msg:""};
+					if(jQuery('#prdExcelUploadInput')){
+						jQuery('#prdExcelUploadInput').val('');
+					}
+				}
+				this.showUploadPreviewDialog = false;
+				this.sharedService.openMessageBox("E","No data were uploaded.",null);
+			}
 		}
 		else if(this.batch_to_upload.sheet === 'Specification'){
 			var toUpload = [];
@@ -1158,6 +1175,23 @@ resizeImage(img,type) {
 						this.sharedService.openMessageBox("E",data.msg,null);
 					}
 				});
+			}
+			else{
+				this.from_rec = this.to_rec - (-1);
+				this.to_rec = ((this.specs_to_upload.length - this.to_rec) >= 1000)? (this.to_rec - (-1000)) : this.specs_to_upload.length ;
+				if(this.from_rec >= this.to_rec){
+					this.specs_to_upload = [];
+					this.batch_to_upload = {data:[],sheet:""};
+					this.totalRecords = 0;
+					this.from_rec = 0;
+					this.to_rec = 0;
+					this.uploadValidation = {state: null, msg:""};
+					if(jQuery('#prdExcelUploadInput')){
+						jQuery('#prdExcelUploadInput').val('');
+					}
+				}
+				this.showUploadPreviewDialog = false;
+				this.sharedService.openMessageBox("E","No data were uploaded.",null);
 			}
 		}
 		else if(this.batch_to_upload.sheet === 'Image'){
