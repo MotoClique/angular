@@ -122,6 +122,10 @@ export class AppProductAdmin implements OnInit {
 	term: string = '';
 	spec_term: string = '';
 	prd_term: string = '';
+  totalRecords: number = 0;
+	from_rec: number = 0;
+	to_rec: number = 0;
+	batch_to_upload:any = {data:[],sheet:""};
 	
 	constructor(private router: Router, private http: Http, private commonService: CommonService, private sharedService: SharedService) {
 					var that = this;;
@@ -807,6 +811,9 @@ resizeImage(img,type) {
 	
 	onExcelUpload(evt){
 		var that = this;
+		this.totalRecords = 0;
+		this.from_rec = 0;
+		this.to_rec = 0;
 		var rABS = true; // true: readAsBinaryString ; false: readAsArrayBuffer
 		var files = evt.target.files;
 		if(files.length>0){
@@ -827,11 +834,11 @@ resizeImage(img,type) {
 					
 					that.prepareUploadData(jsn,that.sheetToUpload);
 				}
-				else if(that.sheetToUpload === 'Image'){
+				/*else if(that.sheetToUpload === 'Image'){
 					jsn = XLSX.utils.sheet_to_json(workbook.Sheets['Image']);//workbook.SheetNames[0]]);
 					
 					that.prepareUploadData(jsn,that.sheetToUpload);
-				}
+				}*/
 			};
 			if(rABS) reader.readAsBinaryString(f); else reader.readAsArrayBuffer(f);
 		}
@@ -844,13 +851,9 @@ resizeImage(img,type) {
 				if(!(currentItem.row))
 					currentItem.row = currentItem.__rowNum__ - (-1);
 			});
-			this.products_to_upload.sort((a: any, b: any)=> {
-												if (a.row < b.row)
-												  return -1;
-												if ( a.row > b.row)
-												  return 1;
-												return 0;
-											});//ascending sort
+			this.totalRecords = this.products_to_upload.length;
+			this.from_rec = this.to_rec - (-1);
+			this.to_rec = ((this.products_to_upload.length - this.to_rec) >= 1000)? (this.to_rec - (-1000)) : this.products_to_upload.length ;
 		}
 		if(this.sheetToUpload === 'Specification'){
 			this.specs_to_upload = data;
@@ -858,13 +861,9 @@ resizeImage(img,type) {
 				if(!(currentItem.row))
 					currentItem.row = currentItem.__rowNum__ - (-1);
 			});
-			this.specs_to_upload.sort((a: any, b: any)=> {
-												if (a.row < b.row)
-												  return -1;
-												if ( a.row > b.row)
-												  return 1;
-												return 0;
-											});//ascending sort
+			this.totalRecords = this.specs_to_upload.length;
+			this.from_rec = this.to_rec - (-1);
+			this.to_rec = ((this.specs_to_upload.length - this.to_rec) >= 1000)? (this.to_rec - (-1000)) : this.specs_to_upload.length ;
 		}
 		if(this.sheetToUpload === 'Image'){
 			this.images_to_upload = data;
@@ -876,60 +875,57 @@ resizeImage(img,type) {
 	}
 	
 	prepareUploadData(jsn,sheetToUpload){
-		var that = this;
-		
+		var that = this;		
 		if(jsn.length && jsn.length>0){
 			that.setUploadData(jsn);
 		}
 		else{
 			that.setUploadData([]);
-		}
-		
-		if(jsn.length && jsn.length>1000){
-			that.setUploadData([]);
-			that.sharedService.openMessageBox("E",'Maximum of 1000 products can only be uploaded at a time.',null);
-		}
-		else{			
-			that.validateUploadData(sheetToUpload);
-		}
+		}		
+	}
+	
+	onStartValidate(evt){
+		this.validateUploadData(this.sheetToUpload);
 	}
 	
 	getUploadData(){
 		var to_upload = [];
-		if(this.sheetToUpload === 'Product')
-			to_upload = this.products_to_upload
-		if(this.sheetToUpload === 'Specification')
-			to_upload = this.specs_to_upload
+		if(this.sheetToUpload === 'Product'){			
+			to_upload = (this.products_to_upload).slice((this.from_rec - 1),this.to_rec);
+		}
+		if(this.sheetToUpload === 'Specification'){
+			to_upload = (this.specs_to_upload).slice((this.from_rec - 1),this.to_rec);
+		}
 		if(this.sheetToUpload === 'Image')
-			to_upload = this.images_to_upload
+			to_upload = this.images_to_upload;
 		
 		return to_upload;
 	}
 	
 	validateUploadData(sheetToUpload){
 		var that = this;
-		//var to_upload = this.getUploadData();
-		var uploadData:any = {
+		this.batch_to_upload = {
 			data: this.getUploadData(),
 			sheet: sheetToUpload
 		};
-		this.commonService.adminService.validateUploadData(uploadData)
+		this.commonService.adminService.validateUploadData(this.batch_to_upload)
 			.subscribe( data => {
-				this.setUploadData(data.results);
+				this.batch_to_upload.data = data.results;
+				this.batch_to_upload.data.sort((a: any, b: any)=> {
+												if (a.row < b.row)
+												  return -1;
+												if ( a.row > b.row)
+												  return 1;
+												return 0;
+											});//ascending sort
 				if(data.statusCode=="S"){
 					this.uploadValidation = {state: 'S', msg: data.msg};	
 				}
 				else{
-					this.uploadValidation = {state: 'E', msg: data.msg};					
-					//if(data.results){						
-						
-					//}
-					//else{
-					//	this.sharedService.openMessageBox("E",data.msg,null);
-					//}
+					this.uploadValidation = {state: 'E', msg: data.msg};
 				}
 				this.showUploadPreviewDialog = true;
-				this.checkDiscrepancy(this.getUploadData());
+				this.checkDiscrepancy(this.batch_to_upload.data);
 			});
 	}
 	
@@ -1088,9 +1084,9 @@ resizeImage(img,type) {
 	}*/
 	
 	onUploadSubmit(evt){
-		if(this.products_to_upload.length>0){
+		if(this.batch_to_upload.sheet === 'Product'){
 			var toUpload = [];
-			jQuery.each(this.products_to_upload,function(i,v){
+			jQuery.each(this.batch_to_upload.data,function(i,v){
 				if(!(v.msg))
 					toUpload.push(v);
 			});
@@ -1098,6 +1094,20 @@ resizeImage(img,type) {
 				this.commonService.adminService.addMultipleProduct(toUpload)
 				.subscribe( data => {
 					if(data.statusCode=="S"){
+						this.from_rec = this.to_rec - (-1);
+						this.to_rec = ((this.products_to_upload.length - this.to_rec) >= 1000)? (this.to_rec - (-1000)) : this.products_to_upload.length ;
+						if(this.from_rec >= this.to_rec){
+							this.products_to_upload = [];
+							this.batch_to_upload = {data:[],sheet:""};
+							this.totalRecords = 0;
+							this.from_rec = 0;
+							this.to_rec = 0;
+							this.uploadValidation = {state: null, msg:""};
+							if(jQuery('#prdExcelUploadInput')){
+								jQuery('#prdExcelUploadInput').val('');
+							}
+						}
+						this.showUploadPreviewDialog = false;
 						this.sharedService.openMessageBox("S",data.msg,null);
 					}
 					else{
@@ -1106,9 +1116,9 @@ resizeImage(img,type) {
 				});
 			}
 		}
-		else if(this.specs_to_upload.length>0){
+		else if(this.batch_to_upload.sheet === 'Specification'){
 			var toUpload = [];
-			jQuery.each(this.specs_to_upload,function(i,v){
+			jQuery.each(this.batch_to_upload.data,function(i,v){
 				if(!(v.msg))
 					toUpload.push(v);
 			});
@@ -1116,6 +1126,20 @@ resizeImage(img,type) {
 				this.commonService.adminService.addMultiProductSpec(toUpload)
 				.subscribe( data => {
 					if(data.statusCode=="S"){
+						this.from_rec = this.to_rec - (-1);
+						this.to_rec = ((this.specs_to_upload.length - this.to_rec) >= 1000)? (this.to_rec - (-1000)) : this.specs_to_upload.length ;
+						if(this.from_rec >= this.to_rec){
+							this.specs_to_upload = [];
+							this.batch_to_upload = {data:[],sheet:""};
+							this.totalRecords = 0;
+							this.from_rec = 0;
+							this.to_rec = 0;
+							this.uploadValidation = {state: null, msg:""};
+							if(jQuery('#prdExcelUploadInput')){
+								jQuery('#prdExcelUploadInput').val('');
+							}
+						}
+						this.showUploadPreviewDialog = false;
 						this.sharedService.openMessageBox("S",data.msg,null);
 					}
 					else{
@@ -1124,16 +1148,7 @@ resizeImage(img,type) {
 				});
 			}
 		}
-		else if(this.images_to_upload.length>0){
-			/*this.commonService.adminService.addMultiProductImage(this.images_to_upload)
-			.subscribe( data => {
-				if(data.statusCode=="S"){
-					this.sharedService.openMessageBox("S",data.msg,null);
-				}
-				else{
-					this.sharedService.openMessageBox("E",data.msg,null);
-				}
-			});*/
+		else if(this.batch_to_upload.sheet === 'Image'){
 			this.uploadMultipleImages();
 		}
 	}
@@ -1176,6 +1191,19 @@ resizeImage(img,type) {
 	
 	onDownoadTemplateClick(evt){
 		window.open("/assets/product_template.xlsx","_blank");
+	}
+  
+  onSheetTypeSelect(evt){
+		jQuery('#prdExcelUploadInput').val('');
+		jQuery('#prdImageUploadInput').val('');
+		this.products_to_upload = [];
+		this.specs_to_upload = [];
+		this.images_to_upload = [];
+		this.batch_to_upload = {data:[],sheet:""};
+		this.totalRecords = 0;
+		this.from_rec = 0;
+		this.to_rec = 0;
+		this.uploadValidation = {state: null, msg:""};
 	}
 
 
