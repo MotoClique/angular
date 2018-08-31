@@ -374,7 +374,7 @@
 						<div class="form-inline">
 							<div class="col-sm-12">
                 <div style="padding:10px;">
-								<input id="prdExcelUploadInput" class="form-control" style="width: 100%;" type="file" (change)="onExcelUpload($event)">
+								<input id="prdExcelUploadInput" class="form-control" style="width: 100%;" type="file" name="excelfileInput" [(ngModel)]="excelfileInput" (change)="onExcelUpload($event)">
 							  </div>
               </div>
 						</div>
@@ -383,7 +383,7 @@
 						<div class="form-inline">
 							<div class="col-sm-12">
                 <div style="padding:10px;">
-								<input id="prdImageUploadInput" class="form-control" style="width: 100%;" accept="image/*" type="file" (change)="onMultipleImageUpload($event)" multiple>
+								<input id="prdImageUploadInput" class="form-control" style="width: 100%;" accept="image/*" type="file" name="imagefileInput" [(ngModel)]="imagefileInput" (change)="onMultipleImageUpload($event)" multiple>
 							  </div>
               </div>
 						</div>
