@@ -126,6 +126,8 @@ export class AppProductAdmin implements OnInit {
 	from_rec: number = 0;
 	to_rec: number = 0;
 	batch_to_upload:any = {data:[],sheet:""};
+  excelfileInput: string = '';
+  imagefileInput: string = '';
 	
 	constructor(private router: Router, private http: Http, private commonService: CommonService, private sharedService: SharedService) {
 					var that = this;;
@@ -806,7 +808,17 @@ resizeImage(img,type) {
 	
 	onUploadFromExcelClick(evt){
 		this.showUploadExcelDialog = true;
-		//document.getElementById('prdExcelUploadInput').setAttribute('value',null) ;
+		this.sheetToUpload = '';
+		this.excelfileInput = '';
+		this.imagefileInput = '';
+		this.products_to_upload = [];
+		this.specs_to_upload = [];
+		this.images_to_upload = [];
+		this.batch_to_upload = {data:[],sheet:""};
+		this.totalRecords = 0;
+		this.from_rec = 0;
+		this.to_rec = 0;
+		this.uploadValidation = {state: null, msg:""};
 	}
 	
 	onExcelUpload(evt){
