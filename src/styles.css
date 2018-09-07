@@ -381,4 +381,9 @@ input{
 .createNewIcon{
 	font-size: 100px; width: 140px; height: 140px; text-align: center; border: 1px solid; border-radius: 140px;
 }
+
+.col-sm-12{
+	padding-right: 5px !important;
+    padding-left: 5px !important;
+}
 	
