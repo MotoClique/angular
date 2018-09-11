@@ -261,7 +261,7 @@ export class AppHome implements OnInit {
             }
 				  }
 				  else{
-						if(data.results && data.results.length<=0){
+						if(data.completed){
 							this.noMoreData = true;
 						}
 						this.searchResponse = data;
