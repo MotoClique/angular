@@ -219,6 +219,7 @@ export class AppHome implements OnInit {
 	  }
 	  
 	  loadResult(selected){
+      document.getElementById("homeSearchLoaderContainer").style.display = "block";
 		  this.loading = true;
 		  if(!(this.results) || this.results.length<=0){
 			  this.lastScroll = 0;
@@ -284,6 +285,7 @@ export class AppHome implements OnInit {
 					  });
 					  this.loading = false;
 				  }
+          document.getElementById("homeSearchLoaderContainer").style.display = "none";
 			  });
 	  }
 	  
