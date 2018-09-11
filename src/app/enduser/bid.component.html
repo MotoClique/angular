@@ -105,7 +105,7 @@
 <app-dialog>
  -->
 <app-dialog [(visible)]="showListDialog">
-	<div [hidden]="!showProductTypeListDialog" style="padding: 40px;">
+	<div [hidden]="!showProductTypeListDialog" style="padding: 25px;">
 		<div class="listHeader">Select a product type</div>
 		<div>
 		<div class="listItem" *ngFor="let prdTyp of productTypes" (click)="onPrdTypSelect($event,prdTyp)" [hidden]="prdTyp.product_type_name === 'Service'">{{prdTyp.product_type_name}}</div>
@@ -114,7 +114,7 @@
 	
 	
 	
-	<div [hidden]="!showBrandListDialog" style="padding: 40px;">
+	<div [hidden]="!showBrandListDialog" style="padding: 25px;">
 		<div class="listHeader">Select a brand</div>
 		<div>
 		<div class="listItem" *ngFor="let brand of brands" (click)="onBrandSelect($event,brand)">{{brand}}</div>
@@ -122,14 +122,14 @@
 	</div>
 	
 	
-	<div [hidden]="!showProductListDialog" style="padding: 40px;">
+	<div [hidden]="!showProductListDialog" style="padding: 25px;">
 		<div class="listHeader">Select a product</div>
 		<div>
 		<div class="listItem" *ngFor="let prd of products" (click)="onPrdSelect($event,prd)">{{prd.brand_name}} {{prd.model}} {{prd.variant}}</div>
 		</div>
 	</div>
 	
-	<div [hidden]="!showProductColorDialog" style="padding: 40px;">
+	<div [hidden]="!showProductColorDialog" style="padding: 25px;">
 		<div class="listHeader">Select a colour</div>
 		<div>
 		<div class="listItem" *ngFor="let clr of colors" (click)="onPrdColorSelect($event,clr)">{{clr}}</div>
@@ -137,14 +137,14 @@
 		</div>
 	</div>
 	
-	<div [hidden]="!showProductYearDialog" style="padding: 40px;">
+	<div [hidden]="!showProductYearDialog" style="padding: 25px;">
 		<div class="listHeader">Select the year of manufacture</div>
 		<div>
 			<div class="listItem" *ngFor="let yr of years" (click)="onPrdYearSelect($event,yr)">{{yr.name}}</div>
 		</div>
 	</div>
 	
-	<div [hidden]="!showAddressListDialog" style="padding: 40px;">
+	<div [hidden]="!showAddressListDialog" style="padding: 25px;">
 		<div class="listHeader">Select an address</div>
 		<div>
 			<div class="listItem" *ngFor="let add of addresses" (click)="onAddressSelect($event,add)">{{add.address}}, {{add.locality}}</div>
