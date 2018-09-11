@@ -124,8 +124,8 @@
 
 <!-- -->
 <app-dialog [(visible)]="showUploadImageDialog">
-	<div style="padding:10px;">
-		<h3 class="page_title">Upload Image (JPEG, PNG, GIF)</h3>
+	<div style="padding:15px;">
+		  <div style="font-size:16px; text-align:center; margin-top:20px; background-color:#dddddd">Upload Image (JPEG, PNG, GIF)</div>
 			<div class="padding">
 				<label></label>
 				<input class="form-control" style="width: 100%;" type="file" accept="image/*" (change)="onUpload($event)">
@@ -137,7 +137,8 @@
 <!-- -->
 <app-dialog [(visible)]="showBidConfirmDialog">
 	<div style="padding:10px;">
-		<h3 class="page_title">Participate Info</h3>
+      <div style="font-size:18px; text-align:center; margin-top:20px; background-color:#dddddd">Participate Info</div>
+		
 			<div class="padding">
 				<div>Participating in the Bidding process is chargeable of Rs. 150/- <br> Do you want to proceed?</div>
 				<div style="display:flex;">
