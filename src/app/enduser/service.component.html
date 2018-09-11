@@ -100,7 +100,7 @@
 <app-dialog>
  -->
 <app-dialog [(visible)]="showListDialog">
-	<div [hidden]="!showProductTypeListDialog" style="padding: 40px;">
+	<div [hidden]="!showProductTypeListDialog" style="padding: 25px;">
 		<div class="listHeader">Select the service for</div>
 		<div>
 		<div class="listItem" *ngFor="let prdTyp of productTypes" (click)="onPrdTypSelect($event,prdTyp)" [hidden]="prdTyp.product_type_name === 'Service'">{{prdTyp.product_type_name}}</div>
@@ -109,14 +109,14 @@
 	
 	
 	
-	<div [hidden]="!showProductListDialog" style="padding: 40px;">
+	<div [hidden]="!showProductListDialog" style="padding: 25px;">
 		<div class="listHeader">Select a service</div>
 		<div>
 		<div class="listItem" *ngFor="let prd of products" (click)="onPrdSelect($event,prd)">{{prd.brand_name}} {{prd.model}}</div>
 		</div>
 	</div>
 	
-	<div [hidden]="!showAddressListDialog" style="padding: 40px;">
+	<div [hidden]="!showAddressListDialog" style="padding: 25px;">
 		<div class="listHeader">Select an address</div>
 		<div>
 			<div class="listItem" *ngFor="let add of addresses" (click)="onAddressSelect($event,add)">{{add.address}}, {{add.locality}}</div>
