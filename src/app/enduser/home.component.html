@@ -65,7 +65,15 @@
 					<tile-template [item]="result" [parentComponent]="self" (openItem)="onItemSelect($event)"></tile-template>
 				</div>
 			  </div>
-			</div>   
+			</div>
+      <div id="homeSearchLoaderContainer" style="display:none;">
+				<div style="width:100%; height:100%; display:flex; justify-content:center; align-items:center;">
+					<div>
+						<div id="homeSearchLoader" class="homeSearchLoader"></div>
+						<div>Please wait...</div>
+					</div>
+				</div>
+			</div>
 	</div>
 
 </div>
