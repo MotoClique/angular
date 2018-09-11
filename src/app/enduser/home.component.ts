@@ -278,7 +278,7 @@ export class AppHome implements OnInit {
 							if(v.type === "Buy") transc_id = v.buy_req_id; 
 							if(v.type === "Bid") transc_id = v.bid_id; 
 							if(v.type === "Service") transc_id = v.service_id;
-							that.getFav(v,transc_id);
+							//that.getFav(v,transc_id);
 							v.busy = true;
 							that.getResultImage(v,transc_id);
 						  }
