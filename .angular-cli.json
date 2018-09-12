@@ -15,7 +15,8 @@
 		{ "glob": "noimage.jpg", "input": "./", "output": "./assets/" },
 		{ "glob": "default.png", "input": "./", "output": "./assets/" },
 		{ "glob": "product_template.xlsx", "input": "./", "output": "./assets/" },
-		{ "glob": "inr.png", "input": "./", "output": "./assets/" }
+		{ "glob": "inr.png", "input": "./", "output": "./assets/" },
+	      	{ "glob": "brandlogo.jpg", "input": "./", "output": "./assets/" }
       ],
       "index": "index.html",
       "main": "main.ts",
