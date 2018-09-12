@@ -77,7 +77,7 @@
 							<mat-form-field style="width: 100%;" [hidden]="disabled.field">
 								<mat-select placeholder="Variant" name="variant" [attr.data-val]="item.variant" [(ngModel)]="item.variant" >
 									  <mat-option value=""></mat-option>
-									  <mat-option *ngFor="let variant of variants" [value]="variant.variant">{{variant.variant}}</mat-option>
+									  <mat-option *ngFor="let variant of variants" [value]="variant">{{variant.variant}}</mat-option>
 								</mat-select>
 							</mat-form-field>
 							<mat-form-field style="width: 100%;" [hidden]="!disabled.field" >
