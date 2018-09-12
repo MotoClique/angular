@@ -57,7 +57,7 @@ export class AppFilter implements OnInit {
 		transmissions: any = [];
 		ownerTypes: any = [];
 		colors: any = [];
-		
+		products:any = [];
 		item: any = {};
 		disabled: any = {field: false};
 		userDetail: any = {};
@@ -209,7 +209,7 @@ export class AppFilter implements OnInit {
 		
 		
 	onPrdTypSelect(evt){
-		if(evt === 'All'){
+		if(evt === 'All' || evt === ''){
 			//this.item.product_type_name = evt;
 			this.selectedPrdTyp = '';
 		}
@@ -237,8 +237,8 @@ export class AppFilter implements OnInit {
 	}
 	onBrandSelect(evt){
 		this.item.brand_name = evt;
-		if(evt === 'All'){
-			this.selectedPrdTyp = '';
+		if(evt === 'All' || evt === ''){
+			this.selectedBrand = '';
 		}
 		else{
 			this.selectedBrand = evt;
@@ -249,15 +249,39 @@ export class AppFilter implements OnInit {
 		//var variant = this.item.variant;
 		this.models = [];
 		this.variants = [];
-		this.commonService.adminService.getModel(this.selectedPrdTyp,this.selectedBrand)
-			.subscribe( models => {
-				this.models = models.results;
-			});
-		//this.commonService.adminService.getVariant(product_type_id,brand_id,model)
-			//.subscribe( variants => this.variants = variants.product);
+		this.commonService.adminService.getProduct("",this.selectedPrdTyp,this.selectedBrand)
+		.subscribe( products => {
+			this.products = products.results;
+			this.models = this.extractProductUniqueModels();					
+		});
 	}
+  
+  extractProductUniqueModels(){
+		  var productsWithoutVariant = [];
+		  for(var i=0; i<this.products.length; i++){
+			var foundEle = false;
+			for(var j=0; j<productsWithoutVariant.length; j++){
+				var prdName = this.products[i].product_type_name +' '+ this.products[i].brand_name +' '+ this.products[i].model;
+				var unqPrdName = productsWithoutVariant[j].product_type_name +' '+ productsWithoutVariant[j].brand_name +' '+ productsWithoutVariant[j].model;
+				if(prdName === unqPrdName){
+					var variant_entry = jQuery.extend(true, {}, this.products[i]);
+					productsWithoutVariant[j].variantList.push(variant_entry);
+					foundEle = true;
+					break;
+				}
+			}
+			if(!foundEle){
+				var entry = jQuery.extend(true, {}, this.products[i]);
+				entry['variantList'] = [];
+				entry.variantList.push(entry);
+				productsWithoutVariant.push(entry);
+			}
+		  }
+		  return productsWithoutVariant;		  	  
+	}
+  
 	onModelSelect(evt){
-		if(evt === 'All'){
+		if(evt === 'All' || evt === ''){
 			//this.item.model = evt;
 			this.selectedModel = '';
 		}
@@ -441,6 +465,9 @@ export class AppFilter implements OnInit {
 					}
 					else if(v.filter_field === 'model'){
 						that.item[v.filter_field] = that.models.find(function(element) { return element.model === v.filter_value; });
+					}
+          else if(v.filter_field === 'variant'){
+						that.item[v.filter_field] = that.variants.find(function(element) { return element.variant === v.filter_value; });
 					}
 					else{
 						that.item[v.filter_field] = v.filter_value;
