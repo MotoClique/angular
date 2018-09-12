@@ -33,7 +33,13 @@ export   class   AppLogin  implements OnInit {
   }
 
   ngOnInit() {
-	  	  
+	  	  if(this.auth.isLoggedIn()){
+          var userDetail = this.auth.getUserDetails();
+          if(userDetail.admin === 'A' || userDetail.admin === 'S')
+            this.router.navigateByUrl('/ContainerAdmin');
+          else
+            this.router.navigateByUrl('/Container');
+        }
   }
   
   onLogin() {
