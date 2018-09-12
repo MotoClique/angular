@@ -1,10 +1,10 @@
 <div class="scrollContainerStyle" style="height:100%; overflow-y: auto; overflow-x: hidden;" (scroll)="handleScroll($event)">
 	<div class="container">
-	   <div style="margin-top: 10px;">
+	   <div style="">
 			
             <div class="row">
                 <div class="col-sm-2" >                   
-				   <div style="padding:10px;">
+				   <div style="padding:5px;">
 					   <form autocomplete="off" >	
 								<div class="form-control">
 									<div  style="display: flex;">
@@ -23,7 +23,7 @@
 					</div>
 				</div>
                  <div class="col-sm-8" >
-					<div style="padding:10px;">
+					<div style="padding:5px;">
 						<form autocomplete="off" >	
 							<div class="form-control">
 								<div  style="display: flex;">
@@ -43,7 +43,7 @@
                    </div>
                 </div>
                  <div class="col-sm-2" >
-					<div style="padding:10px;">
+					<div style="padding:5px;">
 						<form autocomplete="off" >
 							<select class="form-control" id="type" [(ngModel)]="type" name="type" (change)="onTypeSelect($event)">
 								 <option *ngFor="let typ of types" [value]="typ.name">{{typ.name}}</option>
@@ -58,7 +58,6 @@
  
 
 	<div class="container" style="padding-right: 0px; padding-left: 0px;">			
-			<b style="line-height: 50px; margin-left: 15px;">Results:</b>
 			<div class="container-fluid">
 			  <div class="row">
 				<div class="col-xs-12 col-md-6 col-lg-4" *ngFor="let result of results">
