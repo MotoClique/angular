@@ -152,9 +152,11 @@ export class AppFilter implements OnInit {
 																	that.selectedBrand = '';
 																else
 																	that.selectedBrand = that.item['brand_name'];
-																that.commonService.adminService.getModel(that.selectedPrdTyp,that.selectedBrand)
-																	.subscribe( models => {
-																		that.models = models.results;
+																that.commonService.adminService.getProduct("",that.selectedPrdTyp,that.selectedBrand)
+																	.subscribe( products => {
+                                    that.products = products.results;
+																		that.models = that.extractProductUniqueModels();
+																		//that.models = models.results;
 																		if(that.item['model']){
 																			if(that.item['model'] === 'All') 
 																				that.selectedModel = '';
