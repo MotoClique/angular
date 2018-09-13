@@ -114,12 +114,21 @@
 	</div>
 	
 	
-	<div [hidden]="!showProductListDialog" style="padding: 25px;">
-		<div class="listHeader">Select a product</div>
+  <div [hidden]="!showProductModelListDialog" style="padding: 25px;">
+    <input class="form-control" style="width: 100%;" type="text" [(ngModel)]="model_term" placeholder="Search..">
+		<div class="listHeader">Select a Model</div>
 		<div>
-		<div class="listItem" *ngFor="let prd of products" (click)="onPrdSelect($event,prd)">{{prd.brand_name}} {{prd.model}} {{prd.variant}}</div>
+		<div class="listItem" *ngFor="let mdl of models | filter : {brand_name:model_term, model:model_term}" (click)="onPrdModelSelect($event,mdl)">{{mdl.brand_name}} {{mdl.model}}</div>
 		</div>
 	</div>
+	<div [hidden]="!showProductVariantListDialog" style="padding: 25px;">
+    <input class="form-control" style="width: 100%;" type="text" [(ngModel)]="variant_term" placeholder="Search..">
+		<div class="listHeader">Select a Variant</div>
+		<div>
+		<div class="listItem" *ngFor="let varnt of variants | filter : {brand_name:variant_term, model:variant_term, variant:variant_term}" (click)="onPrdVariantSelect($event,varnt)">{{varnt.brand_name}} {{varnt.model}} {{varnt.variant}}</div>
+		</div>
+	</div>
+  	
 	
 	<div [hidden]="!showProductColorDialog" style="padding: 25px;">
 		<div class="listHeader">Select a colour</div>
