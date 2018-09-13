@@ -64,7 +64,7 @@
 									</div>
 									<div class="portrait">
 										<img [hidden]="currentImage.no_image" src="{{currentImage.data}}">
-										<img [hidden]="!currentImage.no_image" src="/assets/noimage.jpg">
+										<img [hidden]="!currentImage.no_image" src="/assets/noimage.png">
 									</div>
 								  
 								  <div [hidden]="(item.user_id === userDetail.user_id) || (item.bid_id === undefined) || (item.bid_id === null) || (item.bid_id === '') || (item.sold)" style="display: flex; justify-content: flex-end; position: absolute; bottom: 25px; width: 100%;">
