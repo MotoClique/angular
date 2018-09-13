@@ -50,6 +50,8 @@
     "protractor": "^5.3.2",
     "ts-node": "~3.2.0",
     "tslint": "~5.7.0",
-    "typescript": "~2.4.2"
+    "typescript": "~2.4.2",
+    "@angular-devkit/schematics": "0.0.42",
+    "@angular-devkit/core": "0.0.23"
   }
 }
