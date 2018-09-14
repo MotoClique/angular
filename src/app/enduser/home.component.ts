@@ -283,6 +283,18 @@ export class AppHome implements OnInit {
 							that.getResultImage(v,transc_id);
 						  }
 					  });
+					  this.results.sort((a: any, b: any)=> {
+												var fromd = a.createdAt.split('/');
+												fromdObj = new Date(fromd[2]+'-'+fromd[1]+'-'+fromd[0]);
+												var tod = b.createdAt.split('/');
+												todObj = new Date(tod[2]+'-'+tod[1]+'-'+tod[0]);
+												if (fromdObj < todObj)
+												  return 1;
+												if (fromdObj > todObj)
+												  return -1;
+												return 0;
+											});//descending sort
+					  
 					  this.loading = false;
 				  }
           document.getElementById("homeSearchLoaderContainer").style.display = "none";
