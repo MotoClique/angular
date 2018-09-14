@@ -469,7 +469,7 @@ export class AppBid implements OnInit {
 		this.detail = true;
 		this.editMode = true;
 		this.screenMode = {add:true, edit:false};
-		this.dynamicFormComponent.generateField("bid");
+		this.dynamicFormComponent.generateField("Bid");
 		this.imageTemplateComponent.getThumbnails(this.item.product_id);
 	  }
 	  	  
