@@ -84,6 +84,7 @@ export class AppBid implements OnInit {
 		noMoreData: boolean = false;
 		model_term: string = '';
 		variant_term: string = '';
+		brand_term: string = '';
 		@ViewChild(AppDynamicForm) dynamicFormComponent: AppDynamicForm;
 		@ViewChild(AppImageTemplate) imageTemplateComponent: AppImageTemplate;
 		@ViewChild(AppTileTemplate) tileTemplateComponent: AppTileTemplate;

@@ -70,6 +70,7 @@ export class AppService implements OnInit {
 		showAddressListDialog: boolean = false;
 		lastScroll: any = 0;
 		noMoreData: boolean = false;
+		service_term: string = '';
 		@ViewChild(AppServiceForm) serviceFormComponent: AppServiceForm;
 		@ViewChild(AppImageTemplate) imageTemplateComponent: AppImageTemplate;
 		@ViewChild(AppTileTemplate) tileTemplateComponent: AppTileTemplate;

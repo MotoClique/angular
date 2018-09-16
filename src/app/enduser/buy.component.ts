@@ -79,6 +79,7 @@ export class AppBuy implements OnInit {
 		noMoreData: boolean = false;
 		model_term: string = '';
 		variant_term: string = '';
+		brand_term: string = '';
 		showAddressListDialog: boolean = false;
 		@ViewChild(AppDynamicForm) dynamicFormComponent: AppDynamicForm;
 		@ViewChild(AppImageTemplate) imageTemplateComponent: AppImageTemplate;
