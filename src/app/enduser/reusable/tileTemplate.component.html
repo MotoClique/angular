@@ -39,7 +39,7 @@
 					<div style=" margin-right: 8px;"><span style="color:#E71B03;" class="glyphicon glyphicon-map-marker"></span> {{item.city ? item.city : '---'}}</div>
 					<div style=" margin-right: 8px;"><span *ngIf="item.transactionTyp === 'Buy'" style="width: 10px;" class="glyphicon glyphicon-menu-right"></span> <span style="color:#E71B03;" class="glyphicon glyphicon-time"></span> {{item.year_of_reg ? item.year_of_reg : '0000'}}</div>
 					<div style=" margin-right: 8px;"><span *ngIf="item.transactionTyp === 'Buy'" style="width: 10px;" class="glyphicon glyphicon-menu-left"></span> <span style="color:#E71B03;" class="glyphicon glyphicon-road"></span> {{item.km_done ? item.km_done : '0'}} KM</div>
-					<div *ngIf="item.transactionTyp !== 'Buy'" style=" margin-right: 8px;"><span style="color:#E71B03;" class="glyphicon glyphicon-camera"></span> {{item.number_of_image ? item.number_of_image : '0'}}</div>
+					<div style=" margin-right: 8px;"><span style="color:#E71B03;" class="glyphicon glyphicon-user"></span> {{ownerTypeFormatter(item.owner_type)}}</div>
 					<div style="right: 15px; position: absolute;"><span style="color:#E71B03;" class="glyphicon glyphicon-calendar"></span> {{item.createdOn}}</div>
 			</div>
 			<div class="resultItemDetailBottom" *ngIf="item.transactionTyp === 'Service'">

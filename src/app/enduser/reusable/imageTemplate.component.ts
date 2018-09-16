@@ -708,5 +708,55 @@ export class AppImageTemplate implements OnInit {
 			array.splice(index, 1);
 		}        
 	}
+	
+	ownerTypeFormatter(typ){
+		var owner = '-';
+		switch(typ){
+			case 'First':
+				owner = '1';
+				break;
+				
+			case 'Second':
+				owner = '2';
+				break;
+				
+			case 'Third':
+				owner = '3';
+				break;
+				
+			case 'Fourth':
+				owner = '4';
+				break;
+				
+			case 'Fifth':
+				owner = '5';
+				break;
+				
+			case 'Sixth':
+				owner = '6';
+				break;
+				
+			case 'Seventh':
+				owner = '7';
+				break;
+				
+			case 'Eight':
+				owner = '8';
+				break;
+				
+			case 'Ninth':
+				owner = '9';
+				break;
+				
+			case 'Tenth':
+				owner = '10';
+				break;
+				
+			default:
+				owner = '-';
+				break;
+		}
+		return owner;
+	}
 		
 }
