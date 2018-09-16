@@ -269,7 +269,7 @@ export class AppHome implements OnInit {
 						this.results = this.results.concat(data.results);
 						jQuery.each(this.results,function(i,v){
 						  if(!(v.data)){
-							v.fav = false;
+							//v.fav = false;
 							//v.price = v.net_price;
 							v.currency = "INR";
 							v.no_image = "1";
