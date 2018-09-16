@@ -10,6 +10,10 @@ export class FilterPipe implements PipeTransform {
       if (filter && Array.isArray(items)) {
           let filterKeys = Object.keys(filter);
           return items.filter(function(item){
+							if(typeof(item) === 'string'){
+                                return (item.toLowerCase().indexOf(filter.toLowerCase()) !== -1)?true:false;
+							}
+							else{
                                 var cond = false;
                                 jQuery.each(filterKeys,function(i,v){
                                                            if(filter[v])
@@ -17,8 +21,9 @@ export class FilterPipe implements PipeTransform {
                                                            else
                                                               cond = true;
                                                   });                                                 
-								return  cond;                                                 
-                               });
+								return  cond;  
+							}								
+                        });
       } else {
           return items;
       }

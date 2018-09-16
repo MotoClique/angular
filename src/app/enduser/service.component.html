@@ -110,9 +110,10 @@
 	
 	
 	<div [hidden]="!showProductListDialog" style="padding: 25px;">
+		<input class="form-control" style="width: 100%;" type="text" [(ngModel)]="service_term" placeholder="Search..">
 		<div class="listHeader">Select a service</div>
 		<div>
-		<div class="listItem" *ngFor="let prd of products" (click)="onPrdSelect($event,prd)">{{prd.brand_name}} {{prd.model}}</div>
+		<div class="listItem" *ngFor="let prd of products | filter : {brand_name:service_term, model:service_term}" (click)="onPrdSelect($event,prd)">{{prd.brand_name}} {{prd.model}}</div>
 		</div>
 	</div>
 	

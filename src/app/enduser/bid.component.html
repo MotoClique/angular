@@ -115,9 +115,10 @@
 	
 	
 	<div [hidden]="!showBrandListDialog" style="padding: 25px;">
+		<input class="form-control" style="width: 100%;" type="text" [(ngModel)]="brand_term" placeholder="Search..">
 		<div class="listHeader">Select a brand</div>
 		<div>
-		<div class="listItem" *ngFor="let brand of brands" (click)="onBrandSelect($event,brand)">{{brand}}</div>
+		<div class="listItem" *ngFor="let brand of brands | filter : brand_term" (click)="onBrandSelect($event,brand)">{{brand}}</div>
 		</div>
 	</div>
 	
