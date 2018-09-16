@@ -106,7 +106,7 @@
  -->
 <app-dialog [(visible)]="showListDialog">
 	<div [hidden]="!showProductTypeListDialog" style="padding: 25px;">
-		<div class="listHeader">Select a product type</div>
+		<div class="listHeader">Select a Product Type</div>
 		<div>
 		<div class="listItem" *ngFor="let prdTyp of productTypes" (click)="onPrdTypSelect($event,prdTyp)" [hidden]="prdTyp.product_type_name === 'Service'">{{prdTyp.product_type_name}}</div>
 		</div>
@@ -116,7 +116,7 @@
 	
 	<div [hidden]="!showBrandListDialog" style="padding: 25px;">
 		<input class="form-control" style="width: 100%;" type="text" [(ngModel)]="brand_term" placeholder="Search..">
-		<div class="listHeader">Select a brand</div>
+		<div class="listHeader">Select a Brand</div>
 		<div>
 		<div class="listItem" *ngFor="let brand of brands | filter : brand_term" (click)="onBrandSelect($event,brand)">{{brand}}</div>
 		</div>
@@ -140,7 +140,7 @@
   	
 	
 	<div [hidden]="!showProductColorDialog" style="padding: 25px;">
-		<div class="listHeader">Select a colour</div>
+		<div class="listHeader">Select a Colour</div>
 		<div>
 		<div class="listItem" *ngFor="let clr of colors" (click)="onPrdColorSelect($event,clr)">{{clr}}</div>
 		<div class="listItem" (click)="onPrdColorSelect($event,'NA')">Without System Image</div>
@@ -148,14 +148,14 @@
 	</div>
 	
 	<div [hidden]="!showProductYearDialog" style="padding: 25px;">
-		<div class="listHeader">Select the year of manufacture</div>
+		<div class="listHeader">Select the Year of Manufacture</div>
 		<div>
 			<div class="listItem" *ngFor="let yr of years" (click)="onPrdYearSelect($event,yr)">{{yr.name}}</div>
 		</div>
 	</div>
 	
 	<div [hidden]="!showAddressListDialog" style="padding: 25px;">
-		<div class="listHeader">Select an address</div>
+		<div class="listHeader">Select an Address</div>
 		<div>
 			<div class="listItem" *ngFor="let add of addresses" (click)="onAddressSelect($event,add)">{{add.address}}, {{add.locality}}</div>
 		</div>
