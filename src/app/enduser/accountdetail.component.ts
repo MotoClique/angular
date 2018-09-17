@@ -40,6 +40,7 @@ export class AppAccountDetail implements OnInit {
 	userDetail: any = {};	
 	disabledMode: boolean;
 	showPasswordInfoDialog: boolean = false;
+	lastScroll: any = 0;
 	
 	constructor(private commonService: CommonService, private sharedService: SharedService, private http: Http, router: Router) { 
 					this.router = router;
@@ -164,8 +165,16 @@ export class AppAccountDetail implements OnInit {
 			// pos/max will give you the distance between scroll bottom and and bottom of screen in percentage.
 			if(pos <= max && pos >= min )   {
 				console.log('almost reached');//
+				//this.sharedService.showFooter();
+			}
+			var scroll = elem.scrollTop();
+			if (scroll > this.lastScroll) {	//When scroll down
+				this.sharedService.hideFooter();
+			}
+			else{
 				this.sharedService.showFooter();
 			}
+			this.lastScroll = elem.scrollTop();
 		//}
 	}
 	

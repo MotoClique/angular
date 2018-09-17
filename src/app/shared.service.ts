@@ -325,7 +325,7 @@ export class SharedService {
 	 }
 	 
 	 
-	showFooter(){
+	/*showFooter(){
 		if(jQuery('.footerStyle') && !(jQuery('.footerStyle').hasClass('on-canvas'))){
 			jQuery('.footerStyle').addClass('on-canvas');
 			setTimeout(function(){ 
@@ -362,6 +362,20 @@ export class SharedService {
 
 				elm.onElementHeightChangeTimer = setTimeout(run, 200);
 			})();
+		}
+	}*/
+	
+	showFooter(){
+		jQuery('.footerStyle').removeClass('on-canvas');
+		jQuery('.footerStyle').addClass('on-canvas');
+	}
+	hideFooter(){
+		jQuery('.footerStyle').removeClass('on-canvas');
+	}
+	onElementHeightChange(){
+		var elm = jQuery(".scrollContainerStyle")[0];
+		if(elm){
+			this.showFooter();
 		}
 	}
 	

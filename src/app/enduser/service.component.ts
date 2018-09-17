@@ -606,8 +606,12 @@ export class AppService implements OnInit {
 						if(!this.loading)
 							this.paginate();
 						
-						this.sharedService.showFooter();
+						//this.sharedService.showFooter();
 					}
+					this.sharedService.hideFooter();
+				}
+				else{
+					this.sharedService.showFooter();
 				}
 			}
 		//}

@@ -42,6 +42,7 @@ export class AppAddress implements OnInit {
 		userDetail: any = {};
 		showPostListDialog: boolean = false;
 		posts: any = [];
+		lastScroll: any = 0;
 
 		constructor(private router: Router, private route: ActivatedRoute, private sharedService: SharedService, private commonService: CommonService) {
 			this.router = router;
@@ -298,8 +299,16 @@ export class AppAddress implements OnInit {
 				// pos/max will give you the distance between scroll bottom and and bottom of screen in percentage.
 				if(pos <= max && pos >= min )   {
 					console.log('almost reached');//					
+					//this.sharedService.showFooter();
+				}
+				var scroll = elem.scrollTop();
+				if (scroll > this.lastScroll) {	//When scroll down
+					this.sharedService.hideFooter();
+				}
+				else{
 					this.sharedService.showFooter();
 				}
+				this.lastScroll = elem.scrollTop();
 			//}
 		}
  

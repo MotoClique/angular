@@ -68,6 +68,7 @@ export class AppFilter implements OnInit {
 		selectedPrdTyp : string = "";
 		selectedBrand: string = "";
 		selectedModel: string = "";
+		lastScroll: any = 0;
 		
 		@ViewChild(AppDynamicForm) dynamicFormComponent: AppDynamicForm;
 		
@@ -504,8 +505,16 @@ export class AppFilter implements OnInit {
 				// pos/max will give you the distance between scroll bottom and and bottom of screen in percentage.
 				if(pos <= max && pos >= min )   {
 					console.log('almost reached');//					
+					//this.sharedService.showFooter();
+				}
+				var scroll = elem.scrollTop();
+				if (scroll > this.lastScroll) {	//When scroll down
+					this.sharedService.hideFooter();
+				}
+				else{
 					this.sharedService.showFooter();
 				}
+				this.lastScroll = elem.scrollTop();
 			//}
 		}
 	  	  
