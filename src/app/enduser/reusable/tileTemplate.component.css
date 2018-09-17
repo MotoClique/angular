@@ -7,7 +7,8 @@
   max-width: 350px; max-height:290px; position: relative; width:100%; height:100%;
 }
 .resultItemWrapper:active{
-	border: 4px solid #ccd8ff;
+	-webkit-box-shadow: 0 4px 18px 0 rgba(0,0,0,0.14), 0 5px 2px -4px rgba(0,0,0,0.12), 0 8px 18px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 4px 18px 0 rgba(0,0,0,0.14), 0 5px 2px -4px rgba(0,0,0,0.12), 0 8px 18px 0 rgba(0,0,0,0.2);
 }
 .resultItemType{
 	font-size: 12px; font-weight: bolder; color: white; background-color: red;  border-radius: 20px; width: 60px; line-height: 30px; text-align: center;
