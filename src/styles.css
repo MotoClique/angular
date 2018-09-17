@@ -333,8 +333,8 @@ input{
 }
 
 .on-canvas {
-	top: auto;
-	height:52px;
+	top: auto !important;
+	height:52px !important;
 }
 
 
