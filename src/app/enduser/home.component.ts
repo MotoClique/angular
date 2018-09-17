@@ -56,6 +56,7 @@ export class AppHome implements OnInit {
 		loading: boolean = false;
 		lastScroll: any = 0;
 		noMoreData: boolean = false;
+    screenAccess:any = [];
 		
       constructor(private router: Router, private http: Http, private commonService: CommonService, private sharedService: SharedService) {
               var that = this;;
@@ -79,6 +80,36 @@ export class AppHome implements OnInit {
 		this.sharedService.sharedObj.currentContext = this;
 		this.sharedService.getUserProfile(function(user){
 			that.userDetail = user;
+      var access = user.screenAccess;	
+			for(var i = 0; i<access.length; i++){
+				if((access[i].name).toLowerCase().indexOf('sell') != -1){
+					access[i].iconSrc = "assets/sale_icon.png";
+					access[i].id = ((access[i].name).replace(/ /g,"")).toLowerCase()+"_link" ;
+					that.screenAccess.push(access[i]);
+				}
+				else if((access[i].name).toLowerCase().indexOf('buy') != -1){
+					access[i].iconSrc = "assets/buy_icon.png";
+					access[i].id = ((access[i].name).replace(/ /g,"")).toLowerCase()+"_link" ;
+					that.screenAccess.push(access[i]);
+				}
+				else if((access[i].name).toLowerCase().indexOf('bid') != -1){
+					access[i].iconSrc = "assets/bid_icon.png";
+					access[i].id = ((access[i].name).replace(/ /g,"")).toLowerCase()+"_link" ;
+					that.screenAccess.push(access[i]);
+				}
+				else if((access[i].name).toLowerCase().indexOf('service') != -1){
+					access[i].iconSrc = "assets/service_icon.png";					
+					access[i].id = ((access[i].name).replace(/ /g,"")).toLowerCase()+"_link" ;
+					that.screenAccess.push(access[i]);
+				}
+				else if((access[i].name).toLowerCase().indexOf('inbox') != -1){
+					access[i].iconSrc = "assets/mail_icon.png";					
+					access[i].id = ((access[i].name).replace(/ /g,"")).toLowerCase()+"_link" ;
+					that.screenAccess.push(access[i]);
+				}
+			}
+			that.screenAccess.sort((a: any, b: any)=> {return a.sequence - b.sequence;});//ascending sort
+      
 			that.onSearch(null);
 		});
 		document.addEventListener("click", function (e) {
@@ -546,11 +577,43 @@ export class AppHome implements OnInit {
 				}
 			}
 		}
+    
+    this.controlHomePageFooter(elem);
 		this.lastScroll = elem.scrollTop();
 	}
 	
 	
+	controlHomePageFooter(elem){
+		var scroll = elem.scrollTop();
+		if (scroll > this.lastScroll) {	//When scrolled down	
+			jQuery('#homeFooter').removeClass('on-canvas');
+		}
+		else{ //When scrolled up	
+			jQuery('#homeFooter').addClass('on-canvas');
+		}
+	}
 	
+	onNav(evt){
+		var link = evt.currentTarget.id;
+		var that = this;
+		switch(link){									
+			case "sell_link":
+				that.router.navigateByUrl('/Container/Sell');
+				break;
+			case "bid_link":
+				that.router.navigateByUrl('/Container/Bid');
+				break;
+			case "buy_link":
+				that.router.navigateByUrl('/Container/Buy');
+				break;
+			case "service_link":
+				that.router.navigateByUrl('/Container/Service');
+				break;
+			case "inbox_link":
+				that.router.navigateByUrl('/Container/Inbox');
+				break;
+		}
+	}
 	
 	
 	
