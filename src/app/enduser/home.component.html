@@ -74,5 +74,15 @@
 				</div>
 			</div>
 	</div>
+  
+  <!-- Home Page Footer -->
+	<div id="homeFooter" class="homePageFooterStyle on-canvas">
+		<div style="padding:5px; display:flex; justify-content:space-around;">			
+			<div id="{{screen.id}}" *ngFor="let screen of screenAccess" [hidden]="!(screen.applicable) || !(screen.for_nav)" class="homeMenuButtonStyle" (click)="onNav($event)">
+				<img src="{{screen.iconSrc}}" style="width:25px;"/> 
+				<span style="font-size:10px; text-align:center;">{{screen.name}}</span>
+			</div>	
+		</div>
+	</div>
 
 </div>
