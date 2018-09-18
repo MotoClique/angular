@@ -114,12 +114,13 @@
 }
 
 .dropbtn {
-	padding:6px;
-    background: transparent;
+	min-width: 50px !important;
+	background: transparent;
     border: transparent;
+	margin-top:5px;	
+	padding:5px;
 }
 .dropdown {
-    position: absolute;
     display: inline-block;
 	right: 0;
 	font-size: 15px;
