@@ -758,5 +758,14 @@ export class AppImageTemplate implements OnInit {
 		}
 		return owner;
 	}
+  
+  previewImage(data){
+		jQuery('#previewImage').attr("src",data);
+		jQuery('#previewImageContainer').show();
+	}
+	closePreviewImage(){
+		jQuery('#previewImage').attr("src","");
+		jQuery('#previewImageContainer').hide();
+	}
 		
 }
