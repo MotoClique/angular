@@ -118,11 +118,20 @@ export class AppHome implements OnInit {
 		});
 		
 		//For Search Field Key Press Event
-		$('#searchInput').keydown(function(e){
+		$('#searchInput').keyup(function(e){
 				var listItems = $(".searchSuggestions");
 				var key = e.keyCode;
 				var selected = $('.autocomplete-selected').eq(0);
 				var current;
+      
+        if ( key == 8 ){ // Backspace key
+					if(!(that.search)){//If empty
+						that.searchResponse = {sale:{},buy:{},bid:{},service:{}};
+						that.results = [];
+						that.searchSelected = {};
+						that.loadResult(that.searchSelected);
+					}
+				}
 					
 				if ( key == 13 ){ // Enter key
 					that.searchResponse = {sale:{},buy:{},bid:{},service:{}};
@@ -170,11 +179,20 @@ export class AppHome implements OnInit {
 		
 		
 		//For Location Field Key Press Event
-		$('#cityInput').keydown(function(e){
+		$('#cityInput').keyup(function(e){
 				var listItems = $(".citySuggestions");
 				var key = e.keyCode;
 				var selected = $('.city-selected').eq(0);
 				var current;
+      
+        if ( key == 8 ){ // Backspace key
+					if(!(that.city)){//If empty
+						that.searchResponse = {sale:{},buy:{},bid:{},service:{}};
+						that.results = [];
+						that.searchSelected = {};
+						that.loadResult(that.searchSelected);
+					}
+				}
 					
 				if ( key == 13 ){ // Enter key
 					that.searchResponse = {sale:{},buy:{},bid:{},service:{}};
