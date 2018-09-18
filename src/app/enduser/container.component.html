@@ -1,6 +1,6 @@
 <mat-toolbar style="position: fixed; z-index: 2; height: 50px; padding: 0 5px;">
 	<div style="display:flex; justify-content:space-between; width: 100%;">
-		<div>
+		<div style="width: 80px;">
 			<!--<button mat-button class="nav_menu" style="margin-top:5px;" (click)="sidenav.toggle()"><span class="glyphicon glyphicon-menu-hamburger"></span></button>-->
 			<button mat-button class="home_icon" style="margin-top:5px;" (click)="onHome()"><span class="glyphicon glyphicon-home"></span></button>
 		</div>
@@ -14,7 +14,7 @@
 					<span class="glyphicon glyphicon-filter" [style.color]="filterFlag ? '#E71B03' : 'black'"></span>
 				</button>
 				<div class="dropdown" >		
-				  <button class="dropbtn" style="margin-top:5px;">
+				  <button mat-button class="dropbtn" >
 					<span id="userProfileSpan" class="glyphicon glyphicon-user user_menu_icon"></span>
 				  </button>
 				  <div style="display:none;" class="dropdown-content">
