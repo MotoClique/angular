@@ -64,7 +64,7 @@
 										<img src="assets/sold_out.png">
 									</div>
 									<div class="portrait">
-										<img [hidden]="currentImage.no_image" src="{{currentImage.data}}">
+										<img [hidden]="currentImage.no_image" src="{{currentImage.data}}" (click)="previewImage(currentImage.data)">
 										<img [hidden]="!currentImage.no_image" src="assets/noimage.png" style="max-width:200px;">
 									</div>
 								  
