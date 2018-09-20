@@ -118,4 +118,56 @@ export class AppLocAdmin implements OnInit {
 		}
 	});
   }
+  
+  onDownoadTemplateClick(evt){
+		window.open("/assets/product_template.xlsx","_blank");
+	}
+	
+	onUploadFromExcelClick(evt){
+		this.showUploadExcelDialog = true;
+	}
+	
+	onExcelUpload(evt){
+		var that = this;		
+		var rABS = true; // true: readAsBinaryString ; false: readAsArrayBuffer
+		var files = evt.target.files;
+		if(files.length>0){
+			var f = files[0];
+			var reader = new FileReader();
+			reader.onload = function(e:any) {
+				var data = e.target.result;
+				if(!rABS) data = new Uint8Array(data);
+				var workbook = XLSX.read(data, {type: rABS ? 'binary' : 'array'});
+				var jsn:any = [];
+				jsn = XLSX.utils.sheet_to_json(workbook.Sheets['Location']);//workbook.SheetNames[0]]);
+				that.locationToUpload = jsn;
+			};
+			if(rABS) reader.readAsBinaryString(f); else reader.readAsArrayBuffer(f);
+		}
+	}
+	
+	onUploadSubmit(evt){
+		var toUpload = []; toUpload = this.locationToUpload;		
+		if(toUpload.length>0){
+			if(toUpload.length<=1000){
+				/*this.commonService.adminService.addMultipleLocation(toUpload)
+					.subscribe( data => {
+						if(data.statusCode=="S"){
+							this.totalRecords = 0;
+							if(jQuery('#prdExcelUploadInput')){
+								jQuery('#prdExcelUploadInput').val('');
+							}
+							this.showUploadExcelDialog = false;
+							this.sharedService.openMessageBox("S",data.msg,null);
+						}
+						else{
+							this.sharedService.openMessageBox("E",data.msg,null);
+						}
+				});*/
+			}
+			else{
+				this.sharedService.openMessageBox("E","Maximum of 1000 entries can be uploaded at a time.",null);
+			}
+		}
+	}
 }
