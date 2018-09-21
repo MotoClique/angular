@@ -310,6 +310,9 @@ export class AdminService {
   getUniqueLoc(city){
 	  return this.sharedService.call('location/?city='+city, "get", null, true);	  
   }
+  addMultipleLocation(newLoc){
+	  return this.sharedService.call('addMultipleLocation', "post", {docs: newLoc}, true);
+  }
   
   
   ////////////////////////////////////////CONFIG PARAMETER//////////////////////////////////////////////////////
