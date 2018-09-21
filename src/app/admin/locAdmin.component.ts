@@ -24,6 +24,7 @@ export class AppLocAdmin implements OnInit {
 	locs: any = [];
 	editMode: boolean = false;
 	term: string = '';
+  excelfileInput: any;
 	
 	constructor(private commonService: CommonService, private sharedService: SharedService, router: Router) { 
 	this.router = router;
@@ -150,12 +151,12 @@ export class AppLocAdmin implements OnInit {
 		var toUpload = []; toUpload = this.locationToUpload;		
 		if(toUpload.length>0){
 			if(toUpload.length<=1000){
-				/*this.commonService.adminService.addMultipleLocation(toUpload)
+				this.commonService.adminService.addMultipleLocation(toUpload)
 					.subscribe( data => {
 						if(data.statusCode=="S"){
 							this.totalRecords = 0;
-							if(jQuery('#prdExcelUploadInput')){
-								jQuery('#prdExcelUploadInput').val('');
+							if(jQuery('#locExcelUploadInput')){
+								jQuery('#locExcelUploadInput').val('');
 							}
 							this.showUploadExcelDialog = false;
 							this.sharedService.openMessageBox("S",data.msg,null);
@@ -163,7 +164,7 @@ export class AppLocAdmin implements OnInit {
 						else{
 							this.sharedService.openMessageBox("E",data.msg,null);
 						}
-				});*/
+				});
 			}
 			else{
 				this.sharedService.openMessageBox("E","Maximum of 1000 entries can be uploaded at a time.",null);
