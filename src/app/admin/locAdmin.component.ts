@@ -131,6 +131,7 @@ export class AppLocAdmin implements OnInit {
 	
 	onUploadFromExcelClick(evt){
 		this.showUploadExcelDialog = true;
+		this.totalRecords = 0;
 	}
 	
 	onExcelUpload(evt){
@@ -147,6 +148,7 @@ export class AppLocAdmin implements OnInit {
 				var jsn:any = [];
 				jsn = XLSX.utils.sheet_to_json(workbook.Sheets['Location']);//workbook.SheetNames[0]]);
 				that.locationToUpload = jsn;
+				that.totalRecords = that.locationToUpload.length;
 			};
 			if(rABS) reader.readAsBinaryString(f); else reader.readAsArrayBuffer(f);
 		}
