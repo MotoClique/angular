@@ -58,6 +58,7 @@ import { AppBidBy } from './enduser/bidBy.component';
 import { AppService } from './enduser/service.component';
 import { AppServiceForm } from './enduser/reusable/serviceForm.component';
 import { AppTileTemplate } from './enduser/reusable/tileTemplate.component';
+import { AppChatInbox } from './enduser/chatInbox.component';
 
 const appRoutes: Routes = [
 	{ path: '', component: AppLogin },
@@ -108,7 +109,8 @@ const appRoutes: Routes = [
 		{ path: 'Buy/:id/:mode', component: AppBuy, canActivate: [AuthGuardService], canDeactivate:[ConfirmDeactivateGuard]},
 		{ path: 'Service', component: AppService, canActivate: [AuthGuardService], canDeactivate:[ConfirmDeactivateGuard]},
 		{ path: 'Service/:id', component: AppService, canActivate: [AuthGuardService], canDeactivate:[ConfirmDeactivateGuard]},
-		{ path: 'Service/:id/:mode', component: AppService, canActivate: [AuthGuardService], canDeactivate:[ConfirmDeactivateGuard]}
+		{ path: 'Service/:id/:mode', component: AppService, canActivate: [AuthGuardService], canDeactivate:[ConfirmDeactivateGuard]},
+    { path: 'ChatInbox', component: AppChatInbox, canActivate: [AuthGuardService], canDeactivate:[ConfirmDeactivateGuard]}
 	]}
 ];
 
@@ -116,6 +118,7 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
 	  //End User
+    AppChatInbox,
 	  AppService,
 	  AppBidBy,
 	  AppBuy,
