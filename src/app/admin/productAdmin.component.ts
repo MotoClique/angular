@@ -1236,7 +1236,7 @@ resizeImage(img,type) {
 	}
 	
 	onDownoadTemplateClick(evt){
-		window.open("/assets/product_template.xlsx","_blank");
+		window.open("/assets/upload_template.xlsx","_blank");
 	}
   
   onSheetTypeSelect(evt){
