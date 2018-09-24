@@ -19,9 +19,9 @@ var gMap = (function() {
 								var host = location.host;
 								var fullhost = '';
 								if(hostname === 'localhost')
-									fullhost = protocol+"//"+ hostname +":8080";
+									fullhost = window.GlobalData['MainUrlDomain']; //protocol+"//"+ hostname +":8080";
 								else
-									fullhost = protocol+"//"+ host;
+									fullhost = window.GlobalData['MainUrlDomain']; //protocol+"//"+ host;
 								jQuery.ajax({
 									  url: fullhost+"/api/config?parameter=google_api_key",
 									  type:"GET",

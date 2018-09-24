@@ -6,6 +6,10 @@ import 'rxjs/add/operator/catch';
 import { Router } from '@angular/router';
 import {MatSnackBar} from '@angular/material';
 
+declare global {
+	interface Window { GlobalData: any; }
+}
+
 @Injectable()
 export class AuthenticationService {
 	token: string;
@@ -15,10 +19,13 @@ export class AuthenticationService {
 	fullhost: string = '';
 
   constructor(private http: HttpClient, private router: Router, public snackBar: MatSnackBar) {
+	window.GlobalData = window.GlobalData || {};
+	window.GlobalData['MainUrlDomain'] = "https://motoclique.herokuapp.com";
+	  
 	if(this.hostname === 'localhost')
-		this.fullhost = "http://nodemav-nodemav.7e14.starter-us-west-2.openshiftapps.com";//this.protocol+"//"+ this.hostname+":8080";
+		this.fullhost = window.GlobalData['MainUrlDomain']; //"http://nodemav-nodemav.7e14.starter-us-west-2.openshiftapps.com";
 	else
-		this.fullhost = this.protocol+"//"+ this.host;
+		this.fullhost = window.GlobalData['MainUrlDomain']; //this.protocol+"//"+ this.host;
   }
 
   saveToken(token) {
