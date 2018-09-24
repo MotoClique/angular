@@ -122,6 +122,10 @@ export class AppChatInbox implements OnInit {
 		}
 		return owner;
 	}
+  
+  onTabClick(evt){
+  
+  }
 
 
 }
