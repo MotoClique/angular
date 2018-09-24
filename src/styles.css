@@ -19,6 +19,9 @@ input{
 .mat-input-element {
     color: rgba(0,0,0,.87) !important;
 }
+.mat-tab-group .mat-tab-body-wrapper{
+	height: 100% !important; 
+}
 
 
 /* Center the loader */
