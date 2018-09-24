@@ -3,6 +3,8 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import { CommonService } from '../common.service';
 import { SharedService } from '../shared.service';
+declare var jQuery:any;
+import * as XLSX from 'xlsx';
 
 interface hidden {
   view: boolean,
@@ -24,7 +26,10 @@ export class AppLocAdmin implements OnInit {
 	locs: any = [];
 	editMode: boolean = false;
 	term: string = '';
-  excelfileInput: any;
+  locationToUpload: any = [];
+	totalRecords: number = 0;
+	excelfileInput: any;
+	showUploadExcelDialog:boolean = false;
 	
 	constructor(private commonService: CommonService, private sharedService: SharedService, router: Router) { 
 	this.router = router;
