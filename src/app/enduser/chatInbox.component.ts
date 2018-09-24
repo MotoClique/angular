@@ -20,24 +20,14 @@ declare var jQuery:any;
 @Injectable()
 export class AppChatInbox implements OnInit {
 	userDetail: any = {};
+  localData: any = {};
+	allPost: any = [];
 
     constructor(private router: Router, private route: ActivatedRoute, private http: Http, private commonService: CommonService, private sharedService: SharedService) {
                      this.router = router;
                      var that = this;;
                      this.getJSON().subscribe(data => {
-                                                                                      
-                                           //Generate Years
-                                           that.years = [];
-                                          var y = data.years.from;
-                                           var cy = (new Date()).getFullYear();
-                                           if(Number(y) < Number(cy)){
-												do {
-                                                       that.years.push( {name: y});
-                                                       y = y - (- 1);
-                                                }
-                                                while (y != cy);
-                                           }
-                                           that.years.push( {name: cy});//Add Current Year
+                                  that.localData = data;
                      }, error => {
                                   console.log(error);
                      });
@@ -51,9 +41,6 @@ export class AppChatInbox implements OnInit {
     ngOnInit(){
 				var that = this;
 				this.sharedService.sharedObj.containerContext.title = "Chat Inbox";	
-                this.item = {};
-                this.hidden = {view: false, add: true};
-                this.disabled = {field: false};
 				this.sharedService.getUserProfile(function(user){
 					that.userDetail = user;
 					var id = that.route.snapshot.params.id;
@@ -71,7 +58,9 @@ export class AppChatInbox implements OnInit {
 					}					
 					else{
 						that.commonService.enduserService.getAlert(that.userDetail.user_id,"")
-							.subscribe( result => that.alerts = result.results);
+							.subscribe( result => {
+            
+            });
 					}
 										
 					
@@ -82,6 +71,56 @@ export class AppChatInbox implements OnInit {
 	  
 	onChatSelect(evt,data){
 		this.router.navigate(['/Container/ChatDetail',data.chat_id]);
+	}
+  
+  ownerTypeFormatter(typ){
+		var owner = '-';
+		switch(typ){
+			case 'First':
+				owner = '1';
+				break;
+				
+			case 'Second':
+				owner = '2';
+				break;
+				
+			case 'Third':
+				owner = '3';
+				break;
+				
+			case 'Fourth':
+				owner = '4';
+				break;
+				
+			case 'Fifth':
+				owner = '5';
+				break;
+				
+			case 'Sixth':
+				owner = '6';
+				break;
+				
+			case 'Seventh':
+				owner = '7';
+				break;
+				
+			case 'Eight':
+				owner = '8';
+				break;
+				
+			case 'Ninth':
+				owner = '9';
+				break;
+				
+			case 'Tenth':
+				owner = '10';
+				break;
+				
+			default:
+				owner = '-';
+				break;
+		}
+		return owner;
 	}
 
 
