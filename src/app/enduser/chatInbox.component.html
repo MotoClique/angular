@@ -1,48 +1,49 @@
-<div>
-  <mat-tab-group #dynamicTabGroup (selectedTabChange)="onTabClick($event)">
-			<mat-tab label="All">
-				<div style="padding:15px;">
-          <mat-list>
-            <mat-list-item *ngFor="let post of allPost">
-              <div>
-                <img></img>
-                <div>
-                  <div style="">
-          <div style="line-height: 25px; width: 100%; padding: 3%;">
-               <div style="display: flex; flex-direction: row; justify-content: space-between;">
-                   <div *ngIf="(item.transactionTyp !== 'Service')">
-                      <b style="font-size: 25px;" class="postproduct-title" >{{item.brand_name}} {{item.model}} {{item.variant}}</b>
-                      <span style="font-size: 14px;" class="postproduct-fuelType" >{{item.fuel_type ? item.fuel_type : ''}}</span>
-                   </div>
-				   <div *ngIf="(item.transactionTyp === 'Service')">
-                      <b style="font-size: 25px;" class="postproduct-title" >{{item.model}}</b>
-                      <span style="font-size: 14px;" class="postproduct-fuelType" >{{item.brand_name}} Service</span>
-                   </div>
-                   <b *ngIf="(item.transactionTyp !== 'Bid' && item.transactionTyp !== 'Service')" style="color: #E71B03; font-size: 20px;" class="postproduct-amount" ><span *ngIf="item.transactionTyp === 'Buy'" class="glyphicon glyphicon-menu-left"></span> <span class="">&#8377;</span> {{item.net_price ? item.net_price : '0'}}</b>
-				   <b *ngIf="item.transactionTyp === 'Bid'" style="color: #E71B03; font-size: 20px;" class="postproduct-amount" ><span class="">&#8377;</span> {{item.current_bid_amount ? item.current_bid_amount : '0'}}</b>
-				   <b *ngIf="item.transactionTyp === 'Service'" style="color: #E71B03; font-size: 18px;" class="postproduct-amount" ><span style="font-size:12px;">Starts From </span> <span class="">&#8377;</span> {{item.start_from_amount ? item.start_from_amount : '0'}}</b>
-              </div>
-			  <div style="display: flex; flex-direction: row; font-size: 12px; border-bottom: 2px solid gray;" *ngIf="(item.transactionTyp !== 'Service')">
-				  <div style="margin-right: 20px;"><span style="color:#E71B03;" class="glyphicon glyphicon-map-marker"></span> {{item.city ? item.city : '---'}}</div>
-				  <div style="margin-right: 20px;"><span *ngIf="item.transactionTyp === 'Buy'" style="font-weight: bold;" class="glyphicon glyphicon-menu-right"></span> <span style="color:#E71B03;" class="glyphicon glyphicon-time"></span> {{item.year_of_reg ? item.year_of_reg : '0000'}}</div>
-				  <div style="margin-right: 20px;"><span *ngIf="item.transactionTyp === 'Buy'" style="font-weight: bold;" class="glyphicon glyphicon-menu-left"></span> <span style="color:#E71B03;" class="glyphicon glyphicon-road"></span> {{item.km_done ? item.km_done : '0'}} KM</div>
-				  <div style="margin-right: 20px;"><span style="color:#E71B03;" class="glyphicon glyphicon-camera"></span> {{item.number_of_image ? item.number_of_image : '0'}}</div>
-				  <div><span style="color:#E71B03;" class="glyphicon glyphicon-user"></span> {{ownerTypeFormatter(item.owner_type)}}</div>
-				  <div *ngIf="item.createdOn !== undefined && item.createdOn !== null && item.createdOn !== ''" style="right: 15px; position: absolute;"><span style="color:#E71B03;" class="glyphicon glyphicon-calendar"></span> {{item.createdOn}}</div>
-			  </div>
-			  <div style="display: flex; flex-direction: row; font-size: 12px; border-bottom: 2px solid gray;" *ngIf="item.transactionTyp === 'Service'">
-				  <div><span style="color:#E71B03;" class="glyphicon glyphicon-map-marker"></span> {{item.city ? item.city : '---'}}</div>
-				  <div style="display:flex;">
-					  <div style="padding: 3px;"><div style="background-color: #E71B03;  width: 35px;  border-radius: 4px;  color: white; height: 18px;  line-height: 18px; text-align: center;">{{item.rating ? item.rating : '0'}} <span>&#9733;</span></div> </div>
-					  <div style="">{{item.no_of_rating ? item.no_of_rating : '0'}} Rating, {{item.no_of_feedback ? item.no_of_feedback : '0'}} Feedback</div>
-					  <div *ngIf="item.createdOn !== undefined && item.createdOn !== null && item.createdOn !== ''" style="right: 15px; position: absolute;"><span style="color:#E71B03;" class="glyphicon glyphicon-calendar"></span> {{item.createdOn}}</div>
-				  </div>
-			  </div>
-                </div>
-              </div>
-            </mat-list-item>
-          </mat-list>
-        </div>
-      </mat-tab>
-  </mat-tab-group>
+<div style="height:100%;">
+  <mat-tab-group #dynamicTabGroup (selectedTabChange)="onTabClick($event)" style="height:100%;">
+		<mat-tab label="All" style="height:100%;">
+			<div style="height:100%; padding:15px;">
+			  <div *ngFor="let item of allPost">
+					<div style="width:100%; -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2); box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);">
+						<div style="display:flex; width:100%; padding:5px;">
+							<img src="item.thumbnail" style="width:60px; height:60px; padding:2px;"/>
+							<div style="line-height:25px; width:100%; padding-left:10px;">
+									<div style="display: flex; flex-direction: row; justify-content: space-between;">
+										<div *ngIf="(item.transactionTyp !== 'Service')">
+										  <b style="font-size: 15px;" class="postproduct-title" >{{item.brand_name}} {{item.model}} {{item.variant}}</b>
+										  <span style="font-size: 12px;" class="postproduct-fuelType" >{{item.fuel_type ? item.fuel_type : ''}}</span>
+										</div>
+										<div *ngIf="(item.transactionTyp === 'Service')">
+										  <b style="font-size: 15px;" class="postproduct-title" >{{item.model}}</b>
+										  <span style="font-size: 12px;" class="postproduct-fuelType" >{{item.brand_name}} Service</span>
+										</div>
+									</div>
+									<div style="display: flex; flex-direction: row; font-size: 12px; justify-content:space-between;" *ngIf="(item.transactionTyp !== 'Service')">
+									  <div style="margin-right: 20px;"><span style="color:#E71B03;" class="glyphicon glyphicon-map-marker"></span> {{item.city ? item.city : '---'}}</div>
+									  <div style="margin-right: 20px;"><span *ngIf="item.transactionTyp === 'Buy'" style="font-weight: bold;" class="glyphicon glyphicon-menu-right"></span> <span style="color:#E71B03;" class="glyphicon glyphicon-time"></span> {{item.year_of_reg ? item.year_of_reg : '0000'}}</div>
+									  <div style="margin-right: 20px;"><span *ngIf="item.transactionTyp === 'Buy'" style="font-weight: bold;" class="glyphicon glyphicon-menu-left"></span> <span style="color:#E71B03;" class="glyphicon glyphicon-road"></span> {{item.km_done ? item.km_done : '0'}} KM</div>
+									  <div style="margin-right: 20px;"><span style="color:#E71B03;" class="glyphicon glyphicon-camera"></span> {{item.number_of_image ? item.number_of_image : '0'}}</div>
+									  <div><span style="color:#E71B03;" class="glyphicon glyphicon-user"></span> {{ownerTypeFormatter(item.owner_type)}}</div>
+									  <div *ngIf="item.createdOn !== undefined && item.createdOn !== null && item.createdOn !== ''" style="right: 15px; position: absolute;"><span style="color:#E71B03;" class="glyphicon glyphicon-calendar"></span> {{item.createdOn}}</div>
+									</div>
+									<div style="display: flex; flex-direction: row; font-size: 12px; justify-content:space-between;" *ngIf="item.transactionTyp === 'Service'">
+									  <div><span style="color:#E71B03;" class="glyphicon glyphicon-map-marker"></span> {{item.city ? item.city : '---'}}</div>
+									  <div style="display:flex;">
+										  <div style="padding: 3px;"><div style="background-color: #E71B03;  width: 35px;  border-radius: 4px;  color: white; height: 18px;  line-height: 18px; text-align: center;">{{item.rating ? item.rating : '0'}} <span>&#9733;</span></div> </div>
+										  <div style="">{{item.no_of_rating ? item.no_of_rating : '0'}} Rating, {{item.no_of_feedback ? item.no_of_feedback : '0'}} Feedback</div>
+										  <div *ngIf="item.createdOn !== undefined && item.createdOn !== null && item.createdOn !== ''" style="right: 15px; position: absolute;"><span style="color:#E71B03;" class="glyphicon glyphicon-calendar"></span> {{item.createdOn}}</div>
+									  </div>
+									</div>
+									
+									<div style="display:flex; justify-content:space-around;">
+										<span style="font-size:14px; color:#3f51b5;">Syed</span>
+										<span style="font-size:14px;">28 Mar</span>
+										<button mat-button color="primary">Delete Forever</button>
+									</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</mat-tab>
+	</mat-tab-group>
 </div>
