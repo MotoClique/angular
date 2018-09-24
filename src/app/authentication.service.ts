@@ -19,8 +19,10 @@ export class AuthenticationService {
 	fullhost: string = '';
 
   constructor(private http: HttpClient, private router: Router, public snackBar: MatSnackBar) {
+	var prdEnvFlag = true;
+	  
 	window.GlobalData = window.GlobalData || {};
-	window.GlobalData['MainUrlDomain'] = "https://motoclique.herokuapp.com";
+	window.GlobalData['MainUrlDomain'] = (prdEnvFlag)?"https://motoclique.herokuapp.com":"https://meanmav.herokuapp.com";
 	  
 	if(this.hostname === 'localhost')
 		this.fullhost = window.GlobalData['MainUrlDomain']; //"http://nodemav-nodemav.7e14.starter-us-west-2.openshiftapps.com";
