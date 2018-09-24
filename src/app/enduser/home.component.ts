@@ -628,7 +628,7 @@ export class AppHome implements OnInit {
 				that.router.navigateByUrl('/Container/Service');
 				break;
 			case "inbox_link":
-				that.router.navigateByUrl('/Container/Inbox');
+				that.router.navigateByUrl('/Container/ChatInbox');
 				break;
 		}
 	}
