@@ -119,7 +119,7 @@ export class AppBuy implements OnInit {
 				this.sharedService.sharedObj.currentContext = this;
 				this.image_item = [];
                 
-				this.sharedService.sharedObj.containerContext.title = "Buy";
+				this.sharedService.sharedObj.containerContext.title = "My Buy Request";
 				this.sharedService.onElementHeightChange();
 				
       }

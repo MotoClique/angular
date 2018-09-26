@@ -1,46 +1,36 @@
 <div class="scrollContainerStyle" style="height:100%; overflow-y: auto; overflow-x: hidden;" (scroll)="handleScroll($event)">
 	<div [hidden]="detail" class="container" style="padding-right: 0px; padding-left: 0px;">			
-			<b style="line-height: 50px; margin-left: 15px;">Request created by you:</b>
+			
 			<div class="container-fluid">
 			  <div class="row">
-				<div class="col-sm-12 col-md-6 col-lg-4" >
+				<!--<div class="col-sm-12 col-md-6 col-lg-4" >
 					<div class="createNewDiv" >
 						<div class="createNewInnerDiv" (click)="createNew($event)">
 							<div class="createNewIcon">&#10011;</div>
 						</div>
 					</div>
-				</div>
+				</div>-->
 				
 				
 				<div class="col-sm-12 col-md-6 col-lg-4" *ngFor="let result of results">
 					<tile-template [item]="result" [parentComponent]="self" (openItem)="openItem($event)"></tile-template>
-					<!--<div style="width: 380px; height: 310px;">
-					 <div class="resultItemWrapper" style="cursor:pointer;" (click)="openItem($event,result)">
-						<div class="resultItem">
-							<div style="display: flex; justify-content: space-between; position: absolute; top: 20px; left: 5%; width: 90%;">
-                                <div class="resultItemType">Sale</div>
-                                
-                             </div>							  
-							 <img class="resultItemImage" src="{{result.data}}">
-							 <div class="resultItemDetailTop">
-								 <div>
-									 <b style="font-size: 18px;" >{{result.model}} {{result.variant}}</b>
-									 <span style="font-size: 12px;">{{result.fuel_type}}</span>
-								 </div>
-								 <b style="color: red;">{{result.price}} {{result.currency}}</b>
-							 </div>
-							 <div class="resultItemDetailBottom">
-								   <div><span style="color:red;" class="glyphicon glyphicon-map-marker"></span> {{result.city}}</div>
-								   <div><span style="color:red; margin-left: 10px;" class="glyphicon glyphicon-time"></span> {{result.year_of_reg}}</div>
-								   <div><span style="color:red; margin-left: 10px;" class="glyphicon glyphicon-dashboard"></span> {{result.km_done}} KM</div>
-								   <div><span style="color:red; margin-left: 10px;" class="glyphicon glyphicon-camera"></span> {{result.number_of_image}}</div>
-							 </div>
-						  </div>
-						</div>
-					 </div>-->
+					
 				</div>
 			  </div>
-			</div>   
+			</div> 
+
+			<div class="footerStyle">
+				<div class="row" style="padding: 3px;">
+					<div class="col-xs-6">	
+					</div>
+					<div class="col-xs-6" style="display:flex; justify-content:flex-end;">						  
+						<button type="submit" class="btn btn-default" style="width:100%;" (click)="createNew($event)">
+						   <span class="glyphicon glyphicon-plus"></span> Create Sell
+						</button>
+					</div>
+				</div>
+			</div>
+			
 		</div>
 
 

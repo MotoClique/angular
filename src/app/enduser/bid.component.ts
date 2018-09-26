@@ -124,7 +124,7 @@ export class AppBid implements OnInit {
 				this.sharedService.sharedObj.currentContext = this;
 				this.image_item = [];
                 
-				this.sharedService.sharedObj.containerContext.title = "Bid";
+				this.sharedService.sharedObj.containerContext.title = "My Bid";
 				this.sharedService.onElementHeightChange();
       }
 	  

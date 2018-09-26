@@ -118,7 +118,7 @@ export class AppSell implements OnInit {
 				this.item = {};
 				this.sharedService.sharedObj.currentContext = this;
 				this.image_item = [];
-				this.sharedService.sharedObj.containerContext.title = "Sell";
+				this.sharedService.sharedObj.containerContext.title = "My Sell";
 				
 				this.sharedService.onElementHeightChange();
       }

@@ -50,7 +50,7 @@ export class AppAddress implements OnInit {
 
 		ngOnInit(){
 				var that = this;
-				this.sharedService.sharedObj.containerContext.title = "Address";	
+				this.sharedService.sharedObj.containerContext.title = "My Address";	
                 this.addresses = [];
                 this.item = {};
                 //this.countries = [{name:"India"}];

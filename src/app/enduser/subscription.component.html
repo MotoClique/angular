@@ -30,9 +30,20 @@
                        <!--<td data-header="Notification via App">{{subscription.notification_app}}</td>-->
                    </tr>
             </table>
-            <button style="width: 100%;" class="btn btn-default" (click)="onBuySub($event)">
+            <!--<button style="width: 100%;" class="btn btn-default" (click)="onBuySub($event)">
               <span class="glyphicon glyphicon-shopping-cart"></span> Buy Subscription
-            </button>  
+            </button>  -->
+			<div class="footerStyle">
+				<div class="row" style="padding: 3px;">
+					<div class="col-xs-6">	
+					</div>
+					<div class="col-xs-6" style="display:flex; justify-content:flex-end;">						  
+						<button type="submit" class="btn btn-default" style="width:100%;" (click)="onBuySub($event)">
+						   <span class="glyphicon glyphicon-shopping-cart"></span> Buy Subscription
+						</button>
+					</div>
+				</div>
+			</div>
 	</div>
 
 	 <div [hidden]="hidden.buy">

@@ -40,7 +40,7 @@ export class AppChatInbox implements OnInit {
 
     ngOnInit(){
 				var that = this;
-				this.sharedService.sharedObj.containerContext.title = "Chat Inbox";	
+				this.sharedService.sharedObj.containerContext.title = "My Chat Inbox";	
 				this.sharedService.getUserProfile(function(user){
 					that.userDetail = user;
 					var id = that.route.snapshot.params.id;

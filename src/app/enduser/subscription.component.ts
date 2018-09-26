@@ -56,7 +56,7 @@ export class AppSubscription implements OnInit {
                 
           ngOnInit(){
 				var that = this;
-				this.sharedService.sharedObj.containerContext.title = "Subscription";	
+				this.sharedService.sharedObj.containerContext.title = "My Subscription";	
                 //this.subscriptions = [{subscription_name:"Koramangala"}];
                 this.item = {};
                 this.hidden = {view: false, buy: true};

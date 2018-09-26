@@ -61,7 +61,7 @@ export class AppFav implements OnInit {
       
 
       ngOnInit(){
-        this.sharedService.sharedObj.containerContext.title = "Favourite";	
+        this.sharedService.sharedObj.containerContext.title = "My Favourite";	
 		var that = this;
 		this.results = [];
 		this.sharedService.getUserProfile(function(user){

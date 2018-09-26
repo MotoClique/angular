@@ -186,7 +186,7 @@ export class AppFilter implements OnInit {
 					
 					
 				});
-				this.sharedService.sharedObj.containerContext.title = "Filter";
+				this.sharedService.sharedObj.containerContext.title = "My Filter";
 				this.sharedService.onElementHeightChange();
       }
 	  

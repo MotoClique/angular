@@ -95,7 +95,7 @@ export class AppService implements OnInit {
 				this.sharedService.sharedObj.currentContext = this;
 				this.image_item = [];
                 
-				this.sharedService.sharedObj.containerContext.title = "Services";
+				this.sharedService.sharedObj.containerContext.title = "My Services";
 				this.sharedService.onElementHeightChange();
       }
 	  

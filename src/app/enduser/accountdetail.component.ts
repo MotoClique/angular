@@ -60,7 +60,7 @@ export class AppAccountDetail implements OnInit {
   
 	ngOnInit() {
 		var that = this;
-		this.sharedService.sharedObj.containerContext.title = "Account";	
+		this.sharedService.sharedObj.containerContext.title = "My Account";	
 		this.disabledMode = true;
 		this.sharedService.getUserProfile(function(user){
 			that.userDetail = user;
