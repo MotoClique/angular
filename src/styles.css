@@ -153,9 +153,9 @@ input{
     z-index: 1;
     position: absolute;
     left: 10px;
-    top: 45px;
+    top: 55px;
 	background-color: white;
-    width: 270px;
+    width: 248px;
     font-size: 15px;
     padding: 12px;
     color: black;
@@ -164,6 +164,10 @@ input{
     outline: none;
     text-indent: 10px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2), 0 -1px 0px rgba(0,0,0,0.02);
+}
+.gMapSearchStyle input{
+	margin-bottom: 0px !important;
+    width: 80%;
 }
 
 .googleMapOverlay{
