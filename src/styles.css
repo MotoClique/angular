@@ -238,12 +238,12 @@ input{
 			left: -9999px;
 		}
 
-		.mtable tr { border: 1px solid #ccc; }
+		
 
 		.mtable td {
 			/* Behave  like a "row" */
 			border: none;
-			border-bottom: 1px solid #eee;
+			min-height: 40px;
 			position: relative;
 			padding-left: 50%;
 			line-height: 25px;
@@ -271,6 +271,12 @@ input{
 				
 		.mtable td div{
 			padding: 0 !important;
+			height: auto !important;
+		}
+		
+		.mtable tr{
+			box-shadow: 0 10px 8px 0 rgba(0,0,0,0.14), 0 5px 2px -4px rgba(0,0,0,0.12), 0 8px 4px 0 rgba(0,0,0,0.2);
+			margin-bottom: 20px;
 		}
 
 	}
