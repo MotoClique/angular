@@ -47,7 +47,7 @@
 				</div>
 				<div style="height: 100px"></div>
 			</div>
-			<div class="footerStyle" [hidden]="(!(screenMode.add) && !(screenMode.edit))">
+			<div class="footerStyle" [hidden]="(!(screenMode.add) && !(screenMode.edit) && (item.user_id !== userDetail.user_id))">
 			   <div class="row" style="padding: 3px;">
 					<div class="col-xs-6">
 						   <button type="submit" class="btn btn-default" style="width:100%;" *ngIf="(screenMode.add) || (!(screenMode.add) && !(screenMode.edit))" (click)="onBidCancel($event)">
@@ -59,7 +59,7 @@
 						   </button>
 					</div>
 					<div class="col-xs-6" style="display:flex; justify-content:flex-end;">						
-						  <button type="submit" class="btn btn-default" style="width:100%;" *ngIf="(screenMode.add) || (screenMode.edit)" (click)="onBidSave($event)">
+						  <button [disabled]="disabled.save" type="submit" class="btn btn-default" style="width:100%;" *ngIf="(screenMode.add) || (screenMode.edit)" (click)="onBidSave($event)">
 							   <span class="glyphicon glyphicon-floppy-disk"></span> Save
 						  </button>
 						  						
