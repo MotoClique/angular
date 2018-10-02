@@ -25,11 +25,11 @@
 			</div>
 			<img class="resultItemImage" src="{{item.data}}">
 			<div class="resultItemDetailTop">				
-				<div *ngIf="(item.transactionTyp !== 'Service')">
+				<div *ngIf="(item.transactionTyp !== 'Service')" style="line-height:18px;">
                       <b style="font-size: 18px;" >{{item.brand_name}} {{item.model}} {{item.variant}}</b>
                       <span style="font-size: 12px;">{{item.fuel_type ? item.fuel_type : ''}}</span>
                 </div>
-				<div *ngIf="(item.transactionTyp === 'Service')">
+				<div *ngIf="(item.transactionTyp === 'Service')" style="line-height:18px;">
                       <b style="font-size: 18px;" >{{item.model}}</b>
                       <span style="font-size: 12px;">{{item.brand_name}} Service</span>
                 </div>
