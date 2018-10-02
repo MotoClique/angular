@@ -102,8 +102,8 @@ export class AppHome implements OnInit {
 					access[i].id = ((access[i].name).replace(/ /g,"")).toLowerCase()+"_link" ;
 					that.screenAccess.push(access[i]);
 				}
-				else if((access[i].name).toLowerCase().indexOf('inbox') != -1){
-					access[i].iconSrc = "assets/mail_icon.png";					
+				else if((access[i].name).toLowerCase().indexOf('chat') != -1){
+					access[i].iconSrc = "assets/chat_icon.png";					
 					access[i].id = ((access[i].name).replace(/ /g,"")).toLowerCase()+"_link" ;
 					that.screenAccess.push(access[i]);
 				}
