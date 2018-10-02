@@ -462,8 +462,9 @@ export class AppImageTemplate implements OnInit {
 	onUpload(evt){ 
         var that = this; 
         var files = evt.target.files; 
-		var file = files[0];
-		if (files && file) { 
+		//var file = files[0];
+		jQuery.each(files,function(indx,file){
+			if (file) { 
 					var fileName = file.name; 
 					var fileType = file.type; 
 					var fileSize = file.size; 
@@ -491,7 +492,7 @@ export class AppImageTemplate implements OnInit {
 							  thumbnail: stringThumbnail,
 							  data: resizedThumbnail,
 							  image_id: "",							  
-							  index: (that.thumbnails.length - (-1)),
+							  index: (that.thumbnails.length ),
 							  selected: false,
 							  newImage: true,
 							  newImageLink: (that.newImages.length),
@@ -511,8 +512,10 @@ export class AppImageTemplate implements OnInit {
                       };
 					  
 					}; 
-				this.showUploadImageDialog = false;	
-			} 
+				
+			}
+		});
+		this.showUploadImageDialog = false;	
 	}
 	
 	resizeImageUsingCanvas(img,type) {
