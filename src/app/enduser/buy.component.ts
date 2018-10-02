@@ -127,7 +127,7 @@ export class AppBuy implements OnInit {
 	  ngAfterViewInit(){
 				var that = this;
                 this.hidden = {view: false, add: true};
-                this.disabled = {field: false};
+                this.disabled = {field: false, save: false};
 				this.sharedService.getUserProfile(function(user){
 					that.userDetail = user;
 					if(that.userDetail.user_id){
@@ -477,8 +477,10 @@ export class AppBuy implements OnInit {
 										else{
 											that.sharedService.openMessageBox("E","Unable to save thumbnail.",null);
 										}
-										if(uploadCount === that.imageTemplateComponent.thumbnails.length)
+										if(uploadCount === that.imageTemplateComponent.thumbnails.length){
 											that.displayItem();
+                      that.disabled.save = false;
+                    }
 								});
 							}
 							else if(v.newImage){//insert new								
@@ -504,27 +506,34 @@ export class AppBuy implements OnInit {
 												else{
 													that.sharedService.openMessageBox("E","Unable to save thumbnail.",null); 
 												}
-												if(uploadCount === that.imageTemplateComponent.thumbnails.length)
+												if(uploadCount === that.imageTemplateComponent.thumbnails.length){
 													that.displayItem();
+                          that.disabled.save = false;
+                        }
 											  });
 											
 										}
 										else{
 											uploadCount = uploadCount - (-1);
 											that.sharedService.openMessageBox("E","Unable to save image.",null);
-											if(uploadCount === that.imageTemplateComponent.thumbnails.length)
+											if(uploadCount === that.imageTemplateComponent.thumbnails.length){
 												that.displayItem();
+                        that.disabled.save = false;
+                      }
 										}
 									   });
 
 							}
 						});
-						if(!(that.imageTemplateComponent.thumbnails) || that.imageTemplateComponent.thumbnails.length===0)
+						if(!(that.imageTemplateComponent.thumbnails) || that.imageTemplateComponent.thumbnails.length===0){
 							that.displayItem();
+              that.disabled.save = false;
+            }
 					}
 					else{
 						//alert("Unable to save");
 						that.sharedService.openMessageBox("E",data.msg,null);
+            that.disabled.save = false;
 					}		  
 				  });
 			}
@@ -559,8 +568,10 @@ export class AppBuy implements OnInit {
 												else{
 													that.sharedService.openMessageBox("E","Unable to save thumbnail.",null); 
 												}
-												if(uploadCount === that.imageTemplateComponent.thumbnails.length)
+												if(uploadCount === that.imageTemplateComponent.thumbnails.length){
 													that.gotoMainScreen();
+                          that.disabled.save = false;
+                        }
 											  });
 											
 										}
@@ -568,19 +579,24 @@ export class AppBuy implements OnInit {
 											uploadCount = uploadCount - (-1);
 											that.sharedService.openMessageBox("E","Unable to save image.",null);
 											//that.sharedService.openMessageBox("E",data.msg,null);
-											if(uploadCount === that.imageTemplateComponent.thumbnails.length)
+											if(uploadCount === that.imageTemplateComponent.thumbnails.length){
 												that.gotoMainScreen();
+                        that.disabled.save = false;
+                      }
 										}
 									   });
 
 							//}
 						});
-						if(!(that.imageTemplateComponent.thumbnails) || that.imageTemplateComponent.thumbnails.length===0)
+						if(!(that.imageTemplateComponent.thumbnails) || that.imageTemplateComponent.thumbnails.length===0){
 							that.gotoMainScreen();
+              that.disabled.save = false;
+            }
 					}
 					else{
 						//alert("Unable to save");
 						that.sharedService.openMessageBox("E",data.msg,null);
+            that.disabled.save = false;
 					}		  
 				  }); 
 			}
@@ -588,6 +604,7 @@ export class AppBuy implements OnInit {
 	  
 	  onBuySave(){
 		  var that = this;
+      that.disabled.save = true;
 		  this.dynamicFormComponent.dynamicTabGroup.selectedIndex = 0;
 		  setTimeout(function(){
 			  var mandatoryFieldCheck = that.dynamicFormComponent.requiredFieldCheck();
@@ -604,9 +621,13 @@ export class AppBuy implements OnInit {
 					  that.save(Object.assign(that.item,saveItem));
 				  }
 				  else{
+            that.disabled.save = false;
 					  that.sharedService.openMessageBox("E","Please specify your contact detail.",null);
 				  }
 			  }
+        else{
+          that.disabled.save = false;
+        }
 		  },1000);
 	  }
 	  
