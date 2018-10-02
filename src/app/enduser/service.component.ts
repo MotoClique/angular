@@ -102,7 +102,7 @@ export class AppService implements OnInit {
 	  ngAfterViewInit(){
 				var that = this;
                 this.hidden = {view: false, add: true};
-                this.disabled = {field: false};
+                this.disabled = {field: false, save: false};
 				this.sharedService.getUserProfile(function(user){
 					that.userDetail = user;
 					if(that.userDetail.user_id){
@@ -327,8 +327,10 @@ export class AppService implements OnInit {
 										else{
 											that.sharedService.openMessageBox("E","Unable to save thumbnail.",null);
 										}
-										if(uploadCount === that.imageTemplateComponent.thumbnails.length)
+										if(uploadCount === that.imageTemplateComponent.thumbnails.length){
 											that.displayItem();
+                      that.disabled.save = false;
+                    }
 								});
 							}
 							else if(v.newImage){//insert new								
@@ -354,16 +356,20 @@ export class AppService implements OnInit {
 												else{
 													that.sharedService.openMessageBox("E","Unable to save thumbnail.",null);
 												}
-												if(uploadCount === that.imageTemplateComponent.thumbnails.length)
+												if(uploadCount === that.imageTemplateComponent.thumbnails.length){
 													that.displayItem();
+                          that.disabled.save = false;
+                        }
 											  });
 											
 										}
 										else{
 											uploadCount = uploadCount - (-1);
 											that.sharedService.openMessageBox("E","Unable to save image.",null);
-											if(uploadCount === that.imageTemplateComponent.thumbnails.length)
+											if(uploadCount === that.imageTemplateComponent.thumbnails.length){
 												that.displayItem();
+                        that.disabled.save = false;
+                      }
 										}
 									   });
 
@@ -373,6 +379,7 @@ export class AppService implements OnInit {
 					else{
 						//alert("Unable to save");
 						that.sharedService.openMessageBox("E",data.msg,null);
+            that.disabled.save = false;
 					}		  
 				  });
 			}
@@ -407,16 +414,20 @@ export class AppService implements OnInit {
 												else{
 													that.sharedService.openMessageBox("E","Unable to save thumbnail.",null);
 												}
-												if(uploadCount === that.imageTemplateComponent.thumbnails.length)
+												if(uploadCount === that.imageTemplateComponent.thumbnails.length){
 													that.gotoMainScreen();
+                          that.disabled.save = false;
+                        }
 											  });
 											
 										}
 										else{
 											uploadCount = uploadCount - (-1);
 											that.sharedService.openMessageBox("E","Unable to save image.",null);
-											if(uploadCount === that.imageTemplateComponent.thumbnails.length)
+											if(uploadCount === that.imageTemplateComponent.thumbnails.length){
 												that.gotoMainScreen();
+                        that.disabled.save = false;
+                      }
 										}
 									   });
 
@@ -426,6 +437,7 @@ export class AppService implements OnInit {
 					else{
 						//alert("Unable to save");
 						that.sharedService.openMessageBox("E",data.msg,null);
+            that.disabled.save = false;
 					}		  
 				  });
 			}				  
@@ -433,6 +445,7 @@ export class AppService implements OnInit {
 	  
 	  onServiceSave(){
 		var that = this;
+      that.disabled.save = true;
 		this.serviceFormComponent.serviceTabGroup.selectedIndex = 0;
 		setTimeout(function(){
 			var mandatoryFieldCheck = that.serviceFormComponent.requiredFieldCheck();
@@ -442,9 +455,13 @@ export class AppService implements OnInit {
 					that.save(saveItem);
 				  }
 				  else{
+            that.disabled.save = false;
 					  that.sharedService.openMessageBox("E","Please specify your contact detail.",null);
 				  }
 			}
+      else{
+        that.disabled.save = false;
+      }
 		},1000);
 	  }
 	  
