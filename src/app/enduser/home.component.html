@@ -4,7 +4,7 @@
 			
             <div class="row">
                 <div class="col-sm-2" >                   
-				   <div style="padding:5px;">
+				   <div style="padding-left:10px; padding-right:10px; padding-top:10px;">
 					   <form autocomplete="off" >	
 								<div class="form-control">
 									<div  style="display: flex;">
@@ -23,7 +23,7 @@
 					</div>
 				</div>
                  <div class="col-sm-8" >
-					<div style="padding:5px;">
+					<div style="padding-left:10px; padding-right:10px; padding-top:10px;">
 						<form autocomplete="off" >	
 							<div class="form-control">
 								<div  style="display: flex;">
@@ -43,7 +43,7 @@
                    </div>
                 </div>
                  <div class="col-sm-2" >
-					<div style="padding:5px;">
+					<div style="padding-left:10px; padding-right:10px; padding-top:10px;">
 						<form autocomplete="off" >
 							<select class="form-control" id="type" [(ngModel)]="type" name="type" (change)="onTypeSelect($event)">
 								 <option *ngFor="let typ of types" [value]="typ.name">{{typ.name}}</option>
