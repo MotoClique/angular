@@ -9,7 +9,7 @@ declare var jQuery:any;
 
 @Injectable()
 export class SharedService {
-	sharedObj: any = {userProfile: {}, postItem:{}};
+	sharedObj: any = {userProfile: {}, postItem:{}, configParams:{}};
 	containerContext: any;
 	token: string = "";
 	fullhost: string = "";
