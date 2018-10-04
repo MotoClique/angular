@@ -205,14 +205,7 @@ export class AppBid implements OnInit {
 							  });
 						}						  
 					}
-					
-					
-					that.commonService.adminService.getParameter("bid_hike_pc")
-						.subscribe( data => {
-								if(data.results.length > 0){
-								  that.bidHikePc = data.results[0].value;
-								}
-					});
+															
 				});
 	  }
 	  
