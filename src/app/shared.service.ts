@@ -92,11 +92,15 @@ export class SharedService {
 		var that = this;
 		if(state)
 			document.getElementById("loaderContainer").style.display = "block";
-		else
+		else{
 			setTimeout(function(){
 				if(that.callCount <= 0)
 					document.getElementById("loaderContainer").style.display = "none"; 
-			}, 500);			
+			}, 500);
+      jQuery("#brandlogo").fadeOut(2000,function(){
+			  jQuery("#approot").fadeIn(2000,function(){});
+			});
+    }
 	}
 	
 	setBusy(state){
