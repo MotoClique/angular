@@ -570,8 +570,13 @@ export class AppDynamicForm implements OnInit {
 		else if(field.field_path == "bid_amount"){
 			jQuery.each(this.fields, function(i,v){
 				if(v.field_path == 'min_bid_hike'){
-					var pc = (!isNaN(that.parentComponent.bidHikePc))?that.parentComponent.bidHikePc:'0';
-					v.value = Math.round(field.value * (pc/100));
+					if(that.sharedService.sharedObj.configParams['bid_hike_type'] === 'pc'){
+						var pc = (!isNaN(that.sharedService.sharedObj.configParams['bid_hike_value']))?that.sharedService.sharedObj.configParams['bid_hike_value']:'0';
+						v.value = Math.round(field.value * (pc/100));
+					}
+					else{
+						v.value = that.sharedService.sharedObj.configParams['bid_hike_value'];
+					}
 				}
 				else if(v.field_path == 'current_bid_amount'){
 					v.value = (field.value == undefined)?"NA":field.value ;
