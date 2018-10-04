@@ -40,6 +40,11 @@ export   class   AppLogin  implements OnInit {
           else
             this.router.navigateByUrl('/Container');
         }
+		else{
+			jQuery("#brandlogo").fadeOut(2000,function(){
+			  jQuery("#approot").fadeIn(2000,function(){});
+			});
+		}
   }
   
   onLogin() {

@@ -8,6 +8,7 @@ import { Http , Response } from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+declare var jQuery:any;
 
 interface hidden {
   signup: boolean,
@@ -64,6 +65,9 @@ export   class   AppSignup  implements OnInit {
 			 signup: false,
 			 profile: true
 		 };
+		 jQuery("#brandlogo").fadeOut(2000,function(){
+			  jQuery("#approot").fadeIn(2000,function(){});
+			});
   }
   
   onSendOTP(){
