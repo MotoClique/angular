@@ -199,6 +199,15 @@ export class AppContainer implements OnInit{
 				});
 			});
 			
+      this.sharedService.sharedObj.configParams = {};
+			this.commonService.adminService.getAllParameter()
+				.subscribe( data => {
+					if(data.results){
+						jQuery.each(data.results,function(i,v){
+							that.sharedService.sharedObj.configParams[v.parameter] = v.value;
+						});
+					}
+			});
 		}
 		
 		loadUserFilter(){
