@@ -1,32 +1,47 @@
 <div style="height:100%;">
-  <mat-tab-group #dynamicTabGroup (selectedTabChange)="onTabClick($event)" style="height:100%;">
-		<mat-tab label="All" style="height:100%;">
-			<div style="height:100%; padding:15px;">
-			  <div *ngFor="let item of allPost">
+	<mat-tab-group #chatTabGroup (selectedTabChange)="onTabClick($event)">
+		<mat-tab label="All" style="">
+		</mat-tab>
+		<mat-tab label="Sell" style="">
+		</mat-tab>
+		<mat-tab label="Buy" style="">
+		</mat-tab>
+		<mat-tab label="Bid" style="">
+		</mat-tab>
+		<mat-tab label="Service" style="">
+		</mat-tab>
+	</mat-tab-group>
+			<div style="height:100%; padding:15px; overflow-y:auto;">
+			  <div *ngFor="let item of filteredPost" class="postitemstyle" (click)="onChatSelect($event,item)">
 					<div style="width:100%; -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2); box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);">
 						<div style="display:flex; width:100%; padding:5px;">
-							<img src="item.thumbnail" style="width:60px; height:60px; padding:2px;"/>
+							<img src="{{formatThumbnail(item.thumbnail)}}" style="width:60px; height:60px; padding:2px;"/>
 							<div style="line-height:25px; width:100%; padding-left:10px;">
 									<div style="display: flex; flex-direction: row; justify-content: space-between;">
-										<div *ngIf="(item.transactionTyp !== 'Service')">
-										  <b style="font-size: 15px;" class="postproduct-title" >{{item.brand_name}} {{item.model}} {{item.variant}}</b>
-										  <span style="font-size: 12px;" class="postproduct-fuelType" >{{item.fuel_type ? item.fuel_type : ''}}</span>
+										<div *ngIf="(item.transactionTyp !== 'Service')" style="width:75%;">
+										  <b style="font-size: 12px;" class="postproduct-title" >{{item.brand_name}} {{item.model}} {{item.variant}}</b>
+										  <!--<span style="font-size: 12px;" class="postproduct-fuelType" >{{item.fuel_type ? item.fuel_type : ''}}</span>-->
 										</div>
-										<div *ngIf="(item.transactionTyp === 'Service')">
-										  <b style="font-size: 15px;" class="postproduct-title" >{{item.model}}</b>
+										<div *ngIf="(item.transactionTyp === 'Service')" style="width:75%;">
+										  <b style="font-size: 12px;" class="postproduct-title" >{{item.model}}</b>
 										  <span style="font-size: 12px;" class="postproduct-fuelType" >{{item.brand_name}} Service</span>
+										</div>
+										
+										<div style="margin-right: 10px;">
+											<b *ngIf="(item.transactionTyp !== 'Bid' && item.transactionTyp !== 'Service')" style="color: #E71B03; font-size: 12px;"><span *ngIf="item.transactionTyp === 'Buy'" class="glyphicon glyphicon-menu-left"></span> <span class="">&#8377;</span> {{item.display_amount ? item.display_amount : '0'}}</b>
+											<b *ngIf="item.transactionTyp === 'Bid'" style="color: #E71B03; font-size: 12px;"><span class="">&#8377;</span> {{item.display_amount ? item.display_amount : '0'}}</b>
+											<b *ngIf="item.transactionTyp === 'Service'" style="color: #E71B03; font-size: 12px;"><span style="font-size:10px;">Starts From </span> <span class="">&#8377;</span> {{item.display_amount ? item.display_amount : '0'}}</b>
 										</div>
 									</div>
 									<div style="display: flex; flex-direction: row; font-size: 12px; justify-content:space-between;" *ngIf="(item.transactionTyp !== 'Service')">
-									  <div style="margin-right: 20px;"><span style="color:#E71B03;" class="glyphicon glyphicon-map-marker"></span> {{item.city ? item.city : '---'}}</div>
-									  <div style="margin-right: 20px;"><span *ngIf="item.transactionTyp === 'Buy'" style="font-weight: bold;" class="glyphicon glyphicon-menu-right"></span> <span style="color:#E71B03;" class="glyphicon glyphicon-time"></span> {{item.year_of_reg ? item.year_of_reg : '0000'}}</div>
-									  <div style="margin-right: 20px;"><span *ngIf="item.transactionTyp === 'Buy'" style="font-weight: bold;" class="glyphicon glyphicon-menu-left"></span> <span style="color:#E71B03;" class="glyphicon glyphicon-road"></span> {{item.km_done ? item.km_done : '0'}} KM</div>
-									  <div style="margin-right: 20px;"><span style="color:#E71B03;" class="glyphicon glyphicon-camera"></span> {{item.number_of_image ? item.number_of_image : '0'}}</div>
-									  <div><span style="color:#E71B03;" class="glyphicon glyphicon-user"></span> {{ownerTypeFormatter(item.owner_type)}}</div>
+									  <!--<div style="margin-right: 20px;"><span style="color:#E71B03;" class="glyphicon glyphicon-map-marker"></span> {{item.city ? item.city : '---'}}</div>-->
+									  <div style="margin-right: 10px;"><span *ngIf="item.transactionTyp === 'Buy'" style="font-weight: bold;" class="glyphicon glyphicon-menu-right"></span> <span style="color:#E71B03;" class="glyphicon glyphicon-time"></span> {{item.year_of_reg ? item.year_of_reg : '0000'}}</div>
+									  <div style="margin-right: 10px;"><span *ngIf="item.transactionTyp === 'Buy'" style="font-weight: bold;" class="glyphicon glyphicon-menu-left"></span> <span style="color:#E71B03;" class="glyphicon glyphicon-road"></span> {{item.km_done ? item.km_done : '0'}} KM</div>
+									  <!--<div><span style="color:#E71B03;" class="glyphicon glyphicon-user"></span> {{ownerTypeFormatter(item.owner_type)}}</div>-->
 									  <div *ngIf="item.createdOn !== undefined && item.createdOn !== null && item.createdOn !== ''" style="right: 15px; position: absolute;"><span style="color:#E71B03;" class="glyphicon glyphicon-calendar"></span> {{item.createdOn}}</div>
 									</div>
 									<div style="display: flex; flex-direction: row; font-size: 12px; justify-content:space-between;" *ngIf="item.transactionTyp === 'Service'">
-									  <div><span style="color:#E71B03;" class="glyphicon glyphicon-map-marker"></span> {{item.city ? item.city : '---'}}</div>
+									  <!--<div><span style="color:#E71B03;" class="glyphicon glyphicon-map-marker"></span> {{item.city ? item.city : '---'}}</div>-->
 									  <div style="display:flex;">
 										  <div style="padding: 3px;"><div style="background-color: #E71B03;  width: 35px;  border-radius: 4px;  color: white; height: 18px;  line-height: 18px; text-align: center;">{{item.rating ? item.rating : '0'}} <span>&#9733;</span></div> </div>
 										  <div style="">{{item.no_of_rating ? item.no_of_rating : '0'}} Rating, {{item.no_of_feedback ? item.no_of_feedback : '0'}} Feedback</div>
@@ -34,16 +49,29 @@
 									  </div>
 									</div>
 									
-									<div style="display:flex; justify-content:space-around;">
-										<span style="font-size:14px; color:#3f51b5;">Syed</span>
-										<span style="font-size:14px;">28 Mar</span>
-										<button mat-button color="primary">Delete Forever</button>
-									</div>
+									
+							</div>
+						</div>
+						<div style="display:flex; justify-content:space-around;">
+							<div style="display:flex; align-items:center; justify-content:center; padding:4px; width:10%;">
+								<span [hidden]="(item.from_user_name === userDetail.name)?item.from_read:item.to_read" style="font-size:14px; background-color:#E71B03; color:white; width:20px; height:20px; border-radius:100px; text-align:center;">
+								{{(item.from_user_name === userDetail.name)?item.from_unread_count:item.to_unread_count}}
+								</span>
+							</div>
+							<div style="display:flex; align-items:center; justify-content:center; padding:4px; width:30%;">
+								<span style="font-size:14px; color:#3f51b5;">{{(item.from_user_name === userDetail.name)?item.to_user_name:item.from_user_name}}</span>
+							</div>
+							<div style="display:flex; align-items:center; justify-content:center; padding:4px; width:30%;">
+								<span style="font-size:14px;">{{formatDate(item.createdAt)}}</span>
+							</div>
+							<div style="display:flex; align-items:center; justify-content:center; padding:4px; width:30%;">
+								<div style="width:150px; cursor:pointer;" [hidden]="!(item.post_deletion)">
+									<span style="font-size:14px; color:#3f51b5;">Delete Forever</span>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</mat-tab>
-	</mat-tab-group>
+		
 </div>
