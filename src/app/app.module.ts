@@ -59,6 +59,7 @@ import { AppService } from './enduser/service.component';
 import { AppServiceForm } from './enduser/reusable/serviceForm.component';
 import { AppTileTemplate } from './enduser/reusable/tileTemplate.component';
 import { AppChatInbox } from './enduser/chatInbox.component';
+import { AppChatDetail } from './enduser/chatDetail.component';
 
 const appRoutes: Routes = [
 	{ path: '', component: AppLogin },
@@ -110,7 +111,9 @@ const appRoutes: Routes = [
 		{ path: 'Service', component: AppService, canActivate: [AuthGuardService], canDeactivate:[ConfirmDeactivateGuard]},
 		{ path: 'Service/:id', component: AppService, canActivate: [AuthGuardService], canDeactivate:[ConfirmDeactivateGuard]},
 		{ path: 'Service/:id/:mode', component: AppService, canActivate: [AuthGuardService], canDeactivate:[ConfirmDeactivateGuard]},
-    { path: 'ChatInbox', component: AppChatInbox, canActivate: [AuthGuardService], canDeactivate:[ConfirmDeactivateGuard]}
+    { path: 'ChatInbox', component: AppChatInbox, canActivate: [AuthGuardService], canDeactivate:[ConfirmDeactivateGuard]},
+		{ path: 'ChatDetail/:id', component: AppChatDetail, canActivate: [AuthGuardService], canDeactivate:[ConfirmDeactivateGuard]},
+		{ path: 'ChatDetail/:id/:mode', component: AppChatDetail, canActivate: [AuthGuardService], canDeactivate:[ConfirmDeactivateGuard]}
 	]}
 ];
 
@@ -118,7 +121,8 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
 	  //End User
-    AppChatInbox,
+    AppChatDetail,
+	  AppChatInbox,
 	  AppService,
 	  AppBidBy,
 	  AppBuy,
