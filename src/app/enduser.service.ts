@@ -269,4 +269,16 @@ export class EndUserService {
 	  return this.sharedService.call('thumbs_down', "put", thumbs_down, false);
   }
   
+  //////////////////////////////////////////CHAT///////////////////////////////////////////////////////////
+  getChatInbox(user,post_id){
+	  return this.sharedService.call('chatInbox/?from_user='+user+'&to_user='+user+'&post_id='+post_id, "get", null, false);
+  }
+  getChatDetail(chat_id,from_user,to_user){
+	  return this.sharedService.call('chatDetail/?chat_id='+chat_id+'&from_user='+from_user, "get", null, false);
+  }
+  
+  sendChat(chat){
+	  return this.sharedService.call('chatDetail', "post", chat, false);
+  }
+  
 }
