@@ -1,6 +1,7 @@
 //
-import {Component,OnInit,HostListener} from '@angular/core';
+import {Component,OnInit,ViewChild,HostListener} from '@angular/core';
 import { Injectable }     from '@angular/core';
+import { MatTabChangeEvent } from '@angular/material';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import {Router, ActivatedRoute} from '@angular/router';
 import { CommonService } from '../common.service';
@@ -20,8 +21,10 @@ declare var jQuery:any;
 @Injectable()
 export class AppChatInbox implements OnInit {
 	userDetail: any = {};
-  localData: any = {};
+	localData: any = {};
 	allPost: any = [];
+	filteredPost: any = [];
+	@ViewChild('chatTabGroup') chatTabGroup;
 
     constructor(private router: Router, private route: ActivatedRoute, private http: Http, private commonService: CommonService, private sharedService: SharedService) {
                      this.router = router;
@@ -40,36 +43,47 @@ export class AppChatInbox implements OnInit {
 
     ngOnInit(){
 				var that = this;
-				this.sharedService.sharedObj.containerContext.title = "My Chat Inbox";	
+				this.sharedService.sharedObj.containerContext.title = "My Chats";	
 				this.sharedService.getUserProfile(function(user){
 					that.userDetail = user;
 					var id = that.route.snapshot.params.id;
 					var mode = that.route.snapshot.params.mode;
 					if(id && id !== 'blank'){
-							that.commonService.enduserService.getAlert("",id)
+							that.commonService.enduserService.getChatInbox(id,"")
 							  .subscribe( data => {
-								  if(data.results.length > 0){
-									
-								  }
-								  else{
-									 that.sharedService.openMessageBox("E","No data found.",null);
-								  }
+								if(data.statusCode === 'S'){
+									that.allPost = data.results;
+									that.filteredPost = jQuery.extend(true, [], that.allPost);
+								}
+								else{
+									that.sharedService.openMessageBox("E",data.msg,null);
+								}
+								that.chatTabGroup.selectedIndex = 0;	
 							});
 					}					
 					else{
-						that.commonService.enduserService.getAlert(that.userDetail.user_id,"")
-							.subscribe( result => {
-            
-            });
+						that.commonService.enduserService.getChatInbox(that.userDetail.user_id,"")
+							.subscribe( data => {
+								if(data.statusCode === 'S'){
+									that.allPost = data.results;
+									that.filteredPost = jQuery.extend(true, [], that.allPost);
+								}
+								else{
+									that.sharedService.openMessageBox("E",data.msg,null);
+								}
+								that.chatTabGroup.selectedIndex = 0;	
+						});
 					}
-										
-					
-				});
-					
+				});				
     }
+	
+	ngAfterViewInit(){
+		this.chatTabGroup.selectedIndex = 0;	
+	}
 	  
 	  
 	onChatSelect(evt,data){
+		this.sharedService.sharedObj.postItem = jQuery.extend(true, {}, data);
 		this.router.navigate(['/Container/ChatDetail',data.chat_id]);
 	}
   
@@ -123,9 +137,57 @@ export class AppChatInbox implements OnInit {
 		return owner;
 	}
   
-  onTabClick(evt){
-  
-  }
-
+	onTabClick(event: MatTabChangeEvent) {
+		var tabname= event.tab.textLabel;
+		if(tabname == "All"){
+			this.filteredPost = jQuery.extend(true, [], this.allPost);
+		}
+		else if(tabname == "Sell"){
+			this.filteredPost =  this.allPost.filter(function(currentValue, index, arr){
+				return currentValue.post_type === 'Sale';
+			});
+		}
+		else if(tabname == "Buy"){
+			this.filteredPost =  this.allPost.filter(function(currentValue, index, arr){
+				return currentValue.post_type === 'Buy';
+			});
+		}
+		else if(tabname == "Bid"){
+			this.filteredPost =  this.allPost.filter(function(currentValue, index, arr){
+				return currentValue.post_type === 'Bid';
+			});
+		}
+		else if(tabname == "Service"){
+			this.filteredPost =  this.allPost.filter(function(currentValue, index, arr){
+				return currentValue.post_type === 'Service';
+			});
+		}
+	}
+	
+	formatThumbnail(thumbnail){
+		if(thumbnail){
+			var base64string_th = this.arrayBufferToBase64(thumbnail.thumbnail.data);
+			var imageData_th = "data:"+thumbnail.type+";base64,"+base64string_th;
+			return imageData_th;
+		}
+		else{
+			return '';
+		}
+	}
+	
+	arrayBufferToBase64( buffer ) {
+		var binary = '';
+		var bytes = new Uint8Array( buffer );
+		var len = bytes.byteLength;
+		for (var i = 0; i < len; i++) {
+			binary += String.fromCharCode( bytes[ i ] );
+		}
+		return window.btoa( binary );
+	}
+	
+	formatDate(d){
+		var dateObj = new Date(d);
+		return dateObj.getDate()+'-'+(dateObj.getMonth() - (-1))+'-'+dateObj.getFullYear();
+	}
 
 }
