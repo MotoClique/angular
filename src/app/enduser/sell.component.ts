@@ -827,5 +827,20 @@ export class AppSell implements OnInit {
 	
 	ngOnDestroy(){
 		
-	}	
+	}
+  
+  startChat(evt){
+		this.sharedService.sharedObj.postItem = jQuery.extend(true, {},this.item);
+		var thumbnails = this.imageTemplateComponent.thumbnails;
+		if(thumbnails && thumbnails.length>0){
+			this.sharedService.sharedObj.postItem['thumbnail'] = thumbnails[0];
+			for(var i=0; i<thumbnails.length; i++){
+				if(thumbnails[i].default){
+					this.sharedService.sharedObj.postItem['thumbnail'] = thumbnails[i];
+					break;
+				}
+			}		
+		}
+		this.router.navigate(['/Container/ChatDetail',this.item.sell_id,'create']);
+	}
 }
