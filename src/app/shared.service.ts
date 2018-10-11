@@ -40,7 +40,7 @@ export class SharedService {
 	}
 	
 	call(entity, method, obj, admin) {
-		if(!(entity.includes("image/") && method==='get') && (entity !== "searchload")){
+		if(!(entity.includes("image/") && method==='get') && (entity !== "searchload") && !(entity.includes("chatDetail/") && method==='get')){
 			this.setBusyWithCountCheck(true);
 			this.callCount = this.callCount - (-1);
 		}
@@ -68,14 +68,14 @@ export class SharedService {
 		} 
 
 		const request = base.map((res: any) => {
-			if(!(entity.includes("image/") && method==='get') && (entity !== "searchload")){
+			if(!(entity.includes("image/") && method==='get') && (entity !== "searchload") && !(entity.includes("chatDetail/") && method==='get')){
 				this.callCount = this.callCount - 1;
 				this.setBusyWithCountCheck(false);
 			}
 			return res;
 		})
 		.catch((err: any) => {
-			if(!(entity.includes("image/") && method==='get') && (entity !== "searchload")){
+			if(!(entity.includes("image/") && method==='get') && (entity !== "searchload") && !(entity.includes("chatDetail/") && method==='get')){
 				this.callCount = this.callCount - 1;
 				this.setBusyWithCountCheck(false);
 			}
