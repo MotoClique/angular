@@ -47,6 +47,11 @@
 				</div>
 				<div style="height: 100px"></div>
 			</div>
+      
+      <div style="width:70px; position:absolute; bottom:70px; right:25px; cursor:pointer; z-index:2; display:flex; flex-direction:column; align-items:center; justify-content:center;" [hidden]="((screenMode.add) || (screenMode.edit) || (item.user_id === userDetail.user_id))" (click)="startChat($event)">
+				<img src="assets/chat_icon.png" style="width:30px;"/> Chat Now!
+			</div>
+      
 			<div class="footerStyle" [hidden]="(!(screenMode.add) && !(screenMode.edit) && (item.user_id !== userDetail.user_id))">
 				<div class="row" style="padding: 3px;">
 					<div class="col-xs-6">
