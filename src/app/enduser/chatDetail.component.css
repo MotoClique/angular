@@ -1,0 +1,71 @@
+.page_title{
+	text-align: center;
+    font-size: x-large;
+    margin-top: 1rem;
+}
+.detail_form{
+    width: 90%;
+    height: 90%;
+    margin: auto;
+    background-color:#f9f9f9;
+    -webkit-box-shadow: 3px 3px 5px 6px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+	-moz-box-shadow:    3px 3px 5px 6px #ccc;  /* Firefox 3.5 - 3.6 */
+	box-shadow:         3px 3px 5px 6px #ccc;
+    color: #565454;
+}
+.padding{
+    padding: 30px;
+}
+
+
+/* CSS talk bubble */
+.talk-bubble-left {
+	margin: 18px;
+	display: inline-block;
+	position: relative;
+	width: auto;
+	height: auto;
+	background-color: #F7F7F7;
+	padding: 10px;
+	border-radius: 15px;
+	min-width: 150px;
+}
+.talk-bubble-right {
+	margin: 18px;
+	display: inline-block;
+	position: relative;
+	width: auto;
+	height: auto;
+	background-color: #D9FFC9;
+	padding: 10px;
+	border-radius: 15px;
+	min-width: 150px;
+}
+
+/* Right triangle placed top left flush. */
+.tri-right.left-top:after{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+	left: -15px;
+	right: auto;
+	top: 0px;
+	bottom: auto;
+	border: 15px solid;
+	border-color: #F7F7F7 transparent transparent transparent;
+}
+
+/* Right triangle placed top right flush. */
+.tri-right.right-bottom:after{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+	left: auto;
+	right: -15px;
+	top: auto;
+	bottom: 0px;
+	border: 15px solid;
+	border-color: transparent transparent #D9FFC9 transparent;
+}
