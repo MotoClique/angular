@@ -1,0 +1,77 @@
+<div style="height:100%;">
+		<div style="height: 40px; display: flex; justify-content: center; font-size: 18px; font-weight: 800; color:#E71B03;">
+			<span style="border: 2px solid #E71B03; border-radius: 100px; width: 24px; line-height: 20px; height: 24px; text-indent: 4px; font-size: 12px;" class="glyphicon glyphicon-user"></span>
+			<span>{{(item.to_user_name === userDetail.name)?item.from_user_name:item.to_user_name}}</span>
+		</div>
+		<div style="display:flex; line-height:32px; width:100%; padding-left:10px; box-shadow:0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);">
+			<img src="{{formatThumbnail(item.thumbnail)}}" style="width:60px; height:60px; padding:2px;"/>
+			<div style="line-height:32px; width:calc(100% - 60px); padding-left:10px;">
+				<div style="display: flex; flex-direction: row; justify-content: space-between;">
+					<div *ngIf="(item.transactionTyp !== 'Service')" style="width:75%;">
+						<b style="font-size: 12px;" class="postproduct-title" >{{item.brand_name}} {{item.model}} {{item.variant}}</b>
+					</div>
+					<div *ngIf="(item.transactionTyp === 'Service')" style="width:75%;">
+						<b style="font-size: 12px;" class="postproduct-title" >{{item.model}}</b>
+						<span style="font-size: 12px;" class="postproduct-fuelType" >{{item.brand_name}} Service</span>
+					</div>
+					
+					<div style="margin-right: 10px;">
+						<b *ngIf="(item.transactionTyp !== 'Bid' && item.transactionTyp !== 'Service')" style="color:#E71B03; font-size:14px; padding:4px;"><span *ngIf="item.transactionTyp === 'Buy'" class="glyphicon glyphicon-menu-left"></span> <span class="">&#8377;</span> {{item.display_amount ? item.display_amount : '0'}}</b>
+						<b *ngIf="item.transactionTyp === 'Bid'" style="color:#E71B03; font-size:14px; padding:4px;"><span class="">&#8377;</span> {{item.display_amount ? item.display_amount : '0'}}</b>
+						<b *ngIf="item.transactionTyp === 'Service'" style="color:#E71B03; font-size:14px; padding:4px;"><span style="font-size:10px;">Starts From </span> <span class="">&#8377;</span> {{item.display_amount ? item.display_amount : '0'}}</b>
+					</div>
+				</div>
+				<div style="display: flex; flex-direction: row; font-size: 12px; justify-content:space-between;" *ngIf="(item.transactionTyp !== 'Service')">
+					<div style="margin-right: 10px;"><span *ngIf="item.transactionTyp === 'Buy'" style="font-weight: bold;" class="glyphicon glyphicon-menu-right"></span> <span style="color:#E71B03;" class="glyphicon glyphicon-time"></span> {{item.year_of_reg ? item.year_of_reg : '0000'}}</div>
+					<div style="margin-right: 10px;"><span *ngIf="item.transactionTyp === 'Buy'" style="font-weight: bold;" class="glyphicon glyphicon-menu-left"></span> <span style="color:#E71B03;" class="glyphicon glyphicon-road"></span> {{item.km_done ? item.km_done : '0'}} KM</div>
+					<div *ngIf="item.createdOn !== undefined && item.createdOn !== null && item.createdOn !== ''" style="right: 15px; position: absolute;"><span style="color:#E71B03;" class="glyphicon glyphicon-calendar"></span> {{item.createdOn}}</div>
+				</div>
+				<div style="display: flex; flex-direction: row; font-size: 12px; justify-content:space-between;" *ngIf="item.transactionTyp === 'Service'">
+					<div style="display:flex;">
+						<div style="padding: 3px;"><div style="background-color: #E71B03;  width: 35px;  border-radius: 4px;  color: white; height: 18px;  line-height: 18px; text-align: center;">{{item.rating ? item.rating : '0'}} <span>&#9733;</span></div> </div>
+						<div style="">{{item.no_of_rating ? item.no_of_rating : '0'}} Rating, {{item.no_of_feedback ? item.no_of_feedback : '0'}} Feedback</div>
+						<div *ngIf="item.createdOn !== undefined && item.createdOn !== null && item.createdOn !== ''" style="right: 15px; position: absolute;"><span style="color:#E71B03;" class="glyphicon glyphicon-calendar"></span> {{item.createdOn}}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div id="idchatdetail" style="overflow-y:auto; height: calc(100% - 150px); ">			
+			<div style="width:100%;  margin-top:60%;" class="chatMsgRowConatiner">
+			<div style="width:100%;" *ngFor="let chat of chatDetail" class="chatMsgRowStyle">
+				<div style="display:flex; justify-content:flex-start;" [hidden]="chat.from_user === userDetail.user_id">
+					<div class="talk-bubble-left">
+						<div class="tri-right border left-top">
+							<span>{{chat.text}}</span>
+							<div style="text-align: start;">
+								<span style="font-size: 10px;">{{chatFormatDate(chat.createdAt)}}</span>
+								<!--<span style="font-weight: 800; font-size: 15px;" [style.color]="(chat.read)?'#64C3FE':'black'">&#10003;</span>
+								<span style="margin-left: -12px; font-weight: 800; font-size: 15px;" [style.color]="(chat.read)?'#64C3FE':'black'">&#10003;</span>-->
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div style="display:flex; justify-content:flex-end;" [hidden]="chat.from_user !== userDetail.user_id">
+					<div class="talk-bubble-right">
+						<div class="tri-right border right-bottom">
+							<span>{{chat.text}}</span>	
+							<div style="text-align: end;">
+								<span style="font-size: 10px;">{{chatFormatDate(chat.createdAt)}}</span>
+								<span style="font-weight: 800; font-size: 15px;" [style.color]="(chat.to_read)?'#64C3FE':'black'">&#10003;</span>
+								<span style="margin-left: -12px; font-weight: 800; font-size: 15px;" [style.color]="(chat.to_read)?'#64C3FE':'black'">&#10003;</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+				
+		<div style="position:absolute; bottom:0; border: 1px solid gray; width:100%; display:flex;">
+			<textarea style="height:50px; border:none; width: calc(100% - 30px);" [(ngModel)]="typedText"></textarea>
+			<button mat-button style="height:50px; width:30px; font-size:18px;" (click)="sendText($event)">
+				<span class="glyphicon glyphicon-send"></span>
+			</button>
+		</div>
+</div>
