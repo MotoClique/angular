@@ -185,9 +185,13 @@ export class AppChatInbox implements OnInit {
 		return window.btoa( binary );
 	}
 	
-	formatDate(d){
-		var dateObj = new Date(d);
-		return dateObj.getDate()+'-'+(dateObj.getMonth() - (-1))+'-'+dateObj.getFullYear();
+	formatDate(d){		
+		if(d){
+			var dateObj = new Date(d);
+			var monthList = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+			return dateObj.getDate()+ " " + monthList[(dateObj.getMonth())];
+		}
+		return '';
 	}
 
 }
