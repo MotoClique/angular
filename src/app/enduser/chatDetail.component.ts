@@ -194,7 +194,7 @@ export class AppChatDetail implements OnInit {
 			chat.from_user_name = this.userDetail.name;
 						
 			chat.text = this.typedText;		
-			chat.post_type = this.item.transactionTyp;
+			chat.post_type = this.item.post_type;
 			if(chat.post_type === 'Sale')
 				chat.post_id = this.item.sell_id;
 			else if(chat.post_type === 'Buy')
