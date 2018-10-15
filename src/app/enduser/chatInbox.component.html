@@ -8,12 +8,10 @@
 		</mat-tab>
 		<mat-tab label="Bid" style="">
 		</mat-tab>
-		<mat-tab label="Service" style="">
-		</mat-tab>
 	</mat-tab-group>
-			<div style="height:100%; padding:15px; overflow-y:auto;">
+			<div style="height:100%; padding:5px; overflow-y:auto;">
 			  <div *ngFor="let item of filteredPost" class="postitemstyle" (click)="onChatSelect($event,item)">
-					<div style="width:100%; -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2); box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);">
+					<div style="width:100%; border-bottom: 1px solid rgba(0,0,0,0.16);">
 						<div style="display:flex; width:100%; padding:5px;">
 							<img src="{{formatThumbnail(item.thumbnail)}}" style="width:60px; height:60px; padding:2px;"/>
 							<div style="line-height:25px; width:100%; padding-left:10px;">
