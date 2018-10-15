@@ -7,7 +7,7 @@
 		<mat-tab label="Buy" style="">
 		</mat-tab>
 		<mat-tab label="Bid" style="">
-		</mat-tab>
+		</mat-tab>		
 	</mat-tab-group>
 			<div style="height:100%; padding:5px; overflow-y:auto;">
 			  <div *ngFor="let item of filteredPost" class="postitemstyle" (click)="onChatSelect($event,item)">
@@ -16,60 +16,54 @@
 							<img src="{{formatThumbnail(item.thumbnail)}}" style="width:60px; height:60px; padding:2px;"/>
 							<div style="line-height:25px; width:100%; padding-left:10px;">
 									<div style="display: flex; flex-direction: row; justify-content: space-between;">
-										<div *ngIf="(item.transactionTyp !== 'Service')" style="width:75%;">
+										<div *ngIf="(item.post_type !== 'Service')" style="width:75%;">
 										  <b style="font-size: 12px;" class="postproduct-title" >{{item.brand_name}} {{item.model}} {{item.variant}}</b>
-										  <!--<span style="font-size: 12px;" class="postproduct-fuelType" >{{item.fuel_type ? item.fuel_type : ''}}</span>-->
 										</div>
-										<div *ngIf="(item.transactionTyp === 'Service')" style="width:75%;">
+										<div *ngIf="(item.post_type === 'Service')" style="width:75%;">
 										  <b style="font-size: 12px;" class="postproduct-title" >{{item.model}}</b>
 										  <span style="font-size: 12px;" class="postproduct-fuelType" >{{item.brand_name}} Service</span>
 										</div>
-										
-										<div style="margin-right: 10px;">
-											<b *ngIf="(item.transactionTyp !== 'Bid' && item.transactionTyp !== 'Service')" style="color: #E71B03; font-size: 12px;"><span *ngIf="item.transactionTyp === 'Buy'" class="glyphicon glyphicon-menu-left"></span> <span class="">&#8377;</span> {{item.display_amount ? item.display_amount : '0'}}</b>
-											<b *ngIf="item.transactionTyp === 'Bid'" style="color: #E71B03; font-size: 12px;"><span class="">&#8377;</span> {{item.display_amount ? item.display_amount : '0'}}</b>
-											<b *ngIf="item.transactionTyp === 'Service'" style="color: #E71B03; font-size: 12px;"><span style="font-size:10px;">Starts From </span> <span class="">&#8377;</span> {{item.display_amount ? item.display_amount : '0'}}</b>
+									</div>
+									<div style="display: flex; flex-direction: row; font-size: 12px; justify-content:space-between;" *ngIf="(item.post_type !== 'Service')">
+										<div style="margin-right:5px;">
+											<span style="background: #E71B03; border-radius: 10px; color: white; font-size: 11px; font-weight: bold; padding-left: 5px; padding-right: 5px; padding-top: 1px; padding-bottom: 1px;">{{item.post_type}}</span>
+										</div>
+										<div style="margin-right:5px;"><span *ngIf="item.post_type === 'Buy'" style="font-weight: bold;" class="glyphicon glyphicon-menu-right"></span> <span style="color:#E71B03;" class="glyphicon glyphicon-time"></span> {{item.year_of_reg ? item.year_of_reg : '0000'}}</div>
+										<div style="margin-right:5px;"><span *ngIf="item.post_type === 'Buy'" style="font-weight: bold;" class="glyphicon glyphicon-menu-left"></span> <span style="color:#E71B03;" class="glyphicon glyphicon-road"></span> {{item.km_done ? item.km_done : '0'}} KM</div>
+										<div style="margin-right:5px;">
+											<b *ngIf="(item.post_type !== 'Bid' && item.post_type !== 'Service')" style="color: #E71B03; font-size: 12px;"><span *ngIf="item.post_type === 'Buy'" class="glyphicon glyphicon-menu-left"></span> <span class="">&#8377;</span> {{item.display_amount ? item.display_amount : '0'}}</b>
+											<b *ngIf="item.post_type === 'Bid'" style="color: #E71B03; font-size: 12px;"><span class="">&#8377;</span> {{item.display_amount ? item.display_amount : '0'}}</b>
+											<b *ngIf="item.post_type === 'Service'" style="color: #E71B03; font-size: 12px;"><span style="font-size:10px;">Starts From </span> <span class="">&#8377;</span> {{item.display_amount ? item.display_amount : '0'}}</b>
 										</div>
 									</div>
-									<div style="display: flex; flex-direction: row; font-size: 12px; justify-content:space-between;" *ngIf="(item.transactionTyp !== 'Service')">
-									  <!--<div style="margin-right: 20px;"><span style="color:#E71B03;" class="glyphicon glyphicon-map-marker"></span> {{item.city ? item.city : '---'}}</div>-->
-									  <div style="margin-right: 10px;"><span *ngIf="item.transactionTyp === 'Buy'" style="font-weight: bold;" class="glyphicon glyphicon-menu-right"></span> <span style="color:#E71B03;" class="glyphicon glyphicon-time"></span> {{item.year_of_reg ? item.year_of_reg : '0000'}}</div>
-									  <div style="margin-right: 10px;"><span *ngIf="item.transactionTyp === 'Buy'" style="font-weight: bold;" class="glyphicon glyphicon-menu-left"></span> <span style="color:#E71B03;" class="glyphicon glyphicon-road"></span> {{item.km_done ? item.km_done : '0'}} KM</div>
-									  <!--<div><span style="color:#E71B03;" class="glyphicon glyphicon-user"></span> {{ownerTypeFormatter(item.owner_type)}}</div>-->
-									  <div *ngIf="item.createdOn !== undefined && item.createdOn !== null && item.createdOn !== ''" style="right: 15px; position: absolute;"><span style="color:#E71B03;" class="glyphicon glyphicon-calendar"></span> {{item.createdOn}}</div>
-									</div>
-									<div style="display: flex; flex-direction: row; font-size: 12px; justify-content:space-between;" *ngIf="item.transactionTyp === 'Service'">
-									  <!--<div><span style="color:#E71B03;" class="glyphicon glyphicon-map-marker"></span> {{item.city ? item.city : '---'}}</div>-->
+									<div style="display: flex; flex-direction: row; font-size: 12px; justify-content:space-between;" *ngIf="item.post_type === 'Service'">
 									  <div style="display:flex;">
 										  <div style="padding: 3px;"><div style="background-color: #E71B03;  width: 35px;  border-radius: 4px;  color: white; height: 18px;  line-height: 18px; text-align: center;">{{item.rating ? item.rating : '0'}} <span>&#9733;</span></div> </div>
 										  <div style="">{{item.no_of_rating ? item.no_of_rating : '0'}} Rating, {{item.no_of_feedback ? item.no_of_feedback : '0'}} Feedback</div>
 										  <div *ngIf="item.createdOn !== undefined && item.createdOn !== null && item.createdOn !== ''" style="right: 15px; position: absolute;"><span style="color:#E71B03;" class="glyphicon glyphicon-calendar"></span> {{item.createdOn}}</div>
 									  </div>
 									</div>
-									
-									
 							</div>
 						</div>
 						<div style="display:flex; justify-content:space-around;">
+							<div style="display:flex; align-items:center; justify-content:flex-start; padding:4px; width:30%;">
+								<span style="font-size:14px; color:#3f51b5;">{{(item.from_user_name === userDetail.name)?item.to_user_name:item.from_user_name}}</span>
+							</div>						
 							<div style="display:flex; align-items:center; justify-content:center; padding:4px; width:10%;">
 								<span [hidden]="(item.from_user_name === userDetail.name)?item.from_read:item.to_read" style="font-size:14px; background-color:#E71B03; color:white; width:20px; height:20px; border-radius:100px; text-align:center;">
 								{{(item.from_user_name === userDetail.name)?item.from_unread_count:item.to_unread_count}}
 								</span>
 							</div>
 							<div style="display:flex; align-items:center; justify-content:center; padding:4px; width:30%;">
-								<span style="font-size:14px; color:#3f51b5;">{{(item.from_user_name === userDetail.name)?item.to_user_name:item.from_user_name}}</span>
-							</div>
-							<div style="display:flex; align-items:center; justify-content:center; padding:4px; width:30%;">
-								<span style="font-size:14px;">{{formatDate(item.createdAt)}}</span>
-							</div>
-							<div style="display:flex; align-items:center; justify-content:center; padding:4px; width:30%;">
 								<div style="width:150px; cursor:pointer;" [hidden]="!(item.post_deletion)">
 									<span style="font-size:14px; color:#3f51b5;">Delete Forever</span>
 								</div>
+							</div>							
+							<div style="display:flex; align-items:center; justify-content:flex-end; padding:4px; width:30%;">
+								<span style="font-size:14px;">{{formatDate(item.createdAt)}}</span>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		
+			</div>		
 </div>
