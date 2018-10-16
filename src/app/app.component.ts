@@ -12,7 +12,10 @@ export class AppComponent implements OnInit{
   showDialog = false;
   
   ngOnInit(){
-	  
+	  window.addEventListener('popstate', function(event:any){
+      if((event.target.location.pathname).includes("/edit"))
+        window.history.go(-1)
+    });
   }
   
 }
