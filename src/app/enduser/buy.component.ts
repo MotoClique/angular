@@ -151,6 +151,9 @@ export class AppBuy implements OnInit {
 										that.dynamicFormComponent.generateDisplayField("Buy",item);
 										that.imageTemplateComponent.getTransactionThumbnails(item.buy_req_id);
 									}
+                    
+                    if(that.item.user_id !== that.userDetail.user_id)
+										  that.sharedService.sharedObj.containerContext.title = "Buy Request";
 								  }
 								  else{
 									 that.sharedService.openMessageBox("E","No data found.",null); 
