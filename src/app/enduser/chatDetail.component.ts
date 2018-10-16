@@ -224,7 +224,9 @@ export class AppChatDetail implements OnInit {
 					if(data.statusCode==='S'){
 						that.typedText = '';
 						that.chat_id = data.results.chat_id;
-						that.chatDetail.push(data.results);
+						var freshChat = data.results;
+						freshChat.fresh = true;
+						that.chatDetail.push(freshChat);
 						that.lastChatCount = that.chatDetail.length;
 						that.checkNewMsgRow();
 						if(!(that.fetchChatTimer))
@@ -246,7 +248,9 @@ export class AppChatDetail implements OnInit {
 								that.typedText = '';
 								that.chat_id = data.results.chat_id;
 								that.chatDetail = [];
-								that.chatDetail.push(data.results);
+								var freshChat = data.results;
+								freshChat.fresh = true;
+								that.chatDetail.push(freshChat);
 								that.lastChatCount = that.chatDetail.length;
 								that.checkNewMsgRow();
 								if(!(that.fetchChatTimer))
