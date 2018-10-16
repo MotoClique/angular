@@ -53,10 +53,10 @@
 						
 						<div class="col-sm-12">
 							<span class="glyphicon glyphicon-info-sign" (click)="passwordInfo($event)"></span>
-							<mat-form-field style="width: 80%;">
+							<mat-form-field style="width: 90%;">
 								<input matInput placeholder="Password" type="password" [disabled]=true [(ngModel)] = "userDetail.password" name="password">
 							</mat-form-field>
-							<button mat-raised-button [disabled]="disabledMode" (click)="onPasswordChangeClick()">Change</button>
+							
 						</div>
                     </div>
                 </div>
@@ -105,10 +105,10 @@
                         </div>-->
 						
 						<div class="col-sm-12">
-							<mat-form-field style="width: 80%;">
+							<mat-form-field style="width: 100%;">
 								<input matInput placeholder="Wallet Amount" type="text" [disabled]=true [(ngModel)] = "userDetail.amount" name="wallet">
 							</mat-form-field>
-							<button mat-raised-button [disabled]="disabledMode" (click)="addMoney($event)">Add Money</button>
+							
 						</div>
                     </div>
                 </div>
@@ -129,7 +129,14 @@
 							   <span class="glyphicon glyphicon-remove"></span> Cancel
 						   </button>
 					</div>
-					<div class="col-xs-6" style="display:flex; justify-content:flex-end;">						
+					<div class="col-xs-6" style="display:flex; justify-content:flex-end;">
+            <button [hidden]="disabledMode" class="btn btn-default" style="width:100%;" (click)="addMoney($event)">
+							<span class="glyphicon glyphicon-piggy-bank"></span> Add Money
+						</button>
+						<button [hidden]="disabledMode" class="btn btn-default" style="width:100%;" (click)="onPasswordChangeClick()">
+							<span class="glyphicon glyphicon-lock"></span> Change Password
+						</button>
+            
 						  <button [hidden]="disabledMode" type="submit" class="btn btn-default" style="width:100%;" (click)="onAccDetailSave($event)">
 							   <span class="glyphicon glyphicon-floppy-disk"></span> Save
 						  </button>
