@@ -126,6 +126,9 @@ export class AppService implements OnInit {
 										that.serviceFormComponent.loadService(item);
 										that.imageTemplateComponent.getTransactionThumbnails(item.service_id);
 									}
+                    
+                    if(that.item.user_id !== that.userDetail.user_id)
+										  that.sharedService.sharedObj.containerContext.title = "Services";
 								  }
 								  else{
 									  that.sharedService.openMessageBox("E","No data found.",null);
