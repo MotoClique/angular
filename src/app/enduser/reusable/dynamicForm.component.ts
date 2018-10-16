@@ -523,6 +523,23 @@ export class AppDynamicForm implements OnInit {
 		  this.commonService.enduserService.getBidBy("",this.item.bid_id)
 			 .subscribe( data => {
 			  this.bidBy = data.results;
+        this.bidBy.sort(function(a, b){
+				if(a.bid_date_time && b.bid_date_time){
+					var aDateSplit = (a.bid_date_time.split(' ')[0]).split('/');
+					var aDateObj = aDateSplit[2]+'-'+aDateSplit[1]+'-'+aDateSplit[0]+'T'+a.bid_date_time.split(' ')[1];
+					var bDateSplit = (b.bid_date_time.split(' ')[0]).split('/');
+					var bDateObj = bDateSplit[2]+'-'+bDateSplit[1]+'-'+bDateSplit[0]+'T'+b.bid_date_time.split(' ')[1];
+					
+					if (aDateObj < bDateObj)
+						return 1;
+					else if (aDateObj > bDateObj)
+						return -1;
+					return 0;
+				}
+				else{
+					return 0;
+				}
+			});//descending sort
 			});
 	  }
 	  
