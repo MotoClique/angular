@@ -151,6 +151,9 @@ export class AppSell implements OnInit {
 										that.editMode = false;
 										that.screenMode = {add:false, edit:false};
 									}
+                    
+                    if(that.item.user_id !== that.userDetail.user_id)
+										  that.sharedService.sharedObj.containerContext.title = "Sell";
 								  }
 								  else{
 									 that.sharedService.openMessageBox("E","No data found.",null);
