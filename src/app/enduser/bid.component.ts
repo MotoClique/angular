@@ -166,6 +166,9 @@ export class AppBid implements OnInit {
 										that.dynamicFormComponent.generateDisplayField("Bid",item);
 										that.imageTemplateComponent.getTransactionThumbnails(item.bid_id);
 									}
+                    
+                    if(that.item.user_id !== that.userDetail.user_id)
+										  that.sharedService.sharedObj.containerContext.title = "Bid";
 								  }
 								  else{
 									 that.sharedService.openMessageBox("E","No data found.",null);
