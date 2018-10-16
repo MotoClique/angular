@@ -333,10 +333,12 @@ export class AppHome implements OnInit {
 						  }
 					  });
 					  this.results.sort((a: any, b: any)=> {
-												var fromd = a.createdAt.split('/');
-												var fromdObj = new Date(fromd[2]+'-'+fromd[1]+'-'+fromd[0]);
-												var tod = b.createdAt.split('/');
-												var todObj = new Date(tod[2]+'-'+tod[1]+'-'+tod[0]);
+												//var fromd = a.createdAt.split('/');
+												//var fromdObj = new Date(fromd[2]+'-'+fromd[1]+'-'+fromd[0]);
+												//var tod = b.createdAt.split('/');
+												//var todObj = new Date(tod[2]+'-'+tod[1]+'-'+tod[0]);
+												var fromdObj = new Date(a.createdAt);
+												var todObj = new Date(b.createdAt);
 												if (fromdObj < todObj)
 												  return 1;
 												if (fromdObj > todObj)

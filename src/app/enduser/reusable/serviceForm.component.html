@@ -91,7 +91,7 @@
                         <div  style="display:flex;">
                             <span style="padding-left: 20px;">{{feedback.user_name}}</span>
                             <!--<span style="padding-left: 20px;"><span class="glyphicon glyphicon-ok-sign"></span> Certified Buyer</span>-->
-                            <span style="padding-left: 20px;">{{feedback.createdAt}}</span>
+                            <span style="padding-left: 20px;">{{formatDate(feedback.createdAt)}}</span>
                         </div>
                         <div style="display:flex;">
                             <div style="padding-right: 20px; cursor:pointer;" [style.pointerEvents]="(feedback.user_id === userDetail.user_id)?'none':'auto'" (click)="onThumbsUp(feedback)"><span class="glyphicon glyphicon-thumbs-up"></span> {{feedback.thumbs_up_no ? feedback.thumbs_up_no : '0'}}</div>
