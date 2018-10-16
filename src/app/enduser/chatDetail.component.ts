@@ -70,6 +70,9 @@ export class AppChatDetail implements OnInit {
 													that.item.to_user_name = data.results[0].name;
 										   });
 									}
+									
+									that.item.from_user = that.userDetail.user_id;
+									that.item.from_user_name = that.userDetail.name;
 								}
 						});
 					}					

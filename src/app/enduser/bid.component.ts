@@ -854,6 +854,7 @@ export class AppBid implements OnInit {
   
   startChat(evt){
 		this.sharedService.sharedObj.postItem = jQuery.extend(true, {},this.item);
+		this.sharedService.sharedObj.postItem['post_type'] = this.item.transactionTyp;
 		var thumbnails = this.imageTemplateComponent.thumbnails;
 		if(thumbnails && thumbnails.length>0){
 			this.sharedService.sharedObj.postItem['thumbnail'] = thumbnails[0];
