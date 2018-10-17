@@ -319,6 +319,13 @@ export class AppChatDetail implements OnInit {
 		}
 		return window.btoa( binary );
 	}
+  
+  onChatDeletion(evt){
+		this.commonService.enduserService.deleteChatInbox(this.chat_id)
+			.subscribe( data => {
+				this.router.navigateByUrl('/Container/ChatInbox');
+		});
+	}
 	
 	ngOnDestroy(){
 		clearInterval(this.fetchChatTimer);		
