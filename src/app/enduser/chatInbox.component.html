@@ -55,7 +55,7 @@
 								</span>
 							</div>
 							<div style="display:flex; align-items:center; justify-content:center; padding:4px; width:30%;">
-								<div style="width:150px; cursor:pointer;" [hidden]="!(item.post_deletion)">
+								<div style="width:150px; cursor:pointer;" [hidden]="!(item.post_deletion)" (click)="onChatDeletion($event,item)">
 									<span style="font-size:14px; color:#3f51b5;">Delete Forever</span>
 								</div>
 							</div>							
