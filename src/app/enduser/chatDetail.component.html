@@ -1,6 +1,6 @@
 <div style="height:100%;">
 		<div style="height: 40px; display: flex; justify-content: center; font-size: 18px; font-weight: 800; color:#E71B03;">
-			<span style="border: 2px solid #E71B03; border-radius: 100px; width: 24px; line-height: 20px; height: 24px; text-indent: 4px; font-size: 12px;" class="glyphicon glyphicon-user"></span>
+			<span style="border: 2px solid #E71B03; border-radius: 100px; width: 24px; line-height: 20px; height: 24px; text-indent: 4px; font-size: 12px; margin-right:5px;" class="glyphicon glyphicon-user"></span>
 			<span>{{(item.to_user_name === userDetail.name)?item.from_user_name:item.to_user_name}}</span>
 		</div>
 		<div style="display:flex; line-height:32px; width:100%; padding-left:10px; box-shadow:0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);">
@@ -73,7 +73,7 @@
 			</div>
 		</div>
 				
-		<div [hidden]="(item.post_deletion)" style="position:absolute; bottom:0; border-top: 1px solid #F3F3F3; width:100%; display:flex;">
+		<div [hidden]="(item.post_deletion)" style="position:absolute; bottom:0; width:100%; display:flex;">
 			<textarea placeholder="Type a message" style="height:50px; border: 1.5px solid #E71B03; width: calc(100% - 60px); border-radius:10px; margin-left:2px; outline:none; padding:5px;" [(ngModel)]="typedText"></textarea>
 			<div style="height:50px; width:60px; background:white; display:flex; justify-content:center;">
 				<div style="cursor:pointer; height:50px; width:50px; font-size:40px; color:#E71B03; opacity:1; background:white; text-align:center; border: 1.5px solid #E71B03; border-radius: 100px; line-height: 50px;" (click)="sendText($event)">
