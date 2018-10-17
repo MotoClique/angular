@@ -280,5 +280,8 @@ export class EndUserService {
   sendChat(chat){
 	  return this.sharedService.call('chatDetail', "post", chat, false);
   }
+  deleteChatInbox(chat_id){
+	 return this.sharedService.call('chatInbox/'+chat_id, "delete", null, false);
+  }
   
 }
