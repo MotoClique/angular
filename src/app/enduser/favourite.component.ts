@@ -82,6 +82,8 @@ export class AppFav implements OnInit {
 	
 	getItemDetails(){
 		var that = this;
+    var favPost = [];
+    var loopCount = 0;
 		jQuery.each(this.results,function(i,v){
 			v.fav = true;
 			v.fav_id = v._id;
@@ -89,6 +91,7 @@ export class AppFav implements OnInit {
 				that.commonService.enduserService.getSell("",v.bid_sell_buy_id,"",null,null,null)
 				  .subscribe( data => {			  
 						var res = data.results[0];
+          if(res && res.active === 'X'){
 						jQuery.each(res,function(key,val){
 							if(key !== "_id")
 								v[key] = val;
@@ -104,13 +107,24 @@ export class AppFav implements OnInit {
 									  var base64string = that.arrayBufferToBase64(prdImage[0].data.data);
 									  v.data = "data:"+prdImage[0].type+";base64,"+base64string;
 								  }
+              favPost.push(v);
+              loopCount = loopCount - (-1);
+              if(loopCount === that.results.length)
+                that.results = favPost;
 						  });
+          }
+          else{
+            loopCount = loopCount - (-1);
+            if(loopCount === that.results.length)
+              that.results = favPost;
+          }
 				  });
 			}
 			if(v.type == "Buy"){
 				that.commonService.enduserService.getBuy("",v.bid_sell_buy_id,"",null,null,null)
 				  .subscribe( data => {			  
 						var res = data.results[0];
+          if(res && res.active === 'X'){
 						jQuery.each(res,function(key,val){
 							if(key !== "_id")
 								v[key] = val;
@@ -126,13 +140,24 @@ export class AppFav implements OnInit {
 									  var base64string = that.arrayBufferToBase64(prdImage[0].data.data);
 									  v.data = "data:"+prdImage[0].type+";base64,"+base64string;
 								  }
+              favPost.push(v);
+              loopCount = loopCount - (-1);
+              if(loopCount === that.results.length)
+                that.results = favPost;
 						  });
+          }
+          else{
+            loopCount = loopCount - (-1);
+            if(loopCount === that.results.length)
+              that.results = favPost;
+          }
 				  });
 			}
 			if(v.type == "Bid"){
 				that.commonService.enduserService.getBid("",v.bid_sell_buy_id,"",null,null,null)
 				  .subscribe( data => {			  
 						var res = data.results[0];
+          if(res && res.bid_valid_to >= new Date()){
 						jQuery.each(res,function(key,val){
 							if(key !== "_id")
 								v[key] = val;
@@ -148,13 +173,24 @@ export class AppFav implements OnInit {
 									  var base64string = that.arrayBufferToBase64(prdImage[0].data.data);
 									  v.data = "data:"+prdImage[0].type+";base64,"+base64string;
 								  }
+              favPost.push(v);
+              loopCount = loopCount - (-1);
+              if(loopCount === that.results.length)
+                that.results = favPost;
 						  });
+          }
+          else{
+            loopCount = loopCount - (-1);
+            if(loopCount === that.results.length)
+              that.results = favPost;
+          }
 				  });
 			}
 			if(v.type == "Service"){
 				that.commonService.enduserService.getService("",v.bid_sell_buy_id,"",null,null,null)
 				  .subscribe( data => {			  
 						var res = data.results[0];
+          if(res && res.active === 'X'){
 						jQuery.each(res,function(key,val){
 							if(key !== "_id")
 								v[key] = val;
@@ -170,7 +206,17 @@ export class AppFav implements OnInit {
 									  var base64string = that.arrayBufferToBase64(prdImage[0].data.data);
 									  v.data = "data:"+prdImage[0].type+";base64,"+base64string;
 								  }
+              favPost.push(v);
+              loopCount = loopCount - (-1);
+              if(loopCount === that.results.length)
+                that.results = favPost;
 						  });
+          }
+          else{
+            loopCount = loopCount - (-1);
+            if(loopCount === that.results.length)
+              that.results = favPost;
+          }
 				  });
 			}
 		});
