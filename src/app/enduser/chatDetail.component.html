@@ -75,8 +75,8 @@
 				
 		<div [hidden]="(item.post_deletion)" style="position:absolute; bottom:0; width:100%; display:flex;">
 			<textarea placeholder="Type a message" style="height:50px; border: 1.5px solid #E71B03; width: calc(100% - 60px); border-radius:10px; margin-left:2px; outline:none; padding:5px;" [(ngModel)]="typedText"></textarea>
-			<div style="height:50px; width:60px; background:white; display:flex; justify-content:center;">
-				<div style="cursor:pointer; height:50px; width:50px; font-size:40px; color:#E71B03; opacity:1; background:white; text-align:center; border: 1.5px solid #E71B03; border-radius: 100px; line-height: 50px;" (click)="sendText($event)">
+			<div style="height:50px; width:60px; background:white; display:flex; justify-content:center; align-items:center;">
+				<div style="cursor:pointer; height:50px; width:50px; font-size:30px; color:#E71B03; opacity:1; background:white; border: 1.5px solid #E71B03; border-radius: 100px; display:flex; justify-content:center; align-items:center;" (click)="sendText($event)">
 					<span style="">&#10146;</span>
 				</div>
 			</div>
