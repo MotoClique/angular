@@ -62,9 +62,9 @@
 						<div class="tri-right border right-bottom">
 							<span>{{chat.text}}</span>	
 							<div style="text-align: end;">
-								<span style="font-size: 10px;">{{chatFormatDate(chat.createdAt)}}</span>
-								<span class="glyphicon glyphicon-ok" style="z-index:1; font-weight: 800; font-size: 15px; -webkit-text-stroke: 1px #D9FFC9;" [style.color]="(chat.to_read)?'#64C3FE':'black'"></span>
-								<span [hidden]="chat.fresh" class="glyphicon glyphicon-ok" style="margin-left: -13px; font-weight: 800; font-size: 15px; -webkit-text-stroke: 1px #D9FFC9;" [style.color]="(chat.to_read)?'#64C3FE':'black'"></span>
+								<span style="font-size: 10px; color:#A0A0A0;">{{chatFormatDate(chat.createdAt)}}</span>
+								<span class="glyphicon glyphicon-ok" style="z-index:1; font-weight: 800; font-size: 12px; -webkit-text-stroke: 1px #D9FFC9;" [style.color]="(chat.to_read)?'#64C3FE':'#A0A0A0'"></span>
+								<span [hidden]="chat.fresh" class="glyphicon glyphicon-ok" style="margin-left: -11px; font-weight: 800; font-size: 12px; -webkit-text-stroke: 1px #D9FFC9;" [style.color]="(chat.to_read)?'#64C3FE':'#A0A0A0'"></span>
 							</div>
 						</div>
 					</div>
