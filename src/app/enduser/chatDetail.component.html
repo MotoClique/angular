@@ -41,7 +41,7 @@
 			</div>
 		</div>
 		
-		<div id="idchatdetail" style="overflow-y:auto; height: calc(100% - 150px); ">			
+		<div id="idchatdetail" style="overflow-y:auto; height: calc(100% - 160px); ">			
 			<div style="width:100%;  margin-top:60%;" class="chatMsgRowConatiner">
 			<div style="width:100%;" *ngFor="let chat of chatDetail" class="chatMsgRowStyle">
 				<div style="display:flex; justify-content:flex-start;" [hidden]="chat.from_user === userDetail.user_id">
@@ -49,7 +49,7 @@
 						<div class="tri-right border left-top">
 							<span>{{chat.text}}</span>
 							<div style="text-align: start;">
-								<span style="font-size: 10px;">{{chatFormatDate(chat.createdAt)}}</span>
+								<span style="font-size: 10px; color:#A0A0A0;">{{chatFormatDate(chat.createdAt)}}</span>
 								<!--<span style="font-weight: 800; font-size: 15px;" [style.color]="(chat.read)?'#64C3FE':'black'">&#10003;</span>
 								<span style="margin-left: -12px; font-weight: 800; font-size: 15px;" [style.color]="(chat.read)?'#64C3FE':'black'">&#10003;</span>-->
 							</div>
@@ -63,8 +63,8 @@
 							<span>{{chat.text}}</span>	
 							<div style="text-align: end;">
 								<span style="font-size: 10px; color:#A0A0A0;">{{chatFormatDate(chat.createdAt)}}</span>
-								<span class="glyphicon glyphicon-ok" style="z-index:1; font-weight: 800; font-size: 12px; -webkit-text-stroke: 1px #D9FFC9;" [style.color]="(chat.to_read)?'#64C3FE':'#A0A0A0'"></span>
-								<span [hidden]="chat.fresh" class="glyphicon glyphicon-ok" style="margin-left: -11px; font-weight: 800; font-size: 12px; -webkit-text-stroke: 1px #D9FFC9;" [style.color]="(chat.to_read)?'#64C3FE':'#A0A0A0'"></span>
+								<span class="glyphicon glyphicon-ok" style="z-index:1; font-weight: 800; font-size: 11px; -webkit-text-stroke: 1px #D9FFC9;" [style.color]="(chat.to_read)?'#64C3FE':'#A0A0A0'"></span>
+								<span [hidden]="chat.fresh" class="glyphicon glyphicon-ok" style="margin-left: -10px; font-weight: 800; font-size: 11px; -webkit-text-stroke: 1px #D9FFC9;" [style.color]="(chat.to_read)?'#64C3FE':'#A0A0A0'"></span>
 							</div>
 						</div>
 					</div>
@@ -73,10 +73,10 @@
 			</div>
 		</div>
 				
-		<div [hidden]="(item.post_deletion)" style="position:absolute; bottom:0; width:100%; display:flex;">
-			<textarea placeholder="Type a message" style="height:50px; border: 1.5px solid #E71B03; width: calc(100% - 60px); border-radius:10px; margin-left:2px; outline:none; padding:5px;" [(ngModel)]="typedText"></textarea>
+		<div [hidden]="(item.post_deletion)" style="position:absolute; bottom:0; width:100%; height:54px; display:flex;">
+			<textarea placeholder="Type a message" style="height:50px; border: 1.5px solid #E71B03; width: calc(100% - 60px); border-radius:10px; margin-left:5px; outline:none; padding:5px;" [(ngModel)]="typedText"></textarea>
 			<div style="height:50px; width:60px; background:white; display:flex; justify-content:center; align-items:center;">
-				<div style="cursor:pointer; height:50px; width:50px; font-size:30px; color:#E71B03; opacity:1; background:white; border: 1.5px solid #E71B03; border-radius: 100px; display:flex; justify-content:center; align-items:center;" (click)="sendText($event)">
+				<div style="cursor:pointer; height:50px; width:50px; font-size:32px; color:#E71B03; opacity:1; background:white; border: 1.5px solid #E71B03; border-radius: 100px; display:flex; justify-content:center; align-items:center;" (click)="sendText($event)">
 					<span style="">&#10146;</span>
 				</div>
 			</div>

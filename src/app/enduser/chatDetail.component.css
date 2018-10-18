@@ -20,7 +20,8 @@
 
 /* CSS talk bubble */
 .talk-bubble-left {
-	margin: 18px;
+	margin: 4px;
+	margin-left: 18px;
 	display: inline-block;
 	position: relative;
 	width: 95%;
@@ -31,7 +32,8 @@
 	min-width: 150px;
 }
 .talk-bubble-right {
-	margin: 18px;
+	margin: 4px;
+	margin-right: 18px;
 	display: inline-block;
 	position: relative;
 	width: 95%;
