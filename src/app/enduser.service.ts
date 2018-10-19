@@ -283,5 +283,8 @@ export class EndUserService {
   deleteChatInbox(chat_id){
 	 return this.sharedService.call('chatInbox/'+chat_id, "delete", null, false);
   }
+  getNewChatCount(){
+	  return this.sharedService.call('freshChatCount', "get", null, false);
+  }
   
 }

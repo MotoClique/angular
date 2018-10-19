@@ -57,6 +57,7 @@ export class AppHome implements OnInit {
 		lastScroll: any = 0;
 		noMoreData: boolean = false;
     screenAccess:any = [];
+	newChatTimer:any;
 		
       constructor(private router: Router, private http: Http, private commonService: CommonService, private sharedService: SharedService) {
               var that = this;;
@@ -109,6 +110,7 @@ export class AppHome implements OnInit {
 				}
 			}
 			that.screenAccess.sort((a: any, b: any)=> {return a.sequence - b.sequence;});//ascending sort
+			that.checkNewChat();
       
 			that.onSearch(null);
 		});
@@ -635,7 +637,34 @@ export class AppHome implements OnInit {
 		}
 	}
 	
+	getNewChatCount(){
+		var that = this;
+		this.commonService.enduserService.getNewChatCount()
+			.subscribe( data => {
+				if(data.statusCode === 'S'){            
+					for(var i=0; i<this.screenAccess.length; i++){
+						if((this.screenAccess[i].name).toLowerCase().indexOf('chat') != -1){
+							this.screenAccess[i].count = data.count;
+							break;
+						}
+					}
+				}
+				else{
+					//this.sharedService.openMessageBox("E",'',null);
+				}
+		});
+	}
 	
+	checkNewChat(){
+		var that = this;
+		this.newChatTimer = setInterval(function(){
+			that.getNewChatCount();
+		},10000);
+	}
+	
+	ngOnDestroy(){
+		clearInterval(this.newChatTimer);
+	}
 	
 	
 	
