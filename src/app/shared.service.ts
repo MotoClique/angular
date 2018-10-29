@@ -455,6 +455,52 @@ export class SharedService {
 		}
 	}
   
+  noDeviceRegistrationMessageBox(msg){
+    var that = this;
+		if(!document.getElementById('noDeviceRegistrationMessageBox')){
+            //Create Dialog Wrapper/Container
+            var msgBox = document.createElement('DIV');
+            msgBox.setAttribute("id", "noDeviceRegistrationMessageBox");
+                                            
+           //Create Dialog Overlay
+           var omsgBox = document.createElement('DIV');
+           omsgBox.setAttribute("id", "noDeviceRegistrationMessageBox_overlay");
+           omsgBox.className = 'global_msg_dialog_overlay';
+           msgBox.appendChild(omsgBox);
+                                                               
+           //Create Dialog Content Area
+           var dmsgBox = document.createElement('DIV');
+           dmsgBox.setAttribute("id", "noDeviceRegistrationMessageBox_content");
+           dmsgBox.className = 'global_msg_dialog';
+           msgBox.appendChild(dmsgBox);
+		   
+		   //Create Message Paragraph
+			var pmsgBox = document.createElement('P');
+            pmsgBox.innerHTML = msg;
+            pmsgBox.className = 'global_msg_dialog_text';
+            dmsgBox.appendChild(pmsgBox);
+		   
+		   //Create Footer
+		    var fmsgBox = document.createElement('DIV');
+			fmsgBox.className= 'global_msg_dialog_footer';
+			var dummyButton = document.createElement('BUTTON');
+			fmsgBox.appendChild(dummyButton);
+			var logOutButton = document.createElement('BUTTON');
+			logOutButton.addEventListener("click", function(){
+				that.auth.logout();
+        jQuery("#noDeviceRegistrationMessageBox").remove();
+			});
+			logOutButton.innerHTML+= "Log Out";
+			fmsgBox.appendChild(logOutButton);
+			dmsgBox.appendChild(fmsgBox);
+		   
+		   document.body.appendChild(msgBox);//Append to Body
+		}
+		else{
+			jQuery("#noDeviceRegistrationMessageBox").remove();
+		}
+	}
+  
   isCordovaApp(){
     var Window:any;
     Window = window || {};
