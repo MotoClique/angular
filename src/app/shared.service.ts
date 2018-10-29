@@ -25,7 +25,9 @@ export class SharedService {
 			var userDetail = that.auth.getUserDetails();
 			that.call('profile/?user_id='+userDetail.user_id, "get", null, true)
 				   .subscribe( data => {
-						if(data.results && data.results.length>0)
+            if(data.unknown_device)
+                 that.noDeviceRegistrationMessageBox(data.msg);		
+            if(data.results && data.results.length>0)
 							that.sharedObj["userProfile"] = data.results[0];
 						else
 							that.sharedObj["userProfile"] = {};
