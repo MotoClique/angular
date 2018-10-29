@@ -53,6 +53,10 @@ export class SharedService {
 			url = this.fullhost+'/api/public/node/';
 		}
 		let base;
+    
+    if(this.isCordovaApp()){
+       obj.device_reg_id = localStorage.getItem('device-token');
+    }
 
 		if (method === 'post') {
 		  base = this.http.post(url+entity, obj, { headers: { Authorization: `Bearer ${this.token}` }});
@@ -450,6 +454,12 @@ export class SharedService {
 			jQuery("#noSubscriptionMessageBox").remove();
 		}
 	}
+  
+  isCordovaApp(){
+    var Window:any;
+    Window = window || {};
+    return !!Window.cordova;
+  }
 	
 	
 	//Testing purpose to be removed later
