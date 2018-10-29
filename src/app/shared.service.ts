@@ -79,10 +79,12 @@ export class SharedService {
 				this.callCount = this.callCount - 1;
 				this.setBusyWithCountCheck(false);
 			}
-			var message = "Error: Unable to process your request. Please contact admin.";
-			if(err.error.error && err.error.error.message)
+			var message = "Error: Unable to process your request. Please refresh your page.";
+      if(err.statusCode === 'F')
+         message = err.msg;
+			else if(err.error.error && err.error.error.message)
 				message = err.error.error.message;
-			this.openMessageBox('E',message,null);
+			this.openMessageBox('E',message,'refresh');
 		});
 
 		return request;
@@ -180,13 +182,24 @@ export class SharedService {
 		else if(type == "E"){
 			var message = 'Error: '+msg;
 			if(callback){
-				var snackBarRef = this.snackBar.openFromComponent(ErrorSnackBarComponent, {
-					duration: duration,
-					data: {message: message, action: 'Show'}
-				});
-				snackBarRef.onAction().subscribe(() => {
-				  callback();
-				});
+        if(callback === 'refresh'){
+					var snackBarRef = this.snackBar.openFromComponent(ErrorSnackBarComponent, {
+						duration: duration,
+						data: {message: message, action: 'Refresh'}
+					});
+					snackBarRef.onAction().subscribe(() => {
+						location.reload();
+					});
+				}
+				else{
+          var snackBarRef = this.snackBar.openFromComponent(ErrorSnackBarComponent, {
+            duration: duration,
+            data: {message: message, action: 'Show'}
+          });
+          snackBarRef.onAction().subscribe(() => {
+            callback();
+          });
+        }
 			}
 			else{
 				this.snackBar.openFromComponent(ErrorSnackBarComponent, {
