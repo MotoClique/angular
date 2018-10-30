@@ -52,9 +52,9 @@ export class CommonService {
   sendOtp(mobile){
 	  return this.sharedService.call('sendOTP/?mobile='+mobile, "get", null, true);
   }
-  loginByOtp(mobile,login_otp){
+  loginByOtp(credential){
 	//return this.call('loginByOtp/?mobile='+mobile+'&otp='+login_otp, "get", null, true);
-	let base = this.http.post(this.auth.fullhost+'/api/loginByOtp', {mobile:mobile, otp:login_otp}, {});
+	let base = this.http.post(this.auth.fullhost+'/api/loginByOtp', credential, {});
 //	this.http.get(this.auth.fullhost+'/api/loginByOtp/?mobile='+mobile+'&otp='+login_otp);
     
     const request = base.pipe(
