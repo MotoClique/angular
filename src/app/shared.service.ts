@@ -23,7 +23,7 @@ export class SharedService {
 		var that = this;
 		if(!(that.sharedObj["userProfile"].user_id)){
 			var userDetail = that.auth.getUserDetails();
-			that.call('profile/?user_id='+userDetail.user_id, "get", null, true)
+			that.call('getprofile', "post", {user_id:userDetail.user_id}, true)
 				   .subscribe( data => {
             if(data.unknown_device)
                  that.noDeviceRegistrationMessageBox(data.msg);		

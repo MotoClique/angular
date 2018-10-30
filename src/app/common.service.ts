@@ -37,7 +37,7 @@ export class CommonService {
   }*/
   
   getProfile(user_id){
-	  return this.sharedService.call('profile/?user_id='+user_id, "get", null, true);
+	  return this.sharedService.call('getprofile', "post", {user_id:user_id}, true);
   }
 
   addProfile(userProfile){
