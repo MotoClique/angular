@@ -9,6 +9,7 @@ import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 declare var jQuery:any;
+declare var FullScreenImage:any;
 
 @Component({
       selector: 'image-template',
@@ -37,7 +38,7 @@ export class AppImageTemplate implements OnInit {
 		//@Input() ownItem;
 		@Input() parentComponent;
 		@Input() editMode;
-		
+		isCordova: boolean = false;
 		
     constructor(private router: Router, private http: Http, private commonService: CommonService, private sharedService: SharedService) {
            
@@ -55,6 +56,7 @@ export class AppImageTemplate implements OnInit {
 		   that.resizeImage();
 	   });
 	   
+	   this.isCordova = this.sharedService.isCordovaApp();
 	   /*jQuery('#imageWholeContainer').load(function(e){		   
 		   that.resizeImage();
 	   });*/
@@ -763,12 +765,134 @@ export class AppImageTemplate implements OnInit {
 	}
   
   previewImage(data){
-		jQuery('#previewImage').attr("src",data);
-		jQuery('#previewImageContainer').show();
+		var base64String = data.replace(/^data:image\/[a-z]+;base64,/, "");
+		var type = 'jpeg';
+		if (data.indexOf("data:image/jpeg") !== -1) 
+			type = "jpeg";
+		else if (data.indexOf("data:image/png") !== -1) 
+			type = "png";
+		else if (data.indexOf("data:image/gif") !== -1) 
+			type = "gif";
+		if(this.isCordova){
+			FullScreenImage.showImageBase64(base64String, 'NoName', type);
+		}
+		else{
+			jQuery('#previewImage').attr("src",data);
+			jQuery('#previewImageContainer').show();
+		}
 	}
 	closePreviewImage(){
 		jQuery('#previewImage').attr("src","");
 		jQuery('#previewImageContainer').hide();
+	}
+	
+	onImageBrowse(evt){
+		var that = this;
+		var Window:any;
+		Window = window || {};
+		if(Window.imagePicker){
+			Window.imagePicker.hasReadPermission(
+				function(permission) {
+					if(permission){
+						that.openImageBrowser();
+					}
+					else{
+						Window.imagePicker.requestReadPermission();
+						that.openImageBrowser();
+					}
+				}
+			);
+		}
+	}
+	
+	openImageBrowser(){
+		var that = this;
+		var Window:any;
+		Window = window || {};
+		Window.imagePicker.getPictures(
+				function(results) {
+					jQuery.each(results,function(i,v){						
+						var image = new Image();
+						image.src = v;
+						image.onload = function() {
+						  var resizedImage = that.resizeImageUsingCanvas(image,"image"); // send it to canvas for actual image
+						  var resizedThumbnail = that.resizeImageUsingCanvas(image,"thumbnail"); // send it to canvas for thumbnail
+						  var stringImage = resizedImage.replace(/^data:image\/[a-z]+;base64,/, "");
+						  var stringThumbnail = resizedThumbnail.replace(/^data:image\/[a-z]+;base64,/, "");
+							var fileType:any = '';							
+							if (v.indexOf(".png") !== -1) fileType = "image/png";
+							else if (v.indexOf(".jpg") !== -1 || v.indexOf(".jpeg") !== -1)
+								fileType = "image/jpeg";
+							else if(v.indexOf(".gif") !== -1)
+								fileType = "image/gif";
+						  var newThumbnail = {
+							  transaction_id: "",
+							  type: fileType,
+							  name: "",
+							  thumbnail: stringThumbnail,
+							  data: resizedThumbnail,
+							  image_id: "",							  
+							  index: (that.thumbnails.length ),
+							  selected: false,
+							  newImage: true,
+							  newImageLink: (that.newImages.length),
+							  default: false
+						  };
+						  that.thumbnails.push(newThumbnail);
+						  that.item.number_of_image = (that.thumbnails.length).toString();
+						  
+						  var newImage = {
+							  transaction_id: "",
+							  data: stringImage,
+							  type: fileType,
+							  name: "",
+							  default: false
+						  };
+						  that.newImages.push(newImage);
+						  
+						  that.deleteTempFile(v);
+                      };
+					});
+				}, function (error) {
+					that.sharedService.openMessageBox("E","Unable to browse. "+error,null);	
+				},
+				{
+					maximumImagesCount: 10
+				}
+			);
+	}
+	
+	
+	deleteTempFile(file) {
+		var that = this;
+		var Window:any;
+		Window = window || {};
+		if (!file || file.lastIndexOf('/') === -1) {
+			that.sharedService.openMessageBox("E","No file path specified. Temp File could not be deleted.",null);
+			return false;
+		}
+
+		//var path = 'file:///data/user/0/com.motocliquetest.meanapp/cache';
+		var path  = file.substring(0,file.lastIndexOf('/'));
+		var fileName = file.substring((file.lastIndexOf('/') - (-1)));
+		Window.resolveLocalFileSystemURL(path, function(fileSystem){
+			fileSystem.getFile(fileName, {create: false}, function(fileEntry){
+				fileEntry.remove(function(success){
+						//alert(success);
+					}, function(error){
+						//alert("deletion failed: " + error);
+						that.sharedService.openMessageBox("E","Unable to remove temp file. "+error,null);	
+					});   
+			}, 
+			function(e){
+				//alert(e);
+				that.sharedService.openMessageBox("E","Unable to remove temp file. "+e,null);	
+			});
+		 }, 
+		 function(e){
+			//alert(e);
+			that.sharedService.openMessageBox("E","Unable to remove temp file. "+e,null);	
+		 });
 	}
 		
 }

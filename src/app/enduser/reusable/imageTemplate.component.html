@@ -129,7 +129,8 @@
 		  <div style="font-size:16px; text-align:center; margin-top:20px; background-color:#dddddd">Upload Image (JPEG, PNG, GIF)</div>
 			<div class="padding">
 				<label></label>
-				<input class="form-control" style="width: 100%;" type="file" accept="image/*" (change)="onUpload($event)" multiple>
+				<input [hidden]="isCordova" class="form-control" style="width: 100%;" type="file" accept="image/*" (change)="onUpload($event)" multiple>
+				<button mat-button [hidden]="!isCordova" style="width:100%; border:1px solid #E71B03; color:#E71B03;" (click)="onImageBrowse($event)">Choose Files</button>
 			</div>
 	</div>
 </app-dialog>
