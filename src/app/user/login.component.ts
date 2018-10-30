@@ -71,6 +71,29 @@ export   class   AppLogin  implements OnInit {
 								}
 						 });							
 					}
+					else if(res.registered){
+						that.sharedService.openMessageBox("C",res.msg+"\n Would you like to re-register with the new device?",function(state){
+							if(state){
+								var credential:any = {mobile:login_mobile, password:login_password, reregister:true};
+								that.auth.login(credential)
+								   .subscribe( res => {
+									if(res.token){
+										var userDetail = that.auth.getUserDetails();
+										that.commonService.getProfile(userDetail.user_id)
+										   .subscribe( data => {							
+												that.sharedService.sharedObj["userProfile"] = data.results[0];
+												if(userDetail.admin == 'A' || userDetail.admin == 'S'){
+													that.router.navigateByUrl('/ContainerAdmin');
+												}
+												else{
+													that.router.navigateByUrl('/Container');
+												}
+										 });
+									}
+								});
+							}
+						});
+					}
 					else{
 						that.loginError = "Invalid credential.";
 					}
@@ -84,13 +107,54 @@ export   class   AppLogin  implements OnInit {
 	  }
 	  else{
 			if(login_mobile && login_otp){
-				  this.commonService.loginByOtp(login_mobile,login_otp)
+				var credential:any = {mobile:login_mobile, otp:login_otp};
+				  this.commonService.loginByOtp(credential)
 				   .subscribe( res => {
 					if(res.statusCode === "F"){
-						if(res.msg)
-							that.loginError = res.msg;
-						else
-							that.loginError = "Login failed";
+						if(res.registered){
+							that.sharedService.openMessageBox("C",res.msg+"\n Would you like to re-register with the new device?",function(state){
+								if(state){
+									var credential:any = {mobile:login_mobile, otp:login_otp, reregister:true};
+									that.commonService.loginByOtp(credential)
+									   .subscribe( res => {
+										   if(res.statusCode === "F"){
+											   if(res.msg)
+													that.loginError = res.msg;
+												else
+													that.loginError = "Login failed";
+										   }
+										   else{
+												var data = res.results;
+												if(data[0] && data[0].mobile == login_mobile && data[0].otp == login_otp){
+													var userDetail = that.auth.getUserDetails();
+													that.commonService.getProfile(userDetail.user_id)
+														.subscribe( result => {
+															var users = result.results;
+															that.sharedService.sharedObj["userProfile"] = users[0];
+															if(userDetail.admin == 'A'){
+																that.router.navigateByUrl('/ContainerAdmin');
+															}
+															else{
+																that.router.navigateByUrl('/Container');
+															}
+															that.sharedService.setBusy(false);
+														});								
+												}
+												else{
+													that.loginError = "Invalid credential.";
+													that.sharedService.setBusy(false);
+												}
+										   }
+									});
+								}
+							});
+						}
+						else{						
+							if(res.msg)
+								that.loginError = res.msg;
+							else
+								that.loginError = "Login failed";
+						}
 						that.sharedService.setBusy(false);
 					}
 					else{
