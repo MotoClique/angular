@@ -56,9 +56,9 @@ export class SharedService {
 		}
 		let base;
     
-    if(this.isCordovaApp()){
-       obj.device_reg_id = localStorage.getItem('device-token');
-    }
+    
+       obj.device_reg_id = (!(localStorage.getItem('device-token')))?'empty':localStorage.getItem('device-token');
+    
 
 		if (method === 'post') {
 		  base = this.http.post(url+entity, obj, { headers: { Authorization: `Bearer ${this.token}` }});
