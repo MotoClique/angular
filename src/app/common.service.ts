@@ -54,7 +54,8 @@ export class CommonService {
   }
   loginByOtp(mobile,login_otp){
 	//return this.call('loginByOtp/?mobile='+mobile+'&otp='+login_otp, "get", null, true);
-	let base = this.http.get(this.auth.fullhost+'/api/loginByOtp/?mobile='+mobile+'&otp='+login_otp);
+	let base = this.http.post(this.auth.fullhost+'/api/loginByOtp', {mobile:mobile, otp:login_otp}, {});
+//	this.http.get(this.auth.fullhost+'/api/loginByOtp/?mobile='+mobile+'&otp='+login_otp);
     
     const request = base.pipe(
       map((data: any) => {
