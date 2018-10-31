@@ -67,9 +67,11 @@ export class AuthenticationService {
     let base;
 		
     if (method === 'post') {
+      if(user)
+			  user.device_reg_id = (!(localStorage.getItem('device-token')))?'empty':localStorage.getItem('device-token');
       base = this.http.post(this.fullhost+'/api/'+type, user);
     } else {
-      base = this.http.get(this.fullhost+'/api/'+type, { headers: { Authorization: `Bearer ${this.getToken()}` }});
+      base = this.http.get(this.fullhost+'/api/'+type, {});
     }
 
     const request = base.map((data: any) => {
@@ -101,6 +103,13 @@ export class AuthenticationService {
   
   public verifyOTP(detail: any): Observable<any> {
     return this.request('post', 'verifyOtp', detail);
+  }
+  
+  public loginByOtp(credential: any): Observable<any> {
+    return this.request('post', 'loginByOtp', credential);
+  }
+  public sendOtp(mobile: any): Observable<any> {
+	  return this.request('get', 'sendOTP/?mobile='+mobile, null);
   }
   
 	setBusy(state){
