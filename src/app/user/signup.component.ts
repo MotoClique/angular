@@ -75,7 +75,7 @@ export   class   AppSignup  implements OnInit {
 	  this.sendOTP = "Resend OTP";
 	  if(this.login_mobile){
       if(this.login_mobile.length === 10){
-        this.commonService.sendOtp(this.login_mobile)
+        this.auth.sendOtp(this.login_mobile)
           .subscribe( data => {
 
         });
