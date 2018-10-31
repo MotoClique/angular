@@ -90,12 +90,21 @@ export   class   AppLogin  implements OnInit {
 												}
 										 });
 									}
+                  else{
+										if(res.msg)
+											that.loginError = res.msg;
+										else
+											that.loginError = "Unable to re-register.";
+									}
 								});
 							}
 						});
 					}
 					else{
-						that.loginError = "Invalid credential.";
+            if(res.msg)
+							that.loginError = res.msg;
+						else
+						  that.loginError = "Invalid credential.";
 					}
 					that.sharedService.setBusy(false);
 				  });
@@ -108,14 +117,14 @@ export   class   AppLogin  implements OnInit {
 	  else{
 			if(login_mobile && login_otp){
 				var credential:any = {mobile:login_mobile, otp:login_otp};
-				  this.commonService.loginByOtp(credential)
+				  this.auth.loginByOtp(credential)
 				   .subscribe( res => {
 					if(res.statusCode === "F"){
 						if(res.registered){
 							that.sharedService.openMessageBox("C",res.msg+"\n Would you like to re-register with the new device?",function(state){
 								if(state){
 									var credential:any = {mobile:login_mobile, otp:login_otp, reregister:true};
-									that.commonService.loginByOtp(credential)
+									that.auth.loginByOtp(credential)
 									   .subscribe( res => {
 										   if(res.statusCode === "F"){
 											   if(res.msg)
@@ -215,7 +224,7 @@ export   class   AppLogin  implements OnInit {
 	  this.loginError = "";
 	  this.sendOTP = "Resend OTP";
 	  if(this.login_mobile){
-		  this.commonService.sendOtp(this.login_mobile)
+		  this.auth.sendOtp(this.login_mobile)
 			   .subscribe( data => {
 			   
 			  });	
