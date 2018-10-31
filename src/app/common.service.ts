@@ -48,28 +48,6 @@ export class CommonService {
 	  return this.sharedService.call('profile', "put", userProfile, true);
   }
   
-  
-  sendOtp(mobile){
-	  return this.sharedService.call('sendOTP/?mobile='+mobile, "get", null, true);
-  }
-  loginByOtp(credential){
-	//return this.call('loginByOtp/?mobile='+mobile+'&otp='+login_otp, "get", null, true);
-	let base = this.http.post(this.auth.fullhost+'/api/loginByOtp', credential, {});
-//	this.http.get(this.auth.fullhost+'/api/loginByOtp/?mobile='+mobile+'&otp='+login_otp);
-    
-    const request = base.pipe(
-      map((data: any) => {
-        if (data && data.token) {
-          this.auth.saveToken(data.token);
-		  this.token = data.token;
-        }
-        return data;
-      })
-    );
-
-    return request;
-  }
-  
   changePassword(detail){
 	  return this.sharedService.call('changePassword', "post", detail, true);
   }
