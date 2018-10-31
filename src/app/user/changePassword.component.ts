@@ -61,7 +61,7 @@ export   class   AppChangePassword  implements OnInit {
   
   onSendOTP(){
 	if(this.mobile){
-		this.commonService.sendOtp(this.mobile)
+		this.auth.sendOtp(this.mobile)
 		.subscribe( data => {
 			if(data.statusCode === "S"){
 				this.hidden = {mobile:true, otp:false, password:true};
