@@ -61,13 +61,21 @@ export   class   AppLogin  implements OnInit {
 					if(res.token){
 						var userDetail = that.auth.getUserDetails();
 						that.commonService.getProfile(userDetail.user_id)
-						   .subscribe( data => {							
-								that.sharedService.sharedObj["userProfile"] = data.results[0];
-								if(userDetail.admin == 'A' || userDetail.admin == 'S'){
-									that.router.navigateByUrl('/ContainerAdmin');
+						   .subscribe( data => {
+								if(data.statusCode === 'F'){
+									if(data.unknown_device)
+										that.sharedService.noDeviceRegistrationMessageBox(data.msg);
+									else
+										that.sharedService.openMessageBox("E",data.msg,null);
 								}
 								else{
-									that.router.navigateByUrl('/Container');
+									that.sharedService.sharedObj["userProfile"] = data.results[0];
+									if(userDetail.admin == 'A' || userDetail.admin == 'S'){
+										that.router.navigateByUrl('/ContainerAdmin');
+									}
+									else{
+										that.router.navigateByUrl('/Container');
+									}
 								}
 						 });							
 					}
@@ -80,13 +88,21 @@ export   class   AppLogin  implements OnInit {
 									if(res.token){
 										var userDetail = that.auth.getUserDetails();
 										that.commonService.getProfile(userDetail.user_id)
-										   .subscribe( data => {							
-												that.sharedService.sharedObj["userProfile"] = data.results[0];
-												if(userDetail.admin == 'A' || userDetail.admin == 'S'){
-													that.router.navigateByUrl('/ContainerAdmin');
+										   .subscribe( data => {
+												if(data.statusCode === 'F'){
+													if(data.unknown_device)
+														that.sharedService.noDeviceRegistrationMessageBox(data.msg);
+													else
+														that.sharedService.openMessageBox("E",data.msg,null);
 												}
 												else{
-													that.router.navigateByUrl('/Container');
+													that.sharedService.sharedObj["userProfile"] = data.results[0];
+													if(userDetail.admin == 'A' || userDetail.admin == 'S'){
+														that.router.navigateByUrl('/ContainerAdmin');
+													}
+													else{
+														that.router.navigateByUrl('/Container');
+													}
 												}
 										 });
 									}
@@ -138,13 +154,21 @@ export   class   AppLogin  implements OnInit {
 													var userDetail = that.auth.getUserDetails();
 													that.commonService.getProfile(userDetail.user_id)
 														.subscribe( result => {
-															var users = result.results;
-															that.sharedService.sharedObj["userProfile"] = users[0];
-															if(userDetail.admin == 'A'){
-																that.router.navigateByUrl('/ContainerAdmin');
+															if(result.statusCode === 'F'){
+																if(result.unknown_device)
+																	that.sharedService.noDeviceRegistrationMessageBox(result.msg);
+																else
+																	that.sharedService.openMessageBox("E",result.msg,null);
 															}
 															else{
-																that.router.navigateByUrl('/Container');
+																var users = result.results;
+																that.sharedService.sharedObj["userProfile"] = users[0];
+																if(userDetail.admin == 'A'){
+																	that.router.navigateByUrl('/ContainerAdmin');
+																}
+																else{
+																	that.router.navigateByUrl('/Container');
+																}
 															}
 															that.sharedService.setBusy(false);
 														});								
@@ -172,15 +196,23 @@ export   class   AppLogin  implements OnInit {
 							var userDetail = that.auth.getUserDetails();
 							this.commonService.getProfile(userDetail.user_id)
 								.subscribe( result => {
-									var users = result.results;
-									//if(users.length > 0){
-									that.sharedService.sharedObj["userProfile"] = users[0];
-									if(userDetail.admin == 'A'){
-										that.router.navigateByUrl('/ContainerAdmin');
+									if(result.statusCode === 'F'){
+										if(result.unknown_device)
+											that.sharedService.noDeviceRegistrationMessageBox(result.msg);
+										else
+											that.sharedService.openMessageBox("E",result.msg,null);
 									}
 									else{
-										that.router.navigateByUrl('/Container');
-									}	
+										var users = result.results;
+										//if(users.length > 0){
+										that.sharedService.sharedObj["userProfile"] = users[0];
+										if(userDetail.admin == 'A'){
+											that.router.navigateByUrl('/ContainerAdmin');
+										}
+										else{
+											that.router.navigateByUrl('/Container');
+										}
+									}									
 									//}
 									//else{
 										//that.loginError = "Invalid Number.";

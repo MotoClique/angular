@@ -74,7 +74,10 @@ export class AppAccountDetail implements OnInit {
 	getUserDetail(){
 		this.commonService.getProfile(this.userDetail.user_id)
 		  .subscribe( details => {
-				if(details.results.length > 0)
+				if(details.unknown_device){
+					this.sharedService.noDeviceRegistrationMessageBox(details.msg);
+				}
+				else if(details.results && details.results.length > 0)
 					this.userDetail = details.results[0]
 				else{
 					this.sharedService.openMessageBox("E","Unable to reload.",null);

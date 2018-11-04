@@ -741,7 +741,7 @@ export class AppDynamicForm implements OnInit {
 		this.showParticipantMemberDialog = true;
 		this.commonService.getProfile(item.bid_by_user_id)
 			.subscribe( result => {
-				if(result.results.length > 0)
+				if(result.results && result.results.length > 0)
 					this.participantMemberDetail = result.results[0];
 			});
 	}

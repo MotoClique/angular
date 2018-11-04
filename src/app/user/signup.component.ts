@@ -145,11 +145,16 @@ export   class   AppSignup  implements OnInit {
 									   if(res.error){
 										   that.sharedService.openMessageBox("E","Unable to fetch profile.",null);
 									   }
-									   else if(res.results.length>0){
-										 that.newUser = res.results[0];
-									   }
 									   else{
-										   that.newUser = {};
+										   if(res.unknown_device){
+												that.sharedService.noDeviceRegistrationMessageBox(res.msg);
+										   }
+										   else if(res.results && res.results.length>0){
+											 that.newUser = res.results[0];
+										   }
+										   else{
+											   that.newUser = {};
+										   }
 									   }
 								   });
 							}
