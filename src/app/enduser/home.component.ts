@@ -110,7 +110,7 @@ export class AppHome implements OnInit {
 				}
 			}
 			that.screenAccess.sort((a: any, b: any)=> {return a.sequence - b.sequence;});//ascending sort
-			that.checkNewChat();
+			that.getNewChatCount();
       
 			that.onSearch(null);
 		});
