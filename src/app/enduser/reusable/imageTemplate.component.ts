@@ -853,6 +853,7 @@ export class AppImageTemplate implements OnInit {
 						  that.deleteTempFile(v);
                       };
 					});
+          that.showUploadImageDialog = false;
 				}, function (error) {
 					that.sharedService.openMessageBox("E","Unable to browse. "+error,null);	
 				},
