@@ -84,6 +84,11 @@ export class AppContainer implements OnInit{
 			if(userDetail.admin === 'A' || userDetail.admin === 'S')
 				this.router.navigateByUrl('/ContainerAdmin');
 			
+      var lastRoute = localStorage.getItem("lastRoute");
+			if(lastRoute){
+				localStorage.setItem("lastRoute","");
+				this.router.navigateByUrl(lastRoute);				
+			}
 			var lastScrollTop = 0;
 			var goUp    = false;
 			var goUpVal = 0;
