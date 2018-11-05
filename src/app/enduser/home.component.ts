@@ -299,6 +299,15 @@ export class AppHome implements OnInit {
 		  service = {count: this.searchResponse.service.count, skip: this.searchResponse.service.skip, limit: limit};
 		  this.commonService.enduserService.searchload(queries,type,city,location,sale,buy,bid,service)
 			  .subscribe( data => {
+          if(data.chatCount){
+            for(var i=0; i<that.screenAccess.length; i++){
+              if((that.screenAccess[i].name).toLowerCase().indexOf('chat') != -1){
+                that.screenAccess[i].count = data.chatCount;
+                break;
+              }
+            }   
+          }
+        
 				  if(data.statusCode === 'F'){
             if(data.noSubscription){
               this.sharedService.noSubscriptionMessageBox(data.msg,function(){
