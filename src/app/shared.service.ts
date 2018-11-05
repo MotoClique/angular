@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 //import 'rxjs/add/observable/of';
+import {Router, ActivatedRoute} from '@angular/router';
+import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from './authentication.service';
 import { MatSnackBar } from '@angular/material';
@@ -15,7 +17,7 @@ export class SharedService {
 	fullhost: string = "";
 	callCount: number = 0;
 	
-	constructor(private auth: AuthenticationService, private http: HttpClient, public snackBar: MatSnackBar){
+	constructor(private auth: AuthenticationService, private http: HttpClient, public snackBar: MatSnackBar, public router: Router, public angularLocation:Location){
 		this.fullhost = this.auth.fullhost;
 	}
 	
@@ -194,7 +196,9 @@ export class SharedService {
 						data: {message: message, action: 'Refresh'}
 					});
 					snackBarRef.onAction().subscribe(() => {
-						location.reload();
+            localStorage.setItem("lastRoute",that.router.url);
+						that.angularLocation.back();
+						//location.reload();
 					});
 				}
 				else{
