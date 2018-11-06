@@ -31,6 +31,10 @@
 												  <mat-radio-button value="">No</mat-radio-button>
 											</mat-radio-group>
 											
+											<mat-form-field style="width:100%;" *ngIf="field.field_type === 'textarea'">
+												<textarea matInput placeholder="{{field.field}}" maxlength="260" rows="12" [(ngModel)]="field.value" name="{{field.name}}" required="{{field.field_required}}" [disabled]="!field.editable" [hidden]="!field.visible"></textarea>
+											</mat-form-field>
+											
 											<div *ngIf="field.field_type === 'datetime'" [hidden]="!field.visible">
 												<div style="display:flex; flex-direction: column; color:rgba(0,0,0,.42);">
 													<label >{{field.field}}:</label>

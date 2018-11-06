@@ -32,6 +32,7 @@
 		 {"name": "Input"},
 		 {"name": "Select"},
 		 {"name": "Checkbox"},
+		 {"name": "TextArea"},
 		 {"name": "DateTime"}
 	 ],
 	 
@@ -77,7 +78,8 @@
 		 {"name": "pin_code"},
 		 {"name": "locality"},
 		 {"name": "bid_valid_to"},
-		 {"name": "current_bid_amount"}
+		 {"name": "current_bid_amount"},
+		 {"name": "note"}
 	 ],
 	 
 	 "serviceName": [
