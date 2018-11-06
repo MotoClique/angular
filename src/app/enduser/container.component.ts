@@ -84,7 +84,7 @@ export class AppContainer implements OnInit{
 			if(userDetail.admin === 'A' || userDetail.admin === 'S')
 				this.router.navigateByUrl('/ContainerAdmin');
 			
-      var lastRoute = localStorage.getItem("lastRoute");
+			var lastRoute = localStorage.getItem("lastRoute");
 			if(lastRoute){
 				localStorage.setItem("lastRoute","");
 				this.router.navigateByUrl(lastRoute);				
@@ -222,6 +222,8 @@ export class AppContainer implements OnInit{
 				  .subscribe( data => {	
 					if(data.results.length > 0)
 						that.filterItem = data.results;
+					if(Array.isArray(that.sharedService.sharedObj.userFilter))
+						that.filterItem = that.sharedService.sharedObj.userFilter;
 					that.checkFilter();
 				  });
 		}

@@ -297,7 +297,8 @@ export class AppHome implements OnInit {
 		  buy = {count: this.searchResponse.buy.count, skip: this.searchResponse.buy.skip, limit: limit},
 		  bid = {count: this.searchResponse.bid.count, skip: this.searchResponse.bid.skip, limit: limit},
 		  service = {count: this.searchResponse.service.count, skip: this.searchResponse.service.skip, limit: limit};
-		  this.commonService.enduserService.searchload(queries,type,city,location,sale,buy,bid,service)
+		  var userFilter = this.sharedService.sharedObj.userFilter;
+		  this.commonService.enduserService.searchload(queries,type,city,location,sale,buy,bid,service,userFilter)
 			  .subscribe( data => {
           if(data.chatCount){
             for(var i=0; i<that.screenAccess.length; i++){

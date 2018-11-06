@@ -27,6 +27,7 @@
     "core-js": "^2.4.1",
     "jquery": "^3.3.1",
     "ngx-scroll-event": "^1.0.8",
+	"pinch-zoom-canvas": "^1.0.4",
     "rxjs": "^5.5.2",
     "xlsx": "^0.13.1",
     "zone.js": "^0.8.14"

@@ -14,8 +14,8 @@ export class EndUserService {
   search(term,city,location,type){
 	  return this.sharedService.call('search/?city='+city+'&location='+location+'&type='+type+'&term='+term, "get", null, false);
   }
-  searchload(queries,type,city,location,sale,buy,bid,service){
-	  var obj = {queries: queries, type: type, city: city, location: location, sale:sale, buy:buy, bid:bid, service:service};
+  searchload(queries,type,city,location,sale,buy,bid,service,userFilter){
+	  var obj = {queries: queries, type: type, city: city, location: location, sale:sale, buy:buy, bid:bid, service:service, userFilter:userFilter};
 	  return this.sharedService.call('searchload', "post", obj, false);
   }
   searchLoc(term){

@@ -9,7 +9,7 @@ import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 declare var jQuery:any;
-declare var FullScreenImage:any;
+declare var PinchZoomCanvas:any;
 
 @Component({
       selector: 'image-template',
@@ -465,6 +465,7 @@ export class AppImageTemplate implements OnInit {
         var that = this; 
         var files = evt.target.files; 
 		//var file = files[0];
+		var loopCount = 0;
 		jQuery.each(files,function(indx,file){
 			if (file) { 
 					var fileName = file.name; 
@@ -498,7 +499,7 @@ export class AppImageTemplate implements OnInit {
 							  selected: false,
 							  newImage: true,
 							  newImageLink: (that.newImages.length),
-							  default: false
+							  default: (that.thumbnails.length === 0)?true:false
 						  };
 						  that.thumbnails.push(newThumbnail);
 						  that.item.number_of_image = (that.thumbnails.length).toString();
@@ -508,9 +509,14 @@ export class AppImageTemplate implements OnInit {
 							  data: stringImage,
 							  type: fileType,
 							  name: "",
-							  default: false
+							  default: (that.thumbnails.length === 1)?true:false
 						  };
 						  that.newImages.push(newImage);
+						  
+						  loopCount = loopCount - (-1);
+						  if(loopCount === files.length){
+							  that.getImage(that.thumbnails[that.thumbnails.length - 1]);
+						  }
                       };
 					  
 					}; 
@@ -765,24 +771,23 @@ export class AppImageTemplate implements OnInit {
 	}
   
   previewImage(data){
-		var base64String = data.replace(/^data:image\/[a-z]+;base64,/, "");
-		var type = 'jpeg';
-		if (data.indexOf("data:image/jpeg") !== -1) 
-			type = "jpeg";
-		else if (data.indexOf("data:image/png") !== -1) 
-			type = "png";
-		else if (data.indexOf("data:image/gif") !== -1) 
-			type = "gif";
-		if(this.isCordova){
-			FullScreenImage.showImageBase64(base64String, 'NoName', type);
-		}
-		else{
-			jQuery('#previewImage').attr("src",data);
-			jQuery('#previewImageContainer').show();
-		}
+		jQuery('#previewImageContainer').show();
+		var pinchZoom = new PinchZoomCanvas({
+			canvas: document.getElementById('previewImage'),
+			path: data,
+			momentum: true,
+			zoomMax: 2,
+			doubletap: true,
+			onZoomEnd: function (zoom, zoomed) {
+				console.log("---> is zoomed: %s", zoomed);
+				console.log("---> zoom end at %s", zoom);
+			},
+			onZoom: function (zoom) {
+				console.log("---> zoom is %s", zoom);
+			}
+		});
 	}
 	closePreviewImage(){
-		jQuery('#previewImage').attr("src","");
 		jQuery('#previewImageContainer').hide();
 	}
 	
@@ -811,6 +816,7 @@ export class AppImageTemplate implements OnInit {
 		Window = window || {};
 		Window.imagePicker.getPictures(
 				function(results) {
+					var loopCount = 0;
 					jQuery.each(results,function(i,v){						
 						var image = new Image();
 						image.src = v;
@@ -836,7 +842,7 @@ export class AppImageTemplate implements OnInit {
 							  selected: false,
 							  newImage: true,
 							  newImageLink: (that.newImages.length),
-							  default: false
+							  default: (that.thumbnails.length === 0)?true:false
 						  };
 						  that.thumbnails.push(newThumbnail);
 						  that.item.number_of_image = (that.thumbnails.length).toString();
@@ -846,14 +852,19 @@ export class AppImageTemplate implements OnInit {
 							  data: stringImage,
 							  type: fileType,
 							  name: "",
-							  default: false
+							  default: (that.thumbnails.length === 1)?true:false
 						  };
 						  that.newImages.push(newImage);
+						  
+						  loopCount = loopCount - (-1);
+						  if(loopCount === results.length){
+							that.getImage(that.thumbnails[that.thumbnails.length - 1]);
+						  }
 						  
 						  that.deleteTempFile(v);
                       };
 					});
-          that.showUploadImageDialog = false;
+					that.showUploadImageDialog = false;
 				}, function (error) {
 					that.sharedService.openMessageBox("E","Unable to browse. "+error,null);	
 				},

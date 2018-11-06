@@ -125,8 +125,11 @@ export class AppFilter implements OnInit {
 											//that.item = data.results;
 											//that.editMode = false;
 											//that.dynamicFormComponent.showFilterScreen = true;
-											//that.dynamicFormComponent.generateFilterField("Filter");	
-												jQuery.each(data.results,function(i,v){
+											//that.dynamicFormComponent.generateFilterField("Filter");
+												var userFilter = data.results;
+												if(Array.isArray(that.sharedService.sharedObj.userFilter))
+													userFilter = that.sharedService.sharedObj.userFilter;
+												jQuery.each(userFilter,function(i,v){
 													//if(v.filter_field === 'product_type_name'){
 													//	that.item[v.filter_field] = that.productTypes.find(function(element) { return element.product_type_name === v.filter_value; });
 													//}
@@ -361,8 +364,10 @@ export class AppFilter implements OnInit {
 			.subscribe( data => {	
 				   //debugger;
 					if(data.statusCode=="S"){
-						that.loadFilter(that.userDetail.user_id);
+						//that.loadFilter(that.userDetail.user_id);
 						that.sharedService.openMessageBox("S","Successfully applied.",null);
+						that.sharedService.sharedObj.containerContext.loadUserFilter();
+						that.router.navigateByUrl('/Container');
 					}
 					else{
 						//alert("Unable to save");
@@ -426,7 +431,16 @@ export class AppFilter implements OnInit {
 			  }
 		  });
 		  
-		  this.save(saveItems);//Object.assign(saveItem, this.item));
+		  that.sharedService.openMessageBox("C","Would you like us to remember your filter?",function(state){
+			if(state){
+				that.save(saveItems);
+			}
+			else{
+				that.sharedService.sharedObj.userFilter = saveItems;
+				that.sharedService.sharedObj.containerContext.loadUserFilter();
+				that.router.navigateByUrl('/Container');
+			}
+		  });
 	  }
 	  
 	  
@@ -461,15 +475,18 @@ export class AppFilter implements OnInit {
 		  var that = this;
 		  this.item = {};
 		  this.commonService.enduserService.getFilter(id)
-			 .subscribe( data => {			  
-				jQuery.each(data.results,function(i,v){
+			 .subscribe( data => {
+				var userFilter = data.results;
+				if(Array.isArray(that.sharedService.sharedObj.userFilter))
+					userFilter = that.sharedService.sharedObj.userFilter;
+				jQuery.each(userFilter,function(i,v){
 					if(v.filter_field === 'product_type_name'){
 						that.item[v.filter_field] = that.productTypes.find(function(element) { return element.product_type_name === v.filter_value; });
 					}
 					else if(v.filter_field === 'model'){
 						that.item[v.filter_field] = that.models.find(function(element) { return element.model === v.filter_value; });
 					}
-          else if(v.filter_field === 'variant'){
+					else if(v.filter_field === 'variant'){
 						that.item[v.filter_field] = that.variants.find(function(element) { return element.variant === v.filter_value; });
 					}
 					else{
@@ -488,7 +505,10 @@ export class AppFilter implements OnInit {
 					.subscribe( data => {							
 								that.sharedService.closeMessageBox();
 								that.sharedService.openMessageBox("S","Successfully cleared.",null);
-								that.loadFilter(that.userDetail.user_id);
+								//that.loadFilter(that.userDetail.user_id);
+								that.sharedService.sharedObj.userFilter = null;
+								that.sharedService.sharedObj.containerContext.loadUserFilter();
+								that.router.navigateByUrl('/Container');
 				});
 			  }
 		  });
