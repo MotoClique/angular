@@ -175,6 +175,7 @@ export class SharedService {
     }
                                
     openMessageBox(type,msg,callback){
+		var that = this;
 		var duration = 2000;
 		if(msg && msg.length){
 			duration = Math.round((msg.length)/6) * 1000;
