@@ -716,6 +716,20 @@ export class AppSell implements OnInit {
 		  var that = this;
 		  this.sharedService.openMessageBox("C","Are you sure you want to deactivate it?",function(flag){
 			  if(flag){
+          if(that.sharedService.sharedObj.localData['delete_on_deactivate'] === 'yes'){
+					that.commonService.enduserService.deleteSell(that.item.sell_id)
+						.subscribe( res => {
+							if(res.statusCode=="S"){
+								that.sharedService.openMessageBox("S",res.msg,null);
+								that.sharedService.closeMessageBox();
+								that.gotoMainScreen();
+							}
+							else{
+								that.sharedService.openMessageBox("E",res.msg,null);
+							}
+					});
+				}
+				else{
 				that.commonService.enduserService.getSell("",that.item.sell_id,"",null,null,null)
 					.subscribe( res => {
 							  if(res.results.length > 0){
@@ -734,6 +748,7 @@ export class AppSell implements OnInit {
 									});
 							  }
 				});
+        }
 			  }
 		  });		  
 	  }
