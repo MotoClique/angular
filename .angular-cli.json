@@ -16,7 +16,10 @@
 		{ "glob": "default.png", "input": "./", "output": "./assets/" },
 		{ "glob": "product_template.xlsx", "input": "./", "output": "./assets/" },
 		{ "glob": "inr.png", "input": "./", "output": "./assets/" },
-	      	{ "glob": "brandlogo.png", "input": "./", "output": "./assets/" }
+	      	{ "glob": "brandlogo.png", "input": "./", "output": "./assets/" },
+	      	{ "glob": "preview.html", "input": "./", "output": "./" },
+			{ "glob": "pinch-zoom-canvas.js", "input": "./", "output": "./" },
+			{ "glob": "impetus.js", "input": "./", "output": "./" }
       ],
       "index": "index.html",
       "main": "main.ts",
@@ -29,7 +32,7 @@
 		"../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "styles.css"
       ],
-      "scripts": ["../node_modules/jquery/dist/jquery.min.js", "../node_modules/bootstrap/dist/js/bootstrap.min.js", "gMap.js", "../node_modules/pinch-zoom-canvas/pinch-zoom-canvas.js"],
+      "scripts": ["../node_modules/jquery/dist/jquery.min.js", "../node_modules/bootstrap/dist/js/bootstrap.min.js", "gMap.js"],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
