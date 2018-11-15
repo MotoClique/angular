@@ -9,7 +9,6 @@ import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 declare var jQuery:any;
-declare var PinchZoomCanvas:any;
 
 @Component({
       selector: 'image-template',
@@ -771,23 +770,15 @@ export class AppImageTemplate implements OnInit {
 	}
   
   previewImage(data){
+		var Window:any;
+		Window = window || {};
+		Window.preview_image = data;
+		jQuery('#previewImageIframe').remove();
+		document.getElementById('previewImageIframeContainer').innerHTML = '<iframe id="previewImageIframe" src="preview.html" style="height:100%; width:100%; border:none;" ></iframe>';
 		jQuery('#previewImageContainer').show();
-		var pinchZoom = new PinchZoomCanvas({
-			canvas: document.getElementById('previewImage'),
-			path: data,
-			momentum: true,
-			zoomMax: 2,
-			doubletap: true,
-			onZoomEnd: function (zoom, zoomed) {
-				console.log("---> is zoomed: %s", zoomed);
-				console.log("---> zoom end at %s", zoom);
-			},
-			onZoom: function (zoom) {
-				console.log("---> zoom is %s", zoom);
-			}
-		});
 	}
 	closePreviewImage(){
+		jQuery('#previewImageIframe').remove();
 		jQuery('#previewImageContainer').hide();
 	}
 	
