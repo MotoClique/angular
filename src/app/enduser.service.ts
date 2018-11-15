@@ -101,7 +101,9 @@ export class EndUserService {
 	  return this.sharedService.call('sell', "put", sell, false);
   }
   
-  
+  deleteSell(sell_id){
+    return this.sharedService.call('sell/'+sell_id, "delete", null, false);
+  }
     
   
   
@@ -118,7 +120,9 @@ export class EndUserService {
 	  return this.sharedService.call('buy', "put", buy, false);
   }
   
-  
+  deleteBuy(buy_req_id){
+    return this.sharedService.call('buy/'+buy_req_id, "delete", null, false);
+  }
       
   
   
@@ -133,6 +137,10 @@ export class EndUserService {
   
   updateBid(bid){
 	  return this.sharedService.call('bid', "put", bid, false);
+  }
+  
+  deleteBid(bid_id){
+    return this.sharedService.call('bid/'+bid_id, "delete", null, false);
   }
   
   
@@ -210,6 +218,9 @@ export class EndUserService {
 	  return this.sharedService.call('service', "put", service, false);
   }
   
+  deleteService(service_id){
+    return this.sharedService.call('service/'+service_id, "delete", null, false);
+  }
   
   
     ////////////////////////////////////////RATING/////////////////////////////////////////////////
