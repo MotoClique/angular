@@ -552,7 +552,7 @@ export class AppService implements OnInit {
 		  var that = this;
 		  this.sharedService.openMessageBox("C","Are you sure you want to deactivate it?",function(flag){
 			  if(flag){
-          if(that.sharedService.sharedObj.localData['delete_on_deactivate'] === 'yes'){
+          if(that.sharedService.sharedObj.configParams['delete_on_deactivate'] === 'yes'){
 					that.commonService.enduserService.deleteService(that.item.service_id)
 						.subscribe( res => {
 							if(res.statusCode=="S"){
