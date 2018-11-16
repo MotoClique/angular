@@ -211,6 +211,7 @@ export class AppChatInbox implements OnInit {
 						that.chatTabGroup.selectedIndex = 0;	
 				});
 		});
+    evt.stopPropagation();
 	}
 
 }
