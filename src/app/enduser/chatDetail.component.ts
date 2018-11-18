@@ -321,9 +321,14 @@ export class AppChatDetail implements OnInit {
 	}
   
   onChatDeletion(evt){
-		this.commonService.enduserService.deleteChatInbox(this.chat_id)
-			.subscribe( data => {
-				this.router.navigateByUrl('/Container/ChatInbox');
+		var that = this;
+		this.sharedService.openMessageBox("C","Are you sure you want to delete the chat?",function(flag){
+			if(flag){
+				that.commonService.enduserService.deleteChatInbox(that.chat_id)
+					.subscribe( data => {
+						that.router.navigateByUrl('/Container/ChatInbox');
+				});
+			}
 		});
 	}
 	

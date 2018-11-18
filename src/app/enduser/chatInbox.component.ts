@@ -195,22 +195,26 @@ export class AppChatInbox implements OnInit {
 	}
   
   onChatDeletion(evt,chatItem){
-		var that = this;
-		this.commonService.enduserService.deleteChatInbox(chatItem.chat_id)
-			.subscribe( res => {
-				that.commonService.enduserService.getChatInbox(that.userDetail.user_id,"")
-					.subscribe( data => {
-						that.allPost = [];
-						if(data.statusCode === 'S'){
-							that.allPost = data.results;
-							that.filteredPost = jQuery.extend(true, [], that.allPost);
-						}
-						else{
-							that.sharedService.openMessageBox("E",data.msg,null);
-						}
-						that.chatTabGroup.selectedIndex = 0;	
-				});
-		});
+	var that = this;
+	this.sharedService.openMessageBox("C","Are you sure you want to delete the chat?",function(flag){
+		if(flag){			
+			that.commonService.enduserService.deleteChatInbox(chatItem.chat_id)
+				.subscribe( res => {
+					that.commonService.enduserService.getChatInbox(that.userDetail.user_id,"")
+						.subscribe( data => {
+							that.allPost = [];
+							if(data.statusCode === 'S'){
+								that.allPost = data.results;
+								that.filteredPost = jQuery.extend(true, [], that.allPost);
+							}
+							else{
+								that.sharedService.openMessageBox("E",data.msg,null);
+							}
+							that.chatTabGroup.selectedIndex = 0;	
+					});
+			});
+		}
+	});
     evt.stopPropagation();
 	}
 
