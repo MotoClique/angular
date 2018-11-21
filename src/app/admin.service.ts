@@ -337,7 +337,14 @@ export class AdminService {
   }
   
   
+  ////////////////////////////////////////EXPORT IMPORT TABLE//////////////////////////////////////////////////////
+  exportTable(table){
+		return this.sharedService.call('exportToCsv/'+table, "get", null, true);	  
+  }
   
+  importTable(data){
+		return this.sharedService.call('importFromCsv', "post", data, true);
+  }
   
   
   
