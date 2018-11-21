@@ -170,6 +170,10 @@ onNav(evt){
 		case "config_admin":
 			that.router.navigateByUrl('/ContainerAdmin/ConfigAdmin');
 			break;
+      
+    case "export_import_admin":
+			that.router.navigateByUrl('/ContainerAdmin/ExpImpAdmin');
+			break;
 	}
 	//this.closeNav();
 }
