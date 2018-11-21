@@ -39,6 +39,7 @@ import { AppSpecificationFieldAdmin } from './admin/specificationFieldAdmin.comp
 import { AppPrdTypSpecFieldMapAdmin } from './admin/prdTypSpecFieldAdmin.component';
 import { AppLocAdmin } from './admin/locAdmin.component';
 import { AppConfigAdmin } from './admin/configAdmin.component';
+import { AppExpImpAdmin } from './admin/expImpAdmin.component';
 
 import { AppContainer } from './enduser/container.component';
 import { AppHome } from './enduser/home.component';
@@ -83,7 +84,8 @@ const appRoutes: Routes = [
 		{path: 'SpecificationFieldAdmin', component: AppSpecificationFieldAdmin, canActivate: [AuthGuardService]},
 		{path: 'PrdTypSpecFieldMapAdmin', component: AppPrdTypSpecFieldMapAdmin, canActivate: [AuthGuardService]},
 		{path: 'LocAdmin', component: AppLocAdmin, canActivate: [AuthGuardService]},
-		{path: 'ConfigAdmin', component: AppConfigAdmin, canActivate: [AuthGuardService]}
+		{path: 'ConfigAdmin', component: AppConfigAdmin, canActivate: [AuthGuardService]},
+    {path: 'ExpImpAdmin', component: AppExpImpAdmin, canActivate: [AuthGuardService]}
 	]},
 	{ path: 'Container', component: AppContainer ,
 	children:[
@@ -142,6 +144,7 @@ const appRoutes: Routes = [
 	  AppHome,
 	  AppContainer,
 	  //Admin
+    AppExpImpAdmin,
 	  AppConfigAdmin,
 	  AppLocAdmin,	  
 	  AppPrdTypSpecFieldMapAdmin,
