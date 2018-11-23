@@ -99,7 +99,7 @@ export class AppExpImpAdmin implements OnInit {
 			reader.onload = function(e:any) {
 				var data = e.target.result;
 				if(!rABS) data = new Uint8Array(data);
-				var workbook = XLSX.read(data, {type: rABS ? 'binary' : 'array'});
+				var workbook = XLSX.read(data, {type: (rABS ? 'binary' : 'array'), raw:true});
 				var jsn:any = [];
 				jsn = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);//workbook.SheetNames[0]]);
 				that.toUpload = (jsn)?jsn:[];
