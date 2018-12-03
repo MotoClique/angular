@@ -22,7 +22,7 @@ export class AuthenticationService {
 	var prdEnvFlag = true;
 	  
 	window.GlobalData = window.GlobalData || {};
-	window.GlobalData['MainUrlDomain'] = (prdEnvFlag)?"https://motoclique.herokuapp.com":"https://meanmav.herokuapp.com";
+	window.GlobalData['MainUrlDomain'] = (prdEnvFlag)?(this.protocol+"//"+ this.host):"https://meanmav.herokuapp.com";
 	  
 	if(this.hostname === 'localhost')
 		this.fullhost = window.GlobalData['MainUrlDomain']; //"http://nodemav-nodemav.7e14.starter-us-west-2.openshiftapps.com";
