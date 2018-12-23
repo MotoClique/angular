@@ -46,7 +46,7 @@ export class AppChatDetail implements OnInit {
     ngOnInit(){
 				var that = this;
 				this.sharedService.sharedObj.containerContext.title = "My Chat";
-				if(!(this.sharedService.sharedObj.postItem.from_user))
+				if(jQuery.isEmptyObject(this.sharedService.sharedObj.postItem))  //!(this.sharedService.sharedObj.postItem.from_user))
 					this.router.navigateByUrl('/Container/ChatInbox');
 				this.sharedService.getUserProfile(function(user){
 					that.userDetail = user;
