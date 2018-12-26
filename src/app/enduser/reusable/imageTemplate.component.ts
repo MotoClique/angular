@@ -805,6 +805,7 @@ export class AppImageTemplate implements OnInit {
 		var that = this;
 		var Window:any;
 		Window = window || {};
+		that.showUploadImageDialog = false;
 		Window.imagePicker.getPictures(
 				function(results) {
 					var loopCount = 0;
