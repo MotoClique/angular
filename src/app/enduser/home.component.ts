@@ -40,6 +40,7 @@ interface userDetail {
 
 @Injectable()
 export class AppHome implements OnInit {
+		id:string = "AppHome";
 		cities: any;
 		types: any;
 		userDetail: any = {};

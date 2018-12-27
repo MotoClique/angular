@@ -56,4 +56,9 @@ ul.topnav li.right {float: right;}
 	background-color: #aaacb5;
 }
 
+::ng-deep .post-detail-tab-group .mat-tab-list .mat-tab-label {
+    font-size: 10px !important;
+	padding: 0px !important;
+}
+
 
