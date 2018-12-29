@@ -57,8 +57,8 @@ ul.topnav li.right {float: right;}
 }
 
 ::ng-deep .post-detail-tab-group .mat-tab-list .mat-tab-label {
-    font-size: 10px !important;
-	padding: 0px !important;
+    font-size: 12px !important;
+	padding: 12px !important;
 }
 
 

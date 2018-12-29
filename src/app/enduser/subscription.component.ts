@@ -56,6 +56,7 @@ export class AppSubscription implements OnInit {
                 
           ngOnInit(){
 				var that = this;
+				this.sharedService.sharedObj.currentContext = this;
 				this.sharedService.sharedObj.containerContext.title = "My Subscription";	
                 //this.subscriptions = [{subscription_name:"Koramangala"}];
                 this.item = {};

@@ -127,6 +127,7 @@ export class AppTileTemplate implements OnInit {
 					.subscribe( res => {					    
 						if(res.statusCode=="S"){
 							//this.parentComponent.reloadItems();
+							this.item.fav_id = res.result._id;
               this.item.fav = true;
 							this.sharedService.openMessageBox("S","Marked as your favourite.",null);
 						}

@@ -104,6 +104,7 @@ export class AppAlert implements OnInit {
 
       ngOnInit(){
 				var that = this;
+				this.sharedService.sharedObj.currentContext = this;
 				this.sharedService.sharedObj.containerContext.title = "My Alert";	
                 this.item = {};
                 this.hidden = {view: false, add: true};

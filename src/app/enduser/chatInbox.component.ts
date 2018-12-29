@@ -43,6 +43,7 @@ export class AppChatInbox implements OnInit {
 
     ngOnInit(){
 				var that = this;
+				this.sharedService.sharedObj.currentContext = this;
 				this.sharedService.sharedObj.containerContext.title = "My Chats";	
 				this.sharedService.getUserProfile(function(user){
 					that.userDetail = user;

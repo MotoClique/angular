@@ -61,6 +61,7 @@ export class AppFav implements OnInit {
       
 
       ngOnInit(){
+		this.sharedService.sharedObj.currentContext = this;
         this.sharedService.sharedObj.containerContext.title = "My Favourite";	
 		var that = this;
 		this.results = [];
@@ -157,7 +158,20 @@ export class AppFav implements OnInit {
 				that.commonService.enduserService.getBid("",v.bid_sell_buy_id,"",null,null,null)
 				  .subscribe( data => {			  
 						var res = data.results[0];
-          if(res && res.bid_valid_to >= new Date()){
+						
+						var bid_valid_to_dateObj = '';
+						if(res.bid_valid_to){
+							var val_split = (res.bid_valid_to).split('T');
+							if(val_split[0]){//Date
+								var dateSplit = (val_split[0]).split('/');
+								bid_valid_to_dateObj = dateSplit[1] +'/'+ dateSplit[0] +'/'+ dateSplit[2];
+							}
+							if(val_split[1]){//Time
+								bid_valid_to_dateObj = bid_valid_to_dateObj + ' ' + val_split[1];
+							}
+						}
+						
+          if(res && new Date(bid_valid_to_dateObj) >= new Date()){
 						jQuery.each(res,function(key,val){
 							if(key !== "_id")
 								v[key] = val;
