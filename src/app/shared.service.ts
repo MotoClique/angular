@@ -182,14 +182,14 @@ export class SharedService {
 		}
 		
 		if(type == "S"){
-			var message = 'Success: '+msg;
+			var message = ''+msg;
 			this.snackBar.openFromComponent(SuccessSnackBarComponent, {
 			  duration: duration,
 			  data: {message: message}
 			});
 		}
 		else if(type == "E"){
-			var message = 'Error: '+msg;
+			var message = ''+msg;
 			if(callback){
         if(callback === 'refresh'){
 					var snackBarRef = this.snackBar.openFromComponent(ErrorSnackBarComponent, {
@@ -220,7 +220,7 @@ export class SharedService {
 			}
 		}
 		else if(type == "I"){
-			var message = 'Information: '+msg;
+			var message = ''+msg;
 			this.snackBar.openFromComponent(InfoSnackBarComponent, {
 				duration: duration,
 				data: {message: message}
