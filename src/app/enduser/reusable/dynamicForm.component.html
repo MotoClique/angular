@@ -32,7 +32,13 @@
 											</mat-radio-group>
 											
 											<mat-form-field style="width:100%;" *ngIf="field.field_type === 'textarea'">
-												<textarea matInput placeholder="{{field.field}}" maxlength="260" rows="12" [(ngModel)]="field.value" name="{{field.name}}" required="{{field.field_required}}" [disabled]="!field.editable" [hidden]="!field.visible"></textarea>
+												<textarea matInput placeholder="{{field.field}}" maxlength="260" rows="2" [(ngModel)]="field.value" name="{{field.name}}" required="{{field.field_required}}" [disabled]="!field.editable" [hidden]="!field.visible"></textarea>
+											</mat-form-field>
+											
+											<mat-form-field style="width:100%;" *ngIf="field.field_type === 'date'">
+												<input matInput [matDatepicker]="odp" placeholder="{{field.field}}" [(ngModel)] = "field.date" name="{{field.name}}" required="{{field.field_required}}" (dateChange)="onDateChange($event,field)" disabled>
+												<mat-datepicker-toggle matSuffix [for]="odp"></mat-datepicker-toggle>
+												<mat-datepicker touchUi #odp [disabled]="!field.editable"></mat-datepicker>
 											</mat-form-field>
 											
 											<div *ngIf="field.field_type === 'datetime'" [hidden]="!field.visible">

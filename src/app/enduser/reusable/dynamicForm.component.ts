@@ -199,6 +199,11 @@ export class AppDynamicForm implements OnInit {
 								  o.minute = '00';
 								}
 							  }
+							  
+							  if(o.field_type === 'date'){
+								var dateSplit = (o.value).split('/');
+								o.date = new Date(dateSplit[1] +'/'+ dateSplit[0] +'/'+ dateSplit[2]);
+							  }
 
 							  (that.screenConfig[category]).push(o);
 							}
@@ -760,6 +765,11 @@ export class AppDynamicForm implements OnInit {
 			field.hour = '00';
 			field.minute = '00';
     }
+  }
+  
+  onDateChange(evt,field){
+	var dateObj = field.date;
+	field.value = dateObj.getDate() +"/"+ (dateObj.getMonth() - (-1)) +"/"+ dateObj.getFullYear() ;
   }
 	
 	

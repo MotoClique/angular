@@ -53,6 +53,16 @@ export class AppTileTemplate implements OnInit {
 		});
     }
 	
+	ngDoCheck(){
+		if(this.item.createdAt){
+			//var dateArray = this.item.createdAt.split('/');
+			var monthList = ["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+			//this.item.createdOn = dateArray[0]+ " " + monthList[dateArray[1]];
+			var dateObj = new Date(this.item.createdAt);
+			this.item.createdOn = dateObj.getDate()+ " " + monthList[(dateObj.getMonth() - (-1))];
+		}
+	}
+	
 	open(evt,data) {
         this.openItem.emit(data);
     }

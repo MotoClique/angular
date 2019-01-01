@@ -33,7 +33,8 @@
 		 {"name": "Select"},
 		 {"name": "Checkbox"},
 		 {"name": "TextArea"},
-		 {"name": "DateTime"}
+		 {"name": "DateTime"},
+		 {"name": "Date"}
 	 ],
 	 
 	 "categories":[
@@ -79,7 +80,11 @@
 		 {"name": "locality"},
 		 {"name": "bid_valid_to"},
 		 {"name": "current_bid_amount"},
-		 {"name": "note"}
+		 {"name": "note"},
+		 {"name": "insurance_valid_till"},
+		 {"name": "tyre_cond"},
+		 {"name": "interior_cond"},
+		 {"name": "exterior_cond"}
 	 ],
 	 
 	 "serviceName": [
@@ -91,6 +96,34 @@
 		 {"name": "state/?country=", "key":"state", "value":"state"},
 		 {"name": "city/?state=", "key":"city", "value":"city"},
 		 {"name": "location/?city=", "key":"location", "value":"location"}
+	 ],
+	 
+	 "tyre_cond": [
+		{"name": "10% used"},
+		{"name": "20% used"},
+		{"name": "30% used"},
+		{"name": "40% used"},
+		{"name": "50% used"},
+		{"name": "60% used"},
+		{"name": "70% used"},
+		{"name": "80% used"},
+		{"name": "90% used"}
+	 ],
+	 
+	 "interior_cond": [
+		{"name": "Excellent"},
+		{"name": "Good"},
+		{"name": "Average"},
+		{"name": "Poor"},
+		{"name": "Bad"}
+	 ],
+	 
+	 "exterior_cond": [
+		{"name": "Excellent"},
+		{"name": "Good"},
+		{"name": "Average"},
+		{"name": "Poor"},
+		{"name": "Bad"}
 	 ],
 	 
 	 

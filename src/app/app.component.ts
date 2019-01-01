@@ -42,8 +42,8 @@ export class AppComponent implements OnInit{
 				&& (previousRoutePath.includes("/Container/Sell") || previousRoutePath.includes("/Container/Buy") || previousRoutePath.includes("/Container/Bid") || previousRoutePath.includes("/Container/Service"))){			
 			window.history.go(-2);				
 		}
-		else if( (routePath === "/Container/Favourite" || routePath === "/Container/Sell" || routePath === "/Container/Buy" || routePath === "/Container/Bid" || routePath === "/Container/Service") 
-			&& (previousRoutePath.includes("/Container/Sell") || previousRoutePath.includes("/Container/Buy") || previousRoutePath.includes("/Container/Bid") || previousRoutePath.includes("/Container/Service")) ){
+		else if( (routePath === "/Container/Favourite" || routePath === "/Container/Sell" || routePath === "/Container/Buy" || routePath === "/Container/Bid" || routePath === "/Container/Service" || routePath === "/Container/ChatInbox") 
+			&& (previousRoutePath.includes("/Container/Sell") || previousRoutePath.includes("/Container/Buy") || previousRoutePath.includes("/Container/Bid") || previousRoutePath.includes("/Container/Service") || previousRoutePath.includes("/Container/ChatDetail")) ){
 			
 		}
 		else if( (routePath.includes("/Container/Sell") || routePath.includes("/Container/Buy") || routePath.includes("/Container/Bid") || routePath.includes("/Container/Service")) 
