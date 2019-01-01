@@ -321,7 +321,22 @@ export class AppBuy implements OnInit {
 		  return productsWithoutVariant;		  	  
 	  }
 	  
-	  onPrdModelSelect(evt,prdModel){
+	  onPrdModelSelect(evt,prd){
+		this.item.product_id = prd.product_id;
+		  this.item.product_type_id = prd.product_type_id;
+		  this.item.product_type_name = prd.product_type_name;
+		  this.item.brand_id = prd.brand_id;
+		  this.item.brand_name = prd.brand_name;
+		  this.item.model = prd.model;
+		  this.item.variant = "";
+		  this.item.transactionTyp = "Buy";
+		  this.item.color = "";
+		  
+		  this.showProductModelListDialog = false;
+		  this.showProductYearDialog = true;
+	  }
+	  
+	 /* onPrdModelSelect(evt,prdModel){
 		  this.variants = prdModel.variantList;
 		  this.variants.sort((a: any, b: any)=> {
 												if (a.product_id < b.product_id)
@@ -373,7 +388,7 @@ export class AppBuy implements OnInit {
 		//this.getDefaultAddress();
 		//this.dynamicFormComponent.generateField("Buy");
 		//this.imageTemplateComponent.getThumbnails(this.item.product_id);
-	  }
+	  }*/
 	  
 	  onPrdYearSelect(evt,yr){
 		this.item.year_of_reg = yr.name;
