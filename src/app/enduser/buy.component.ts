@@ -347,7 +347,7 @@ export class AppBuy implements OnInit {
 											});//ascending sort
 		  this.showProductModelListDialog = false;
 		  this.showProductVariantListDialog = true;
-	  }
+	  }*/
 	  
 	  
 	  onPrdVariantSelect(evt,prd){
@@ -388,7 +388,7 @@ export class AppBuy implements OnInit {
 		//this.getDefaultAddress();
 		//this.dynamicFormComponent.generateField("Buy");
 		//this.imageTemplateComponent.getThumbnails(this.item.product_id);
-	  }*/
+	  }
 	  
 	  onPrdYearSelect(evt,yr){
 		this.item.year_of_reg = yr.name;
