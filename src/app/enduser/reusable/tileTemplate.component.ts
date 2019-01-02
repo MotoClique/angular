@@ -155,13 +155,13 @@ export class AppTileTemplate implements OnInit {
 	
 	removeFav(newFav){
 		var that = this;
-		this.sharedService.openMessageBox("C","Are you sure you want to remove the item from your favourite list?",function(flag){
-			if(flag){
+		//this.sharedService.openMessageBox("C","Are you sure you want to remove the item from your favourite list?",function(flag){
+			//if(flag){
 				newFav._id = that.item.fav_id;
 				that.commonService.enduserService.deleteFav(newFav)
 					.subscribe( res => {					    
 						if(res.ok === 1){
-							that.sharedService.closeMessageBox();
+							//that.sharedService.closeMessageBox();
 							//that.parentComponent.reloadItems();
               that.item.fav = false;
 							that.sharedService.openMessageBox("S","Removed from your favourite.",null);
@@ -170,8 +170,8 @@ export class AppTileTemplate implements OnInit {
 							that.sharedService.openMessageBox("E","Unable to remove from favourite.",null);
 						}
 					});
-			}
-		});
+			//}
+		//});
 	}
 	
 	ownerTypeFormatter(typ){
