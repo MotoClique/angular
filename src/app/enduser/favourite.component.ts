@@ -110,14 +110,18 @@ export class AppFav implements OnInit {
 								  }
               favPost.push(v);
               loopCount = loopCount - (-1);
-              if(loopCount === that.results.length)
+              if(loopCount === that.results.length){
                 that.results = favPost;
+				that.sortFavList();
+			  }
 						  });
           }
           else{
             loopCount = loopCount - (-1);
-            if(loopCount === that.results.length)
+            if(loopCount === that.results.length){
               that.results = favPost;
+				that.sortFavList();
+			}
           }
 				  });
 			}
@@ -143,14 +147,18 @@ export class AppFav implements OnInit {
 								  }
               favPost.push(v);
               loopCount = loopCount - (-1);
-              if(loopCount === that.results.length)
+              if(loopCount === that.results.length){
                 that.results = favPost;
+				that.sortFavList();
+			  }
 						  });
           }
           else{
             loopCount = loopCount - (-1);
-            if(loopCount === that.results.length)
+            if(loopCount === that.results.length){
               that.results = favPost;
+				that.sortFavList();
+			}
           }
 				  });
 			}
@@ -189,14 +197,18 @@ export class AppFav implements OnInit {
 								  }
               favPost.push(v);
               loopCount = loopCount - (-1);
-              if(loopCount === that.results.length)
+              if(loopCount === that.results.length){
                 that.results = favPost;
+				that.sortFavList();
+			  }
 						  });
           }
           else{
             loopCount = loopCount - (-1);
-            if(loopCount === that.results.length)
+            if(loopCount === that.results.length){
               that.results = favPost;
+				that.sortFavList();
+			}
           }
 				  });
 			}
@@ -222,18 +234,39 @@ export class AppFav implements OnInit {
 								  }
               favPost.push(v);
               loopCount = loopCount - (-1);
-              if(loopCount === that.results.length)
+              if(loopCount === that.results.length){
                 that.results = favPost;
+				that.sortFavList();
+			  }
 						  });
           }
           else{
             loopCount = loopCount - (-1);
-            if(loopCount === that.results.length)
+            if(loopCount === that.results.length){
               that.results = favPost;
+				that.sortFavList();
+			}
           }
 				  });
 			}
 		});
+	}
+	
+	sortFavList(){
+		this.results.sort(function(a, b){
+			if(a.post_createdAt && b.post_createdAt){
+					var aDateObj = new Date(a.post_createdAt);
+					var bDateObj = new Date(b.post_createdAt);					
+					if (aDateObj < bDateObj)
+						return 1;
+					else if (aDateObj > bDateObj)
+						return -1;
+					return 0;
+			}
+			else{
+				return 0;
+			}
+		});//descending sort
 	}
 	
 	 

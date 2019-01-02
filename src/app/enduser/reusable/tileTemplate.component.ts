@@ -109,6 +109,7 @@ export class AppTileTemplate implements OnInit {
 			var newFav:any = {};
 			newFav.user_id = this.userDetail.user_id;		
 			newFav.deleted = false;		
+			newFav.post_createdAt = this.item.createdAt;
 			newFav.createdBy = this.userDetail.user_id;
 			newFav.changedBy = this.userDetail.user_id;
 			if(this.item.sell_id){
