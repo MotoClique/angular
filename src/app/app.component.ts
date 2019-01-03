@@ -22,6 +22,10 @@ export class AppComponent implements OnInit{
 	  var that = this;
 	  window.addEventListener('popstate', function(event:any){
 		var routePath = event.target.location.pathname;
+		
+		var actualRoutePath = (routePath.split('/')); 
+		actualRoutePath = "/"+actualRoutePath[actualRoutePath.length-2]+"/"+actualRoutePath[actualRoutePath.length-1];
+		
 		var previousRoutePath = '';		
 		if(that.sharedService.sharedObj.currentContext){
 			previousRoutePath = that.sharedService.sharedObj.currentContext.router.url;			
@@ -29,8 +33,15 @@ export class AppComponent implements OnInit{
 			//Two time back button to close app in mobile
 			if(that.sharedService.isCordovaApp() && that.sharedService.sharedObj.currentContext.id === "AppHome"){
 				if(that.backNavCount > 0){
-					var appNav : any = navigator || {app:{}};
-					appNav.app.exitApp();
+					that.sharedService.openMessageBox("C","Are you sure you want to close the app?",function(flag){
+						if(flag){
+							var appNav : any = navigator || {app:{}};
+							appNav.app.exitApp();
+						}
+						else{
+							that.backNavCount = 0;
+						}
+					});
 				}
 				else{
 					that.backNavCount += 1;
@@ -42,7 +53,7 @@ export class AppComponent implements OnInit{
 				&& (previousRoutePath.includes("/Container/Sell") || previousRoutePath.includes("/Container/Buy") || previousRoutePath.includes("/Container/Bid") || previousRoutePath.includes("/Container/Service"))){			
 			window.history.go(-2);				
 		}
-		else if( (routePath === "/Container/Favourite" || routePath === "/Container/Sell" || routePath === "/Container/Buy" || routePath === "/Container/Bid" || routePath === "/Container/Service" || routePath === "/Container/ChatInbox") 
+		else if( (actualRoutePath === "/Container/Favourite" || actualRoutePath === "/Container/Sell" || actualRoutePath === "/Container/Buy" || actualRoutePath === "/Container/Bid" || actualRoutePath === "/Container/Service" || actualRoutePath === "/Container/ChatInbox") 
 			&& (previousRoutePath.includes("/Container/Sell") || previousRoutePath.includes("/Container/Buy") || previousRoutePath.includes("/Container/Bid") || previousRoutePath.includes("/Container/Service") || previousRoutePath.includes("/Container/ChatDetail")) ){
 			
 		}

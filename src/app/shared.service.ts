@@ -317,11 +317,13 @@ export class SharedService {
 			   var yes = document.createElement('BUTTON');
 			   yes.addEventListener("click", function(){that.closeMessageBox(); callback(true);});
 			   yes.innerHTML+= "Yes";
+			   yes.style.backgroundColor = "green";
 			   f.appendChild(yes);
 			   
 			   var no = document.createElement('BUTTON');
 			   no.addEventListener("click", function(){that.closeMessageBox(); callback(false);});
 			   no.innerHTML+= "No";
+			   no.style.backgroundColor = "red";
 			   f.appendChild(no);
 			   
 			   d.appendChild(f);
