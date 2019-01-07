@@ -151,6 +151,13 @@ export class AppFilter implements OnInit {
 													that.commonService.adminService.getUniqueBrandBasedOnPrdTyp(that.selectedPrdTyp)
 														.subscribe( brands => {
 															that.brands = brands.results;
+															that.brands.sort((a: any, b: any)=> {
+																if (a < b)
+																  return -1;
+																if ( a > b)
+																  return 1;
+																return 0;
+															});//ascending sort
 															if(that.item['brand_name']){
 																if(that.item['brand_name'] === 'All') 
 																	that.selectedBrand = '';
@@ -160,6 +167,13 @@ export class AppFilter implements OnInit {
 																	.subscribe( products => {
                                     that.products = products.results;
 																		that.models = that.extractProductUniqueModels();
+																		that.models.sort((a: any, b: any)=> {
+																			if (a.model < b.model)
+																			  return -1;
+																			if ( a.model > b.model)
+																			  return 1;
+																			return 0;
+																		});//ascending sort
 																		//that.models = models.results;
 																		if(that.item['model']){
 																			if(that.item['model'] === 'All') 
@@ -240,6 +254,13 @@ export class AppFilter implements OnInit {
 		this.commonService.adminService.getUniqueBrandBasedOnPrdTyp(this.selectedPrdTyp)
 			.subscribe( brands => {
 							this.brands = brands.results;
+							this.brands.sort((a: any, b: any)=> {
+												if (a < b)
+												  return -1;
+												if ( a > b)
+												  return 1;
+												return 0;
+											});//ascending sort
 		});
 	}
 	onBrandSelect(evt){
@@ -259,7 +280,14 @@ export class AppFilter implements OnInit {
 		this.commonService.adminService.getProduct("",this.selectedPrdTyp,this.selectedBrand)
 		.subscribe( products => {
 			this.products = products.results;
-			this.models = this.extractProductUniqueModels();					
+			this.models = this.extractProductUniqueModels();
+			this.models.sort((a: any, b: any)=> {
+				if (a.model < b.model)
+					return -1;
+				if ( a.model > b.model)
+					return 1;
+				return 0;
+			});//ascending sort
 		});
 	}
   

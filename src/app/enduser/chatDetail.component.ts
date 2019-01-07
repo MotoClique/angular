@@ -332,6 +332,19 @@ export class AppChatDetail implements OnInit {
 		});
 	}
 	
+	onNavToPost(evt,item){
+		var path = '/Container/';
+		if(item.post_type ===  'Sale')
+			path += 'Sell'
+		else if(item.post_type ===  'Buy')
+			path += 'Buy'
+		else if(item.post_type ===  'Bid')
+			path += 'Bid'
+		else if (item.post_type ===  'Service')
+			path += 'Service'
+		this.router.navigate([path,item.post_id]);
+	}
+	
 	ngOnDestroy(){
 		clearInterval(this.fetchChatTimer);		
 	}
