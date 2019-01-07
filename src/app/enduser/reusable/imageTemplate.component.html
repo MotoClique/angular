@@ -127,11 +127,11 @@
 <app-dialog [(visible)]="showUploadImageDialog">
 	<div style="padding:15px;">
 		  <div [hidden]="isCordova" style="font-size:16px; text-align:center; margin-top:20px; background-color:#dddddd">Upload Image (JPEG, PNG, GIF)</div>
-			<div class="padding" style="display:flex;">
+			<div class="padding" style="display:flex; justify-content:center;">
 				<label></label>
 				<input [hidden]="isCordova" class="form-control" style="width: 100%;" type="file" accept="image/*" (change)="onUpload($event)" multiple>
 				<button [hidden]="!isCordova" style="border:1px solid #E71B03; color:#E71B03; display: flex; flex-direction: column; line-height: 50px; background: none; align-items: center; border-radius: 5px; margin: 5px;" (click)="onImageBrowse($event)"><span style="font-size:25px;" class="glyphicon glyphicon-folder-open"></span>Choose Files</button>
-				<button [hidden]="!isCordova" style="border:1px solid #E71B03; color:#E71B03; display: flex; flex-direction: column; line-height: 50px; background: none; align-items: center; border-radius: 5px; margin: 5px;" ><span style="font-size:25px;" class="glyphicon glyphicon-camera"></span>Open Camera</button>
+				<button [hidden]="true" style="border:1px solid #E71B03; color:#E71B03; display: flex; flex-direction: column; line-height: 50px; background: none; align-items: center; border-radius: 5px; margin: 5px;" ><span style="font-size:25px;" class="glyphicon glyphicon-camera"></span>Open Camera</button>
 			</div>
 	</div>
 </app-dialog>

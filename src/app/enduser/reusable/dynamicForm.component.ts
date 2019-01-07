@@ -353,7 +353,12 @@ export class AppDynamicForm implements OnInit {
 				 //this.fields = this.screenConfig["Contact"];
 				 //this.getContactDetails();
 				 //if(this.item.address_id)
-					 this.loadContact(this.item.address_id);
+					if(this.contactDetail && this.contactDetail.address_id){
+						var map_point = this.contactDetail.map_point.split("/");
+						this.loadGoogleMap(map_point[0],map_point[1]);
+					}
+					else
+						this.loadContact(this.item.address_id);
 				 //else
 					 //this.loadContact('');
 			}
@@ -499,13 +504,20 @@ export class AppDynamicForm implements OnInit {
 	  }
   
     loadProductSpec(id,callback){
-      this.commonService.adminService.getProductSpec(id)
-          .subscribe( prdSpecs => {
-        if(prdSpecs.results)
-           callback.apply(this,[prdSpecs.results]);
-        else
-           callback.apply(this,[[]]);
-      });
+		if(this.prodSpecs && this.prodSpecs.length>0){
+			callback.apply(this,[this.prodSpecs]);
+		}
+		else{
+		  this.commonService.adminService.getProductSpec(id)
+			  .subscribe( prdSpecs => {
+			if(prdSpecs.results){
+				this.prodSpecs = prdSpecs.results;
+			   callback.apply(this,[prdSpecs.results]);
+			}
+			else
+			   callback.apply(this,[[]]);
+		  });
+		}
     }
 	  
 	  /*getContactDetails(){
