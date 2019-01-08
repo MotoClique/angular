@@ -185,6 +185,13 @@ export class AppFilter implements OnInit {
 																			that.commonService.adminService.getVariant(that.selectedPrdTyp,that.selectedBrand,that.selectedModel)
 																				.subscribe( variants => {
 																					that.variants = variants.results;
+																					that.variants.sort((a: any, b: any)=> {
+																						if (a.variant < b.variant)
+																						  return -1;
+																						if ( a.variant > b.variant)
+																						  return 1;
+																						return 0;
+																					});//ascending sort
 																					if(that.item['variant']){
 																						if(that.item['variant'] !== 'All')
 																							that.item['variant'] = that.variants.find(function(element) { return element.variant === that.item['variant']; });
@@ -334,7 +341,16 @@ export class AppFilter implements OnInit {
 		//		this.models = models.product;
 		//	});
 		this.commonService.adminService.getVariant(this.selectedPrdTyp,this.selectedBrand,this.selectedModel)
-			.subscribe( variants => this.variants = variants.results);
+			.subscribe( variants => {
+				this.variants = variants.results;
+				this.variants.sort((a: any, b: any)=> {
+						if (a.variant < b.variant)
+							return -1;
+						if ( a.variant > b.variant)
+							return 1;
+						return 0;
+				});//ascending sort
+			});
 	}
 	
 	validatePrice(){

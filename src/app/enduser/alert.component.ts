@@ -130,6 +130,13 @@ export class AppAlert implements OnInit {
 										that.commonService.adminService.getModel("","")
 										.subscribe( models => {
 											that.models = models.results;
+											that.models.sort((a: any, b: any)=> {
+												if (a.model < b.model)
+												  return -1;
+												if ( a.model > b.model)
+												  return 1;
+												return 0;
+											});//ascending sort
 											that.item.model = that.models.find(function(element) { return element.model === that.item.model; });
 										});
 									}
@@ -137,6 +144,13 @@ export class AppAlert implements OnInit {
 										that.commonService.adminService.getVariant("","","")
 										.subscribe( variants => {
 											that.variants = variants.results;
+											that.variants.sort((a: any, b: any)=> {
+												if (a.variant < b.variant)
+													return -1;
+												if ( a.variant > b.variant)
+													return 1;
+												return 0;
+											});//ascending sort
 											that.item.variant = that.variants.find(function(element) { return element.variant === that.item.variant; });
 										});
 									}
@@ -249,6 +263,13 @@ export class AppAlert implements OnInit {
 		this.commonService.adminService.getUniqueBrandBasedOnPrdTyp(this.selectedPrdTyp)
 			.subscribe( brands => {
 							this.brands = brands.results;
+							this.brands.sort((a: any, b: any)=> {
+																if (a < b)
+																  return -1;
+																if ( a > b)
+																  return 1;
+																return 0;
+															});//ascending sort
 		});
 	}
 	onBrandSelect(evt){
@@ -263,6 +284,13 @@ export class AppAlert implements OnInit {
 		this.commonService.adminService.getModel(this.selectedPrdTyp,this.selectedBrand)
 			.subscribe( models => {
 				this.models = models.results;
+				this.models.sort((a: any, b: any)=> {
+							if (a.model < b.model)
+							  return -1;
+							if ( a.model > b.model)
+							  return 1;
+							return 0;
+				});//ascending sort
 			});
 		//this.commonService.adminService.getVariant(product_type_id,brand_id,model)
 			//.subscribe( variants => this.variants = variants.product);
@@ -280,7 +308,16 @@ export class AppAlert implements OnInit {
 		//		this.models = models.product;
 		//	});
 		this.commonService.adminService.getVariant(this.selectedPrdTyp,this.selectedBrand,this.selectedModel)
-			.subscribe( variants => this.variants = variants.results);
+			.subscribe( variants => {
+				this.variants = variants.results;
+				this.variants.sort((a: any, b: any)=> {
+					if (a.variant < b.variant)
+						return -1;
+					if ( a.variant > b.variant)
+						return 1;
+					return 0;
+				});//ascending sort
+			});
 	}
 	
 	onCountrySelect(evt){
