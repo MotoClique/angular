@@ -13,7 +13,7 @@
 			  <div *ngFor="let item of filteredPost" class="postitemstyle" (click)="onChatSelect($event,item)">
 					<div style="width:100%; border-bottom: 1px solid rgba(0,0,0,0.16);">
 						<div style="display:flex; width:100%; padding:5px;" *ngIf="!(item.post_deletion)">
-							<img *ngIf="!(item.thumbnail)" src="assets/noimage_old.jpg" style="width:70px; height:60px; padding:2px;"/>
+							<img *ngIf="!(item.thumbnail)" src="assets/noimage.png" style="width:60px; height:50px; padding:2px;"/>
 							<img *ngIf="(item.thumbnail)" src="{{formatThumbnail(item.thumbnail)}}" style="width:60px; height:60px; padding:2px;"/>
 							<div style="line-height:25px; width:100%; padding-left:10px;">
 									<div style="display: flex; flex-direction: row; justify-content: space-between;">
