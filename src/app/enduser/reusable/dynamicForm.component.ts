@@ -78,6 +78,7 @@ export class AppDynamicForm implements OnInit {
 		participantMemberDetail: any = {};
 		hours: any = [];
 		minutes: any = [];
+		prodSpecs: any = [];
 		@Input() item;
 		//@Input() ownItem;
 		@Input() parentComponent;
