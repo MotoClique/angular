@@ -49,11 +49,11 @@ export class AppComponent implements OnInit{
 				}
 			}
 		}
-		if( (routePath.includes("/edit") || routePath.includes("/create")) 
-				&& (previousRoutePath.includes("/Container/Sell") || previousRoutePath.includes("/Container/Buy") || previousRoutePath.includes("/Container/Bid") || previousRoutePath.includes("/Container/Service"))){			
+		if( (routePath.includes("/edit") || routePath.includes("/create")) ){
+				//&& (previousRoutePath.includes("/Container/Sell") || previousRoutePath.includes("/Container/Buy") || previousRoutePath.includes("/Container/Bid") || previousRoutePath.includes("/Container/Service"))){			
 			window.history.go(-2);				
 		}
-		else if( (actualRoutePath === "/Container/Favourite" || actualRoutePath === "/Container/Sell" || actualRoutePath === "/Container/Buy" || actualRoutePath === "/Container/Bid" || actualRoutePath === "/Container/Service" || actualRoutePath === "/Container/ChatInbox") 
+		/*else if( (actualRoutePath === "/Container/Favourite" || actualRoutePath === "/Container/Sell" || actualRoutePath === "/Container/Buy" || actualRoutePath === "/Container/Bid" || actualRoutePath === "/Container/Service" || actualRoutePath === "/Container/ChatInbox") 
 			&& (previousRoutePath.includes("/Container/Sell") || previousRoutePath.includes("/Container/Buy") || previousRoutePath.includes("/Container/Bid") || previousRoutePath.includes("/Container/Service") || previousRoutePath.includes("/Container/ChatDetail")) ){
 			
 		}
@@ -68,7 +68,7 @@ export class AppComponent implements OnInit{
 					that.router.navigateByUrl('/Container/Home');
 				}
 			});			
-		}
+		}*/
     });
   }
   
