@@ -113,7 +113,13 @@ export class AppHome implements OnInit {
 			that.screenAccess.sort((a: any, b: any)=> {return a.sequence - b.sequence;});//ascending sort
 			that.getNewChatCount();
       
-			that.onSearch(null);
+			if(that.sharedService.sharedObj.backUpData['home']){
+				that.searchResponse = that.sharedService.sharedObj.backUpData['home'].searchResponse;
+				that.results = that.sharedService.sharedObj.backUpData['home'].results;
+			}
+			else{
+				that.onSearch(null);
+			}
 		});
 		document.addEventListener("click", function (e) {
 			that.suggestion = [];
@@ -358,6 +364,10 @@ export class AppHome implements OnInit {
 												  return -1;
 												return 0;
 											});//descending sort
+											
+						if(this.sharedService.sharedObj.backUpData){
+							this.sharedService.sharedObj.backUpData['home'] = {searchResponse: this.searchResponse, results: this.results};
+						}
 					  
 					  this.loading = false;
 				  }
