@@ -263,11 +263,11 @@ export class SharedService {
            d.appendChild(h);
 		   
 		   //Create Dialog Close Button
-           var b = document.createElement('BUTTON');
+           /*var b = document.createElement('BUTTON');
            b.className = "global_msg_dialog__close-btn";
            b.innerHTML = "&times;";
            b.addEventListener("click", that.closeMessageBox);
-           h.appendChild(b);
+           h.appendChild(b);*/
                                                     
           //Create Message Paragraph
 			var p = document.createElement('P');
@@ -323,7 +323,7 @@ export class SharedService {
 			   var no = document.createElement('BUTTON');
 			   no.addEventListener("click", function(){that.closeMessageBox(); callback(false);});
 			   no.innerHTML+= "No";
-			   no.style.backgroundColor = "red";
+			   no.style.backgroundColor = "maroon";
 			   f.appendChild(no);
 			   
 			   d.appendChild(f);
