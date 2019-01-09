@@ -48,7 +48,7 @@
                   <div class="form-group">
                         <div class="col-sm-12"> 
 							<mat-form-field style="width: 100%;" [hidden]="disabled.field">
-								<mat-select placeholder="{{(item.brand_name)?'Brand':'Brand (Please select product type first)'}}" name="brand" [attr.data-val]="item.brand_name" [(ngModel)]="item.brand_name" (ngModelChange)="onBrandSelect($event)" >
+								<mat-select placeholder="{{(item.brand_name)?'Brand':'Brand (Please select Product Type first)'}}" name="brand" [attr.data-val]="item.brand_name" [(ngModel)]="item.brand_name" (ngModelChange)="onBrandSelect($event)" >
 									  <mat-option value=""></mat-option>
 									  <mat-option *ngFor="let brand of brands" [value]="brand" >{{brand}}</mat-option>
 								</mat-select>
@@ -61,7 +61,7 @@
                   <div class="form-group">
                       <div class="col-sm-12"> 
 							<mat-form-field style="width: 100%;" [hidden]="disabled.field" >
-								<mat-select placeholder="{{(item.model)?'Model':'Model (Please select brand first)'}}" name="model" [attr.data-val]="item.model" [(ngModel)]="item.model" (ngModelChange)="onModelSelect($event)" >
+								<mat-select placeholder="{{(item.model)?'Model':'Model (Please select Brand first)'}}" name="model" [attr.data-val]="item.model" [(ngModel)]="item.model" (ngModelChange)="onModelSelect($event)" >
 									  <mat-option value=""></mat-option>
 									  <mat-option *ngFor="let model of models" [value]="model" >{{model.model}}</mat-option>
 								</mat-select>
@@ -75,7 +75,7 @@
                        
 					   <div class="col-sm-12"> 
 							<mat-form-field style="width: 100%;" [hidden]="disabled.field">
-								<mat-select placeholder="{{(item.variant)?'Variant':'Variant (Please select model first)'}}" name="variant" [attr.data-val]="item.variant" [(ngModel)]="item.variant" >
+								<mat-select placeholder="{{(item.variant)?'Variant':'Variant (Please select Model first)'}}" name="variant" [attr.data-val]="item.variant" [(ngModel)]="item.variant" >
 									  <mat-option value=""></mat-option>
 									  <mat-option *ngFor="let variant of variants" [value]="variant">{{variant.variant}}</mat-option>
 								</mat-select>

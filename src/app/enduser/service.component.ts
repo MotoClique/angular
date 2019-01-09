@@ -147,24 +147,34 @@ export class AppService implements OnInit {
 							}
 						}
 						else{
-							that.loading = true;
-							that.commonService.enduserService.getService(that.userDetail.user_id,"","",null,0,10)
-							  .subscribe( data => {
-								  if(!(that.results) || that.results.length<=0){
-									  that.lastScroll = 0;
-									  that.noMoreData = false;
-								  }
-								  if(data.results && data.results.length<=0){
-										that.noMoreData = true;
-								  }
-								  that.params = data.params;
-								  that.results = data.results;
-								  jQuery.each(that.results,function(i,v){
-										v.busy = true;
-										that.getResultImage(v);
-									});
-								that.loading = false;
-							});
+							if(that.sharedService.sharedObj.backUpData['service']){
+								that.params = that.sharedService.sharedObj.backUpData['service'].params;
+								that.results = that.sharedService.sharedObj.backUpData['service'].results;
+							}
+							else{
+								that.loading = true;
+								that.commonService.enduserService.getService(that.userDetail.user_id,"","",null,0,10)
+								  .subscribe( data => {
+									  if(!(that.results) || that.results.length<=0){
+										  that.lastScroll = 0;
+										  that.noMoreData = false;
+									  }
+									  if(data.results && data.results.length<=0){
+											that.noMoreData = true;
+									  }
+									  that.params = data.params;
+									  that.results = data.results;
+									  jQuery.each(that.results,function(i,v){
+											v.busy = true;
+											that.getResultImage(v);
+										});
+										
+										if(that.sharedService.sharedObj.backUpData){
+											that.sharedService.sharedObj.backUpData['service'] = {params: that.params, results: that.results};
+										}
+									that.loading = false;
+								});
+							}
 						}						
 					}
 				});
@@ -620,6 +630,10 @@ export class AppService implements OnInit {
 						that.getResultImage(v);						
 					}					
 				});
+				
+				if(that.sharedService.sharedObj.backUpData){
+					that.sharedService.sharedObj.backUpData['service'] = {params: that.params, results: that.results};
+				}
 				that.loading = false;
 			});
 	}

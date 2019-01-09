@@ -172,25 +172,35 @@ export class AppSell implements OnInit {
 							}
 						}
 						else{
-							that.loading = true;
-							that.commonService.enduserService.getSell(that.userDetail.user_id,"","",null,0,10)
-							  .subscribe( data => {
-								  if(!(that.results) || that.results.length<=0){
-									  that.lastScroll = 0;
-									  that.noMoreData = false;
-								  }
-								  if(data.results && data.results.length<=0){
-										that.noMoreData = true;
-								  }
-								  that.params = data.params;
-								  that.results = data.results;
-								  jQuery.each(that.results,function(i,v){
-										v.busy = true;
-										that.getResultImage(v);
-										that.getFav(v,v.sell_id); 
-									});
-								that.loading = false;
-							});
+							if(that.sharedService.sharedObj.backUpData['sell']){
+								that.params = that.sharedService.sharedObj.backUpData['sell'].params;
+								that.results = that.sharedService.sharedObj.backUpData['sell'].results;
+							}
+							else{
+								that.loading = true;
+								that.commonService.enduserService.getSell(that.userDetail.user_id,"","",null,0,10)
+								  .subscribe( data => {
+									  if(!(that.results) || that.results.length<=0){
+										  that.lastScroll = 0;
+										  that.noMoreData = false;
+									  }
+									  if(data.results && data.results.length<=0){
+											that.noMoreData = true;
+									  }
+									  that.params = data.params;
+									  that.results = data.results;
+									  jQuery.each(that.results,function(i,v){
+											v.busy = true;
+											that.getResultImage(v);
+											that.getFav(v,v.sell_id); 
+										});
+										
+										if(that.sharedService.sharedObj.backUpData){
+											that.sharedService.sharedObj.backUpData['sell'] = {params: that.params, results: that.results};
+										}
+									that.loading = false;
+								});
+							}
 						}						
 					}
 				});
@@ -785,6 +795,10 @@ export class AppSell implements OnInit {
 						that.getFav(v,v.sell_id);
 					}					
 				});
+				
+				if(that.sharedService.sharedObj.backUpData){
+					that.sharedService.sharedObj.backUpData['sell'] = {params: that.params, results: that.results};
+				}
 				that.loading = false;
 			});
 	}

@@ -4,7 +4,7 @@
 			<span>{{(item.to_user_name === userDetail.name)?item.from_user_name:item.to_user_name}}</span>
 		</div>
 		<div style="display:flex; line-height:32px; width:100%; padding-left:10px; box-shadow:0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);" *ngIf="!(item.post_deletion)" (click)="onNavToPost($event,item)">
-			<img *ngIf="!(item.thumbnail)" src="assets/noimage.png" style="width:75px; height:60px; padding:2px;"/>
+			<img *ngIf="!(item.thumbnail)" src="assets/default_thumbnail.png" style="width:60px; height:60px; padding:2px;"/>
 			<img *ngIf="(item.thumbnail)" src="{{formatThumbnail(item.thumbnail)}}" style="width:60px; height:60px; padding:2px;"/>
 			<div style="line-height:32px; width:calc(100% - 60px); padding-left:10px;">
 				<div style="display: flex; flex-direction: row; justify-content: space-between;">

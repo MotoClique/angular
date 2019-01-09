@@ -64,6 +64,7 @@ export class AppAlert implements OnInit {
 		ownerTypes: any = [];
 		colors: any = [];
 		lastScroll: any = 0;
+		products: any = [];
 
       constructor(private router: Router, private route: ActivatedRoute, private http: Http, private commonService: CommonService, private sharedService: SharedService) {
                      this.router = router;
@@ -129,7 +130,8 @@ export class AppAlert implements OnInit {
 									if(that.item.model){
 										that.commonService.adminService.getModel("","")
 										.subscribe( models => {
-											that.models = models.results;
+											that.products = models.results;
+											that.models = that.extractProductUniqueModels();
 											that.models.sort((a: any, b: any)=> {
 												if (a.model < b.model)
 												  return -1;
@@ -283,7 +285,8 @@ export class AppAlert implements OnInit {
 		this.variants = [];
 		this.commonService.adminService.getModel(this.selectedPrdTyp,this.selectedBrand)
 			.subscribe( models => {
-				this.models = models.results;
+				this.products = models.results;
+				this.models = this.extractProductUniqueModels();
 				this.models.sort((a: any, b: any)=> {
 							if (a.model < b.model)
 							  return -1;
@@ -295,6 +298,31 @@ export class AppAlert implements OnInit {
 		//this.commonService.adminService.getVariant(product_type_id,brand_id,model)
 			//.subscribe( variants => this.variants = variants.product);
 	}
+	
+	extractProductUniqueModels(){
+		  var productsWithoutVariant = [];
+		  for(var i=0; i<this.products.length; i++){
+			var foundEle = false;
+			for(var j=0; j<productsWithoutVariant.length; j++){
+				var prdName = this.products[i].product_type_name +' '+ this.products[i].brand_name +' '+ this.products[i].model;
+				var unqPrdName = productsWithoutVariant[j].product_type_name +' '+ productsWithoutVariant[j].brand_name +' '+ productsWithoutVariant[j].model;
+				if(prdName === unqPrdName){
+					var variant_entry = jQuery.extend(true, {}, this.products[i]);
+					productsWithoutVariant[j].variantList.push(variant_entry);
+					foundEle = true;
+					break;
+				}
+			}
+			if(!foundEle){
+				var entry = jQuery.extend(true, {}, this.products[i]);
+				entry['variantList'] = [];
+				entry.variantList.push(entry);
+				productsWithoutVariant.push(entry);
+			}
+		  }
+		  return productsWithoutVariant;		  	  
+	}
+	
 	onModelSelect(evt){
 		//this.item.model = evt.model;
 		this.selectedModel = evt.model

@@ -323,7 +323,7 @@ export class SharedService {
 			   var no = document.createElement('BUTTON');
 			   no.addEventListener("click", function(){that.closeMessageBox(); callback(false);});
 			   no.innerHTML+= "No";
-			   no.style.backgroundColor = "maroon";
+			   no.style.backgroundColor = "#E71B03";
 			   f.appendChild(no);
 			   
 			   d.appendChild(f);
