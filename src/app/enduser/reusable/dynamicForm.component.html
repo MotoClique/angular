@@ -35,7 +35,7 @@
 												<textarea matInput placeholder="{{field.field}}" maxlength="260" rows="2" [(ngModel)]="field.value" name="{{field.name}}" required="{{field.field_required}}" [disabled]="!field.editable" [hidden]="!field.visible"></textarea>
 											</mat-form-field>
 											
-											<mat-form-field style="width:100%;" *ngIf="field.field_type === 'date'">
+											<mat-form-field style="width:100%;" *ngIf="field.field_type === 'date'" (click)="odp.open()">
 												<input matInput [matDatepicker]="odp" placeholder="{{field.field}}" [(ngModel)] = "field.date" name="{{field.name}}" required="{{field.field_required}}" (dateChange)="onDateChange($event,field)" disabled>
 												<mat-datepicker-toggle matSuffix [for]="odp"></mat-datepicker-toggle>
 												<mat-datepicker touchUi #odp [disabled]="!field.editable"></mat-datepicker>
@@ -45,7 +45,7 @@
 												<div style="display:flex; flex-direction: column; color:rgba(0,0,0,.42);">
 													<label >{{field.field}}:</label>
 													<div>
-														<mat-form-field style="width:calc(100% - 135px);">
+														<mat-form-field style="width:calc(100% - 135px);" (click)="dp.open()">
 														  <input matInput [matDatepicker]="dp" placeholder="Date" [(ngModel)] = "field.date" name="{{field.name}}" required="{{field.field_required}}" (dateChange)="onDateTimeChange($event,field)" disabled>
 														  <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
 														  <mat-datepicker touchUi #dp [disabled]="!field.editable"></mat-datepicker>
