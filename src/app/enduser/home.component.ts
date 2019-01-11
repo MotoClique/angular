@@ -249,6 +249,17 @@ export class AppHome implements OnInit {
 		
 	}
 	
+	ngAfterViewInit(){
+		var that = this;
+		if(that.sharedService.sharedObj.backUpData['home']){
+				var y_axis = that.sharedService.sharedObj.backUpData['home'].y_axis;
+				if(y_axis){
+					document.getElementsByClassName('scrollContainerStyle')[0].scrollTo(0,y_axis);
+					that.sharedService.sharedObj.backUpData['home'].y_axis = null;
+				}
+		}
+	}
+	
 	
 	  
 	  suggest(evt){
@@ -506,6 +517,10 @@ export class AppHome implements OnInit {
 	
 	
 	onItemSelect(item){
+		if(this.sharedService.sharedObj.backUpData['home']){
+			this.sharedService.sharedObj.backUpData['home'].y_axis = document.getElementsByClassName('scrollContainerStyle')[0].scrollTop;
+		}
+		
 		if(item.type == "Sale"){
 			this.router.navigate(['/Container/Sell',item.sell_id]);
 		}

@@ -23,7 +23,9 @@
 			<div *ngIf="item.sold" style="width: 100%; display: flex; justify-content: center; position: absolute; top: 25px;">
 				<img src="assets/sold_out.png">
 			</div>
-			<img class="resultItemImage" *ngIf="!(item.data)" src="assets/noimage_tile.png">
+			<div class="resultItemImage" *ngIf="!(item.data)" style="justify-content:center; align-items:center; display:flex;">
+				<img src="assets/noimage.png" style="max-width:150px; opacity:0.5;">
+			</div>
 			<img class="resultItemImage" *ngIf="(item.data)" src="{{item.data}}">
 			<div class="resultItemDetailTop">				
 				<div *ngIf="(item.transactionTyp !== 'Service')" style="line-height:18px;">
