@@ -333,6 +333,11 @@ export class AppHome implements OnInit {
                 that.router.navigateByUrl('/Container/Subscription');
               });
             }
+			else if(data.noAddress){
+              this.sharedService.noAddressMessageBox(data.msg,function(){
+                that.router.navigateByUrl('/Container/Address');
+              });
+            }
             else{
               var message = "Unable to load data.";
               if(data.msg)

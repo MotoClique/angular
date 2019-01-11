@@ -418,6 +418,14 @@ export class SharedService {
 	}
 
 	noSubscriptionMessageBox(msg,callback){
+		this.createMandatoryMessageBox("Subscribe",msg,callback);	
+	}
+	
+	noAddressMessageBox(msg,callback){
+		this.createMandatoryMessageBox("Add Address",msg,callback);	
+	}
+	
+	createMandatoryMessageBox(action,msg,callback){
 		if(!document.getElementById('noSubscriptionMessageBox')){
             //Create Dialog Wrapper/Container
             var msgBox = document.createElement('DIV');
@@ -453,7 +461,7 @@ export class SharedService {
           jQuery("#noSubscriptionMessageBox").remove();
         }
 			});
-			subscribeButton.innerHTML+= "Subscribe";
+			subscribeButton.innerHTML+= action;
 			fmsgBox.appendChild(subscribeButton);
 			dmsgBox.appendChild(fmsgBox);
 		   
