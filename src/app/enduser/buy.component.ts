@@ -887,5 +887,10 @@ export class AppBuy implements OnInit {
 		}
 		this.router.navigate(['/Container/ChatDetail',this.item.buy_req_id,'create']);
 	}
+	
+	makeCall(evt){
+		if(this.item.mobile)
+			document.location.href = this.item.mobile;
+	}
 		
 }

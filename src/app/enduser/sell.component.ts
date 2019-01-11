@@ -876,4 +876,9 @@ export class AppSell implements OnInit {
 		}
 		this.router.navigate(['/Container/ChatDetail',this.item.sell_id,'create']);
 	}
+	
+	makeCall(evt){
+		if(this.item.mobile)
+			document.location.href = this.item.mobile;
+	}
 }

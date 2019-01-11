@@ -896,6 +896,11 @@ export class AppBid implements OnInit {
 		}
 		this.router.navigate(['/Container/ChatDetail',this.item.bid_id,'create']);
 	}
+	
+	makeCall(evt){
+		if(this.item.mobile)
+			document.location.href = this.item.mobile;
+	}
 	 
 		
 }
