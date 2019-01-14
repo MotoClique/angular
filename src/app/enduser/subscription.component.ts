@@ -66,6 +66,9 @@ export class AppSubscription implements OnInit {
 					that.userDetail = user;
 					that.commonService.enduserService.getSubscription(that.userDetail.user_id,"")
 					.subscribe( result => that.subscriptions = result.results);
+					if(that.router.url === '/Container/BuySubscription'){
+						that.onBuySub(null);
+					}
 				});
 				this.sharedService.onElementHeightChange();
           }

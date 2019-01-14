@@ -330,12 +330,12 @@ export class AppHome implements OnInit {
 				  if(data.statusCode === 'F'){
             if(data.noSubscription){
               this.sharedService.noSubscriptionMessageBox(data.msg,function(){
-                that.router.navigateByUrl('/Container/Subscription');
+                that.router.navigateByUrl('/Container/BuySubscription');
               });
             }
 			else if(data.noAddress){
               this.sharedService.noAddressMessageBox(data.msg,function(){
-                that.router.navigateByUrl('/Container/Address');
+                that.router.navigateByUrl('/Container/Address/blank/create');
               });
             }
             else{

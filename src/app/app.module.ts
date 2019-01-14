@@ -98,6 +98,7 @@ const appRoutes: Routes = [
 		{ path: 'Address/:id', component: AppAddress, canActivate: [AuthGuardService], canDeactivate:[ConfirmDeactivateGuard]},
 		{ path: 'Address/:id/:mode', component: AppAddress, canActivate: [AuthGuardService], canDeactivate:[ConfirmDeactivateGuard]},
 		{ path: 'Subscription', component: AppSubscription, canActivate: [AuthGuardService]},
+		{ path: 'BuySubscription', component: AppSubscription, canActivate: [AuthGuardService]},
 		{ path: 'Alert', component: AppAlert, canActivate: [AuthGuardService], canDeactivate:[ConfirmDeactivateGuard]},
 		{ path: 'Alert/:id', component: AppAlert, canActivate: [AuthGuardService], canDeactivate:[ConfirmDeactivateGuard]},
 		{ path: 'Alert/:id/:mode', component: AppAlert, canActivate: [AuthGuardService], canDeactivate:[ConfirmDeactivateGuard]},

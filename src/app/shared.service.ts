@@ -452,8 +452,7 @@ export class SharedService {
 		   //Create Footer
 		    var fmsgBox = document.createElement('DIV');
 			fmsgBox.className= 'global_msg_dialog_footer';
-			var dummyButton = document.createElement('BUTTON');
-			fmsgBox.appendChild(dummyButton);
+			
 			var subscribeButton = document.createElement('BUTTON');
 			subscribeButton.addEventListener("click", function(){
 				if(callback){
@@ -462,6 +461,7 @@ export class SharedService {
         }
 			});
 			subscribeButton.innerHTML+= action;
+			subscribeButton.style.backgroundColor = '#E71B03';
 			fmsgBox.appendChild(subscribeButton);
 			dmsgBox.appendChild(fmsgBox);
 		   
@@ -501,13 +501,14 @@ export class SharedService {
 		    var fmsgBox = document.createElement('DIV');
 			fmsgBox.className= 'global_msg_dialog_footer';
 			var dummyButton = document.createElement('BUTTON');
-			fmsgBox.appendChild(dummyButton);
+			//fmsgBox.appendChild(dummyButton);
 			var logOutButton = document.createElement('BUTTON');
 			logOutButton.addEventListener("click", function(){
 				that.auth.logout();
         jQuery("#noDeviceRegistrationMessageBox").remove();
 			});
 			logOutButton.innerHTML+= "Log Out";
+			logOutButton.style.backgroundColor = '#E71B03';
 			fmsgBox.appendChild(logOutButton);
 			dmsgBox.appendChild(fmsgBox);
 		   
