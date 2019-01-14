@@ -490,9 +490,10 @@ export class AppSell implements OnInit {
 											that.sharedService.openMessageBox("E","Unable to save thumbnail.",null);
 										}
 										if(uploadCount === that.imageTemplateComponent.thumbnails.length){
+											delete that.sharedService.sharedObj.backUpData.sell;
 											that.displayItem();
-                      that.disabled.save = false;
-                    }
+										  that.disabled.save = false;
+										}
 								});
 							}
 							else if(v.newImage){//insert new								
@@ -519,9 +520,10 @@ export class AppSell implements OnInit {
 													that.sharedService.openMessageBox("E","Unable to save thumbnail.",null);
 												}
 												if(uploadCount === that.imageTemplateComponent.thumbnails.length){
+													delete that.sharedService.sharedObj.backUpData.sell;
 													that.displayItem();
-                          that.disabled.save = false;
-                        }
+												  that.disabled.save = false;
+												}
 											  });
 											
 										}
@@ -529,18 +531,20 @@ export class AppSell implements OnInit {
 											uploadCount = uploadCount - (-1);
 											that.sharedService.openMessageBox("E","Unable to save image.",null);
 											if(uploadCount === that.imageTemplateComponent.thumbnails.length){
+												delete that.sharedService.sharedObj.backUpData.sell;
 												that.displayItem();
-                        that.disabled.save = false;
-                      }
+												that.disabled.save = false;
+											  }
 										}
 									   });
 
 							}
 						});
 						if(!(that.imageTemplateComponent.thumbnails) || that.imageTemplateComponent.thumbnails.length===0){
+							delete that.sharedService.sharedObj.backUpData.sell;
 							that.displayItem();
-              that.disabled.save = false;
-            }
+						  that.disabled.save = false;
+						}
 					}
 					else{
 						//alert("Unable to save");
@@ -668,6 +672,7 @@ export class AppSell implements OnInit {
 					that.loading = false;
 				});*/
 		this.done = true;
+		delete this.sharedService.sharedObj.backUpData.sell;
 		this.router.navigateByUrl('/Container/Sell');
 	  }
 	  
@@ -835,6 +840,12 @@ export class AppSell implements OnInit {
 	canDeactivate(component,currentRoute,currentState,nextState) {
 		console.log('i am trying to navigating away');
 		var that = this;
+		if(!(jQuery('#previewImageContainer').is(':hidden'))){
+			jQuery('#previewImageIframe').remove();			
+			jQuery('#previewImageContainer').hide();
+			return false;
+		}
+		
 		if(this.editMode && !this.done){			
 			if(!this.targetUrl){
 				this.sharedService.unSaveDataCheck(function(confirmed){
@@ -882,7 +893,12 @@ export class AppSell implements OnInit {
 			var mob_number = this.item.mobile;
 			if(mob_number.substr(0,3) !== '+91')
 				mob_number = '+91'+mob_number;
-			document.location.href = "tel:"+mob_number;
+			if(this.sharedService.isCordovaApp()){
+				document.location.href = "tel:"+mob_number;
+			}
+			else{
+				this.sharedService.openMessageBox("", "Please call <b>"+mob_number+"</b>", function(){})
+			}
 		}
 	}
 }

@@ -122,6 +122,7 @@ export class AuthenticationService {
   logout() {
     this.token = '';
     window.localStorage.removeItem('mean-token');
-    this.router.navigateByUrl('/');
+	window.location.reload();
+    //this.router.navigateByUrl('/');
   }
 }

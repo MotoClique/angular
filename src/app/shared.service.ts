@@ -328,6 +328,18 @@ export class SharedService {
 			   
 			   d.appendChild(f);
            }
+		   else{			   
+               title.innerHTML+= " Information";			   
+			   var f = document.createElement('DIV');
+			   f.className= 'global_msg_dialog_footer';
+			   var ok = document.createElement('BUTTON');
+			   ok.addEventListener("click", function(){that.closeMessageBox(); callback(true);});
+			   ok.innerHTML+= "Ok";
+			   ok.style.backgroundColor = "#E71B03";
+			   f.appendChild(ok);		   
+			   
+			   d.appendChild(f);
+           }
          
                                             
             document.body.appendChild(c);//Append to Body
