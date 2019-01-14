@@ -889,8 +889,12 @@ export class AppBuy implements OnInit {
 	}
 	
 	makeCall(evt){
-		if(this.item.mobile)
-			document.location.href = this.item.mobile;
+		if(this.item.mobile){
+			var mob_number = this.item.mobile;
+			if(mob_number.substr(0,3) !== '+91')
+				mob_number = '+91'+mob_number;
+			document.location.href = "tel:"+mob_number;
+		}
 	}
 		
 }
