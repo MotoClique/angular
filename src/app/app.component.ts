@@ -44,12 +44,21 @@ export class AppComponent implements OnInit{
 					});
 				}
 				else{
+					delete that.sharedService.sharedObj.backUpData.home;
 					that.backNavCount += 1;
 					//that.sharedService.openMessageBox("I","Press back one more time to close the app.",null)
 				}
 			}
+			if(that.sharedService.sharedObj.currentContext.id === "AppHome"){
+				var routeSubscription = that.router.events.subscribe((val) => {
+					if(val instanceof NavigationEnd){
+						routeSubscription.unsubscribe();
+						that.router.navigateByUrl('/Container/Home');
+					}
+				});	
+			}
 		}
-		if( (routePath.includes("/edit") || routePath.includes("/create")) ){
+		if( (routePath.includes("/edit") || routePath.includes("/create") || routePath.includes("/participate")) ){
 				//&& (previousRoutePath.includes("/Container/Sell") || previousRoutePath.includes("/Container/Buy") || previousRoutePath.includes("/Container/Bid") || previousRoutePath.includes("/Container/Service"))){			
 			window.history.go(-2);				
 		}

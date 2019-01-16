@@ -145,6 +145,13 @@ export class AppHome implements OnInit {
 				if ( key == 13 ){ // Enter key
 					that.searchResponse = {sale:{},buy:{},bid:{},service:{}};
 					that.results = [];
+					that.searchSelected = {
+						product_type_name: that.search,
+						brand_name: that.search,
+						model: that.search,
+						variant: that.search,
+						text: that.search
+					};
 					that.loadResult(that.searchSelected);
 				}
 					
