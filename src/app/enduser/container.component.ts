@@ -406,6 +406,22 @@ export class AppContainer implements OnInit{
 		this.sharedService.testDataCreation(this.create_count);
 	}
 	
-	
+	onPull(evt){
+		var divHeight:any = (document.getElementById('pullToRefresh').style.height).replace(/px/g,'') ;
+		var pullToRefreshSpan: any = document.querySelector('#pullToRefresh span');
+		if(Number(divHeight) < 70){
+			document.getElementById('pullToRefresh').style.height = (divHeight - (-5))+'px';
+			if(Number(divHeight) >= 10)
+				pullToRefreshSpan.style.display = "block";
+		}
+	}
+	onPullEnd(evt){
+		var pullToRefreshDiv: any = document.getElementById('pullToRefresh');
+		pullToRefreshDiv.style.height = '0px';
+		var pullToRefreshSpan: any = document.querySelector('#pullToRefresh span');
+		pullToRefreshSpan.style.display = "none";
+		if(this.sharedService.sharedObj.currentContext.reloadItems)
+			this.sharedService.sharedObj.currentContext.reloadItems();
+	}
 
 }
