@@ -508,6 +508,7 @@ export class AppBid implements OnInit {
 										}
 										if(uploadCount === that.imageTemplateComponent.thumbnails.length){
 											delete that.sharedService.sharedObj.backUpData.bid;
+											delete that.sharedService.sharedObj.backUpData.home;
 											that.displayItem();
 										  that.disabled.save = false;
 										}
@@ -538,6 +539,7 @@ export class AppBid implements OnInit {
 												}
 												if(uploadCount === that.imageTemplateComponent.thumbnails.length){
 													delete that.sharedService.sharedObj.backUpData.bid;
+													delete that.sharedService.sharedObj.backUpData.home;
 													that.displayItem();
 												  that.disabled.save = false;
 												}
@@ -549,6 +551,7 @@ export class AppBid implements OnInit {
 											that.sharedService.openMessageBox("E","Unable to save image.",null);
 											if(uploadCount === that.imageTemplateComponent.thumbnails.length){
 												delete that.sharedService.sharedObj.backUpData.bid;
+												delete that.sharedService.sharedObj.backUpData.home;
 												that.displayItem();
 												that.disabled.save = false;
 											  }
@@ -559,6 +562,7 @@ export class AppBid implements OnInit {
 						});
 						if(!(that.imageTemplateComponent.thumbnails) || that.imageTemplateComponent.thumbnails.length===0){
 							delete that.sharedService.sharedObj.backUpData.bid;
+							delete that.sharedService.sharedObj.backUpData.home;
 							that.displayItem();
 						  that.disabled.save = false;
 						}
@@ -697,6 +701,7 @@ export class AppBid implements OnInit {
 					});*/
 		this.done = true;
 		delete this.sharedService.sharedObj.backUpData.bid;
+		delete this.sharedService.sharedObj.backUpData.home;
 		this.router.navigateByUrl('/Container/Bid');
 	  }
 	  

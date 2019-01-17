@@ -47,7 +47,7 @@
 
   <mat-sidenav-content class="nav-content" style="background: white !important; overflow:hidden;">
 	<div class="overlayStyle" (click)="sidenav.toggle()" [hidden]="!opened"></div>
-	<div id="userscreen_frame" class="userscreen-frame" (touchmove)="onPull($event)" (touchend)="onPullEnd($event)">
+	<div id="userscreen_frame" class="userscreen-frame" (touchstart)="onPullStart($event)" (touchmove)="onPull($event)" (touchend)="onPullEnd($event)">
 		<router-outlet ></router-outlet>
 	</div>
   </mat-sidenav-content>
