@@ -408,30 +408,38 @@ export class AppContainer implements OnInit{
 	}
 	
 	onPullStart(evt){
-		this.pull_startY = evt.touches[0].pageY;	
+		if(this.sharedService.sharedObj.currentContext.id === "AppHome"){
+			this.pull_startY = evt.touches[0].pageY;	
+		}
 	}
 	
 	onPull(evt){
-		const y = evt.touches[0].pageY;
-		if(document.querySelector('.scrollContainerStyle') && document.querySelector('.scrollContainerStyle').scrollTop === 0 && y > this.pull_startY){
-			var divHeight:any = (document.getElementById('pullToRefresh').style.height).replace(/px/g,'') ;
-			var pullToRefreshSpan: any = document.querySelector('#pullToRefresh span');
-			if(Number(divHeight) < 70){
-				document.getElementById('pullToRefresh').style.height = (divHeight - (-5))+'px';
-				if(Number(divHeight) >= 10)
-					pullToRefreshSpan.style.display = "block";
+		if(this.sharedService.sharedObj.currentContext.id === "AppHome"){
+			const y = evt.touches[0].pageY;
+			if(document.querySelector('.scrollContainerStyle') && document.querySelector('.scrollContainerStyle').scrollTop === 0 && y > this.pull_startY){
+				var divHeight:any = (document.getElementById('pullToRefresh').style.height).replace(/px/g,'') ;
+				var pullToRefreshSpan: any = document.querySelector('#pullToRefresh span');
+				if(Number(divHeight) < 100){
+					document.getElementById('pullToRefresh').style.height = (divHeight - (-2))+'px';
+					if(Number(divHeight) >= 10)
+						pullToRefreshSpan.style.display = "block";
+				}
 			}
 		}
 	}
 	onPullEnd(evt){
-		const y = evt.changedTouches[0].pageY;
-		if(document.querySelector('.scrollContainerStyle') && document.querySelector('.scrollContainerStyle').scrollTop === 0 && y > this.pull_startY){
-			var pullToRefreshDiv: any = document.getElementById('pullToRefresh');
-			pullToRefreshDiv.style.height = '0px';
-			var pullToRefreshSpan: any = document.querySelector('#pullToRefresh span');
-			pullToRefreshSpan.style.display = "none";
-			if(this.sharedService.sharedObj.currentContext.reloadItems)
-				this.sharedService.sharedObj.currentContext.reloadItems();
+		if(this.sharedService.sharedObj.currentContext.id === "AppHome"){
+			const y = evt.changedTouches[0].pageY;
+			if(document.querySelector('.scrollContainerStyle') && document.querySelector('.scrollContainerStyle').scrollTop === 0 && y > this.pull_startY){
+				if(this.sharedService.sharedObj.currentContext.reloadItems
+					&& Number((document.getElementById('pullToRefresh').style.height).replace(/px/g,'')) >= 100)
+					this.sharedService.sharedObj.currentContext.reloadItems();
+					
+				var pullToRefreshDiv: any = document.getElementById('pullToRefresh');
+				pullToRefreshDiv.style.height = '0px';
+				var pullToRefreshSpan: any = document.querySelector('#pullToRefresh span');
+				pullToRefreshSpan.style.display = "none";
+			}
 		}
 	}
 
