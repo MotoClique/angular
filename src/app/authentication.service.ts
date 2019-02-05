@@ -22,12 +22,12 @@ export class AuthenticationService {
 	var prdEnvFlag = true;
 	  
 	window.GlobalData = window.GlobalData || {};
-	window.GlobalData['MainUrlDomain'] = (prdEnvFlag)?"http://104.199.177.227":"https://meanmav.herokuapp.com";
+	window.GlobalData['MainUrlDomain'] = (prdEnvFlag)?"https://motoclique.in":"https://meanmav.herokuapp.com";
 	  
-	if(this.hostname === 'localhost')
-		this.fullhost = window.GlobalData['MainUrlDomain']; //"http://nodemav-nodemav.7e14.starter-us-west-2.openshiftapps.com";
-	else
-		this.fullhost = window.GlobalData['MainUrlDomain']; //this.protocol+"//"+ this.host;
+	if(!window.cordova)
+		window.GlobalData['MainUrlDomain'] = this.protocol+"//"+ this.host;
+	
+	this.fullhost = window.GlobalData['MainUrlDomain'];
   }
 
   saveToken(token) {
