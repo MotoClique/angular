@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import {MatSnackBar} from '@angular/material';
 
 declare global {
-	interface Window { GlobalData: any; }
+	interface Window { GlobalData: any; cordova: any; }
 }
 
 @Injectable()
@@ -24,7 +24,7 @@ export class AuthenticationService {
 	window.GlobalData = window.GlobalData || {};
 	window.GlobalData['MainUrlDomain'] = (prdEnvFlag)?"https://motoclique.in":"https://meanmav.herokuapp.com";
 	  
-	if(!window.cordova)
+	if(!window.cordova && this.hostname !== 'localhost')
 		window.GlobalData['MainUrlDomain'] = this.protocol+"//"+ this.host;
 	
 	this.fullhost = window.GlobalData['MainUrlDomain'];
