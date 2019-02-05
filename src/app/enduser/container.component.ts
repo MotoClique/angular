@@ -419,8 +419,8 @@ export class AppContainer implements OnInit{
 			if(document.querySelector('.scrollContainerStyle') && document.querySelector('.scrollContainerStyle').scrollTop === 0 && y > this.pull_startY){
 				var divHeight:any = (document.getElementById('pullToRefresh').style.height).replace(/px/g,'') ;
 				var pullToRefreshSpan: any = document.querySelector('#pullToRefresh span');
-				if(Number(divHeight) < 100){
-					document.getElementById('pullToRefresh').style.height = (divHeight - (-2))+'px';
+				if(Number(divHeight) < 60){
+					document.getElementById('pullToRefresh').style.height = (divHeight - (-1))+'px';
 					if(Number(divHeight) >= 10)
 						pullToRefreshSpan.style.display = "block";
 				}
@@ -432,7 +432,7 @@ export class AppContainer implements OnInit{
 			const y = evt.changedTouches[0].pageY;
 			if(document.querySelector('.scrollContainerStyle') && document.querySelector('.scrollContainerStyle').scrollTop === 0 && y > this.pull_startY){
 				if(this.sharedService.sharedObj.currentContext.reloadItems
-					&& Number((document.getElementById('pullToRefresh').style.height).replace(/px/g,'')) >= 100)
+					&& Number((document.getElementById('pullToRefresh').style.height).replace(/px/g,'')) >= 60)
 					this.sharedService.sharedObj.currentContext.reloadItems();
 					
 				var pullToRefreshDiv: any = document.getElementById('pullToRefresh');
