@@ -78,6 +78,9 @@ export class AuthenticationService {
         if (data && data.token) {
           this.saveToken(data.token);
         }
+		if(data && data.device_reg_id)
+			localStorage.setItem('device-token', data.device_reg_id);
+		
         return data;
       })
 	  .catch((err: any) => {
