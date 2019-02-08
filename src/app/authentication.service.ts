@@ -24,8 +24,8 @@ export class AuthenticationService {
 	window.GlobalData = window.GlobalData || {};
 	window.GlobalData['MainUrlDomain'] = (prdEnvFlag)?"https://motoclique.in":"https://meanmav.herokuapp.com";
 	  
-	if(!window.cordova && this.hostname !== 'localhost')
-		window.GlobalData['MainUrlDomain'] = this.protocol+"//"+ this.host;
+	//if(!window.cordova && this.hostname !== 'localhost')
+		//window.GlobalData['MainUrlDomain'] = this.protocol+"//"+ this.host;
 	
 	this.fullhost = window.GlobalData['MainUrlDomain'];
   }

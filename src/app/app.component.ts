@@ -13,6 +13,7 @@ export class AppComponent implements OnInit{
   title = 'app started';
   showDialog = false;
   backNavCount: number = 0;
+  doubleNav: boolean = false;
   
   constructor(private router: Router, private route: ActivatedRoute, private sharedService: SharedService){
 	  this.router = router;
@@ -57,9 +58,14 @@ export class AppComponent implements OnInit{
 					}
 				});	
 			}
+			if(that.doubleNav){
+				that.sharedService.sharedObj.currentContext.done = true;
+				that.doubleNav = false;
+			}
 		}
 		if( (routePath.includes("/edit") || routePath.includes("/create") || routePath.includes("/participate")) ){
 				//&& (previousRoutePath.includes("/Container/Sell") || previousRoutePath.includes("/Container/Buy") || previousRoutePath.includes("/Container/Bid") || previousRoutePath.includes("/Container/Service"))){			
+			that.doubleNav = true;
 			window.history.go(-2);				
 		}
 		/*else if( (actualRoutePath === "/Container/Favourite" || actualRoutePath === "/Container/Sell" || actualRoutePath === "/Container/Buy" || actualRoutePath === "/Container/Bid" || actualRoutePath === "/Container/Service" || actualRoutePath === "/Container/ChatInbox") 
