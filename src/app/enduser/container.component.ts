@@ -306,7 +306,7 @@ export class AppContainer implements OnInit{
 		}
 		
 		onHome(){
-			delete this.sharedService.sharedObj.backUpData.home;
+			//delete this.sharedService.sharedObj.backUpData.home;
 			this.router.navigateByUrl('/Container/Home');
 			this.closeNav();
 		}
