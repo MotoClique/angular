@@ -202,7 +202,18 @@ export class AppFilter implements OnInit {
 															}
 													});
 												}
-											
+											if(that.item.country){
+												that.commonService.adminService.getState(that.item.country)
+													.subscribe( res => that.states = res.results);
+											}
+											if(that.item.state){
+												that.commonService.adminService.getCity(that.item.state)
+													.subscribe( res => that.cities = res.results);
+											}
+											if(that.item.city){
+												that.commonService.adminService.getUniqueLoc(that.item.city)
+													.subscribe( res => that.locations = res.results);
+											}
 										});
 													
 							}
@@ -485,6 +496,7 @@ export class AppFilter implements OnInit {
 				that.sharedService.sharedObj.containerContext.loadUserFilter();
 				that.router.navigateByUrl('/Container');
 			}
+			delete that.sharedService.sharedObj.backUpData.home;
 		  });
 	  }
 	  
@@ -547,7 +559,8 @@ export class AppFilter implements OnInit {
 		  this.sharedService.openMessageBox("C","Are you sure you want to clear all your settings?",function(flag){
 			  if(flag){
 				that.commonService.enduserService.deleteMultipleFilter(that.userDetail.user_id)
-					.subscribe( data => {							
+					.subscribe( data => {
+								delete that.sharedService.sharedObj.backUpData.home;
 								that.sharedService.closeMessageBox();
 								that.sharedService.openMessageBox("S","Successfully cleared.",null);
 								//that.loadFilter(that.userDetail.user_id);

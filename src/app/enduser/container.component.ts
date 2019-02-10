@@ -420,7 +420,7 @@ export class AppContainer implements OnInit{
 				var divHeight:any = (document.getElementById('pullToRefresh').style.height).replace(/px/g,'') ;
 				var pullToRefreshSpan: any = document.querySelector('#pullToRefresh span');
 				if(Number(divHeight) < 60){
-					document.getElementById('pullToRefresh').style.height = (divHeight - (-1))+'px';
+					document.getElementById('pullToRefresh').style.height = (divHeight - (-2))+'px';
 					if(Number(divHeight) >= 10)
 						pullToRefreshSpan.style.display = "block";
 				}
