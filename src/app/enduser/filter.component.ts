@@ -202,10 +202,10 @@ export class AppFilter implements OnInit {
 															}
 													});
 												}
-											if(that.item.country){
-												that.commonService.adminService.getState(that.item.country)
+											//if(that.item.country){
+												that.commonService.adminService.getState("India")
 													.subscribe( res => that.states = res.results);
-											}
+											//}
 											if(that.item.state){
 												that.commonService.adminService.getCity(that.item.state)
 													.subscribe( res => that.cities = res.results);
