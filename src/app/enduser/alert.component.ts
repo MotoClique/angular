@@ -175,8 +175,10 @@ export class AppAlert implements OnInit {
 							.subscribe( result => that.alerts = result.results);
 					}
 										
-					that.commonService.adminService.getCountry()
-						.subscribe( res => that.countries = res.results);
+					//that.commonService.adminService.getCountry()
+						//.subscribe( res => that.countries = res.results);
+          that.commonService.adminService.getState("India")
+			    .subscribe( res => that.states = res.results);
 					
 					that.commonService.adminService.getProductType("")
 						.subscribe( productTypes => {
