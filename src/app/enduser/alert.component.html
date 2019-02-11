@@ -180,7 +180,7 @@
 							</mat-form-field>
 						</div>
                 </div>
-			   <div class="form-group">
+			   <!--<div class="form-group">
                         <div class="col-sm-12"> 
 							<mat-form-field style="width: 100%;">
 								<mat-select placeholder="Country" name="country" [attr.data-val]="item.country" [(ngModel)]="item.country" [disabled]="disabled.field" (ngModelChange)="onCountrySelect($event)">
@@ -189,7 +189,7 @@
 								</mat-select>
 							</mat-form-field>
 						</div>
-                  </div>
+                  </div>-->
 				<div class="form-group">
                         <div class="col-sm-12"> 
 							<mat-form-field style="width: 100%;">
@@ -204,7 +204,7 @@
                         
 						 <div class="col-sm-12"> 
 							<mat-form-field style="width: 100%;" [hidden]="disabled.field">
-								<mat-select placeholder="City" name="city" [attr.data-val]="item.city" [(ngModel)]="item.city"  (ngModelChange)="onCitySelect($event)">
+								<mat-select placeholder="{{(item.city)?'City':'City (Please select State first)'}}" name="city" [attr.data-val]="item.city" [(ngModel)]="item.city"  (ngModelChange)="onCitySelect($event)">
 									  <mat-option value="All">Any</mat-option>
 									  <mat-option *ngFor="let city of cities" [value]="city.city">{{city.city}}</mat-option>
 								</mat-select>
@@ -217,7 +217,7 @@
 			   <div class="form-group">
                         <div class="col-sm-12"> 
 							<mat-form-field style="width: 100%;">
-								<mat-select placeholder="Location" name="location" [attr.data-val]="item.location" [(ngModel)]="item.location" [disabled]="disabled.field" >
+								<mat-select placeholder="{{(item.location)?'Location':'Location (Please select City first)'}}" name="location" [attr.data-val]="item.location" [(ngModel)]="item.location" [disabled]="disabled.field" >
 									<mat-option value="All">Any</mat-option>
 									  <mat-option *ngFor="let itm of locations" [value]="itm.location">{{itm.location}}</mat-option>
 								</mat-select>
