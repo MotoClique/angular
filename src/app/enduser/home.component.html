@@ -28,7 +28,7 @@
 							<div class="form-control">
 								<div  style="display: flex;">
 									<input id="searchInput" style="background: transparent; margin-bottom:0; width: 100%;  border: transparent; outline: none;" type="text" name="searchInput" placeholder="Type here to search..." [(ngModel)]="search" (keyup)="suggest($event)">
-									<span [hidden]="search == undefined || search == ''" class="glyphicon glyphicon-remove-circle" (click)="onRemoveSearch($event)" style="width:20px; cursor:pointer; color:gray; font-size: 16px;"></span>
+									<span [hidden]="search == undefined || search == ''" class="glyphicon glyphicon-remove-circle" (click)="onRemoveSearch($event)" style="width:30px; cursor:pointer; color:gray; font-size: 16px;"></span>
 									<span class="glyphicon glyphicon-search" (click)="onSearch($event)" style="width:10px; cursor:pointer;"></span>
 								</div>
 							</div>
