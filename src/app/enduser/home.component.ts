@@ -60,6 +60,9 @@ export class AppHome implements OnInit {
     screenAccess:any = [];
 	newChatTimer:any;
 		
+		postTabAccess: any =[];
+		@ViewChild('postTypeTabGroup') postTypeTabGroup;
+		
       constructor(private router: Router, private http: Http, private commonService: CommonService, private sharedService: SharedService) {
               var that = this;;
                      this.getJSON().subscribe(data => {
@@ -88,21 +91,33 @@ export class AppHome implements OnInit {
 					access[i].iconSrc = "assets/sale_icon.png";
 					access[i].id = ((access[i].name).replace(/ /g,"")).toLowerCase()+"_link" ;
 					that.screenAccess.push(access[i]);
+					
+					if(access[i].applicable && access[i].for_nav)
+						that.postTabAccess.push("Sale");
 				}
 				else if((access[i].name).toLowerCase().indexOf('buy') != -1){
 					access[i].iconSrc = "assets/buy_icon.png";
 					access[i].id = ((access[i].name).replace(/ /g,"")).toLowerCase()+"_link" ;
 					that.screenAccess.push(access[i]);
+					
+					if(access[i].applicable && access[i].for_nav)
+						that.postTabAccess.push("Buy");
 				}
 				else if((access[i].name).toLowerCase().indexOf('bid') != -1){
 					access[i].iconSrc = "assets/bid_icon.png";
 					access[i].id = ((access[i].name).replace(/ /g,"")).toLowerCase()+"_link" ;
 					that.screenAccess.push(access[i]);
+					
+					if(access[i].applicable && access[i].for_nav)
+						that.postTabAccess.push("Bid");
 				}
 				else if((access[i].name).toLowerCase().indexOf('service') != -1){
 					access[i].iconSrc = "assets/service_icon.png";					
 					access[i].id = ((access[i].name).replace(/ /g,"")).toLowerCase()+"_link" ;
 					that.screenAccess.push(access[i]);
+					
+					if(access[i].applicable && access[i].for_nav)
+						that.postTabAccess.push("Service");
 				}
 				else if((access[i].name).toLowerCase().indexOf('chat') != -1){
 					access[i].iconSrc = "assets/chat_icon.png";					
@@ -113,9 +128,16 @@ export class AppHome implements OnInit {
 			that.screenAccess.sort((a: any, b: any)=> {return a.sequence - b.sequence;});//ascending sort
 			that.getNewChatCount();
       
+			that.type = (that.postTabAccess[0])?that.postTabAccess[0]:'All';
+			
 			if(that.sharedService.sharedObj.backUpData['home']){
 				that.searchResponse = that.sharedService.sharedObj.backUpData['home'].searchResponse;
 				that.results = that.sharedService.sharedObj.backUpData['home'].results;
+				
+				that.noMoreData = that.sharedService.sharedObj.backUpData['home'].noMoreData;
+				that.type = that.sharedService.sharedObj.backUpData['home'].type;
+				that.postTypeTabGroup.selectedIndex = that.postTabAccess.indexOf(that.type);
+				
 			}
 			else{
 				that.onSearch(null);
@@ -133,6 +155,16 @@ export class AppHome implements OnInit {
 				var selected = $('.autocomplete-selected').eq(0);
 				var current;
       
+				if(key !== 13){
+					that.searchSelected = {
+						product_type_name: that.search,
+						brand_name: that.search,
+						model: that.search,
+						variant: that.search,
+						text: that.search
+					};
+				}
+	  
         if ( key == 8 ){ // Backspace key
 					if(!(that.search)){//If empty
 						that.searchResponse = {sale:{},buy:{},bid:{},service:{}};
@@ -145,13 +177,7 @@ export class AppHome implements OnInit {
 				if ( key == 13 ){ // Enter key
 					that.searchResponse = {sale:{},buy:{},bid:{},service:{}};
 					that.results = [];
-					that.searchSelected = {
-						product_type_name: that.search,
-						brand_name: that.search,
-						model: that.search,
-						variant: that.search,
-						text: that.search
-					};
+					
 					that.loadResult(that.searchSelected);
 				}
 					
@@ -274,15 +300,15 @@ export class AppHome implements OnInit {
 			if ( key != 40 && key != 38 && key != 13 ){
 				var that = this;
 				this.suggestion = [];
-				this.searchSelected = {};
+				//this.searchSelected = {};
 				var location = (this.citySelected.location !== undefined)?this.citySelected.location:"" ;
 				var city = (this.citySelected.city !== undefined)?this.citySelected.city:"" ;
 				var type = (this.type === "All")? "" : this.type ;
 				this.commonService.enduserService.search(this.search,city,location,type)
 					.subscribe( data => {			  
 						  this.suggestion = data.results;
-						  if(this.suggestion.length > 0)
-							  this.searchSelected = this.suggestion[0];
+						//  if(this.suggestion.length > 0)
+							//  this.searchSelected = this.suggestion[0];
 					});
 			}
 	  }
@@ -390,6 +416,9 @@ export class AppHome implements OnInit {
 											
 						if(this.sharedService.sharedObj.backUpData){
 							this.sharedService.sharedObj.backUpData['home'] = {searchResponse: this.searchResponse, results: this.results};
+							
+							this.sharedService.sharedObj.backUpData['home'].noMoreData = this.noMoreData;
+							this.sharedService.sharedObj.backUpData['home'].type = this.type;
 						}
 					  
 					  this.loading = false;
@@ -502,7 +531,9 @@ export class AppHome implements OnInit {
 		this.loadResult(this.searchSelected);
 	}
 	
-	
+	onCitySearch(evt){
+		this.onCitySuggestSelect(evt,this.citySelected);
+	}
 	
 	
 	getResultImage(item,transaction_id){
@@ -708,6 +739,11 @@ export class AppHome implements OnInit {
 		this.newChatTimer = setInterval(function(){
 			that.getNewChatCount();
 		},10000);
+	}
+	
+	onPostTypeTabClick(evt){
+		this.type = evt.tab.textLabel;
+		this.onSuggestSelect(evt,this.searchSelected);
 	}
 	
 	ngOnDestroy(){
