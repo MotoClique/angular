@@ -3,13 +3,14 @@
 	   <div style="">
 			
             <div class="row">
-                <div class="col-sm-2" >                   
+                <div class="col-sm-4" >                   
 				   <div style="padding-left:10px; padding-right:10px; padding-top:10px;">
 					   <form autocomplete="off" >	
 								<div class="form-control">
 									<div  style="display: flex;">
 										<input id="cityInput" style="background: transparent; margin-bottom:0; width: 100%;  border: transparent; outline: none;" type="text" name="city" placeholder="Location" [(ngModel)]="city" (keyup)="suggestCity($event)">
-										<span [hidden]="city == undefined || city == ''" class="glyphicon glyphicon-remove-circle" (click)="onRemoveCitySearch($event)" style="width:10px; cursor:pointer; color:gray; font-size: 16px;"></span>
+										<span [hidden]="city == undefined || city == ''" class="glyphicon glyphicon-remove-circle" (click)="onRemoveCitySearch($event)" style="width:30px; cursor:pointer; color:gray; font-size: 16px;"></span>
+										<span class="glyphicon glyphicon-search" (click)="onCitySearch($event)" style="width:10px; cursor:pointer;"></span>
 									</div>
 								</div>
 								<div style="position: relative;">
@@ -42,7 +43,7 @@
 						</form>						
                    </div>
                 </div>
-                 <div class="col-sm-2" >
+                 <!--<div class="col-sm-2" >
 					<div style="padding-left:10px; padding-right:10px; padding-top:10px;">
 						<form autocomplete="off" >
 							<select class="form-control" id="type" [(ngModel)]="type" name="type" (change)="onTypeSelect($event)">
@@ -50,12 +51,17 @@
 							</select>
 						</form>
 					</div>
-                 </div>
+                 </div>-->
              </div>
 		</div>
 	</div>
 
- 
+	<div class="container" style="">
+		<mat-tab-group #postTypeTabGroup (selectedTabChange)="onPostTypeTabClick($event)" mat-stretch-tabs >
+			<mat-tab *ngFor="let tab of postTabAccess" label="{{tab}}" style="">
+			</mat-tab>
+		</mat-tab-group>
+	</div>
 
 	<div class="container" style="padding-right: 0px; padding-left: 0px;">			
 			<div class="container-fluid">
