@@ -115,11 +115,28 @@ export class AppBidBy implements OnInit {
 						if(data.msg)
 							msg = data.msg;
 							
+            if(data.bidAmountChanged)
+               this.sharedService.openMessageBox("",msg,function(state){ that.reloadBid(); });
+            else
 						 this.sharedService.openMessageBox("E",msg,function(){});
 					}
 			});
 	  }
 	  
+  reloadBid(){
+    this.commonService.enduserService.getBid("",this.bid.bid_id,"",null,null,null)
+				.subscribe( data => {
+							  if(data.results.length > 0){
+									this.parent.item = data.results[0];
+									this.parent.item.transactionTyp = "Bid";
+                  this.parent.prepareForParticipation();
+							  }
+							  else{
+								  this.sharedService.openMessageBox("E","No data found.",null);
+							  }
+			});
+  }
+  
 	  updateBid(){
 		var d = new Date();
 		var at = d.getDate() +"/"+ (d.getMonth() - (-1)) +"/"+ d.getFullYear() ;
