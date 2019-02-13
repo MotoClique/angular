@@ -25,7 +25,7 @@
                        <th>Year of Registration</th>
                        <th>SMS</th>
                        <th>Email</th>
-                       <!--<th>App</th>-->
+                       <th>App</th>
                        <th>Active</th>
                    </thead>
                    <tr *ngFor="let alert of alerts">
@@ -51,7 +51,7 @@
 					   <td data-header="Year of Registration"><div style="min-width:120px; height:40px; padding: 3px;">{{(alert.year_reg_from)?alert.year_reg_from:'Any'}} - {{(alert.year_reg_to)?alert.year_reg_to:'Any'}}</div></td>
                        <td data-header="SMS"><div style="height:40px; padding: 3px;"><input type="checkbox" [disabled]="true" [checked]="alert.sms"></div></td>
                        <td data-header="Email"><div style="height:40px; padding: 3px;"><input type="checkbox" [disabled]="true" [checked]="alert.email"></div></td>
-                       <!--<td data-header="App"><input type="checkbox" [disabled]="true" [checked]="alert.app"></td>-->
+                       <td data-header="App"><input type="checkbox" [disabled]="true" [checked]="alert.app"></td>
                        <td data-header="Active"><div style="height:40px; padding: 3px;"><input type="checkbox" [disabled]="true" [checked]="alert.active"></div></td>
                    </tr>
             </table>
@@ -328,6 +328,13 @@
                         
 						 <div class="col-sm-12">
 							<mat-checkbox [disabled]="disabled.field"  [(ngModel)]="item.email" name="email" >Email</mat-checkbox>
+						</div>
+               </div>
+                
+                <div class="form-group">
+                        
+						 <div class="col-sm-12">
+							<mat-checkbox [disabled]="disabled.field"  [(ngModel)]="item.app" name="app" >App</mat-checkbox>
 						</div>
                </div>
                 
