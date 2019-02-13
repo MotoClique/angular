@@ -227,7 +227,17 @@ export class AppHome implements OnInit {
 				var selected = $('.city-selected').eq(0);
 				var current;
       
-        if ( key == 8 ){ // Backspace key
+      if(key !== 13){
+					that.citySelected =  {
+							country: that.city,
+							state: that.city,
+							city: that.city,
+							location: that.city,
+							text: that.city
+					};
+				}
+      
+      if ( key == 8 ){ // Backspace key
 					if(!(that.city)){//If empty
 						that.searchResponse = {sale:{},buy:{},bid:{},service:{}};
 						that.results = [];
@@ -512,12 +522,12 @@ export class AppHome implements OnInit {
 		if ( key != 40 && key != 38 && key != 13 ){
 			var that = this;
 			this.city_suggestion = [];
-			this.citySelected = {};
+			//this.citySelected = {};
 			this.commonService.enduserService.searchLoc(this.city)
 				.subscribe( data => {			  
 					this.city_suggestion = data.results;
-					 if(this.city_suggestion.length > 0)
-						  this.citySelected = this.city_suggestion[0];
+					 //if(this.city_suggestion.length > 0)
+						  //this.citySelected = this.city_suggestion[0];
 				});
 		}
 	}
