@@ -264,7 +264,7 @@
 		{"name": "PrdImage"},
 		{"name": "PrdThumbnail"},
 		{"name": "Loc"},
-    {"name": "PlaceOfRegistration"},
+    {"name": "PlaceOfReg"},
 		{"name": "Parameter"},
 		{"name": "UserAddress"},
 		{"name": "UserSubMap"},
