@@ -18,6 +18,12 @@
 											<mat-form-field style="width:100%;" *ngIf="field.field_type === 'input'">
 												<input matInput type="text" placeholder="{{field.field}}" [attr.maxlength]="(field.field_path === 'list_price' || field.field_path === 'net_price' || field.field_path === 'discount' || field.field_path === 'bid_amount')?'9':'20'" [(ngModel)]="field.value" (keyup)="updateData($event,field)" name="{{field.name}}" required="{{field.field_required}}" [disabled]="!field.editable" [hidden]="!field.visible">
 											</mat-form-field>
+											
+											<mat-form-field style="width:100%;" *ngIf="field.field_type === 'valuehelpinput'">
+												<input matInput type="text" placeholder="{{field.field}}" [(ngModel)]="field.value" (keyup)="updateData($event,field)" name="{{field.name}}" required="{{field.field_required}}" [disabled]="false" [hidden]="!field.visible">
+												<mat-icon style="cursor:pointer;" (click)="onValueHelp($event)" matSuffix><span class="glyphicon glyphicon-option-horizontal"></span></mat-icon>
+											</mat-form-field>
+											
 											<mat-form-field style="width:100%;" *ngIf="field.field_type === 'select'" >
 												<mat-select placeholder="{{field.field}}" (change)="updateData($event,field)" (focus)="onFieldFocus($event,field)" [(ngModel)]="field.value" name="{{field.name}}" [attr.data-val]="field.value"  required="{{field.field_required}}" [disabled]="!field.editable" [hidden]="!field.visible">
 													<mat-option *ngFor="let optn of field.option" [value]="optn.key">{{optn.value}}</mat-option>
@@ -347,6 +353,21 @@
 		<button style="width:100%;" class="btn btn-default" (click)="onFilterFieldValueSelect()">Ok</button>
 	</app-dialog>-->
 	
+	<app-dialog [(visible)]="showValueHelpDialog">
+		<div [hidden]="!showStateListDialog" style="padding: 40px;">
+			<div class="listHeader">Select a State</div>
+			<div>
+			<div class="listItem" *ngFor="let val of valueHelp" (click)="onStateValueSelect($event,val)">{{val.state}}</div>
+			</div>
+		</div>
+		
+		<div [hidden]="!showValueHelpListDialog" style="padding: 40px;">
+			<div class="listHeader">Select an option</div>
+			<div>
+			<div class="listItem" *ngFor="let val of valueHelp" (click)="onValueHelpSelect($event,val)">{{val.reg_number}}, {{val.place}}</div>
+			</div>
+		</div>
+	</app-dialog>
 	
 	<app-dialog [(visible)]="showDialog">
 		<div [hidden]="!showAddressListDialog" style="padding: 40px;">

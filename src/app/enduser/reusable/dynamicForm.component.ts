@@ -79,6 +79,9 @@ export class AppDynamicForm implements OnInit {
 		hours: any = [];
 		minutes: any = [];
 		prodSpecs: any = [];
+		showValueHelpDialog: boolean = false;
+		showStateListDialog: boolean = false;
+		showValueHelpListDialog: boolean = false;
 		@Input() item;
 		//@Input() ownItem;
 		@Input() parentComponent;
@@ -830,5 +833,21 @@ export class AppDynamicForm implements OnInit {
 		});
 		this.showFilterFieldDialog = false;
 	}*/
+	
+	onValueHelp(evt){
+		this.showValueHelpDialog = true;
+		this.showStateListDialog = true;
+		this.showValueHelpListDialog = false;
+	}
+	onStateValueSelect(evt,val){
+		this.showValueHelpDialog = true;
+		this.showStateListDialog = false;
+		this.showValueHelpListDialog = true;
+	}
+	onValueHelpSelect(evt,val){
+		this.showValueHelpDialog = false;
+		this.showStateListDialog = false;
+		this.showValueHelpListDialog = false;
+	}
 		
 }
