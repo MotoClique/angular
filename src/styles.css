@@ -91,7 +91,7 @@ input{
   top: 30%;
   margin-right: auto;
   margin-left: auto;
-  min-height: 240px;
+  /*min-height: 240px;*/
   width: 90%;
   max-width: 390px;
   background-color: #fff;
@@ -137,13 +137,13 @@ input{
 }
 
 .global_msg_dialog_text {
-    padding: 35px;
+    padding: 25px;
     text-align: center;
     margin-bottom: 0px;
 }
 .global_msg_dialog_footer{
-	position: absolute;
-	bottom: 0;
+	/*position: absolute;
+	bottom: 0;*/
 	width: 100%;
 	display: flex;
 	justify-content: center;
