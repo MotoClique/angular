@@ -229,6 +229,15 @@
 				 {"key": "500000", "value":"5 Lac"},
 				 {"key": "1000000", "value":"10 Lac"}
 			   ],
+  "accidentHistory":[
+		 {"name":"None"},
+		 {"name":"Minor"},
+		 {"name":"Major"}
+	 ],
+  "insuranceStatus":[
+		 {"name":"Running"},
+		 {"name":"Expired"}
+	 ],
   "dbTables": [
 		{"name": "User"},
 		{"name": "UserSubMap"},
@@ -251,6 +260,7 @@
 		{"name": "PrdImage"},
 		{"name": "PrdThumbnail"},
 		{"name": "Loc"},
+    {"name": "PlaceOfRegistration"},
 		{"name": "Parameter"},
 		{"name": "UserAddress"},
 		{"name": "UserSubMap"},
