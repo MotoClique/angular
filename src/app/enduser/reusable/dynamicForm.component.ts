@@ -82,6 +82,7 @@ export class AppDynamicForm implements OnInit {
 		showValueHelpDialog: boolean = false;
 		showStateListDialog: boolean = false;
 		showValueHelpListDialog: boolean = false;
+		valueHelp: any = [];
 		@Input() item;
 		//@Input() ownItem;
 		@Input() parentComponent;
