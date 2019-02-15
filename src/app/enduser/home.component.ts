@@ -140,7 +140,7 @@ export class AppHome implements OnInit {
 				
 			}
 			else{
-				//that.onSearch(null);
+				that.onSearch(null);
 			}
 		});
 		document.addEventListener("click", function (e) {
@@ -752,8 +752,10 @@ export class AppHome implements OnInit {
 	}
 	
 	onPostTypeTabClick(evt){
-		this.type = evt.tab.textLabel;
-		this.onSuggestSelect(evt,this.searchSelected);
+    if(this.type !== evt.tab.textLabel){
+      this.type = evt.tab.textLabel;
+      this.onSuggestSelect(evt,this.searchSelected);
+    }
 	}
 	
 	ngOnDestroy(){
