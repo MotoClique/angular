@@ -140,7 +140,7 @@ export class AppHome implements OnInit {
 				
 			}
 			else{
-				that.onSearch(null);
+				//that.onSearch(null);
 			}
 		});
 		document.addEventListener("click", function (e) {
