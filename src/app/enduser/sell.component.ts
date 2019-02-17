@@ -366,7 +366,8 @@ export class AppSell implements OnInit {
 				
 		  this.showProductModelListDialog = false;
 		  this.showProductVariantListDialog = false;
-		  this.showProductColorDialog = true;
+		  //this.showProductColorDialog = true;
+		  this.showProductYearDialog = true;
 	  }
 	  
 	  onPrdColorSelect(evt,color){
