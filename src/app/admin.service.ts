@@ -347,6 +347,26 @@ export class AdminService {
   }
   
   
+  ///////////////////////////////////////////////PLACE OF REGISTRATION////////////////////////////////////////////////////////////
+  getPlaceOfRegState(){
+	  return this.sharedService.call('placeOfRegState', "get", null, true);	  
+  }
+  getPlaceOfReg(state){
+	  return this.sharedService.call('placeOfReg/?state='+state, "get", null, true);	  
+  }
+  
+  addPlaceOfReg(newPlaceOfReg){
+	  return this.sharedService.call('placeOfReg', "post", newPlaceOfReg, true);
+  }
+  
+  updatePlaceOfReg(updatePlaceOfReg){	  
+	  return this.sharedService.call('placeOfReg', "put", updatePlaceOfReg, true);
+  }
+  
+  deletePlaceOfReg(item){
+	  return this.sharedService.call('placeOfReg/'+item._id, "delete", null, true);
+  }
+  
   
   
 }
