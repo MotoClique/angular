@@ -14,7 +14,7 @@
 	font-size: 12px; font-weight: bolder; color: white; background-color: red;  border-radius: 20px; width: 60px; line-height: 30px; text-align: center;
 }
 .resultItemImage{
-	max-width: 338px; max-height: 200px; width: 100%; min-width: 200px; min-height: 200px;
+	max-width: 338px; max-height: 200px; min-width: 200px; min-height: 200px;
 }
 .resultItemDetailTop{
 	display: flex; flex-direction: row; max-width: 338px; justify-content: space-between;
