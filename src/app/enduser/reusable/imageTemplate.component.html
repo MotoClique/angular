@@ -15,11 +15,11 @@
 				   <b *ngIf="item.transactionTyp === 'Service'" style="color: #E71B03; font-size: 18px;" class="postproduct-amount" ><span style="font-size:12px;">Starts From </span> <span class="">&#8377;</span> {{item.start_from_amount ? item.start_from_amount : '0'}}</b>
               </div>
 			  <div style="display: flex; flex-direction: row; font-size: 12px; border-bottom: 2px solid gray;" *ngIf="(item.transactionTyp !== 'Service')">
-				  <div style="margin-right: 20px;"><span style="color:#E71B03;" class="glyphicon glyphicon-map-marker"></span> {{item.city ? item.city : '---'}}</div>
-				  <div style="margin-right: 20px;"><span *ngIf="item.transactionTyp === 'Buy'" style="font-weight: bold;" class="glyphicon glyphicon-menu-right"></span> <span style="color:#E71B03;" class="glyphicon glyphicon-time"></span> {{item.year_of_reg ? item.year_of_reg : '0000'}}</div>
-				  <div style="margin-right: 20px;"><span *ngIf="item.transactionTyp === 'Buy'" style="font-weight: bold;" class="glyphicon glyphicon-menu-left"></span> <span style="color:#E71B03;" class="glyphicon glyphicon-road"></span> {{item.km_done ? item.km_done : '0'}} KM</div>
-				  <div style="margin-right: 20px;"><span style="color:#E71B03;" class="glyphicon glyphicon-camera"></span> {{item.number_of_image ? item.number_of_image : '0'}}</div>
-				  <div><span style="color:#E71B03;" class="glyphicon glyphicon-user"></span> {{ownerTypeFormatter(item.owner_type)}}</div>
+				  <div *ngIf="item.city" style="margin-right: 20px;"><span style="color:#E71B03;" class="glyphicon glyphicon-map-marker"></span> {{item.city ? item.city : '---'}}</div>
+				  <div *ngIf="item.year_of_reg" style="margin-right: 20px;"><span *ngIf="item.transactionTyp === 'Buy'" style="font-weight: bold;" class="glyphicon glyphicon-menu-right"></span> <span style="color:#E71B03;" class="glyphicon glyphicon-time"></span> {{item.year_of_reg ? item.year_of_reg : '0000'}}</div>
+				  <div *ngIf="item.km_done" style="margin-right: 20px;"><span *ngIf="item.transactionTyp === 'Buy'" style="font-weight: bold;" class="glyphicon glyphicon-menu-left"></span> <span style="color:#E71B03;" class="glyphicon glyphicon-road"></span> {{item.km_done ? item.km_done : '0'}} KM</div>
+				  <div *ngIf="item.number_of_image" style="margin-right: 20px;"><span style="color:#E71B03;" class="glyphicon glyphicon-camera"></span> {{item.number_of_image ? item.number_of_image : '0'}}</div>
+				  <div *ngIf="item.owner_type" ><span style="color:#E71B03;" class="glyphicon glyphicon-user"></span> {{ownerTypeFormatter(item.owner_type)}}</div>
 				  <div *ngIf="item.createdOn !== undefined && item.createdOn !== null && item.createdOn !== ''" style="right: 15px; position: absolute;"><span style="color:#E71B03;" class="glyphicon glyphicon-calendar"></span> {{item.createdOn}}</div>
 			  </div>
 			  <div style="display: flex; flex-direction: row; font-size: 12px; border-bottom: 2px solid gray;" *ngIf="item.transactionTyp === 'Service'">
@@ -107,7 +107,7 @@
 						<div style="position:absolute; width: 100%; display: flex; justify-content: center; z-index:1">
 							<div style="display: flex; justify-content: space-between; width: 80%; margin-top: 8px;">
 								<div><span [hidden]="!editMode" class="thumbnailRemoveIcon glyphicon glyphicon-remove-circle" (click)="removeImage($event,thumbnail)"></span></div>
-								<input [disabled]="!editMode" type="radio" [checked]="thumbnail.default" (change)="onDefault($event,thumbnail)">
+								<input [disabled]="!editMode || thumbnail.default" type="checkbox" [(ngModel)]="thumbnail.default" (change)="onDefault($event,thumbnail)">
 							</div>
 						</div>
 						<img class="thumbnailImgStyle" src="{{thumbnail.data}}" (click)="thumbnailSelect($event,thumbnail)">
