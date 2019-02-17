@@ -20,8 +20,8 @@
 											</mat-form-field>
 											
 											<mat-form-field style="width:100%;" *ngIf="field.field_type === 'valuehelpinput'">
-												<input matInput type="text" placeholder="{{field.field}}" [(ngModel)]="field.value" (keyup)="updateData($event,field)" name="{{field.name}}" required="{{field.field_required}}" [disabled]="false" [hidden]="!field.visible">
-												<mat-icon style="cursor:pointer;" (click)="onValueHelp($event)" matSuffix><span class="glyphicon glyphicon-option-horizontal"></span></mat-icon>
+												<input matInput type="text" placeholder="{{field.field}}" [(ngModel)]="field.value" (keyup)="updateData($event,field)" name="{{field.name}}" required="{{field.field_required}}" [disabled]="true" [hidden]="!field.visible">
+												<mat-icon style="cursor:pointer;" (click)="onValueHelp($event)" [hidden]="!field.editable" matSuffix><span class="glyphicon glyphicon-option-horizontal"></span></mat-icon>
 											</mat-form-field>
 											
 											<mat-form-field style="width:100%;" *ngIf="field.field_type === 'select'" >
@@ -357,7 +357,7 @@
 		<div [hidden]="!showStateListDialog" style="padding: 40px;">
 			<div class="listHeader">Select a State</div>
 			<div>
-			<div class="listItem" *ngFor="let val of valueHelp" (click)="onStateValueSelect($event,val)">{{val.state}}</div>
+			<div class="listItem" *ngFor="let val of regStates" (click)="onStateValueSelect($event,val)">{{val}}</div>
 			</div>
 		</div>
 		
