@@ -83,6 +83,8 @@ export class AppDynamicForm implements OnInit {
 		showStateListDialog: boolean = false;
 		showValueHelpListDialog: boolean = false;
 		valueHelp: any = [];
+		regStates: any = [];
+		
 		@Input() item;
 		//@Input() ownItem;
 		@Input() parentComponent;
@@ -836,16 +838,35 @@ export class AppDynamicForm implements OnInit {
 	}*/
 	
 	onValueHelp(evt){
-		this.showValueHelpDialog = true;
-		this.showStateListDialog = true;
-		this.showValueHelpListDialog = false;
+		this.commonService.adminService.getPlaceOfRegState()
+			.subscribe( result => {
+				if(result.error){
+					
+				}
+				else{
+					this.regStates = result.results;
+					this.showValueHelpDialog = true;
+					this.showStateListDialog = true;
+					this.showValueHelpListDialog = false;
+				}
+			});
 	}
 	onStateValueSelect(evt,val){
-		this.showValueHelpDialog = true;
-		this.showStateListDialog = false;
-		this.showValueHelpListDialog = true;
+		this.commonService.adminService.getPlaceOfReg(val)
+			.subscribe( result => {
+				if(result.error){
+					
+				}
+				else{
+					this.valueHelp = result.results;
+					this.showValueHelpDialog = true;
+					this.showStateListDialog = false;
+					this.showValueHelpListDialog = true;
+				}
+			});
 	}
 	onValueHelpSelect(evt,val){
+		
 		this.showValueHelpDialog = false;
 		this.showStateListDialog = false;
 		this.showValueHelpListDialog = false;
