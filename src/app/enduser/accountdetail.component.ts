@@ -26,7 +26,8 @@ interface userDetail {
 		mobile_verified: string,
 		name: string,
 		user_id: string,
-		walletAmount: string
+		walletAmount: string,
+      dob: any
 	}
 @Component({
     //selector: 'app-root',
