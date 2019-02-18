@@ -78,15 +78,22 @@
 						</div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="form-inline">
-                        <!--<label class="control-label col-sm-2" for="mobile">Currency:</label>
-                        <div class="col-sm-10">                                                                                                
-                            <select style="width: 100%;" [disabled]="disabledMode" class="form-control" name="currency" [(ngModel)]="userDetail.currency">
-                                <option *ngFor='let currency of currencies' [value]="currency.name">{{currency.name}}</option>                                                                                                                 
-                            </select>                                                                                         
-                        </div>-->
-						
+              <div class="form-group">
+					<div class="form-inline">						
+						<div class="col-sm-12">
+							<mat-form-field style="width:100%;" (click)="dobdp.open()">
+								<input matInput [matDatepicker]="dobdp" placeholder="Date of Birth" [(ngModel)] = "userDetail.dob" name="dob" disabled>
+								<mat-datepicker-toggle matSuffix [for]="dobdp"></mat-datepicker-toggle>
+								<mat-datepicker touchUi #dobdp [disabled]="disabledMode"></mat-datepicker>
+							</mat-form-field>
+						</div>
+                    </div>
+                </div>
+              
+              
+              
+               <!-- <div class="form-group">
+                    <div class="form-inline">                        						
 						<div class="col-sm-12"> 
 							<mat-form-field style="width: 100%;">
 								<mat-select placeholder="Currency" name="currency" [attr.data-val]="userDetail.currency" [(ngModel)]="userDetail.currency" [disabled]="disabledMode" required>
@@ -97,13 +104,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="form-inline">
-                        <!--<label class="control-label col-sm-2" for="amount">Wallet Amount:</label>
-                        <div class="col-sm-10">
-                            <input style="width: 80%;" type="text" [disabled]=true [value] = "userDetail.amount" (input) = "userDetail.amount = $event.target.value" class="form-control" id="amount" placeholder="Wallet Amount">
-                            <button type="submit" [disabled]="disabledMode" class="form-control btn btn-default">Add Money</button>
-                        </div>-->
-						
+                    <div class="form-inline">                        
 						<div class="col-sm-12">
 							<mat-form-field style="width: 100%;">
 								<input matInput placeholder="Wallet Amount" type="text" [disabled]=true [(ngModel)] = "userDetail.amount" name="wallet">
@@ -111,7 +112,7 @@
 							
 						</div>
                     </div>
-                </div>
+                </div>-->
             </form>
             <!--<button [hidden]="!disabledMode" style="width: 100%" class="btn btn-default" (click)="onAccDetailEdit($event)">
                 <span class="glyphicon glyphicon-pencil"></span> Edit
