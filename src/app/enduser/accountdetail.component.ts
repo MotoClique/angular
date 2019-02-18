@@ -66,6 +66,10 @@ export class AppAccountDetail implements OnInit {
 		this.disabledMode = true;
 		this.sharedService.getUserProfile(function(user){
 			that.userDetail = user;
+      if(user.dob){
+        var dateString:any = (user.dob).split('/'); dateString = dateString[2]+'-'+dateString[1]+'-'+dateString[0];
+        that.userDetail.dob = new Date(dateString);
+      }
 			that.male = (that.userDetail.gender == "Male");
 		});
 		
@@ -79,8 +83,13 @@ export class AppAccountDetail implements OnInit {
 				if(details.unknown_device){
 					this.sharedService.noDeviceRegistrationMessageBox(details.msg);
 				}
-				else if(details.results && details.results.length > 0)
-					this.userDetail = details.results[0]
+				else if(details.results && details.results.length > 0){
+					this.userDetail = details.results[0];
+          if(this.userDetail.dob){
+            var dateString:any = (this.userDetail.dob).split('/'); dateString = dateString[2]+'-'+dateString[1]+'-'+dateString[0];
+            this.userDetail.dob = new Date(dateString);
+          }
+        }
 				else{
 					this.sharedService.openMessageBox("E","Unable to reload.",null);
 				}
@@ -97,6 +106,8 @@ export class AppAccountDetail implements OnInit {
 				//&& this.validatePassword(this.userDetail.login_password)
 			){
 				this.userDetail.gender = (this.male)? "Male": "Female";
+        var dateObj = this.userDetail.dob;
+        this.userDetail.dob = = dateObj.getDate() +"/"+ (dateObj.getMonth() - (-1)) +"/"+ dateObj.getFullYear() ;
 				this.commonService.updateProfile(this.userDetail)
 				   .subscribe( data => {	
 				   debugger;
