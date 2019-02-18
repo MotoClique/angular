@@ -866,7 +866,14 @@ export class AppDynamicForm implements OnInit {
 			});
 	}
 	onValueHelpSelect(evt,val){
-		
+		var fields_obj = this.fields;
+    for(var i=0; i<fields_obj.length; i++){
+      var v = fields_obj[i];
+      if(v.field_path == 'place_of_reg'){
+        v.value = val.reg_number +", "+ val.place;
+        break;
+      }
+    }
 		this.showValueHelpDialog = false;
 		this.showStateListDialog = false;
 		this.showValueHelpListDialog = false;
