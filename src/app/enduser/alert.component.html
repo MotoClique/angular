@@ -7,7 +7,7 @@
 						<th></th>
                        <th>Bid/Sale/Buy</th>
 					   <th>Owner Type</th>
-                       <th>Individual/Dealer</th>
+                       <!--<th>Individual/Dealer</th>-->
                        <th>Product Type</th>
                        <th>Brand</th>
                        <th>Model</th>
@@ -33,7 +33,7 @@
 						<td data-header=" "><div style="height:40px; padding: 3px;"><i class="glyphicon glyphicon-pencil" (click)="onEdit($event,alert)"></i></div></td>
                        <td data-header="Bid/Sale/Buy"><div style="height:40px; padding: 3px;"><button class="btn btn-link" (click)="onAlertSelect($event,alert)">{{(alert.bid_sell_buy)?alert.bid_sell_buy:'---'}}</button></div></td>
 					   <td data-header="Owner Type"><div style="height:40px; padding: 3px;">{{alert.owner_type}}</div></td>
-                       <td data-header="Individual/Dealer"><div style="height:40px; padding: 3px;">{{alert.individual_dealer}}</div></td>
+                       <!--<td data-header="Individual/Dealer"><div style="height:40px; padding: 3px;">{{alert.individual_dealer}}</div></td>-->
                        <td data-header="Product Type"><div style="height:40px; padding: 3px;">{{alert.product_type_name}}</div></td>
                        <td data-header="Brand"><div style="height:40px; padding: 3px;">{{alert.brand_name}}</div></td>
                        <td data-header="Model"><div style="height:40px; padding: 3px;">{{alert.model}}</div></td>
@@ -86,7 +86,7 @@
 							</mat-form-field>
 						</div>
                   </div>
-                  <div class="form-group">
+                  <!--<div class="form-group">
                          <div class="col-sm-12"> 
 							<mat-form-field style="width: 100%;">
 								<mat-select placeholder="Individual/Dealer" name="individual_dealer" [attr.data-val]="item.individual_dealer" [(ngModel)]="item.individual_dealer" [disabled]="disabled.field" >
@@ -95,7 +95,7 @@
 								</mat-select>
 							</mat-form-field>
 						</div>
-                  </div>
+                  </div>-->
                   <div class="form-group">
                         <div class="col-sm-12"> 
 							<mat-form-field style="width: 100%;" [hidden]="disabled.field">
