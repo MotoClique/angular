@@ -625,6 +625,19 @@ export class AppDynamicForm implements OnInit {
 			});
 			this.parentComponent.item['current_bid_amount'] = (field.value == undefined)?"NA":field.value ;
 		}
+    else if(field.field_path == "insurance_status"){
+      var fields_obj = that.fields;
+      for(var i=0; i<fields_obj.length; i++){
+        var v = fields_obj[i];
+        if(v.field_path == 'insurance_valid_till'){
+          if(field.value == "Expired")
+            v.visible = false;
+          else
+            v.visible = true;
+          break;
+        }
+      }
+    }
 		else{
 			this.parentComponent.item[field.field_path] = (field.value == undefined)?"NA":field.value ;
 		}
