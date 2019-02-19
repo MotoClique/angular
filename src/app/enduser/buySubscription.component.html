@@ -1,7 +1,6 @@
 <div class="scrollContainerStyle" style="height:100%; overflow-y: auto; overflow-x: hidden;" >
-	<div [hidden]="hidden.view" class="container">
-			<div class="padding">
-				<div>
+	<div [hidden]="hidden.view" class="">
+			<div>
 					<div *ngFor="let plan of plans" class="planWrapper">
 						<div class="plan">
 							<div class="planDetail">
@@ -29,10 +28,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
-				<!--<button class="btn btn-default" (click)="onCancel($event)">
-				  <span class="glyphicon glyphicon-remove"></span> Cancel
-				</button>-->
+				
 			</div>
 			<div style="height: 100px"></div>	
 			<div class="footerStyle">
