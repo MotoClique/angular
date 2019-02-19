@@ -16,6 +16,8 @@ export class AppConfigAdmin implements OnInit {
 	editMode: boolean = false;
 	parameters: any = [];
 	term: string = '';
+  minutes:any = [];
+	hours:any = [];
 	
 	constructor(private commonService: CommonService, private sharedService: SharedService, router: Router) { 
 		this.router = router;
@@ -25,6 +27,15 @@ export class AppConfigAdmin implements OnInit {
 		this.sharedService.sharedObj.containerContext.title = "Configuration Parameters";
 	  	this.commonService.adminService.getAllParameter()
 		  .subscribe( res => this.parameters = res.results);
+    for(var i=0; i < 60; i++){
+					var count = i.toString();
+					if(i<=9)
+						count = '0'+count;
+					
+					if(i < 24)
+						this.hours.push(count);
+					this.minutes.push(count);
+		}
   }
   onAddClick(evt){
 	  this.parameters.push({parameter:"", value:"", dirty: true});
