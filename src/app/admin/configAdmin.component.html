@@ -30,12 +30,13 @@
                 <option value="delete_on_deactivate">Delete on Deactivate</option>
                 <option value="bid_slot_from">Bid Slot From</option>
 								<option value="bid_slot_to">Bid Slot To</option>
+                <option value="bid_slot_days">Bid Slot Days</option>
 							</select>
 							</div>
 						</td>
 						<td data-header="Value">
               <div style="height:40px; padding: 3px;">
-                <input *ngIf="parameter.parameter !== 'bid_slot_from' && parameter.parameter !== 'bid_slot_to'" class="form-control" [(ngModel)]="parameter.value" name="'val' + indx" [disabled]="!parameter.dirty">
+                <input *ngIf="parameter.parameter !== 'bid_slot_from' && parameter.parameter !== 'bid_slot_to' && parameter.parameter !== 'bid_slot_days'" class="form-control" [(ngModel)]="parameter.value" name="'val' + indx" [disabled]="!parameter.dirty">
                 
                 <div *ngIf="parameter.parameter == 'bid_slot_from' || parameter.parameter == 'bid_slot_to'">
 							<input *ngIf="!parameter.dirty" class="form-control" [(ngModel)]="parameter.value" name="'val' + indx" disabled>
@@ -50,6 +51,11 @@
 							</select>
 							</div>
 						</div>
+                
+                <div *ngIf="parameter.parameter == 'bid_slot_days'" class="form-control">
+							<input style="border:none; width:95%;" [(ngModel)]="parameter.value" name="'val' + indx" disabled>
+							<span style="cursor:pointer;" class="glyphicon glyphicon-option-horizontal" [hidden]="!parameter.dirty" (click)="openDaysList($event,parameter)"></span>
+						</div>
               </div>
             </td>						
 					</tr>
@@ -59,8 +65,18 @@
         </div>
     </div>
 </div>
-
-
+  
+  <app-dialog [(visible)]="showDaysDialog">
+		<div style="padding: 40px;">
+			<div class="listHeader">Select days</div>
+			<div>
+			<div class="listItem" *ngFor="let day of days">
+				<input type="checkbox" [(ngModel)]="day.selected" > {{day.day}}
+			</div>
+			</div>
+			<button class="form-control" (click)="onDaysSelect($event)">Ok</button>
+		</div>
+	</app-dialog>
 
 <!--footer-->
 <div style="padding: 10px;"></div>
