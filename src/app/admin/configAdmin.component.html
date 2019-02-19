@@ -28,10 +28,30 @@
 								<option value="to_ist">UTC to IST</option>
 								<option value="fcm_server_logical_key">FCM Server Logical Key</option>
                 <option value="delete_on_deactivate">Delete on Deactivate</option>
+                <option value="bid_slot_from">Bid Slot From</option>
+								<option value="bid_slot_to">Bid Slot To</option>
 							</select>
 							</div>
 						</td>
-						<td data-header="Value"><div style="height:40px; padding: 3px;"><input class="form-control" [(ngModel)]="parameter.value" name="'val' + indx" [disabled]="!parameter.dirty"></div></td>						
+						<td data-header="Value">
+              <div style="height:40px; padding: 3px;">
+                <input *ngIf="parameter.parameter !== 'bid_slot_from' && parameter.parameter !== 'bid_slot_to'" class="form-control" [(ngModel)]="parameter.value" name="'val' + indx" [disabled]="!parameter.dirty">
+                
+                <div *ngIf="parameter.parameter == 'bid_slot_from' || parameter.parameter == 'bid_slot_to'">
+							<input *ngIf="!parameter.dirty" class="form-control" [(ngModel)]="parameter.value" name="'val' + indx" disabled>
+							
+							<div *ngIf="parameter.dirty">
+							<select class="form-control" style="display:inline; width:45%;"  placeholder="hrs" [(ngModel)]="parameter.hour" name="'hrs'+indx" [disabled]="!parameter.dirty" (change)="parameter.value = parameter.hour +':'+ parameter.min" >
+								<option *ngFor="let optn of hours" [value]="optn">{{optn}}</option>
+							</select>
+							:
+							<select class="form-control" style="display:inline; width:45%;"  placeholder="mins" [(ngModel)]="parameter.min" name="'mins'+indx" [disabled]="!parameter.dirty" (change)="parameter.value = parameter.hour +':'+ parameter.min" >
+								<option *ngFor="let optn of minutes" [value]="optn">{{optn}}</option>
+							</select>
+							</div>
+						</div>
+              </div>
+            </td>						
 					</tr>
 				</tbody>
 			</table>
