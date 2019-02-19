@@ -18,6 +18,9 @@ export class AppConfigAdmin implements OnInit {
 	term: string = '';
   minutes:any = [];
 	hours:any = [];
+  showDaysDialog: boolean = false;
+	days:any = [];
+	selectedParam: any = {};
 	
 	constructor(private commonService: CommonService, private sharedService: SharedService, router: Router) { 
 		this.router = router;
@@ -86,6 +89,32 @@ export class AppConfigAdmin implements OnInit {
 		if (index !== -1) {
 			array.splice(index, 1);
 		}        
+  }
+  
+   openDaysList(evt,selectedParam){
+	  this.days = [
+		{day:"Monday",selected:false},
+		{day:"Tuesday",selected:false},
+		{day:"Wednesday",selected:false},
+		{day:"Thursday",selected:false},
+		{day:"Friday",selected:false},
+		{day:"Saturday",selected:false}
+	  ];
+	  this.selectedParam = selectedParam;
+	  this.showDaysDialog = true;
+  }
+  onDaysSelect(evt){
+	  var that = this;
+	  this.selectedParam.value = "";
+	  this.days.forEach(function(val,indx,arr){
+		  if(val.selected){
+			  if(that.selectedParam.value)
+				that.selectedParam.value += "/"+val.day;
+			  else
+				that.selectedParam.value += val.day;
+		  }
+	  });
+	  this.showDaysDialog = false;
   }
 	
 }
