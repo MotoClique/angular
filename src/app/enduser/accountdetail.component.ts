@@ -107,7 +107,7 @@ export class AppAccountDetail implements OnInit {
 			){
 				this.userDetail.gender = (this.male)? "Male": "Female";
         var dateObj = this.userDetail.dob;
-        this.userDetail.dob = = dateObj.getDate() +"/"+ (dateObj.getMonth() - (-1)) +"/"+ dateObj.getFullYear() ;
+        this.userDetail.dob = dateObj.getDate() +"/"+ (dateObj.getMonth() - (-1)) +"/"+ dateObj.getFullYear() ;
 				this.commonService.updateProfile(this.userDetail)
 				   .subscribe( data => {	
 				   debugger;
