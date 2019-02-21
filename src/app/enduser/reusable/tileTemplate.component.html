@@ -56,7 +56,10 @@
 					<div *ngIf="item.createdOn" style="right: 15px; position: absolute;"><span style="color:#E71B03;" class="glyphicon glyphicon-calendar"></span> {{item.createdOn}}</div>
 			</div>
 			<div style="font-size:12px; display:flex; justify-content:flex-end; color:#E71B03; font-weight:900; height:15px; line-height: 15px;">
-				<span *ngIf="item.transactionTyp === 'Bid'">{{time_left}}</span>
+				<div *ngIf="item.transactionTyp === 'Bid'">
+          <span *ngIf="item.live">{{time_left}}</span>
+          <span *ngIf="!item.live">{{item.liveMsg}}</span>
+        </div>
 			</div>
 		</div>
 		<div class="tile-loaderContainer" [style.display]="item.busy?'block':'none'">
