@@ -95,7 +95,8 @@ export class AppTileTemplate implements OnInit {
 					var days:any = (milliseconds / (1000*60*60*24));
 					days = parseInt(days);
 					
-					that.time_left = (days+' days '+hours+' hrs '+minutes+' mins '+seconds+' secs').toString();
+          hours = hours - (- days*24);
+					that.time_left = (hours+' hrs '+minutes+' mins '+seconds+' secs').toString();
 				}
 				else{
 					clearInterval(that.timer);
