@@ -635,8 +635,6 @@ export class AppFilter implements OnInit {
 		this.showStateListDialog = false;
 		this.showValueHelpListDialog = false;
 	}
-		
-}
 	  	  
 		
 }
