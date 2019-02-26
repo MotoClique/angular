@@ -198,11 +198,15 @@ export class AppImageTemplate implements OnInit {
 							entry.data = imageData_th;
 							entry.thumbnail = base64string_th;
 							entry.selected = false;
-							this.thumbnails.push(entry);
+							//this.thumbnails.push(entry);
 							if(entry.default){
+                this.thumbnails.unshift(entry);
 								this.getImage(entry);
 								defaultFound = true;
 							}
+                else{
+                  this.thumbnails.push(entry);
+                }
 						  }
 						  if(!defaultFound)
 							this.getImage(this.thumbnails[0]);
