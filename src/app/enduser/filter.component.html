@@ -306,6 +306,22 @@
 </div>
 
 
+<app-dialog [(visible)]="showValueHelpDialog">
+		<div [hidden]="!showStateListDialog" style="padding: 40px;">
+			<div class="listHeader">Select a State</div>
+			<div>
+			<div class="listItem" *ngFor="let val of regStates" (click)="onStateValueSelect($event,val)">{{val}}</div>
+			</div>
+		</div>
+		
+		<div [hidden]="!showValueHelpListDialog" style="padding: 40px;">
+			<div class="listHeader">Select an option</div>
+			<div>
+			<div class="listItem" *ngFor="let val of valueHelp" (click)="onValueHelpSelect($event,val)">{{val.reg_number}}, {{val.place}}</div>
+			</div>
+		</div>
+	</app-dialog>
+
 <app-dialog [(visible)]="showListDialog">
 	<div style="padding: 40px;">
 		<div class="listHeader">Select a value</div>
