@@ -314,6 +314,7 @@ export class AppScreenMappingAdmin implements OnInit {
 		 this.screen_right[i].edit = true;
 		 this.screen_right[i].delete = true;
 		 this.screen_right[i].editMode = true;
+      this.screen_right[i].screen_for_nav = true;
 	  }
   }
   
