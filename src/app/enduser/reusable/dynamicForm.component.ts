@@ -555,15 +555,15 @@ export class AppDynamicForm implements OnInit {
 					var bDateObj = bDateSplit[2]+'-'+bDateSplit[1]+'-'+bDateSplit[0]+'T'+b.bid_date_time.split(' ')[1];
 					
 					if (aDateObj < bDateObj)
-						return 1;
-					else if (aDateObj > bDateObj)
 						return -1;
+					else if (aDateObj > bDateObj)
+						return 1;
 					return 0;
 				}
 				else{
 					return 0;
 				}
-			});//descending sort
+			});//ascending sort
 			});
 	  }
 	  
