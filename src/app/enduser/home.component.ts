@@ -131,15 +131,21 @@ export class AppHome implements OnInit {
 			that.type = (that.postTabAccess[0])?that.postTabAccess[0]:'All';
 			
 			if(that.sharedService.sharedObj.backUpData['home']){
-				that.searchResponse = that.sharedService.sharedObj.backUpData['home'].searchResponse;
-				that.results = that.sharedService.sharedObj.backUpData['home'].results;
-				
-				that.noMoreData = that.sharedService.sharedObj.backUpData['home'].noMoreData;
 				that.type = that.sharedService.sharedObj.backUpData['home'].type;
+				that.searchResponse = that.sharedService.sharedObj.backUpData['home'].search[that.type].searchResponse;
+				that.results = that.sharedService.sharedObj.backUpData['home'].search[that.type].results;				
+				that.noMoreData = that.sharedService.sharedObj.backUpData['home'].search[that.type].noMoreData;
+				
+				that.searchSelected = that.sharedService.sharedObj.backUpData['home'].searchSelected;
+				that.citySelected = that.sharedService.sharedObj.backUpData['home'].citySelected;
+				that.search = that.searchSelected.text;
+				that.city = that.citySelected.text;
+				
 				that.postTypeTabGroup.selectedIndex = that.postTabAccess.indexOf(that.type);
 				
 			}
 			else{
+        that.sharedService.sharedObj.backUpData['home'] = {};
 				that.onSearch(null);
 			}
 		});
@@ -425,10 +431,17 @@ export class AppHome implements OnInit {
 											});//descending sort
 											
 						if(this.sharedService.sharedObj.backUpData){
-							this.sharedService.sharedObj.backUpData['home'] = {searchResponse: this.searchResponse, results: this.results};
-							
-							this.sharedService.sharedObj.backUpData['home'].noMoreData = this.noMoreData;
 							this.sharedService.sharedObj.backUpData['home'].type = this.type;
+							this.sharedService.sharedObj.backUpData['home'].searchSelected = this.searchSelected;
+							this.sharedService.sharedObj.backUpData['home'].citySelected = this.citySelected;
+							if(!(this.sharedService.sharedObj.backUpData['home'].search)){
+								this.sharedService.sharedObj.backUpData['home'].search = {};
+							}
+							this.sharedService.sharedObj.backUpData['home'].search[this.type] = {};
+							this.sharedService.sharedObj.backUpData['home'].search[this.type].condition = ((this.city)?this.city:'') +'/'+ ((this.search)?this.search:'');
+							this.sharedService.sharedObj.backUpData['home'].search[this.type].searchResponse = this.searchResponse;
+							this.sharedService.sharedObj.backUpData['home'].search[this.type].results = this.results;
+							this.sharedService.sharedObj.backUpData['home'].search[this.type].noMoreData = this.noMoreData;	
 						}
 					  
 					  this.loading = false;
@@ -752,10 +765,21 @@ export class AppHome implements OnInit {
 	}
 	
 	onPostTypeTabClick(evt){
-    if(this.type !== evt.tab.textLabel){
-      this.type = evt.tab.textLabel;
-      this.onSuggestSelect(evt,this.searchSelected);
-    }
+		if(this.type !== evt.tab.textLabel){
+		  this.type = evt.tab.textLabel;
+		  
+		  if( !(this.sharedService.sharedObj.backUpData['home']) ||
+			!(this.sharedService.sharedObj.backUpData['home'].search[this.type]) ||
+				this.sharedService.sharedObj.backUpData['home'].search[this.type].condition !== ((this.city)?this.city:'')+'/'+((this.search)?this.search:'') ){
+					this.onSuggestSelect(evt,this.searchSelected);
+			}
+			else{
+					this.sharedService.sharedObj.backUpData['home'].type = this.type;
+					this.searchResponse = this.sharedService.sharedObj.backUpData['home'].search[this.type].searchResponse;
+					this.results = this.sharedService.sharedObj.backUpData['home'].search[this.type].results;				
+					this.noMoreData = this.sharedService.sharedObj.backUpData['home'].search[this.type].noMoreData;
+			}
+		}
 	}
 	
 	ngOnDestroy(){
