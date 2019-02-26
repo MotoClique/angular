@@ -80,6 +80,7 @@
 		 {"name": "pin_code"},
 		 {"name": "locality"},
 		 {"name": "bid_valid_to"},
+     {"name": "bid_valid_from"},
 		 {"name": "current_bid_amount"},
 		 {"name": "note"},
 		 {"name": "insurance_valid_till"},
