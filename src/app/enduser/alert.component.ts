@@ -65,6 +65,12 @@ export class AppAlert implements OnInit {
 		colors: any = [];
 		lastScroll: any = 0;
 		products: any = [];
+    showValueHelpDialog: boolean = false;
+		showStateListDialog: boolean = false;
+		showValueHelpListDialog: boolean = false;
+		valueHelp: any = [];
+		regStates: any = [];
+    accidentHistory: any = [];
 
       constructor(private router: Router, private route: ActivatedRoute, private http: Http, private commonService: CommonService, private sharedService: SharedService) {
                      this.router = router;
@@ -77,7 +83,7 @@ export class AppAlert implements OnInit {
 										   that.transmissions = data.transmission;
                                            that.ownerTypes = data.owner_type;
                                            that.colors = data.color;
-										   
+										   that.accidentHistory = data.accident_history;
 										   that.prices = data.prices;
 										   that.kms = data.kms;
                                            
@@ -491,6 +497,41 @@ export class AppAlert implements OnInit {
 		}
 		this.lastScroll = elem.scrollTop();
 		//}
+	}
+  
+  onValueHelp(evt){
+		this.commonService.adminService.getPlaceOfRegState()
+			.subscribe( result => {
+				if(result.error){
+					
+				}
+				else{
+					this.regStates = result.results;
+					this.showValueHelpDialog = true;
+					this.showStateListDialog = true;
+					this.showValueHelpListDialog = false;
+				}
+			});
+	}
+	onStateValueSelect(evt,val){
+		this.commonService.adminService.getPlaceOfReg(val)
+			.subscribe( result => {
+				if(result.error){
+					
+				}
+				else{
+					this.valueHelp = result.results;
+					this.showValueHelpDialog = true;
+					this.showStateListDialog = false;
+					this.showValueHelpListDialog = true;
+				}
+			});
+	}
+	onValueHelpSelect(evt,val){
+		this.item.place_of_reg = val.reg_number +", "+ val.place;
+		this.showValueHelpDialog = false;
+		this.showStateListDialog = false;
+		this.showValueHelpListDialog = false;
 	}
 
 
