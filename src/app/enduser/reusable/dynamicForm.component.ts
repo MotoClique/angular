@@ -186,6 +186,9 @@ export class AppDynamicForm implements OnInit {
 							  if(o.field_path === 'min_bid_hike'){
 								o.editable = false;
 							  }
+                
+                if(o.field_path == 'insurance_valid_till')
+                  o.visible = false;
 
 							  if(o.field_type === 'datetime'){
 								if(o.value){
@@ -630,10 +633,10 @@ export class AppDynamicForm implements OnInit {
       for(var i=0; i<fields_obj.length; i++){
         var v = fields_obj[i];
         if(v.field_path == 'insurance_valid_till'){
-          if(field.value == "Expired")
-            v.visible = false;
-          else
+          if(field.value == "Running")
             v.visible = true;
+          else
+            v.visible = false;
           break;
         }
       }
