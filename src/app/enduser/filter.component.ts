@@ -69,7 +69,7 @@ export class AppFilter implements OnInit {
 		showValueHelpListDialog: boolean = false;
 		valueHelp: any = [];
 		regStates: any = [];
-  
+    accidentHistory: any = [];
 		selectedPrdTyp : string = "";
 		selectedBrand: string = "";
 		selectedModel: string = "";
@@ -84,7 +84,7 @@ export class AppFilter implements OnInit {
 										   that.alertTypes = data.alertTypes;
                                            that.userTypes = data.listing_by;
                                            that.fuelTypes = data.fuel_type;
-										   
+										   that.accidentHistory = data.accident_history;
 										   that.transmissions = data.transmission;
                                            that.ownerTypes = data.owner_type;
                                            that.colors = data.color;
