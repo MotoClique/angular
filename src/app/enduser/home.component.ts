@@ -768,7 +768,8 @@ export class AppHome implements OnInit {
 		if(this.type !== evt.tab.textLabel){
 		  this.type = evt.tab.textLabel;
 		  
-		  if( !(this.sharedService.sharedObj.backUpData['home']) ||
+		  if( (this.type == 'Bid') || 
+        !(this.sharedService.sharedObj.backUpData['home']) ||
 			!(this.sharedService.sharedObj.backUpData['home'].search[this.type]) ||
 				this.sharedService.sharedObj.backUpData['home'].search[this.type].condition !== ((this.city)?this.city:'')+'/'+((this.search)?this.search:'') ){
 					this.onSuggestSelect(evt,this.searchSelected);
