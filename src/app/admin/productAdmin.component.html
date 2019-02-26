@@ -23,11 +23,11 @@
 						<td data-header=" "><div style="height:40px; padding: 3px;"><i class="glyphicon glyphicon-remove" style="cursor:pointer;" (click)="onDelete($event,product)"></i></div></td>
 						<td data-header=" "><div style="height:40px; padding: 3px;"><i class="glyphicon glyphicon-pencil" style="cursor:pointer;" (click)="onEdit($event,product)"></i></div></td>
 						<td data-header=" "><div style="height:40px; padding: 3px;"><i class="glyphicon glyphicon-picture" style="cursor:pointer;" (click)="onImageClick($event,product)"></i></div></td>
-						<td data-header="Product ID"><div style="height:40px; padding: 3px;"><button class="btn btn-link" (click)="onPrdClick($event,product)">{{product.product_id}}</button></div></td>
-						<td data-header="Product Type"><div style="height:40px; padding: 3px;">{{product.product_type_name}}</div></td>
-						<td data-header="Brand"><div style="height:40px; padding: 3px;">{{product.brand_name}}</div></td>
-						<td data-header="Model"><div style="height:40px; padding: 3px;">{{product.model}}</div></td>
-						<td data-header="Variant"><div style="height:40px; padding: 3px;">{{product.variant}}</div></td>						
+						<td data-header="Product ID"><div style="height:40px; padding: 3px;"><button style="max-width:300px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" class="btn btn-link" (click)="onPrdClick($event,product)">{{product.product_id}}</button></div></td>
+						<td data-header="Product Type"><div style="height:40px; padding: 3px; max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{product.product_type_name}}</div></td>
+						<td data-header="Brand"><div style="height:40px; padding: 3px; max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{product.brand_name}}</div></td>
+						<td data-header="Model"><div style="height:40px; padding: 3px; max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{product.model}}</div></td>
+						<td data-header="Variant"><div style="height:40px; padding: 3px; max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{product.variant}}</div></td>						
 						<td data-header=" "><div style="height:40px; padding: 3px;"><button class="btn btn-link" (click)="onSeeSpecClick($event,product)">Specifications</button></div></td>
 					</tr>
 				</tbody>
