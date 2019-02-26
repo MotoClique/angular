@@ -64,7 +64,12 @@ export class AppFilter implements OnInit {
 		showListDialog: boolean = false;
 		self: any = this;
 		editMode: boolean = true;
-		
+		showValueHelpDialog: boolean = false;
+		showStateListDialog: boolean = false;
+		showValueHelpListDialog: boolean = false;
+		valueHelp: any = [];
+		regStates: any = [];
+  
 		selectedPrdTyp : string = "";
 		selectedBrand: string = "";
 		selectedModel: string = "";
@@ -595,6 +600,43 @@ export class AppFilter implements OnInit {
 				this.lastScroll = elem.scrollTop();
 			//}
 		}
+  
+  onValueHelp(evt){
+		this.commonService.adminService.getPlaceOfRegState()
+			.subscribe( result => {
+				if(result.error){
+					
+				}
+				else{
+					this.regStates = result.results;
+					this.showValueHelpDialog = true;
+					this.showStateListDialog = true;
+					this.showValueHelpListDialog = false;
+				}
+			});
+	}
+	onStateValueSelect(evt,val){
+		this.commonService.adminService.getPlaceOfReg(val)
+			.subscribe( result => {
+				if(result.error){
+					
+				}
+				else{
+					this.valueHelp = result.results;
+					this.showValueHelpDialog = true;
+					this.showStateListDialog = false;
+					this.showValueHelpListDialog = true;
+				}
+			});
+	}
+	onValueHelpSelect(evt,val){
+		this.item.place_of_reg = val.reg_number +", "+ val.place;
+		this.showValueHelpDialog = false;
+		this.showStateListDialog = false;
+		this.showValueHelpListDialog = false;
+	}
+		
+}
 	  	  
 		
 }
