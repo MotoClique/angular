@@ -56,6 +56,10 @@
 				//console.log('error');
 			  }
 			);
+			
+			universalLinks.subscribe(null, function(eventData){
+				localStorage.setItem("lastRoute",eventData.path);
+			});
 		}
 	}, false);
 	
