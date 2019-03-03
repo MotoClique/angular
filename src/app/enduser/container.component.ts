@@ -197,6 +197,7 @@ export class AppContainer implements OnInit{
 						var subscriptions = result.results;
 						for(var s=0; s<subscriptions.length; s++){
 							if(subscriptions[s].active === 'X'){
+								that.sharedService.sharedObj.userSubscription = subscriptions[s];
 								that.application = subscriptions[s].app_name;
 								break;
 							}

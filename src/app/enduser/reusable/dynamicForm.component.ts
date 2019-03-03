@@ -134,7 +134,13 @@ export class AppDynamicForm implements OnInit {
 		  var that = this;
 		  this.screenConfig = {};
 		  this.fields = [];
-		  this.commonService.adminService.getFieldRights("","",screen)
+		  var role_id = "";
+		  var app_id = "";
+		  if(this.sharedService.sharedObj.userSubscription){
+			  role_id = this.sharedService.sharedObj.userSubscription.role_id;
+			  app_id = this.sharedService.sharedObj.userSubscription.app_id;
+		  }
+		  this.commonService.adminService.getFieldRights(role_id,"",screen)
 			.subscribe( result => {
 				if(result.error){
 					that.sharedService.openMessageBox("E","Error in fetching.",null);
@@ -303,7 +309,13 @@ export class AppDynamicForm implements OnInit {
 		  this.current_product_id = item.product_id;
 		  this.screenConfig = {};
 		  this.fields = [];
-		  this.commonService.adminService.getFieldRights("","",screen)
+		  var role_id = "";
+		  var app_id = "";
+		  if(this.sharedService.sharedObj.userSubscription){
+			  role_id = this.sharedService.sharedObj.userSubscription.role_id;
+			  app_id = this.sharedService.sharedObj.userSubscription.app_id;
+		  }
+		  this.commonService.adminService.getFieldRights(role_id,"",screen)
 			.subscribe( result => {
 				if(result.error){
 					that.sharedService.openMessageBox("E","Error in fetching.",null);

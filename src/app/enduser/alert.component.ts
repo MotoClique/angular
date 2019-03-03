@@ -120,8 +120,8 @@ export class AppAlert implements OnInit {
 					that.userDetail = user;
 					var id = that.route.snapshot.params.id;
 					var mode = that.route.snapshot.params.mode;
-					if(id && id !== 'blank'){
-							that.commonService.enduserService.getAlert("",id)
+					if(id && mode == 'edit'){
+						that.commonService.enduserService.getAlert("",id)
 							  .subscribe( data => {
 								  if(data.results.length > 0){
 									var item = data.results[0];									
@@ -131,6 +131,18 @@ export class AppAlert implements OnInit {
 										.subscribe( productTypes => {
 											that.productTypes = productTypes.results;
 											that.item.product_type_name = that.productTypes.find(function(element) { return element.product_type_name === that.item.product_type_name; });
+											that.selectedPrdTyp = that.item.product_type_name.product_type_id;
+											that.commonService.adminService.getUniqueBrandBasedOnPrdTyp(that.selectedPrdTyp)
+											.subscribe( brands => {
+															that.brands = brands.results;
+															that.brands.sort((a: any, b: any)=> {
+																								if (a < b)
+																								  return -1;
+																								if ( a > b)
+																								  return 1;
+																								return 0;
+																							});//ascending sort
+											});
 										});
 									}
 									if(that.item.model){
@@ -162,11 +174,22 @@ export class AppAlert implements OnInit {
 											that.item.variant = that.variants.find(function(element) { return element.variant === that.item.variant; });
 										});
 									}
-									if(mode === 'edit'){
-										that.goEditMode();
-									}else{
-										that.displayAlert();
-									}
+									
+									that.goEditMode();
+									
+								  }
+								  else{
+									 that.sharedService.openMessageBox("E","No data found.",null);
+								  }
+							});
+					}
+					else if(id && id !== 'blank'){
+						that.commonService.enduserService.getAlert("",id)
+							  .subscribe( data => {
+								  if(data.results.length > 0){
+									var item = data.results[0];									
+									that.item = item;
+									that.displayAlert();
 								  }
 								  else{
 									 that.sharedService.openMessageBox("E","No data found.",null);
