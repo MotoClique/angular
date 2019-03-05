@@ -397,7 +397,7 @@ export class AppContainer implements OnInit{
 	  }*/
 	
 	logout(evt){
-		this.auth.logout();
+		this.sharedService.logout();
 	}
 	
 	
