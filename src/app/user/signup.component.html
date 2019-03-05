@@ -5,19 +5,17 @@
 	</div>
 	<div style="width: 100%; max-width: 400px; max-height: 500px; margin-left: auto; margin-right: auto; padding: 15px">
 		 <div style="width: 100%; max-width: 400px; max-height: 500px; margin-left:auto; margin-right:auto;">
-			  
+			  <div style="text-align:center; color: #E71B03; font-weight: 800; font-size: 15px;">SIGN UP</div>
 			  <div style="width:100%; max-width: 350px; min-height: 280px; padding: 20px; display: flex; align-items: center; justify-content: center; margin-left:auto; margin-right:auto;">
 				   <form style="max-width: 350px;" class="login-form" autocomplete="off">
 						 <mat-form-field class="mobile-field" style="width:100%;">
 							  <span matPrefix>+91 &nbsp;</span>
 							  <input type="tel" matInput placeholder="Enter Mobile Number*" maxlength="10" [(ngModel)]="login_mobile" name="login_mobile" (keyup)="onMobileEnter($event)">
-						 </mat-form-field>
+						    <button (click)="onSendOTP()" class="btn btn-link" matSuffix >{{sendOTP}}</button>
+             </mat-form-field>
 										 
 						 <mat-form-field class="otp-field" style="width:100%;" >
-							  <div style="display:flex;">
-								  <input type="password" matInput placeholder="Enter OTP*" [(ngModel)]="login_otp" name="login_otp" (keypress)="onKeypress($event)">
-								  <button (click)="onSendOTP()" class="btn btn-link">{{sendOTP}}</button>
-							  </div>
+							 <input type="password" matInput placeholder="Enter OTP*" [(ngModel)]="login_otp" name="login_otp" (keypress)="onKeypress($event)">
 						</mat-form-field>
 																   
 						 <mat-form-field class="password-field" style="width:100%;" >
