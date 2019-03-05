@@ -69,6 +69,16 @@
 				<div class="col-xs-12 col-md-6 col-lg-4" *ngFor="let result of results">
 					<tile-template [item]="result" [parentComponent]="self" (openItem)="onItemSelect($event)"></tile-template>
 				</div>
+          
+          <div class="col-xs-12 col-md-6 col-lg-4" *ngIf="searchResponse.nextBidMsg">
+					<div style="padding: 4px; display: flex; justify-content: center; width:100%; height:100%;">
+						<div class="resultItemWrapper" style="position:relative;" >
+							<div class="resultItem">
+								<div class="liveMsg" style="min-height: 250px; display: flex; justify-content: center; align-items: center; text-align: center; color: red; font-weight: 900;">{{searchResponse.nextBidMsg}}</div>
+							</div>
+						</div>												
+					</div>
+				</div>
 			  </div>
 			</div>
       <div id="homeSearchLoaderContainer" style="display:none;">
