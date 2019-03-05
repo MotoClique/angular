@@ -18,27 +18,28 @@
 }
 
 .resultItem{
-	line-height: 30px; width: 320px; padding: 13px;
+	line-height: 25px; max-width: 338px; max-height:275px; padding: 5px; margin-left: auto; margin-right: auto;
 }
 .resultItemWrapper{
-	border: 1px solid gray; width: 350px;  position: relative;
-}
-.resultItemWrapper:active{
-	border: 4px solid #ccd8ff;
-}
-.resultItemType{
-	font-size: 12px; font-weight: bolder; color: white; background-color: red;  border-radius: 20px; width: 60px; line-height: 30px; text-align: center;
-}
-.resultItemImage{
-	width: 320px; height: 200px;
-}
-.resultItemDetailTop{
-	display: flex; flex-direction: row; width: 320px; justify-content: space-between;
-}
-.resultItemDetailBottom{
-	display: flex; flex-direction: row; width: 320px; font-size: 12px;
+	-webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+  max-width: 350px; max-height:290px; position: relative; width:100%; height:100%;
 }
 
+@keyframes blink{
+	25%{
+		opacity:0.5;
+	}
+	50%{
+		opacity:0;
+	}
+	75%{
+		opacity:0.5;
+	}
+}
+.liveMsg{
+	animation: blink 5s linear infinite;
+}
 
 
 
