@@ -1,48 +1,3 @@
-<!--<div class="container">
-    <div class="center_form">
-        <div class="padding">
-            <h3>Sign In</h3>     
-                                  
-            <div class="form-group">
-				<div class="form-inline">
-					<div style="width:45px" class="form-control">+91 </div>
-					<input style="width:248px"  type="text" maxlength="10" class="form-control" [value] = "login_mobile" (input) = "login_mobile = $event.target.value" placeholder=" Enter Mobile Number" required="" (keyup)="onMobileEnter($event)"/>
-				</div>
-			</div>
-			<div class="form-group">
-				<form action="">
-					<div class="form-inline">
-					<label style="width:10rem;"><input type="radio" [value]=true [(ngModel)]="loginByPassword"  name="loginType" >Password</label>
-					<label style="width:10rem;"><input type="radio" [value]=false [(ngModel)]="loginByPassword"  name="loginType" >OTP</label>
-					</div>
-				</form>
-			</div>
-            <div class="form-group">
-				<input type="text" class="form-control" [hidden]="loginByPassword" [value] = "login_otp" (input) = "login_otp = $event.target.value"  placeholder="Enter OTP" required="" (keypress)="onkeypress($event)"/>
-				<button (click)="onSendOTP()" [hidden]="loginByPassword" class="btn btn-link">{{sendOTP}}</button>
-                <input type="password" class="form-control" [hidden]="!loginByPassword" [value] = "login_password" (input) = "login_password = $event.target.value"  placeholder="Enter Password" required="" (keypress)="onkeypress($event)"/>
-            </div>
-			<div class="form-group">
-			<label *ngIf="loginError" style="color: #E71B03;">{{loginError}}</label>
-			</div>
-            <div class="form-group">
-                <button type="submit" (click)="onLogin()" class="btn btn-success">Login</button>
-				<button (click)="onSignup()" class="btn btn-link">Sign Up</button>
-            </div>
-			<div class="form-group">
-				<button  class="btn btn-link">Forgot Password?</button>
-            </div>
-        </div>
-    </div>
-</div>-->
-
-
-
-
-
-
-
-
 
 <div style="display:flex; flex-direction:column; justify-content:center; height:100%;">
 	<div style="text-align: center;">
@@ -50,13 +5,14 @@
 	</div>
 	<div style="width: 100%; max-width: 400px; max-height: 420px; margin-left: auto; margin-right: auto; padding: 15px">
 		<div style="width: 100%; max-width: 400px; max-height: 420px; margin-left:auto; margin-right:auto;">
-			
+			<div style="text-align:center; color: #E71B03; font-weight: 800; font-size: 15px;">SIGN IN</div>
 			<div style="width:100%; max-width: 350px; min-height: 280px; padding: 25px; display: flex; align-items: center; justify-content: center; margin-left:auto; margin-right:auto;">
 			  <form style="max-width: 300px;" class="login-form" autocomplete="off">
 				   <mat-form-field class="mobile-field" style="width:100%;">
 						<span matPrefix>+91 &nbsp;</span>
 						<input type="tel" matInput placeholder="Enter Mobile Number*" maxlength="10" [(ngModel)]="login_mobile" name="mobile" (keyup)="onMobileEnter($event)">
-				   </mat-form-field>
+				    <button [hidden]="loginByPassword" (click)="onSendOTP()" class="btn btn-link" matSuffix >{{sendOTP}}</button> 
+          </mat-form-field>
 													
 				   <mat-form-field style="width:100%;">
 						<mat-select placeholder="Sign In by" [(ngModel)]="loginByPassword" name="login-by">
@@ -69,10 +25,7 @@
 					   <input type="password" matInput placeholder="Enter Password*" [(ngModel)]="login_password" name="password" (keypress)="onkeypress($event)">
 				  </mat-form-field>
 				  <mat-form-field class="otp-field" style="width:100%;" [hidden]="loginByPassword">
-					  <div style="display:flex;">
-						  <input type="password" matInput placeholder="Enter OTP*" [(ngModel)]="login_otp" name="otp" (keypress)="onkeypress($event)">
-						  <button (click)="onSendOTP()" class="btn btn-link">{{sendOTP}}</button>
-					  </div>
+					  <input type="password" matInput placeholder="Enter OTP*" [(ngModel)]="login_otp" name="otp" (keypress)="onkeypress($event)">
 				  </mat-form-field>
 								   
 				  <div>
