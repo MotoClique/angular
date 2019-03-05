@@ -435,14 +435,15 @@ export class AppImageTemplate implements OnInit {
 	}
 	
 	onParticipate(evt){
-		this.commonService.enduserService.getBidBy(this.userDetail.user_id,this.item.bid_id)
+		/*this.commonService.enduserService.getBidBy(this.userDetail.user_id,this.item.bid_id)
 		  .subscribe( res => {
 				if(res.results.length > 0){
 					this.onParticipateYes(null);
 				}
 				else
 					this.showBidConfirmDialog = true;
-		});
+		});*/
+    this.onParticipateYes(null);
 	}
 	onParticipateYes(evt){
 		this.showBidConfirmDialog = false;
