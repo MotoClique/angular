@@ -537,6 +537,15 @@ export class SharedService {
     return !!Window.cordova;
   }
 	
+  logout() {
+    this.auth.token = '';
+    window.localStorage.clear();	
+	this.sharedObj = {userProfile: {}, postItem:{}, configParams:{}, backUpData: {}};
+	this.containerContext = undefined;
+	this.token = "";
+	this.callCount = 0;
+    this.router.navigateByUrl('/');
+  }
 	
 	//Testing purpose to be removed later
 	testDataCreation(test){
