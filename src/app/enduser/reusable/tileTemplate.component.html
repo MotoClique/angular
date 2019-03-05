@@ -15,9 +15,9 @@
 					</div>
 				</div>
 				<div style="text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white;">
-					<b *ngIf="(item.transactionTyp !== 'Bid' && item.transactionTyp !== 'Service')" style="color: #E71B03; font-size: 16px;"><span *ngIf="item.transactionTyp === 'Buy'" class="glyphicon glyphicon-menu-left"></span> <span class="">&#8377;</span> {{item.display_amount ? item.display_amount : '0'}}</b>
-					<b *ngIf="item.transactionTyp === 'Bid'" style="color: #E71B03; font-size: 16px;"><span class="">&#8377;</span> {{item.display_amount ? item.display_amount : '0'}}</b>
-					<b *ngIf="item.transactionTyp === 'Service'" style="color: #E71B03; font-size: 16px;"><span style="font-size:10px;">Starts From </span> <span class="">&#8377;</span> {{item.display_amount ? item.display_amount : '0'}}</b>
+					<b *ngIf="(item.transactionTyp !== 'Bid' && item.transactionTyp !== 'Service')" [hidden]="((item.net_price && Number(item.net_price)>0) ? false : true)" style="color: #E71B03; font-size: 16px;"><span *ngIf="item.transactionTyp === 'Buy'" class="glyphicon glyphicon-menu-left"></span> <span class="">&#8377;</span> {{item.display_amount ? item.display_amount : '0'}}</b>
+					<b *ngIf="item.transactionTyp === 'Bid'" [hidden]="((item.current_bid_amount && Number(item.current_bid_amount)>0) ? false : true)" style="color: #E71B03; font-size: 16px;"><span class="">&#8377;</span> {{item.display_amount ? item.display_amount : '0'}}</b>
+					<b *ngIf="item.transactionTyp === 'Service'" [hidden]="((item.start_from_amount && Number(item.start_from_amount)>0) ? false : true)" style="color: #E71B03; font-size: 16px;"><span style="font-size:10px;">Starts From </span> <span class="">&#8377;</span> {{item.display_amount ? item.display_amount : '0'}}</b>
 				</div>
             </div>
 			<div *ngIf="item.sold" style="width: 100%; display: flex; justify-content: center; position: absolute; top: 25px;">
