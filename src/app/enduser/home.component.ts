@@ -376,6 +376,8 @@ export class AppHome implements OnInit {
             }   
           }
         
+        this.sharedService.sharedObj.containerContext.bidIsLive = data.bidIsLive;
+        
 				  if(data.statusCode === 'F'){
             if(data.noSubscription){
               this.sharedService.noSubscriptionMessageBox(data.msg,function(){
