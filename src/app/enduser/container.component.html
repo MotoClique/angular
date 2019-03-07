@@ -6,8 +6,11 @@
 		</div>
 		
 		<div [hidden]="title === undefined || title === null || title === ''" style="font-size: 18px; padding: 12px; display:flex; flex-direction:column; line-height:18px;"><span style="font-weight:800; text-align:center;">{{title}}</span> <span style="font-size:13px; text-align:center;">@{{application}}</span></div>
-		<div [hidden]="title !== undefined && title !== null && title !== ''" style="font-size: 18px; padding: 12px;"><span>{{application}}</span></div>
-		<!--<input type="number" [(ngModel)]="create_count"><span> * 10</span>
+		<div [hidden]="title !== undefined && title !== null && title !== ''" style="font-size: 18px; padding: 12px; display: flex; flex-direction: column; text-align: center;">
+			<span style="line-height: 25px;">{{application}}</span>
+			<span class="bidIsLive" style="font-size: 12px; line-height: 10px; font-weight: 700; color: red;">{{bidIsLive}}</span>
+		</div>
+    <!--<input type="number" [(ngModel)]="create_count"><span> * 10</span>
 		<button (click)="generateData()">Generate</button>-->
 		<div style="width:80px; display:flex; align-items: start; justify-content: flex-start;">
 				<button mat-button class="filter_icon" style="margin-top:5px;" (click)="onFilter($event)">
