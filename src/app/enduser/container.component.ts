@@ -59,7 +59,7 @@ export class AppContainer implements OnInit{
 		application: string = "";
 		@ViewChild(AppDynamicForm) dynamicFormComponent: AppDynamicForm;
 		opened: boolean = false;
-		
+		bidIsLive: string = '';
 		create_count: number = 1;
 		pull_startY: number = 0;
 	
