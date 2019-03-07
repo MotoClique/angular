@@ -147,4 +147,18 @@
     display: block;
 }*/
 
+@keyframes blink{
+	25%{
+		opacity: 0.5;
+	}
+	50%{
+		opacity: 0.1;
+	}
+	75%{
+		opacity: 0.5;
+	}
+}
+.bidIsLive{
+	animation: blink 2s linear infinite;
+}
 
