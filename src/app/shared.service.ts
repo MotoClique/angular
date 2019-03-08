@@ -58,7 +58,7 @@ export class SharedService {
 		}
 		let base;
     
-		if(obj)
+		if(obj && !(obj.device_reg_id))
 		   obj.device_reg_id = (!(localStorage.getItem('device-token')))?'empty':localStorage.getItem('device-token');
     
 
