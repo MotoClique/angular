@@ -73,7 +73,9 @@
 				<div style="display:flex; justify-content:flex-end;" [hidden]="chat.from_user !== userDetail.user_id">
 					<div class="talk-bubble-right">
 						<div class="tri-right border right-bottom">
-							<span>{{chat.text}}</span>	
+							<div style="text-align: end;">
+								<span>{{chat.text}}</span>	
+							</div>	
 							<div style="text-align: end;">
 								<span style="font-size: 10px; color:#A0A0A0;">{{chatFormatDate(chat.createdAt)}}</span>
 								<span class="glyphicon glyphicon-ok" style="z-index:1; font-weight: 800; font-size: 11px; -webkit-text-stroke: 1px #D9FFC9;" [style.color]="(chat.to_read)?'#64C3FE':'#A0A0A0'"></span>
