@@ -184,10 +184,8 @@ export   class   AppSignup  implements OnInit {
 	  var that = this;
 	  //that.newUser.name = that.name;
 	  that.newUser.gender = (that.male)?'Male':'Female' ;
-	  //that.newUser.email = that.email ;
-	//that.newUser.login_password = login_password ;
-	  //that.newUser.currency = that.selectedCurrency ;
-	  //that.newUser.walletAmount = that.amount ;	
+	  var dateObj = this.newUser.dob;
+    this.newUser.dob = dateObj.getDate() +"/"+ (dateObj.getMonth() - (-1)) +"/"+ dateObj.getFullYear() ;	
 	  
 	  if(that.newUser.name && that.newUser.email){
 		  this.commonService.updateProfile(that.newUser)
