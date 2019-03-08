@@ -16,7 +16,7 @@
 											<input (keyup)="updateData($event,field)" *ngIf="field.field_type === 'radio'" class="form-control" type="radio" [(ngModel)] = "!field.value" name="{{field.name}}" required="{{field.field_required}}" [disabled]="!field.editable" > 
 										-->
 											<mat-form-field style="width:100%;" *ngIf="field.field_type === 'input'">
-												<input matInput type="text" placeholder="{{field.field}}" [attr.maxlength]="(field.field_path === 'list_price' || field.field_path === 'net_price' || field.field_path === 'discount' || field.field_path === 'bid_amount')?'9':'20'" [(ngModel)]="field.value" (keyup)="updateData($event,field)" name="{{field.name}}" required="{{field.field_required}}" [disabled]="!field.editable" [hidden]="!field.visible">
+												<input matInput type="text" placeholder="{{field.field}}" [attr.maxlength]="field.maxlength" [(ngModel)]="field.value" (keyup)="updateData($event,field)" name="{{field.name}}" required="{{field.field_required}}" [disabled]="!field.editable" [hidden]="!field.visible">
 											</mat-form-field>
 											
 											<mat-form-field style="width:100%;" *ngIf="field.field_type === 'valuehelpinput'">
@@ -73,10 +73,12 @@
 											
 									   </div>
 									   <div style="padding-top: 8px;" *ngIf="!editMode">
-											<mat-form-field style="width:100%;">
+											<mat-form-field style="width:100%;" *ngIf="field.field_path !== 'note'">
 												<input matInput type="text" placeholder="{{field.field}}" [(ngModel)]="field.value" name="{{field.name}}" [disabled]=true [hidden]="!field.visible">
 											</mat-form-field>
-											
+											<mat-form-field style="width:100%;" *ngIf="field.field_path === 'note'">
+												<textarea matInput placeholder="{{field.field}}" maxlength="260" rows="3" [(ngModel)]="field.value" name="{{field.name}}" required="{{field.field_required}}" [disabled]=true [hidden]="!field.visible"></textarea>
+											</mat-form-field>
 									   </div>
 								   </div>
 						  </div>
