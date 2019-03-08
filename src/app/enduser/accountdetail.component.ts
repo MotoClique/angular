@@ -66,7 +66,7 @@ export class AppAccountDetail implements OnInit {
 		this.disabledMode = true;
 		this.sharedService.getUserProfile(function(user){
 			that.userDetail = user;
-      if(user.dob){
+      if(user.dob && typeof user.dob === 'string'){
         var dateString:any = (user.dob).split('/'); dateString = dateString[2]+'-'+dateString[1]+'-'+dateString[0];
         that.userDetail.dob = new Date(dateString);
       }
@@ -85,7 +85,7 @@ export class AppAccountDetail implements OnInit {
 				}
 				else if(details.results && details.results.length > 0){
 					this.userDetail = details.results[0];
-          if(this.userDetail.dob){
+          if(this.userDetail.dob && typeof this.userDetail.dob === 'string'){
             var dateString:any = (this.userDetail.dob).split('/'); dateString = dateString[2]+'-'+dateString[1]+'-'+dateString[0];
             this.userDetail.dob = new Date(dateString);
           }
