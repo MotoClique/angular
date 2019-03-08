@@ -187,6 +187,8 @@ export class AppDynamicForm implements OnInit {
 								  o.field = o.field + ' (Less than)';
 								if(o.field_path === 'km_done')
 								  o.field = o.field + ' (Less than)';
+                if(o.field_path === 'owner_type')
+								  o.field = o.field + ' (Less than)';
 							  }
 
 							  if(o.field_path === 'min_bid_hike'){
@@ -351,6 +353,8 @@ export class AppDynamicForm implements OnInit {
 									o.field = o.field + ' (Less than)';
 								if(o.field_path === 'km_done')
 									o.field = o.field + ' (Less than)';
+                if(o.field_path === 'owner_type')
+								  o.field = o.field + ' (Less than)';
 							}
 							
 							(that.screenConfig[category]).push(o);
