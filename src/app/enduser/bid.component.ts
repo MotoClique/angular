@@ -759,7 +759,7 @@ export class AppBid implements OnInit {
 	  
 	  onDeactivate(evt){
 		  var that = this;
-		  this.sharedService.openMessageBox("C","Are you sure you want to deactivate it?",function(flag){
+		  this.sharedService.openMessageBox("C","Are you sure you want to close the BID?",function(flag){
 			  if(flag){
           if(that.sharedService.sharedObj.configParams['delete_on_deactivate'] === 'yes'){
 					that.commonService.enduserService.deleteBid(that.item.bid_id)
@@ -784,12 +784,12 @@ export class AppBid implements OnInit {
 										  that.commonService.enduserService.updateBid(item)
 											.subscribe( data => {
 													if(data.statusCode=="S"){
-														that.sharedService.openMessageBox("S","Successfully Deactivated.",null);
+														that.sharedService.openMessageBox("S","Successfully Closed.",null);
 														that.sharedService.closeMessageBox();
 														that.gotoMainScreen();
 													}
 													else{
-														that.sharedService.openMessageBox("E","Unable to Deactivate.",null);
+														that.sharedService.openMessageBox("E","Unable to Close.",null);
 													}
 											});
 									  }
