@@ -220,6 +220,15 @@ export class AppDynamicForm implements OnInit {
 								var dateSplit = (o.value).split('/');
 								o.date = new Date(dateSplit[1] +'/'+ dateSplit[0] +'/'+ dateSplit[2]);
 							  }
+                
+                if(o.field_type === 'input'){
+								if(o.field_path === 'list_price' || o.field_path === 'net_price' || o.field_path === 'discount' || o.field_path === 'bid_amount')
+									o.maxlength = 9;
+								else if(o.field_path === 'km_done')
+									o.maxlength = 6;
+								else
+									o.maxlength = 20;
+							  }
 
 							  (that.screenConfig[category]).push(o);
 							}
