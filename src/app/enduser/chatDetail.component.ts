@@ -64,7 +64,7 @@ export class AppChatDetail implements OnInit {
 									that.chatDetail = [];
 									if(that.item.user_id){
 										that.item.to_user = that.item.user_id;
-										that.sharedService.call('getprofile', "post", {user_id:that.item.user_id}, true)
+										that.sharedService.call('getprofile', "post", {user_id:that.item.user_id, device_reg_id:"empty"}, true)
 										   .subscribe( data => {
 												if(data.results && data.results.length>0)
 													that.item.to_user_name = data.results[0].name;
