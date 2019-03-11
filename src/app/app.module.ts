@@ -61,6 +61,7 @@ import { AppServiceForm } from './enduser/reusable/serviceForm.component';
 import { AppTileTemplate } from './enduser/reusable/tileTemplate.component';
 import { AppChatInbox } from './enduser/chatInbox.component';
 import { AppChatDetail } from './enduser/chatDetail.component';
+import { AppMyPost } from './enduser/myPost.component';
 
 const appRoutes: Routes = [
 	{ path: '', component: AppLogin },
@@ -116,7 +117,15 @@ const appRoutes: Routes = [
 		{ path: 'Service/:id/:mode', component: AppService, canActivate: [AuthGuardService], canDeactivate:[ConfirmDeactivateGuard]},
     { path: 'ChatInbox', component: AppChatInbox, canActivate: [AuthGuardService], canDeactivate:[ConfirmDeactivateGuard]},
 		{ path: 'ChatDetail/:id', component: AppChatDetail, canActivate: [AuthGuardService], canDeactivate:[ConfirmDeactivateGuard]},
-		{ path: 'ChatDetail/:id/:mode', component: AppChatDetail, canActivate: [AuthGuardService], canDeactivate:[ConfirmDeactivateGuard]}
+		{ path: 'ChatDetail/:id/:mode', component: AppChatDetail, canActivate: [AuthGuardService], canDeactivate:[ConfirmDeactivateGuard]},
+    { path: 'MyPost', component: AppMyPost, canActivate: [AuthGuardService], canDeactivate:[ConfirmDeactivateGuard],
+		children:[
+			{ path: '', redirectTo: 'Sell', pathMatch: 'full'},
+			{ path: 'Sell', component: AppSell, canActivate: [AuthGuardService], canDeactivate:[ConfirmDeactivateGuard]},
+			{ path: 'Bid', component: AppBid, canActivate: [AuthGuardService], canDeactivate:[ConfirmDeactivateGuard]},
+			{ path: 'Buy', component: AppBuy, canActivate: [AuthGuardService], canDeactivate:[ConfirmDeactivateGuard]},
+			{ path: 'Service', component: AppService, canActivate: [AuthGuardService], canDeactivate:[ConfirmDeactivateGuard]}
+		]}
 	]}
 ];
 
@@ -124,6 +133,7 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
 	  //End User
+    AppMyPost,
     AppChatDetail,
 	  AppChatInbox,
 	  AppService,
