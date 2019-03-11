@@ -108,7 +108,7 @@ export class AppService implements OnInit {
 					if(that.userDetail.user_id){
 						var id = that.route.snapshot.params.id;
 						var mode = that.route.snapshot.params.mode;
-						if(id && id !== 'blank'){
+						if(id && id !== 'blank' && id !== 'new'){
 							that.commonService.enduserService.getService("",id,"",null,null,null)
 							  .subscribe( data => {
 								  if(data.results.length > 0){
@@ -134,6 +134,9 @@ export class AppService implements OnInit {
 									  that.sharedService.openMessageBox("E","No data found.",null);
 								  }
 								});
+						}
+            else if(id === 'new'){
+							that.createNew(null);
 						}
 						else if(id === 'blank' && mode === 'create'){
 							that.item = jQuery.extend(true, {}, that.sharedService.sharedObj.postItem);
