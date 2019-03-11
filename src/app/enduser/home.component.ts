@@ -1,4 +1,4 @@
-//
+//Home Page Component
 import {Component,OnInit,ViewChild, HostListener} from '@angular/core';
 import { Injectable }     from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
@@ -57,9 +57,11 @@ export class AppHome implements OnInit {
 		loading: boolean = false;
 		lastScroll: any = 0;
 		noMoreData: boolean = false;
-    screenAccess:any = [];
-	newChatTimer:any;
-		
+		screenAccess:any = [];
+		newChatTimer:any;
+	
+		chats: any = {count: 0, access: false};
+		showSubMenu: boolean = false;
 		postTabAccess: any =[];
 		@ViewChild('postTypeTabGroup') postTypeTabGroup;
 		
@@ -85,7 +87,7 @@ export class AppHome implements OnInit {
 		this.sharedService.sharedObj.currentContext = this;
 		this.sharedService.getUserProfile(function(user){
 			that.userDetail = user;
-      var access = user.screenAccess;	
+			var access = user.screenAccess;	
 			for(var i = 0; i<access.length; i++){
 				if((access[i].name).toLowerCase().indexOf('sell') != -1){
 					access[i].iconSrc = "assets/sale_icon.png";
@@ -120,9 +122,10 @@ export class AppHome implements OnInit {
 						that.postTabAccess.push("Service");
 				}
 				else if((access[i].name).toLowerCase().indexOf('chat') != -1){
-					access[i].iconSrc = "assets/chat_icon.png";					
-					access[i].id = ((access[i].name).replace(/ /g,"")).toLowerCase()+"_link" ;
-					that.screenAccess.push(access[i]);
+					that.chats.access = true;
+					//access[i].iconSrc = "assets/chat_icon.png";					
+					//access[i].id = ((access[i].name).replace(/ /g,"")).toLowerCase()+"_link" ;
+					//that.screenAccess.push(access[i]);
 				}
 			}
 			that.screenAccess.sort((a: any, b: any)=> {return a.sequence - b.sequence;});//ascending sort
@@ -145,7 +148,7 @@ export class AppHome implements OnInit {
 				
 			}
 			else{
-        that.sharedService.sharedObj.backUpData['home'] = {};
+				that.sharedService.sharedObj.backUpData['home'] = {};
 				that.onSearch(null);
 			}
 		});
@@ -171,7 +174,7 @@ export class AppHome implements OnInit {
 					};
 				}
 	  
-        if ( key == 8 ){ // Backspace key
+				if ( key == 8 ){ // Backspace key
 					if(!(that.search)){//If empty
 						that.searchResponse = {sale:{},buy:{},bid:{},service:{}};
 						that.results = [];
@@ -233,7 +236,7 @@ export class AppHome implements OnInit {
 				var selected = $('.city-selected').eq(0);
 				var current;
       
-      if(key !== 13){
+				if(key !== 13){
 					that.citySelected =  {
 							country: that.city,
 							state: that.city,
@@ -243,7 +246,7 @@ export class AppHome implements OnInit {
 					};
 				}
       
-      if ( key == 8 ){ // Backspace key
+				if ( key == 8 ){ // Backspace key
 					if(!(that.city)){//If empty
 						that.searchResponse = {sale:{},buy:{},bid:{},service:{}};
 						that.results = [];
@@ -308,10 +311,8 @@ export class AppHome implements OnInit {
 				}
 		}
 	}
-	
-	
-	  
-	  suggest(evt){
+		  
+	suggest(evt){
 			var key = evt.keyCode;
 			if ( key != 40 && key != 38 && key != 13 ){
 				var that = this;
@@ -337,119 +338,113 @@ export class AppHome implements OnInit {
 	  }
 	  
 	  loadResult(selected){
-      document.getElementById("homeSearchLoaderContainer").style.display = "block";
-		  this.loading = true;
-		  if(!(this.results) || this.results.length<=0){
+		document.getElementById("homeSearchLoaderContainer").style.display = "block";
+		this.loading = true;
+		if(!(this.results) || this.results.length<=0){
 			  this.lastScroll = 0;
 			  this.noMoreData = false;
-		  }
-		  var that = this;
-		  this.search = selected.text;
-		  this.city = (this.citySelected.text !== undefined)?this.citySelected.text:"" ;
-		  this.suggestion = [];
-		  this.city_suggestion = [];
-		  var queries = {
+		}
+		var that = this;
+		this.search = selected.text;
+		this.city = (this.citySelected.text !== undefined)?this.citySelected.text:"" ;
+		this.suggestion = [];
+		this.city_suggestion = [];
+		var queries = {
 			product_type_name: selected.product_type_name,
 			brand_name: selected.brand_name,
 			model: selected.model,
 			variant: selected.variant
-		  };
-		  var type = (this.type === "All")? "" : this.type ;
-		  var city = (this.citySelected.city !== undefined)?this.citySelected.city:"" ;
-		  var location = (this.citySelected.location !== undefined)?this.citySelected.location:"" ;
-		  var limit = 10;
-		  if(this.type === "All")
-			  limit = 3;
-		  var sale = {count: this.searchResponse.sale.count, skip: this.searchResponse.sale.skip, limit: limit},
-		  buy = {count: this.searchResponse.buy.count, skip: this.searchResponse.buy.skip, limit: limit},
-		  bid = {count: this.searchResponse.bid.count, skip: this.searchResponse.bid.skip, limit: limit},
-		  service = {count: this.searchResponse.service.count, skip: this.searchResponse.service.skip, limit: limit};
-		  var userFilter = this.sharedService.sharedObj.userFilter;
-		  this.commonService.enduserService.searchload(queries,type,city,location,sale,buy,bid,service,userFilter)
-			  .subscribe( data => {
-          if(data.chatCount){
-            for(var i=0; i<that.screenAccess.length; i++){
-              if((that.screenAccess[i].name).toLowerCase().indexOf('chat') != -1){
-                that.screenAccess[i].count = data.chatCount;
-                break;
-              }
-            }   
-          }
-        
-        this.sharedService.sharedObj.containerContext.bidIsLive = data.bidIsLive;
-        
-				  if(data.statusCode === 'F'){
-            if(data.noSubscription){
-              this.sharedService.noSubscriptionMessageBox(data.msg,function(){
-                that.router.navigateByUrl('/Container/BuySubscription');
-              });
-            }
-			else if(data.noAddress){
-              this.sharedService.noAddressMessageBox(data.msg,function(){
-                that.router.navigateByUrl('/Container/Address/blank/create');
-              });
-            }
-            else{
-              var message = "Unable to load data.";
-              if(data.msg)
-                message = data.msg;
-              this.sharedService.openMessageBox("E",message,null);
-            }
-				  }
-				  else{
-						if(data.completed){
-							this.noMoreData = true;
-						}
-						this.searchResponse = data;
-						this.results = this.results.concat(data.results);
-						jQuery.each(this.results,function(i,v){
-						  if(!(v.data)){
-							//v.fav = false;
-							//v.price = v.net_price;
-							v.currency = "INR";
-							v.no_image = "1";
-							var transc_id = "";
-							if(v.type === "Sale") transc_id = v.sell_id; 
-							if(v.type === "Buy") transc_id = v.buy_req_id; 
-							if(v.type === "Bid") transc_id = v.bid_id; 
-							if(v.type === "Service") transc_id = v.service_id;
-							//that.getFav(v,transc_id);
-							v.busy = true;
-							that.getResultImage(v,transc_id);
-						  }
-					  });
-					  this.results.sort((a: any, b: any)=> {
-												//var fromd = a.createdAt.split('/');
-												//var fromdObj = new Date(fromd[2]+'-'+fromd[1]+'-'+fromd[0]);
-												//var tod = b.createdAt.split('/');
-												//var todObj = new Date(tod[2]+'-'+tod[1]+'-'+tod[0]);
-												var fromdObj = new Date(a.createdAt);
-												var todObj = new Date(b.createdAt);
-												if (fromdObj < todObj)
-												  return 1;
-												if (fromdObj > todObj)
-												  return -1;
-												return 0;
-											});//descending sort
-											
-						if(this.sharedService.sharedObj.backUpData){
-							this.sharedService.sharedObj.backUpData['home'].type = this.type;
-							this.sharedService.sharedObj.backUpData['home'].searchSelected = this.searchSelected;
-							this.sharedService.sharedObj.backUpData['home'].citySelected = this.citySelected;
-							if(!(this.sharedService.sharedObj.backUpData['home'].search)){
-								this.sharedService.sharedObj.backUpData['home'].search = {};
+		};
+		var type = (this.type === "All")? "" : this.type ;
+		var city = (this.citySelected.city !== undefined)?this.citySelected.city:"" ;
+		var location = (this.citySelected.location !== undefined)?this.citySelected.location:"" ;
+		var limit = 10;
+		if(this.type === "All")
+			limit = 3;
+		var sale = {count: this.searchResponse.sale.count, skip: this.searchResponse.sale.skip, limit: limit},
+		buy = {count: this.searchResponse.buy.count, skip: this.searchResponse.buy.skip, limit: limit},
+		bid = {count: this.searchResponse.bid.count, skip: this.searchResponse.bid.skip, limit: limit},
+		service = {count: this.searchResponse.service.count, skip: this.searchResponse.service.skip, limit: limit};
+		var userFilter = this.sharedService.sharedObj.userFilter;
+		this.commonService.enduserService.searchload(queries,type,city,location,sale,buy,bid,service,userFilter)
+		.subscribe( data => {
+			if(data.chatCount){
+				this.chats.count = data.chatCount;
+			}
+			
+			this.sharedService.sharedObj.containerContext.bidIsLive = data.bidIsLive;        
+			if(data.statusCode === 'F'){
+				if(data.noSubscription){
+				  this.sharedService.noSubscriptionMessageBox(data.msg,function(){
+					that.router.navigateByUrl('/Container/BuySubscription');
+				  });
+				}
+				else if(data.noAddress){
+				  this.sharedService.noAddressMessageBox(data.msg,function(){
+					that.router.navigateByUrl('/Container/Address/blank/create');
+				  });
+				}
+				else{
+				  var message = "Unable to load data.";
+				  if(data.msg)
+					message = data.msg;
+				  this.sharedService.openMessageBox("E",message,null);
+				}
+			}
+			else{
+							if(data.completed){
+								this.noMoreData = true;
 							}
-							this.sharedService.sharedObj.backUpData['home'].search[this.type] = {};
-							this.sharedService.sharedObj.backUpData['home'].search[this.type].condition = ((this.city)?this.city:'') +'/'+ ((this.search)?this.search:'');
-							this.sharedService.sharedObj.backUpData['home'].search[this.type].searchResponse = this.searchResponse;
-							this.sharedService.sharedObj.backUpData['home'].search[this.type].results = this.results;
-							this.sharedService.sharedObj.backUpData['home'].search[this.type].noMoreData = this.noMoreData;	
-						}
-					  
-					  this.loading = false;
-				  }
-          document.getElementById("homeSearchLoaderContainer").style.display = "none";
-			  });
+							this.searchResponse = data;
+							this.results = this.results.concat(data.results);
+							jQuery.each(this.results,function(i,v){
+							  if(!(v.data)){
+								//v.fav = false;
+								//v.price = v.net_price;
+								v.currency = "INR";
+								v.no_image = "1";
+								var transc_id = "";
+								if(v.type === "Sale") transc_id = v.sell_id; 
+								if(v.type === "Buy") transc_id = v.buy_req_id; 
+								if(v.type === "Bid") transc_id = v.bid_id; 
+								if(v.type === "Service") transc_id = v.service_id;
+								//that.getFav(v,transc_id);
+								v.busy = true;
+								that.getResultImage(v,transc_id);
+							  }
+						  });
+						  this.results.sort((a: any, b: any)=> {
+													//var fromd = a.createdAt.split('/');
+													//var fromdObj = new Date(fromd[2]+'-'+fromd[1]+'-'+fromd[0]);
+													//var tod = b.createdAt.split('/');
+													//var todObj = new Date(tod[2]+'-'+tod[1]+'-'+tod[0]);
+													var fromdObj = new Date(a.createdAt);
+													var todObj = new Date(b.createdAt);
+													if (fromdObj < todObj)
+													  return 1;
+													if (fromdObj > todObj)
+													  return -1;
+													return 0;
+												});//descending sort
+												
+							if(this.sharedService.sharedObj.backUpData){
+								this.sharedService.sharedObj.backUpData['home'].type = this.type;
+								this.sharedService.sharedObj.backUpData['home'].searchSelected = this.searchSelected;
+								this.sharedService.sharedObj.backUpData['home'].citySelected = this.citySelected;
+								if(!(this.sharedService.sharedObj.backUpData['home'].search)){
+									this.sharedService.sharedObj.backUpData['home'].search = {};
+								}
+								this.sharedService.sharedObj.backUpData['home'].search[this.type] = {};
+								this.sharedService.sharedObj.backUpData['home'].search[this.type].condition = ((this.city)?this.city:'') +'/'+ ((this.search)?this.search:'');
+								this.sharedService.sharedObj.backUpData['home'].search[this.type].searchResponse = this.searchResponse;
+								this.sharedService.sharedObj.backUpData['home'].search[this.type].results = this.results;
+								this.sharedService.sharedObj.backUpData['home'].search[this.type].noMoreData = this.noMoreData;	
+							}
+						  
+						  this.loading = false;
+			}
+			document.getElementById("homeSearchLoaderContainer").style.display = "none";
+		});
 	  }
 	  
 	  onSearch(evt){
@@ -467,70 +462,6 @@ export class AppHome implements OnInit {
 					}
 			  });
 	 }
-	  
-	  
-	  
-	/*onSearch(evt){
-		var that = this;
-		this.results = [];
-		if(this.type == "Sell"){
-			this.commonService.enduserService.getSell("","","")
-			  .subscribe( data => {			  
-					  this.results = data.results;
-					  jQuery.each(this.results,function(i,v){
-							v.fav = false;
-							v.type = "Sale";
-							v.price = v.net_price;
-							v.currency = "INR";
-							v.no_image = "1";
-							that.getResultImage(v,v.sell_id);
-					  });
-			  });
-		}
-		if(this.type == "Buy"){
-			this.commonService.enduserService.getBuy("","","")
-			  .subscribe( data => {			  
-					  this.results = data.results;
-					  jQuery.each(this.results,function(i,v){
-							v.fav = false;
-							v.type = "Buy";
-							v.price = v.net_price;
-							v.currency = "INR";
-							v.no_image = "1";
-							that.getResultImage(v,v.buy_req_id);
-					  });
-			  });
-		}
-		if(this.type == "Bid"){
-			this.commonService.enduserService.getBid("","","")
-			  .subscribe( data => {			  
-					  this.results = data.results;
-					  jQuery.each(this.results,function(i,v){
-							v.fav = false;
-							v.type = "Bid";
-							v.price = v.net_price;
-							v.currency = "INR";
-							v.no_image = "1";
-							that.getResultImage(v,v.bid_id);
-					  });
-			  });
-		}
-		if(this.type == "All"){
-			this.commonService.enduserService.getSell("","","")
-			  .subscribe( data => {			  
-					  this.results = data.results;
-					  jQuery.each(this.results,function(i,v){
-							v.fav = false;
-							v.type = "Sale";
-							v.price = v.net_price;
-							v.currency = "INR";
-							v.no_image = "1";
-							that.getResultImage(v,v.sell_id);
-					  });
-			  });
-		}
-		
-	}*/
 	
 	suggestCity(evt){
 		var key = evt.keyCode;
@@ -609,55 +540,7 @@ export class AppHome implements OnInit {
 	}
 	
 	onFav(evt,item){
-		debugger;
-		/*if(item.sell_id || item.buy_req_id || item.bid_id || item.service_id){
-			var newFav:any = {};
-			newFav.user_id = this.userDetail.user_id;		
-			newFav.deleted = false;		
-			newFav.createdBy = this.userDetail.user_id;
-			newFav.changedBy = this.userDetail.user_id;
-			if(item.sell_id){
-				newFav.bid_sell_buy_id = item.sell_id;
-				newFav.type = "Sale";
-			}
-			if(item.buy_req_id){
-				newFav.bid_sell_buy_id = item.buy_req_id;
-				newFav.type = "Buy";
-			}
-			if(item.bid_id){
-				newFav.bid_sell_buy_id = item.bid_id;
-				newFav.type = "Bid";
-			}
-			if(item.service_id){
-				newFav.bid_sell_buy_id = item.service_id;
-				newFav.type = "Service";
-			}
-			
-			if(evt.target.id == "fav"){
-				newFav._id = item.fav_id;
-				this.commonService.enduserService.deleteFav(newFav)
-					.subscribe( res => {					    
-						if(res.ok === 1){
-							alert("Removed");
-						}
-						else{
-							alert("Cannot remove.");
-						}
-					});			
-			}
-			if(evt.target.id == "not-fav"){			
-				this.commonService.enduserService.addFav(newFav)
-					.subscribe( res => {					    
-						if(res.statusCode=="S"){
-							
-							alert("Added");
-						}
-						else{
-							alert("Cannot add.");
-						}
-					});
-			}
-		}*/
+		
 	}
 	
 	reloadItems(){
@@ -712,11 +595,21 @@ export class AppHome implements OnInit {
 	controlHomePageFooter(elem){
 		var scroll = elem.scrollTop();
 		if (scroll > this.lastScroll) {	//When scrolled down	
-			jQuery('#homeFooter').removeClass('on-canvas');
+			jQuery('#homeFooter').removeClass('on-canvas-home');
 		}
 		else{ //When scrolled up	
-			jQuery('#homeFooter').addClass('on-canvas');
+			jQuery('#homeFooter').addClass('on-canvas-home');
 		}
+	}
+	
+	onMyPost(evt){
+		this.router.navigateByUrl('/Container/MyPost');
+	}
+	onPost(evt){
+		this.showSubMenu = !(this.showSubMenu);
+	}
+	onChat(evt){
+		this.router.navigateByUrl('/Container/ChatInbox');
 	}
 	
 	onNav(evt){
@@ -724,19 +617,20 @@ export class AppHome implements OnInit {
 		var that = this;
 		switch(link){									
 			case "sell_link":
-				that.router.navigateByUrl('/Container/Sell');
+				that.sharedService.sharedObj.postItem = {};
+				that.router.navigateByUrl('/Container/Sell/new');
 				break;
 			case "bid_link":
-				that.router.navigateByUrl('/Container/Bid');
+				that.sharedService.sharedObj.postItem = {};
+				that.router.navigateByUrl('/Container/Bid/new');
 				break;
 			case "buy_link":
-				that.router.navigateByUrl('/Container/Buy');
+				that.sharedService.sharedObj.postItem = {};
+				that.router.navigateByUrl('/Container/Buy/new');
 				break;
 			case "service_link":
-				that.router.navigateByUrl('/Container/Service');
-				break;
-			case "chat_link":
-				that.router.navigateByUrl('/Container/ChatInbox');
+				that.sharedService.sharedObj.postItem = {};
+				that.router.navigateByUrl('/Container/Service/new');
 				break;
 		}
 	}
@@ -788,8 +682,5 @@ export class AppHome implements OnInit {
 	ngOnDestroy(){
 		clearInterval(this.newChatTimer);
 	}
-	
-	
-	
-	
+		
 }
