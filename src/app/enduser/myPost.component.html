@@ -1,0 +1,11 @@
+<div style="height:100%;">
+	<nav mat-tab-nav-bar>
+	  <a style="width:24%;" mat-tab-link (click)="onTabClick($event)" [active]="activeLink == 'Sell'"> Sell </a>
+	  <a style="width:24%;" mat-tab-link (click)="onTabClick($event)" [active]="activeLink == 'Buy'"> Buy </a>
+	  <a style="width:24%;" mat-tab-link (click)="onTabClick($event)" [active]="activeLink == 'Bid'"> Bid </a>
+	  <a style="width:24%;" mat-tab-link (click)="onTabClick($event)" [active]="activeLink == 'Service'"> Service </a>
+	</nav>
+	<div style="height:100%; padding:5px; overflow-y:auto;">
+		<router-outlet ></router-outlet>
+	</div>		
+</div>
