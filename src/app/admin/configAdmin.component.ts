@@ -98,7 +98,8 @@ export class AppConfigAdmin implements OnInit {
 		{day:"Wednesday",selected:false},
 		{day:"Thursday",selected:false},
 		{day:"Friday",selected:false},
-		{day:"Saturday",selected:false}
+		{day:"Saturday",selected:false},
+      {day:"Sunday",selected:false}
 	  ];
 	  this.selectedParam = selectedParam;
 	  this.showDaysDialog = true;
