@@ -1,7 +1,6 @@
 <div class="scrollContainerStyle" style="height:100%; overflow-y: auto; overflow-x: hidden;" (scroll)="handleScroll($event)">
 	<div class="container">
-	   <div style="">
-			
+	   <div style="">			
             <div class="row">
                 <div class="col-sm-4" >                   
 				   <div style="padding-left:10px; padding-right:10px; padding-top:10px;">
@@ -52,7 +51,7 @@
 						</form>
 					</div>
                  </div>-->
-             </div>
+            </div>
 		</div>
 	</div>
 
@@ -66,7 +65,7 @@
 	<div class="container" style="padding-right: 0px; padding-left: 0px;">			
 			<div class="container-fluid">
 			  <div class="row">
-          <div class="col-xs-12 col-md-6 col-lg-4" *ngIf="searchResponse.nextBidMsg">
+				<div class="col-xs-12 col-md-6 col-lg-4" *ngIf="searchResponse.nextBidMsg">
 					<div style="padding: 4px; display: flex; justify-content: center; width:100%; height:100%;">
 						<div class="resultItemWrapper" style="position:relative;" >
 							<div class="resultItem">
@@ -78,12 +77,11 @@
           
 				<div class="col-xs-12 col-md-6 col-lg-4" *ngFor="let result of results">
 					<tile-template [item]="result" [parentComponent]="self" (openItem)="onItemSelect($event)"></tile-template>
-				</div>
-          
+				</div>         
           
 			  </div>
 			</div>
-      <div id="homeSearchLoaderContainer" style="display:none;">
+			<div id="homeSearchLoaderContainer" style="display:none;">
 				<div style="width:100%; height:100%; display:flex; justify-content:center; align-items:center;">
 					<div>
 						<div id="homeSearchLoader" class="homeSearchLoader"></div>
@@ -94,7 +92,44 @@
 	</div>
   
   <!-- Home Page Footer -->
-	<div id="homeFooter" class="homePageFooterStyle on-canvas">
+	<div id="homeFooter" class="homePageFooter on-canvas-home" style="">
+		<div id="homeFooterSubMenu" class="homeFooterSubMenu" [hidden]="!showSubMenu">			
+			<div id="{{screen.id}}" *ngFor="let screen of screenAccess" [hidden]="!(screen.applicable) || !(screen.for_nav)" class="homeSubMenuButtonStyle" (click)="onNav($event)">
+				<div style="width:38px; height:38px; display:flex; align-items:center; justify-content:center; position:relative;">					
+					<img src="{{screen.iconSrc}}" style="width:0px;"/> 
+				</div>
+				<span style="font-size:14px; text-align:center;">{{screen.name}}</span>
+			</div>	
+		</div>
+	
+		<div class="homeFooterBackground" style="">	
+		</div>
+		<div class="homeFooterMenu">	
+			<div class="homeFooterMenuButton" (click)="onMyPost($event)">
+				<div class="homeFooterMenuButtonImg">
+					<img src="assets/folder_2.png" style="width:38px;"/> 
+				</div>
+				<span style="font-size:14px; text-align:center;">My Posts</span>
+			</div>
+
+			<div class="homeFooterMenuButtonCenter" (click)="onPost($event)">
+				<div class="homeFooterMenuButtonCenterImg">
+					<img src="assets/add_plus_2.png" style="width:50px;"/> 
+				</div>
+				<span style="font-size:14px; text-align:center;">Post</span>
+			</div>
+			
+			<div class="homeFooterMenuButton" (click)="onChat($event)"*ngIf="chats.access">
+				<div class="homeFooterMenuButtonImg">
+					<span *ngIf="chats.count > 0" style="background:#E71B03; color:white; border: 2px solid #E71B03; border-radius:10px; width:16px; text-align:center; position:absolute; top:-2px; right:-10px; font-weight:bold;">{{chats.count}}</span>
+					<img src="assets/chat_icon.png" style="width:38px;"/> 
+				</div>
+				<span style="font-size:14px; text-align:center;">Chat</span>
+			</div>
+		</div>
+	</div>  
+  
+	<!--<div id="homeFooter" class="homePageFooterStyle on-canvas">
 		<div style="padding:2px; display:flex; justify-content:space-around;">			
 			<div id="{{screen.id}}" *ngFor="let screen of screenAccess" [hidden]="!(screen.applicable) || !(screen.for_nav)" class="homeMenuButtonStyle" (click)="onNav($event)">
 				<div style="width:38px; height:38px; display:flex; align-items:center; justify-content:center; position:relative;">
@@ -104,6 +139,5 @@
 				<span style="font-size:14px; text-align:center;">{{screen.name}}</span>
 			</div>	
 		</div>
-	</div>
-
+	</div>-->
 </div>
