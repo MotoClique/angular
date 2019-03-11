@@ -116,3 +116,52 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+
+
+.homePageFooter{
+	position:fixed; top:100%; left:0; bottom:0; width:100%; height:0px; z-index:1; display: flex; flex-direction: column; justify-content: flex-end;
+}
+.on-canvas-home{
+	top: auto !important;
+    height: 150px !important;
+}
+.on-canvas-home .homeFooterBackground{
+	height: 65px !important;
+}
+.on-canvas-home .homeFooterMenuButton, .on-canvas-home .homeFooterMenuButtonCenter{
+	display: flex !important;
+}
+.homeFooterBackground{
+	background-color:#F8F7F6; box-shadow: 0 2px 30px 0 rgba(0,0,0,0.14), 0 2px 30px -2px rgba(0,0,0,0.12), 0 1px 30px 0 rgba(0,0,0,0.2); z-index: 2; width: 100%; height: 0px; position: absolute; bottom: 0;
+}
+.homeFooterMenu{
+	padding:2px; display:flex; justify-content:space-around; align-items: flex-end;
+}
+.homeFooterMenuButton{
+	cursor: pointer; line-height: 25px; max-width: 80px; height: 60px; background-color:#F8F7F6; width: 100%; display: none; flex-direction: column; align-items: center; z-index:3;
+}
+.homeFooterMenuButtonImg{
+	width:38px; height:38px; display:flex; align-items:center; justify-content:center; position:relative;
+}
+.homeFooterMenuButtonCenter{
+	cursor: pointer; border-radius: 35px; line-height: 25px; max-width: 80px; background-color:#F8F7F6; width: 100%; display: none; flex-direction: column; align-items: center; z-index:3;
+}
+.homeFooterMenuButtonCenterImg{
+	width:60px; height:60px; display:flex; align-items:center; justify-content:center; position:relative;
+}
+.homeFooterSubMenu{
+	display:flex; justify-content:space-around; background-color:#F8F7F6; height: inherit;
+}
+.on-canvas-home .homeFooterSubMenu img{
+	width: 38px !important;
+}
+.homeSubMenuButtonStyle{
+	width:100%; height: 60px; max-width:60px; cursor:pointer; display:flex; flex-direction:column; align-items: center; border-radius:5px; padding:2px; line-height:15px;
+}
+.homeSubMenuButtonStyle:hover, .homeSubMenuButtonStyle:active {
+	/*background-color: #808B96;
+	color: white;*/
+}
+
+
