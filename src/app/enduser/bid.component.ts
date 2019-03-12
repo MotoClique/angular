@@ -277,14 +277,10 @@ export class AppBid implements OnInit {
 	  }
 	  
 	  openItem(item){
-		/*this.detail = true;
-		this.editMode = false;
-		this.screenMode = {add:false, edit:false};
-		this.dynamicFormComponent.generateDisplayField("Bid",item);
-		this.imageTemplateComponent.getTransactionThumbnails(item.bid_id);
-		this.item = item;
-		this.item.transactionTyp = "Bid";*/
-		this.router.navigate(['/Container/Bid',item.bid_id]);
+		if(item.user_id == this.userDetail.user_id)
+			this.router.navigate(['/Container/Bid',item.bid_id,'edit']);
+		else
+			this.router.navigate(['/Container/Bid',item.bid_id]);
 	  }
 	  
 	  onPrdTypSelect(evt,prdTyp){
@@ -860,10 +856,10 @@ export class AppBid implements OnInit {
 						
 						//this.sharedService.showFooter();
 					}
-					this.sharedService.hideFooter();
+					this.sharedService.hideMyPostFooter();
 				}
 				else{
-					this.sharedService.showFooter();
+					this.sharedService.showMyPostFooter();
 				}
 			}
 		//}
