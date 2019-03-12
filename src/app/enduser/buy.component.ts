@@ -260,14 +260,10 @@ export class AppBuy implements OnInit {
 	  }
 	  
 	  openItem(item){
-		/*this.detail = true;
-		this.editMode = false;
-		this.screenMode = {add:false, edit:false};
-		this.dynamicFormComponent.generateDisplayField("Buy",item);
-		this.imageTemplateComponent.getTransactionThumbnails(item.buy_req_id);
-		this.item = item;
-		this.item.transactionTyp = "Buy";*/
-		this.router.navigate(['/Container/Buy',item.buy_req_id]);
+     if(item.user_id == this.userDetail.user_id)
+			this.router.navigate(['/Container/Buy',item.buy_req_id,'edit']);
+		else
+			this.router.navigate(['/Container/Buy',item.buy_req_id]);
 	  }
 	  
 	  onPrdTypSelect(evt,prdTyp){
@@ -850,10 +846,10 @@ export class AppBuy implements OnInit {
 						
 						//this.sharedService.showFooter();
 					}
-					this.sharedService.hideFooter();
+					this.sharedService.hideMyPostFooter();
 				}
 				else{
-					this.sharedService.showFooter();
+					this.sharedService.showMyPostFooter();
 				}
 			}
 		//}
