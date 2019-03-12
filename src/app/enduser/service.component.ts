@@ -217,15 +217,10 @@ export class AppService implements OnInit {
 	  }
 	  
 	  openItem(item){
-		/*this.detail = true;
-		this.editMode = false;
-		this.screenMode = {add:false, edit:false};
-		this.item = item;
-		this.serviceFormComponent.loadService(item);
-		this.imageTemplateComponent.getTransactionThumbnails(item.service_id);
-		
-		this.item.transactionTyp = "Service";*/
-		this.router.navigate(['/Container/Service',item.service_id]);
+		if(item.user_id == this.userDetail.user_id)
+			this.router.navigate(['/Container/Service',item.service_id,'edit']);
+		else
+			this.router.navigate(['/Container/Service',item.service_id]);
 	  }
 	  
 	  onPrdTypSelect(evt,prdTyp){
@@ -660,10 +655,10 @@ export class AppService implements OnInit {
 						
 						//this.sharedService.showFooter();
 					}
-					this.sharedService.hideFooter();
+					this.sharedService.hideMyPostFooter();
 				}
 				else{
-					this.sharedService.showFooter();
+					this.sharedService.showMyPostFooter();
 				}
 			}
 		//}
