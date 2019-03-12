@@ -1,11 +1,32 @@
 <div style="height:100%;">
 	<nav mat-tab-nav-bar>
-	  <a style="width:24%;" mat-tab-link (click)="onTabClick($event)" [active]="activeLink == 'Sell'"> Sell </a>
-	  <a style="width:24%;" mat-tab-link (click)="onTabClick($event)" [active]="activeLink == 'Buy'"> Buy </a>
-	  <a style="width:24%;" mat-tab-link (click)="onTabClick($event)" [active]="activeLink == 'Bid'"> Bid </a>
-	  <a style="width:24%;" mat-tab-link (click)="onTabClick($event)" [active]="activeLink == 'Service'"> Service </a>
+	  <a *ngFor="let screen of screenAccess"  [ngStyle]="{'width.%': (100/screenAccess.length)}" (click)="onTabClick($event)" [active]="activeLink == screen.name" mat-tab-link>{{screen.name}}</a>
 	</nav>
 	<div style="height:100%; padding:5px; overflow-y:auto;">
 		<router-outlet ></router-outlet>
-	</div>		
+	</div>
+	
+	
+	<!-- My Post Page Footer -->
+	<div id="myPostFooter" class="myPostPageFooter on-canvas-myPost" style="">
+		<div id="myPostFooterSubMenu" class="myPostFooterSubMenu" [hidden]="!showSubMenu">			
+			<div id="{{screen.id}}" *ngFor="let screen of screenAccess" class="myPostSubMenuButtonStyle" (click)="onNav($event)">
+				<div style="width:38px; height:38px; display:flex; align-items:center; justify-content:center; position:relative;">					
+					<img src="{{screen.iconSrc}}" style="width:0px;"/> 
+				</div>
+				<span style="font-size:14px; text-align:center;">{{screen.name}}</span>
+			</div>	
+		</div>	
+		
+		<div class="myPostFooterBackground" style="">	
+		</div>
+		<div class="myPostFooterMenu">				
+			<div class="myPostFooterMenuButtonCenter" (click)="onPost($event)">
+				<div class="myPostFooterMenuButtonCenterImg">
+					<img src="assets/add_plus_2.png" style="width:50px;"/> 
+				</div>
+				<span style="font-size:14px; text-align:center;">Post</span>
+			</div>
+		</div>
+	</div>
 </div>
