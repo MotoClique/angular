@@ -259,14 +259,10 @@ export class AppSell implements OnInit {
 	  }
 	  
 	  openItem(item){
-		this.router.navigate(['/Container/Sell',item.sell_id]);
-		/*this.detail = true;
-		this.editMode = false;
-		this.screenMode = {add:false, edit:false};
-		this.dynamicFormComponent.generateDisplayField("Sell",item);
-		this.imageTemplateComponent.getTransactionThumbnails(item.sell_id);
-		this.item = item;
-		this.item.transactionTyp = "Sale";*/
+		if(item.user_id == this.userDetail.user_id)
+			this.router.navigate(['/Container/Sell',item.sell_id,'edit']);
+		else
+			this.router.navigate(['/Container/Sell',item.sell_id]);
 	  }
 	  
 	  onPrdTypSelect(evt,prdTyp){
@@ -835,10 +831,10 @@ export class AppSell implements OnInit {
 						
 						//this.sharedService.showFooter();
 					}
-					this.sharedService.hideFooter();
+					this.sharedService.hideMyPostFooter();
 				}
 				else{
-					this.sharedService.showFooter();
+					this.sharedService.showMyPostFooter();
 				}
 			}
 		//}
