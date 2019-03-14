@@ -64,7 +64,7 @@
 									<div *ngIf="item.sold" style="width: 100%; display: flex; justify-content: center; position: absolute; top: 25px; z-index: 2;">
 										<img src="assets/sold_out.png">
 									</div>
-									<div class="portrait">
+									<div id="image_portrait" class="portrait">
 										<img [hidden]="currentImage.no_image" src="{{currentImage.data}}" style="cursor:pointer;" (click)="previewImage(currentImage.data)">
 										<img [hidden]="!currentImage.no_image" src="assets/noimage.png" style="max-width:200px; opacity:0.5;">
 									</div>
