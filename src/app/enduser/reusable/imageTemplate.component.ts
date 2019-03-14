@@ -59,6 +59,42 @@ export class AppImageTemplate implements OnInit {
 	   /*jQuery('#imageWholeContainer').load(function(e){		   
 		   that.resizeImage();
 	   });*/
+      
+      //Image Slider Effect
+		var touchstartx: number;
+		var touchmovex: number;
+		var movedx: number;
+		var image_portrait: any = document.getElementById('image_portrait');
+		var image_frame: any = image_portrait.parentNode;		
+		document.getElementById('image_portrait').addEventListener('touchstart', function(evt){
+			touchstartx =  Number(evt.touches[0].pageX);
+		});
+		document.getElementById('image_portrait').addEventListener('touchmove', function(evt){
+			touchmovex =  Number(evt.touches[0].pageX);
+			movedx = touchmovex - touchstartx;
+			image_portrait.style.transform = 'translate3d('+movedx+'px,0,0)';
+		});
+		document.getElementById('image_portrait').addEventListener('touchend', function(evt){
+			var slideFrameWidth: number = image_frame.offsetWidth;
+			if(movedx < 0){//Next
+				if(Math.abs(movedx) > (slideFrameWidth/3)){
+					//evt.srcElement.setAttribute('src',"");
+					that.nextImage(null);
+					//that.currentImage = {};
+				}
+			}
+			else{//Previous
+				if(Math.abs(movedx) > (slideFrameWidth/3)){
+					//evt.srcElement.setAttribute('src',"");
+					that.prevImage(null);
+					//that.currentImage = {};
+				}
+			}
+			image_portrait.style.transform = '';
+			touchstartx = 0;
+			touchmovex = 0;
+			movedx = 0;
+		});
     }
 	
 	startTimer(validTo){
