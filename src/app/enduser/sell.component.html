@@ -57,7 +57,7 @@
 				<img src="assets/chat_icon.png" style="width:30px;"/> Chat Now!
 			</div>
       
-      <div style="width:70px; position:absolute; bottom:10px; right:10px; cursor:pointer; z-index:2; display:flex; flex-direction:column; align-items:center; justify-content:center;" [hidden]="(!(screenMode.add) && !(screenMode.edit) && (item.user_id !== userDetail.user_id))" >
+      <!--<div style="width:70px; position:absolute; bottom:10px; right:10px; cursor:pointer; z-index:2; display:flex; flex-direction:column; align-items:center; justify-content:center;" [hidden]="(!(screenMode.add) && !(screenMode.edit) && (item.user_id !== userDetail.user_id))" >
 				<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 12px; line-height: 20px; width: 55px;" *ngIf="(screenMode.add) || (screenMode.edit)" (click)="onSellSave($event)">
 					<span style="font-size: 25px; color: #E71B03;" class="glyphicon glyphicon-floppy-disk"></span> Save
 				</div>
@@ -65,9 +65,9 @@
 				<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 12px; line-height: 20px; width: 55px;" *ngIf="(screenMode.edit)" (click)="onDeactivate($event)">
 					<span style="font-size: 25px; color: #E71B03;" class="glyphicon glyphicon-ban-circle"></span> Delete
 				</div>
-			</div>
-			<!--<div class="footerStyle" [hidden]="(!(screenMode.add) && !(screenMode.edit) && (item.user_id !== userDetail.user_id))">
-				<div class="row" style="padding: 3px;">
+			</div>-->
+			<div class="footerStyle" [hidden]="(!(screenMode.add) && !(screenMode.edit) && (item.user_id !== userDetail.user_id))">
+				<div class="row" style="">
 					<div class="col-xs-6">
 						   <button type="submit" class="btn btn-default" style="width:100%;" *ngIf="(screenMode.add) || (!(screenMode.add) && !(screenMode.edit))" (click)="onSellCancel($event)">
 							   <span class="glyphicon glyphicon-remove"></span> Cancel
@@ -92,7 +92,7 @@
 						
 					 </div>
 			   </div>
-		   </div>-->
+		   </div>
 	</div>
 </div>
 
