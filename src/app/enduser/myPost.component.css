@@ -21,32 +21,25 @@
 
 
 .myPostPageFooter{
-	position:fixed; top:100%; left:0; bottom:0; width:100%; height:0px; z-index:1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center;
+	position:fixed; top:auto; left:0; bottom:0; width:100%; height:80px; z-index:1; display: none; flex-direction: column; justify-content: flex-end; align-items: center;
 }
 .on-canvas-myPost{
-	top: auto !important;
-    height: 190px !important;
-}
-.on-canvas-myPost .myPostFooterMenuButton, .on-canvas-myPost .myPostFooterMenuButtonCenter{
-	display: flex !important;
+	display: flex;
 }
 .myPostFooterBackground{
-	background-color:#F8F7F6; box-shadow: 0 2px 30px 0 rgba(0,0,0,0.14), 0 2px 30px -2px rgba(0,0,0,0.12), 0 1px 30px 0 rgba(0,0,0,0.2); z-index: 2; width: 100%; height: 0px; position: absolute; bottom: 0;
-}
-.on-canvas-myPost .myPostFooterBackground{
-	height: 65px !important;
+	background-color:#F8F7F6; box-shadow: 0 2px 30px 0 rgba(0,0,0,0.14), 0 2px 30px -2px rgba(0,0,0,0.12), 0 1px 30px 0 rgba(0,0,0,0.2); z-index: 2; width: 100%; height: 55px; position: absolute; bottom: 0;
 }
 .myPostFooterMenu{
 	padding:2px; display:flex; justify-content:space-around; align-items: flex-end; width:100%;
 }
 .myPostFooterMenuButtonCenter{
-	cursor: pointer; border-radius: 40px; line-height: 25px; max-width: 80px; background-color:#F8F7F6; box-shadow: 0 -1px 0px 0 rgba(0,0,0,0.14), 0 0px 0px 0 rgba(0,0,0,0.14), 0 -1.2px 0px 0 rgba(0,0,0,0.14), 0 0px 0px 0 rgba(0,0,0,0.14), 0 -4px 0px 0 rgba(0,0,0,0.14); width: 100%; display: none; flex-direction: column; align-items: center; z-index:3;
+	cursor: pointer; border-radius: 40px; line-height: 12px; max-width: 80px; background-color:#F8F7F6; width: 100%; display: flex; flex-direction: column; align-items: center; z-index:3;
 }
 .myPostFooterMenuButtonCenterImg{
-	width:75px; height:75px; display:flex; align-items:center; justify-content:center; position:relative;
+	width:65px; height:65px; display:flex; align-items:center; justify-content:center; position:relative;
 }
 .myPostFooterSubMenu{
-	display:flex; justify-content:space-around; background-color:#F8F7F6; box-shadow: 0 2px 30px 0 rgba(0,0,0,0.14), 0 2px 30px -2px rgba(0,0,0,0.12), 0 1px 30px 0 rgba(0,0,0,0.2); margin-bottom: 20px; width: 70%; border-bottom-left-radius: 30px; border-top-left-radius: 30px; border-bottom-right-radius: 30px; border-top-right-radius: 30px;
+	position:absolute; bottom: 100px; display:flex; justify-content:space-around; background-color:#F8F7F6; box-shadow: 0 2px 30px 0 rgba(0,0,0,0.14), 0 2px 30px -2px rgba(0,0,0,0.12), 0 1px 30px 0 rgba(0,0,0,0.2); width: 70%; border-bottom-left-radius: 30px; border-top-left-radius: 30px; border-bottom-right-radius: 30px; border-top-right-radius: 30px;
 }
 .on-canvas-myPost .myPostFooterSubMenu img{
 	width: 38px !important;
@@ -60,7 +53,7 @@
     border-style: solid;
     position: absolute;
     left: 50%;
-    bottom: 45%;
+    top: 100%;
     transform: translateX(-50%);
 }
 .myPostFooterSubMenu::after {
