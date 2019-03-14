@@ -59,7 +59,8 @@ export class AppHome implements OnInit {
 		noMoreData: boolean = false;
 		screenAccess:any = [];
 		newChatTimer:any;
-	
+    bidTimer: any;
+		bid_start_in: string = '';
 		chats: any = {count: 0, access: false};
 		showSubMenu: boolean = false;
 		postTabAccess: any =[];
@@ -372,7 +373,10 @@ export class AppHome implements OnInit {
 				this.chats.count = data.chatCount;
 			}
 			
-			this.sharedService.sharedObj.containerContext.bidIsLive = data.bidIsLive;        
+			this.sharedService.sharedObj.containerContext.bidIsLive = data.bidIsLive;
+      if(!(data.bidIsLive)){
+				this.startBidTimer(data.bidSlotFrom);
+			}
 			if(data.statusCode === 'F'){
 				if(data.noSubscription){
 				  this.sharedService.noSubscriptionMessageBox(data.msg,function(){
@@ -678,9 +682,42 @@ export class AppHome implements OnInit {
 			}
 		}
 	}
+  
+  startBidTimer(bidSlotFrom){
+		this.bid_start_in = '---';
+		if(this.bidTimer)
+			clearInterval(this.bidTimer);
+		if(bidSlotFrom){
+			var that = this;
+			that.bidTimer = setInterval(function(){
+				that.bid_start_in = '';
+				var current:any = new Date();				
+				var to:any = new Date(bidSlotFrom);
+				var milliseconds:number = to - current;
+				if(milliseconds > 0){
+					var seconds:any = (milliseconds / 1000) % 60;
+					seconds = parseInt(seconds) ;
+					var minutes:any  = (milliseconds / (1000*60)) % 60;
+					minutes = parseInt(minutes);
+					var hours:any = (milliseconds / (1000*60*60)) % 24;
+					hours = parseInt(hours);				
+					var days:any = (milliseconds / (1000*60*60*24));
+					days = parseInt(days);
+					
+					that.bid_start_in = (days+' days '+hours+' hrs '+minutes+' mins '+seconds+' secs').toString();
+				}
+				else{
+					//Refresh Bid Page
+					clearInterval(that.bidTimer);
+					that.reloadItems();
+				}
+			}, 1000);
+		}
+	}
 	
 	ngOnDestroy(){
 		clearInterval(this.newChatTimer);
+    clearInterval(this.bidTimer);
 	}
 		
 }
