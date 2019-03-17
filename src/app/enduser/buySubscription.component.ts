@@ -76,6 +76,7 @@ export class AppBuySubscription implements OnInit {
       }
 	
 	onBuy(evt,plan){
+		localStorage.setItem("lastRoute",this.router.url);
 		var item = jQuery.extend({},plan,this.buyItem);
 		item.amt_paid = plan.amount;
 		item.deleted = false;
