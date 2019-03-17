@@ -60,6 +60,10 @@ export class EndUserService {
 	  return this.sharedService.call('userSubMap/?user_id='+user_id+'&subscription_id='+subscription_id, "get", null, false);
   }
   
+  buySubscription(newSubscription){
+	  return this.sharedService.call('buySubscription', "post", newSubscription, false);
+  }
+  
   addSubscription(newSubscription){
 	  return this.sharedService.call('userSubMap', "post", newSubscription, false);
   }
