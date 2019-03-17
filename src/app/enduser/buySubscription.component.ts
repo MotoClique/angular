@@ -5,6 +5,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import {Router} from '@angular/router';
 import { CommonService } from '../common.service';
 import { SharedService } from '../shared.service';
+import { AuthenticationService } from '../authentication.service';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -46,7 +47,7 @@ export class AppBuySubscription implements OnInit {
 		@Input() buyItem;
 		@Input() parentComponent;
 
-      constructor(private router: Router, private http: Http, private commonService: CommonService, private sharedService: SharedService) {
+      constructor(private auth: AuthenticationService, private router: Router, private http: Http, private commonService: CommonService, private sharedService: SharedService) {
                                           
 	  }
      
@@ -87,18 +88,26 @@ export class AppBuySubscription implements OnInit {
 		this.buySubscription(item);
 	}
   
-   buySubscription(item){
-		this.commonService.enduserService.buySubscription(item)
-			.subscribe( data => {	
-			  if(data.statusCode == "F"){
-          var msg = "Unable to subscribe.";
-          if(data.msg)
-            msg = data.msg;
-					this.sharedService.openMessageBox("E",msg,null);
-				}
-				else{
-					debugger;
-				}		  
+	buySubscription(item){
+		var that = this;
+		var token = this.auth.getToken();
+		var header: any = {
+			headers: { Authorization: 'Bearer '+token }
+		};
+		this.http.post(that.auth.fullhost+"/api/public/node/buySubscription", item, header).toPromise().then(function(data: any){
+			if(data.statusCode == "F"){
+				var msg = "Unable to subscribe.";
+				if(data.msg)
+					msg = data.msg;
+				that.sharedService.openMessageBox("E",msg,null);
+			}
+			else{
+				document.open();
+				document.write(data._body);
+				document.close();
+			}		  
+		}).catch(function(err: any){
+			that.sharedService.openMessageBox("E","Cannot make payment currently.",null);
 		});
 	}
 	
