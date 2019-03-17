@@ -76,13 +76,27 @@ export class AppBuySubscription implements OnInit {
       }
 	
 	onBuy(evt,plan){
-		debugger;
 		var item = jQuery.extend({},plan,this.buyItem);
 		item.amt_paid = plan.amount;
 		item.deleted = false;
 		item.createdBy = this.userDetail.user_id;
 		item.changedBy = this.userDetail.user_id;
-		this.addSubscription(item);
+		this.buySubscription(item);
+	}
+  
+   buySubscription(item){
+		this.commonService.enduserService.buySubscription(item)
+			.subscribe( data => {	
+			  if(data.statusCode == "F"){
+          var msg = "Unable to subscribe.";
+          if(data.msg)
+            msg = data.msg;
+					this.sharedService.openMessageBox("E",msg,null);
+				}
+				else{
+					debugger;
+				}		  
+		});
 	}
 	
 	addSubscription(item){
