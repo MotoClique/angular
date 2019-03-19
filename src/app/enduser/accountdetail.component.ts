@@ -196,5 +196,8 @@ export class AppAccountDetail implements OnInit {
 		//}
 	}
 	
+	onEmailIDChangeClick(){
+		
+	}
 	
 }
