@@ -3,11 +3,7 @@
             <form id="account_form" class="form-horizontal">
                 <div class="form-group">
                     <div class="form-inline">
-                        <!--<label class="control-label col-sm-2" for="full_name">Name:</label>
-                        <div class="col-sm-10">
-                            <input style="width: 100%;" type="text" [disabled]="disabledMode" [value] = "userDetail.name" (input) = "userDetail.name = $event.target.value" class="form-control" id="full_name" placeholder="Enter Full Name">
-                        </div>-->
-						
+                       
 						<div class="col-sm-12">
 							<mat-form-field style="width: 100%;">
 								<input matInput placeholder="Name" type="text" [disabled]="disabledMode" [(ngModel)] = "userDetail.name" name="name" required>
@@ -17,14 +13,10 @@
                 </div>
                 <div class="form-group">
                     <div class="form-inline">
-                        <!--<label class="control-label col-sm-2" for="mobile">Mobile#:</label>
-                        <div class="col-sm-10">
-                            <input style="width: 100%;" type="text" [disabled]="disabledMode" maxlength="10" [value] = "userDetail.mobile" (input) = "userDetail.mobile = $event.target.value" class="form-control" id="mobile" placeholder="Enter Mobile Number" (keyup)="onMobileEnter($event)">
-                        </div>-->
-						
+                       						
 						<div class="col-sm-12">
 							<mat-form-field style="width: 100%;">
-								<input matInput placeholder="Mobile#" type="text" [disabled]="disabledMode" maxlength="10" [(ngModel)] = "userDetail.mobile" name="mobile" (keyup)="onMobileEnter($event)" required>
+								<input matInput placeholder="Mobile#" type="text" [disabled]="true" maxlength="10" [(ngModel)] = "userDetail.mobile" name="mobile" (keyup)="onMobileEnter($event)" required>
 							</mat-form-field>
 						</div>
                     </div>
@@ -38,7 +30,7 @@
 						
 						<div class="col-sm-12">
 							<mat-form-field style="width: 100%;">
-								<input matInput placeholder="Email ID" type="email" [disabled]="disabledMode" [(ngModel)] = "userDetail.email" name="email" required>
+								<input matInput placeholder="Email ID" type="email" [disabled]="true" [(ngModel)] = "userDetail.email" name="email" required>
 							</mat-form-field>
 						</div>
                     </div>
@@ -126,6 +118,10 @@
 						   </button>
 					</div>
 					<div class="col-xs-6" style="display:flex; justify-content:flex-end;">
+            
+            <button [hidden]="disabledMode" class="btn btn-default" style="width:100%;" (click)="onEmailIDChangeClick()">
+							<span class="glyphicon glyphicon-envelope"></span> Update Email ID
+						</button>
             
 						<button [hidden]="disabledMode" class="btn btn-default" style="width:100%;" (click)="onPasswordChangeClick()">
 							<span class="glyphicon glyphicon-lock"></span> Change Password
