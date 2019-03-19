@@ -22,7 +22,7 @@
 				  </button>
 				  <div style="display:none;" class="dropdown-content">
 					<div style="display: flex;  flex-direction: column;">
-						<button [disabled]="!enableAccount" style="text-align:left; text-indent:5px; padding: 10px;" class="btn btn-link" (click)="onNameClick($event)">{{userDetail.name}}</button>
+						<button [disabled]="!enableAccount" style="text-align:left; text-indent:5px; padding: 10px;" class="btn btn-link" (click)="onNameClick($event)">{{(userDetail.name)?userDetail.name:'My Profile'}}</button>
 						<button *ngIf="enableAddress" style="text-align:left; text-indent:5px; padding: 10px;" class="btn btn-link" (click)="onAddressClick($event)">Address</button>
 						<button *ngIf="enableSubscription" style="text-align:left; text-indent:5px; padding: 10px;" class="btn btn-link" (click)="onSubscriptionClick($event)">Subscription</button>
 						<button *ngIf="enableAlert" style="text-align:left; text-indent:5px; padding: 10px;" class="btn btn-link" (click)="onAlertClick($event)">Alerts</button>
