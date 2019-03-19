@@ -38,7 +38,7 @@
 											</mat-radio-group>
 											
 											<mat-form-field style="width:100%;" *ngIf="field.field_type === 'textarea'">
-												<textarea matInput placeholder="{{field.field}}" maxlength="260" rows="2" [(ngModel)]="field.value" name="{{field.name}}" required="{{field.field_required}}" [disabled]="!field.editable" [hidden]="!field.visible"></textarea>
+												<textarea matInput placeholder="{{field.field}}" maxlength="260" rows="4" [(ngModel)]="field.value" name="{{field.name}}" required="{{field.field_required}}" [disabled]="!field.editable" [hidden]="!field.visible"></textarea>
 											</mat-form-field>
 											
 											<mat-form-field style="width:100%;" *ngIf="field.field_type === 'date'" (click)="odp.open()">
@@ -77,7 +77,7 @@
 												<input matInput type="text" placeholder="{{field.field}}" [(ngModel)]="field.value" name="{{field.name}}" [disabled]=true [hidden]="!field.visible">
 											</mat-form-field>
 											<mat-form-field style="width:100%;" *ngIf="field.field_path === 'note'">
-												<textarea matInput placeholder="{{field.field}}" maxlength="260" rows="3" [(ngModel)]="field.value" name="{{field.name}}" required="{{field.field_required}}" [disabled]=true [hidden]="!field.visible"></textarea>
+												<textarea matInput placeholder="{{field.field}}" maxlength="260" rows="4" [(ngModel)]="field.value" name="{{field.name}}" required="{{field.field_required}}" [disabled]=true [hidden]="!field.visible"></textarea>
 											</mat-form-field>
 									   </div>
 								   </div>
