@@ -525,16 +525,28 @@ export class AppHome implements OnInit {
 		}
 		
 		if(item.type == "Sale"){
-			this.router.navigate(['/Container/Sell',item.sell_id]);
+			if(item.user_id == this.userDetail.user_id)
+				this.router.navigate(['/Container/Sell',item.sell_id,'edit']);
+			else
+				this.router.navigate(['/Container/Sell',item.sell_id]);
 		}
 		else if(item.type == "Buy"){
-			this.router.navigate(['/Container/Buy',item.buy_req_id]);
+			if(item.user_id == this.userDetail.user_id)
+				this.router.navigate(['/Container/Buy',item.buy_req_id,'edit']);
+			else
+				this.router.navigate(['/Container/Buy',item.buy_req_id]);
 		}
 		else if(item.type == "Bid"){
-			this.router.navigate(['/Container/Bid',item.bid_id]);
+			if(item.user_id == this.userDetail.user_id)
+				this.router.navigate(['/Container/Bid',item.bid_id,'edit']);
+			else
+				this.router.navigate(['/Container/Bid',item.bid_id]);
 		}
 		else if(item.type == "Service"){
-			this.router.navigate(['/Container/Service',item.service_id]);
+			if(item.user_id == this.userDetail.user_id)
+				this.router.navigate(['/Container/Service',item.service_id,'edit']);
+			else
+				this.router.navigate(['/Container/Service',item.service_id]);
 		}
 	}
 	
