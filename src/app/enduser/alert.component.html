@@ -13,14 +13,14 @@
                        <th>Model</th>
                        <th>Variant</th>
                        <th>Fuel Type</th>
-					   <th>Color</th>
+					   <!--<th>Color</th>-->
 					   <th>Transmission</th>
 					   <th>Country</th>
 					   <th>State</th>
                        <th>City</th>
 					   <th>Location</th>
                        <th>Price</th>
-					   <th>Discount</th>
+					   <!--<th>Discount</th>-->
                        <th>KM Done</th>
                        <th>Year of Registration</th>
                        <th>SMS</th>
@@ -39,14 +39,14 @@
                        <td data-header="Model"><div style="height:40px; padding: 3px;">{{alert.model}}</div></td>
                        <td data-header="Variant"><div style="height:40px; padding: 3px;">{{alert.variant}}</div></td>
                        <td data-header="Fuel Type"><div style="height:40px; padding: 3px;">{{alert.fuel_type}}</div></td>
-                       <td data-header="Color"><div style="height:40px; padding: 3px;">{{alert.color}}</div></td>
+                      <!-- <td data-header="Color"><div style="height:40px; padding: 3px;">{{alert.color}}</div></td>-->
 					   <td data-header="Transmission"><div style="height:40px; padding: 3px;">{{alert.transmission}}</div></td>
 					   <td data-header="Country"><div style="height:40px; padding: 3px;">{{alert.country}}</div></td>
 					   <td data-header="State"><div style="height:40px; padding: 3px;">{{alert.state}}</div></td>
 					   <td data-header="City"><div style="height:40px; padding: 3px;">{{alert.city}}</div></td>
 					   <td data-header="Location"><div style="height:40px; padding: 3px;">{{alert.location}}</div></td>
                        <td data-header="Price"><div style="min-width:120px; height:40px; padding: 3px;">{{(alert.price_from)?alert.price_from:'Any'}} - {{(alert.price_to)?alert.price_to:'Any'}}</div></td>
-                       <td data-header="Discount"><div style="min-width:120px; height:40px; padding: 3px;">{{(alert.discount_from)?alert.discount_from:'Any'}} - {{(alert.discount_to)?alert.discount_to:'Any'}}</div></td>
+                      <!-- <td data-header="Discount"><div style="min-width:120px; height:40px; padding: 3px;">{{(alert.discount_from)?alert.discount_from:'Any'}} - {{(alert.discount_to)?alert.discount_to:'Any'}}</div></td>-->
                        <td data-header="KM Done"><div style="min-width:120px; height:40px; padding: 3px;">{{(alert.km_run_from)?alert.km_run_from:'Any'}} - {{(alert.km_run_to)?alert.km_run_to:'Any'}}</div></td>
 					   <td data-header="Year of Registration"><div style="min-width:120px; height:40px; padding: 3px;">{{(alert.year_reg_from)?alert.year_reg_from:'Any'}} - {{(alert.year_reg_to)?alert.year_reg_to:'Any'}}</div></td>
                        <td data-header="SMS"><div style="height:40px; padding: 3px;"><input type="checkbox" [disabled]="true" [checked]="alert.sms"></div></td>
@@ -160,7 +160,7 @@
 							</mat-form-field>
 						</div>
                </div>
-			   <div class="form-group">
+			   <!--<div class="form-group">
                         <div class="col-sm-12"> 
 							<mat-form-field style="width: 100%;">
 								<mat-select placeholder="Color" name="color" [attr.data-val]="item.color" [(ngModel)]="item.color" [disabled]="disabled.field" >
@@ -169,7 +169,7 @@
 								</mat-select>
 							</mat-form-field>
 						</div>
-                </div>
+                </div>-->
 				<div class="form-group">
                         <div class="col-sm-12"> 
 							<mat-form-field style="width: 100%;">
@@ -271,31 +271,21 @@
 						</div>
 					   
               </div>
-			  <div class="form-group">                       
+			  <!--<div class="form-group">                       
 					   <div class="col-sm-6">
-							<!--<mat-form-field style="width: 100%;" [hidden]="disabled.field">
-								<mat-select placeholder="Discount(Min)" name="discount_from" [attr.data-val]="item.discount_from" [(ngModel)]="item.discount_from"  (change)="validateDiscount()">
-									  <mat-option *ngFor="let price of prices" [value]="price.key">{{price.value}}</mat-option>
-								</mat-select>
-							</mat-form-field>-->
-							
+														
 						   <mat-form-field style="width: 100%;" >
 								<input matInput placeholder="Discount(Min)" type="number" [disabled]="disabled.field" [(ngModel)]="item.discount_from" name="discount_from" (focusout)="validateDiscount()">
 							</mat-form-field>
 						</div>
 						<div class="col-sm-6">
-							<!--<mat-form-field style="width: 100%;" [hidden]="disabled.field">
-								<mat-select placeholder="Discount(Max)" name="discount_to" [attr.data-val]="item.discount_to" [(ngModel)]="item.discount_to"  (change)="validateDiscount()">
-									  <mat-option *ngFor="let price of prices" [value]="price.key">{{price.value}}</mat-option>
-								</mat-select>
-							</mat-form-field>-->
-							
+														
 						   <mat-form-field style="width: 100%;" >
 								<input matInput placeholder="Discount(Max)" type="number" [disabled]="disabled.field" [(ngModel)]="item.discount_to" name="discount_to" (focusout)="validateDiscount()" >
 							</mat-form-field>
 						</div>
 					   
-              </div>
+              </div>-->
                <div class="form-group">
                       
 					   <div class="col-sm-6">
