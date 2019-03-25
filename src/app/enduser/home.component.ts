@@ -134,7 +134,7 @@ export class AppHome implements OnInit {
       
 			that.type = (that.postTabAccess[0])?that.postTabAccess[0]:'All';
 			
-			if(that.sharedService.sharedObj.backUpData['home']){
+			if(that.sharedService.sharedObj.backUpData['home'] && that.sharedService.sharedObj.backUpData['home'].type){
 				that.type = that.sharedService.sharedObj.backUpData['home'].type;
 				that.searchResponse = that.sharedService.sharedObj.backUpData['home'].search[that.type].searchResponse;
 				that.results = that.sharedService.sharedObj.backUpData['home'].search[that.type].results;				
