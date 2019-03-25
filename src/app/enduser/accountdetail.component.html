@@ -2,8 +2,7 @@
 	<div class="container">
             <form id="account_form" class="form-horizontal">
                 <div class="form-group">
-                    <div class="form-inline">
-                       
+                    <div class="form-inline">                       
 						<div class="col-sm-12">
 							<mat-form-field style="width: 100%;">
 								<input matInput placeholder="Name" type="text" [disabled]="disabledMode" [(ngModel)] = "userDetail.name" name="name" required>
@@ -12,52 +11,26 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="form-inline">
-                       						
+                    <div class="form-inline">                       						
 						<div class="col-sm-12">
 							<mat-form-field style="width: 100%;">
-								<input matInput placeholder="Mobile#" type="text" [disabled]="true" maxlength="10" [(ngModel)] = "userDetail.mobile" name="mobile" (keyup)="onMobileEnter($event)" required>
+								<input matInput placeholder="Mobile# *" type="text" [disabled]="true" maxlength="10" [(ngModel)] = "userDetail.mobile" name="mobile" (keyup)="onMobileEnter($event)" required>
 							</mat-form-field>
 						</div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="form-inline">
-                        <!--<label class="control-label col-sm-2" for="email">Email ID:</label>
-                        <div class="col-sm-10">
-                            <input style="width: 100%;" type="email" [disabled]="disabledMode" [value] = "userDetail.email" (input) = "userDetail.email = $event.target.value" class="form-control" id="email" placeholder="Enter email">
-                        </div>-->
-						
 						<div class="col-sm-12">
 							<mat-form-field style="width: 100%;">
-								<input matInput placeholder="Email ID" type="email" [disabled]="true" [(ngModel)] = "userDetail.email" name="email" required>
+								<input matInput placeholder="Email ID *" type="email" [disabled]="true" [(ngModel)] = "userDetail.email" name="email" required>
 							</mat-form-field>
 						</div>
                     </div>
                 </div>
-                <!--<div class="form-group">
-                    <div class="form-inline">
-                        						
-						<div class="col-sm-12">
-							<span class="glyphicon glyphicon-info-sign" (click)="passwordInfo($event)"></span>
-							<mat-form-field style="width: 90%;">
-								<input matInput placeholder="Password" type="password" [disabled]=true [(ngModel)] = "userDetail.password" name="password">
-							</mat-form-field>
-							
-						</div>
-                    </div>
-                </div>-->
                 <div class="form-group">
                     <div class="form-inline">
-                        <!--<label class="control-label col-sm-2" for="gender">Gender:</label>                                                         
-                        <div class="col-sm-10">
-								<div style="justify-content: space-around;" class="form-inline">
-									<label style="justify-content: flex-start;" ><input type="radio" [disabled]="disabledMode" [value]=true [(ngModel)]="male" name="gender"> Male</label>
-									<label style="justify-content: flex-start;" ><input type="radio" [disabled]="disabledMode" [value]=false [(ngModel)]="male" name="gender"> Female</label>
-								</div>
-                        </div>-->
-						
-						<div class="col-sm-12">
+                        <div class="col-sm-12">
 							<mat-radio-group style="width: 80%;" [(ngModel)]="male" name="gender">
 							  <mat-radio-button [value]=true [disabled]="disabledMode">Male</mat-radio-button>
 							  <mat-radio-button [value]=false [disabled]="disabledMode">Female</mat-radio-button>
@@ -76,69 +49,78 @@
 						</div>
                     </div>
                 </div>
-              
-              
-              
-               <!-- <div class="form-group">
-                    <div class="form-inline">                        						
-						<div class="col-sm-12"> 
-							<mat-form-field style="width: 100%;">
-								<mat-select placeholder="Currency" name="currency" [attr.data-val]="userDetail.currency" [(ngModel)]="userDetail.currency" [disabled]="disabledMode" required>
-								  <mat-option *ngFor='let currency of currencies' [value]="currency.name">{{currency.name}}</mat-option>
-								</mat-select>
-							</mat-form-field>
-						</div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-inline">                        
-						<div class="col-sm-12">
-							<mat-form-field style="width: 100%;">
-								<input matInput placeholder="Wallet Amount" type="text" [disabled]=true [(ngModel)] = "userDetail.amount" name="wallet">
-							</mat-form-field>
-							
-						</div>
-                    </div>
-                </div>-->
-            </form>
-            <!--<button [hidden]="!disabledMode" style="width: 100%" class="btn btn-default" (click)="onAccDetailEdit($event)">
-                <span class="glyphicon glyphicon-pencil"></span> Edit
-            </button>
-            <button [hidden]="disabledMode" style="width: 100%" class="btn btn-default" (click)="onAccDetailSave($event)">
-                <span class="glyphicon glyphicon-floppy-disk"></span> Save
-            </button>-->
+            </form>            
 	</div>
 	<div style="width:100%; height:100px;"></div>
 </div>
+
 <div class="footerStyle">
-		<div class="row" style="padding: 3px;">
-					<div class="col-xs-6">						   
-						   <button [hidden]="disabledMode" type="submit" class="btn btn-default" style="width:100%;" (click)="onEditCancel($event)">
-							   <span class="glyphicon glyphicon-remove"></span> Cancel
-						   </button>
-					</div>
-					<div class="col-xs-6" style="display:flex; justify-content:flex-end;">
-            
+	<div class="row" style="padding: 3px;">
+		<div class="col-xs-6">						   
+			<button [hidden]="disabledMode" type="submit" class="btn btn-default" style="width:100%;" (click)="onEditCancel($event)">
+				<span class="glyphicon glyphicon-remove"></span> Cancel
+			</button>
+		</div>
+		<div class="col-xs-6" style="display:flex; justify-content:flex-end;">
             <button [hidden]="disabledMode" class="btn btn-default" style="width:100%;" (click)="onEmailIDChangeClick()">
-							<span class="glyphicon glyphicon-envelope"></span> Update Email ID
-						</button>
-            
-						<button [hidden]="disabledMode" class="btn btn-default" style="width:100%;" (click)="onPasswordChangeClick()">
-							<span class="glyphicon glyphicon-lock"></span> Change Password
-						</button>
-            
-						  <button [hidden]="disabledMode" type="submit" class="btn btn-default" style="width:100%;" (click)="onAccDetailSave($event)">
-							   <span class="glyphicon glyphicon-floppy-disk"></span> Save
-						  </button>
-						  						
-						  <button [hidden]="!disabledMode" type="submit" class="btn btn-default" style="width:100%;" (click)="onAccDetailEdit($event)">
-							   <span class="glyphicon glyphicon-pencil"></span> Edit
-						  </button>
-					 </div>
-	   </div>
+				<span class="glyphicon glyphicon-envelope"></span> Update Email ID
+			</button>
+            <button [hidden]="disabledMode" class="btn btn-default" style="width:100%;" (click)="onPasswordChangeClick()">
+				<span class="glyphicon glyphicon-lock"></span> Change Password
+			</button>
+            <button [hidden]="disabledMode" type="submit" class="btn btn-default" style="width:100%;" (click)="onAccDetailSave($event)">
+				<span class="glyphicon glyphicon-floppy-disk"></span> Save
+			</button>
+			<button [hidden]="!disabledMode" type="submit" class="btn btn-default" style="width:100%;" (click)="onAccDetailEdit($event)">
+				<span class="glyphicon glyphicon-pencil"></span> Edit
+			</button>
+		</div>
+	</div>
 </div>
 
 
+<app-dialog [(visible)]="showEmailVerifyDialog">
+	<div style="padding: 40px;" [hidden]="!showEnterEmailDialog">
+		<form class="form-horizontal">
+            <div class="form-group">
+                <div class="form-inline">                       
+					<div class="col-sm-12">
+						<mat-form-field style="width: 100%;">
+							<input matInput placeholder="Enter Email Address" type="email" [(ngModel)] = "email_address" name="email_address" required>
+						</mat-form-field>
+					</div>
+                </div>
+            </div>
+			<div class="form-group">
+                <div class="form-inline">                       
+					<div class="col-sm-12">
+						<button mat-raised-button style="width:100%;" (click)="onVerify()" >Verify</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div style="padding: 40px;" [hidden]="!showEnterEmailOTPDialog">
+		<form class="form-horizontal">
+            <div class="form-group">
+                <div class="form-inline">                       
+					<div class="col-sm-12">
+						<mat-form-field style="width: 100%;">
+							<input matInput placeholder="Enter OTP" type="password" [(ngModel)] = "email_verify_otp" name="email_verify_otp" required>
+						</mat-form-field>
+					</div>
+                </div>
+            </div>
+			<div class="form-group">
+                <div class="form-inline">                       
+					<div class="col-sm-12">
+						<button mat-raised-button style="width:100%;" (click)="onVerifyOTP()" >Verify OTP</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</app-dialog>
 
 <app-dialog [(visible)]="showPasswordInfoDialog">
 	<div style="padding: 40px;">
