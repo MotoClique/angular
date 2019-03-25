@@ -30,8 +30,8 @@ interface userDetail {
       dob: any
 	}
 @Component({
-    //selector: 'app-root',
-    templateUrl: './accountdetail.component.html',
+   //selector: 'app-root',
+   templateUrl: './accountdetail.component.html',
    styleUrls: ['./accountdetail.component.css']
 })
 export class AppAccountDetail implements OnInit {
@@ -42,6 +42,12 @@ export class AppAccountDetail implements OnInit {
 	disabledMode: boolean;
 	showPasswordInfoDialog: boolean = false;
 	lastScroll: any = 0;
+	showEmailVerifyDialog: boolean = false;
+	showEnterEmailDialog: boolean = false;
+	showEnterEmailOTPDialog: boolean = false;
+	email_address: string = "";
+	email_verify_otp: string = "";
+	
 	
 	constructor(private commonService: CommonService, private sharedService: SharedService, private http: Http, router: Router) { 
 					this.router = router;
@@ -66,10 +72,10 @@ export class AppAccountDetail implements OnInit {
 		this.disabledMode = true;
 		this.sharedService.getUserProfile(function(user){
 			that.userDetail = user;
-      if(user.dob && typeof user.dob === 'string'){
-        var dateString:any = (user.dob).split('/'); dateString = dateString[2]+'-'+dateString[1]+'-'+dateString[0];
-        that.userDetail.dob = new Date(dateString);
-      }
+			if(user.dob && typeof user.dob === 'string'){
+				var dateString:any = (user.dob).split('/'); dateString = dateString[2]+'-'+dateString[1]+'-'+dateString[0];
+				that.userDetail.dob = new Date(dateString);
+			}
 			that.male = (that.userDetail.gender == "Male");
 		});
 		
@@ -85,17 +91,17 @@ export class AppAccountDetail implements OnInit {
 				}
 				else if(details.results && details.results.length > 0){
 					this.userDetail = details.results[0];
-          this.sharedService.sharedObj["userProfile"] = details.results[0];
+					this.sharedService.sharedObj["userProfile"] = details.results[0];
 					this.sharedService.sharedObj.containerContext["userDetail"] = details.results[0];
-          if(this.userDetail.dob && typeof this.userDetail.dob === 'string'){
-            var dateString:any = (this.userDetail.dob).split('/'); dateString = dateString[2]+'-'+dateString[1]+'-'+dateString[0];
-            this.userDetail.dob = new Date(dateString);
-          }
-        }
+					if(this.userDetail.dob && typeof this.userDetail.dob === 'string'){
+						var dateString:any = (this.userDetail.dob).split('/'); dateString = dateString[2]+'-'+dateString[1]+'-'+dateString[0];
+						this.userDetail.dob = new Date(dateString);
+					}
+				}
 				else{
 					this.sharedService.openMessageBox("E","Unable to reload.",null);
 				}
-			  });
+		});
 	}
 	
 	onAccDetailEdit(evt){
@@ -108,44 +114,44 @@ export class AppAccountDetail implements OnInit {
 				//&& this.validatePassword(this.userDetail.login_password)
 			){
 				this.userDetail.gender = (this.male)? "Male": "Female";
-        var dateObj = this.userDetail.dob;
-        this.userDetail.dob = dateObj.getDate() +"/"+ (dateObj.getMonth() - (-1)) +"/"+ dateObj.getFullYear() ;
+				var dateObj = this.userDetail.dob;
+				if(dateObj)
+					this.userDetail.dob = dateObj.getDate() +"/"+ (dateObj.getMonth() - (-1)) +"/"+ dateObj.getFullYear() ;
 				this.commonService.updateProfile(this.userDetail)
 				   .subscribe( data => {	
-				   debugger;
-					if(data.statusCode=="S"){
-						this.disabledMode = true;
-						this.getUserDetail();
-					}
-					else{
-						this.sharedService.openMessageBox("E","Unable to save.",null);
-					}		  
-				  });
+						if(data.statusCode=="S"){
+							this.disabledMode = true;
+							this.getUserDetail();
+						}
+						else{
+							this.sharedService.openMessageBox("E","Unable to save.",null);
+						}		  
+				});
 			}
 		}
 	}
 	
 	validateEmail(email){
-			var regx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
-			if (regx.test(email)){ 
-                return true; 
-            } 
-			this.sharedService.openMessageBox("E","You have entered an invalid email address!",null);
-            return false; 
+		var regx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
+		if (regx.test(email)){ 
+            return true; 
+        } 
+		this.sharedService.openMessageBox("E","You have entered an invalid email address!",null);
+        return false; 
     }
 								
 	validatePassword(login_password){
-           //Password should be atleast 8 characters long and should contain atleast one number,one character and one special character(among - @$!%*#?&)
-           var regx = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/ ;
-		   if (regx.test(login_password)){ 
-                return true; 
-           } 
-           this.sharedService.openMessageBox("E","You have entered an invalid password!",null);
-           return false; 
+        //Password should be atleast 8 characters long and should contain atleast one number,one character and one special character(among - @$!%*#?&)
+        var regx = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/ ;
+		if (regx.test(login_password)){ 
+            return true; 
+        } 
+        this.sharedService.openMessageBox("E","You have entered an invalid password!",null);
+        return false; 
     }
 	
 	onMobileEnter(evt){
-	   evt.target.value = (evt.target.value).replace(/[^0-9]/g, '');
+		evt.target.value = (evt.target.value).replace(/[^0-9]/g, '');
 	}
 	
 	passwordInfo(evt){
@@ -162,15 +168,26 @@ export class AppAccountDetail implements OnInit {
 		this.getUserDetail();
 	}
 	
-	
-	addMoney(evt){
-		
+	onEmailIDChangeClick(){
+		this.showEmailVerifyDialog = true;
+		this.showEnterEmailDialog = true;
+		this.showEnterEmailOTPDialog = false;
 	}
 	
+	onVerify(){
+		if(this.validateEmail(this.email_address)){
+			this.showEmailVerifyDialog = true;
+			this.showEnterEmailDialog = false;
+			this.showEnterEmailOTPDialog = true;
+		}
+	}
 	
-	
-	
-	
+	onVerifyOTP(){
+		this.userDetail.email = this.email_address;
+		this.showEmailVerifyDialog = false;
+		this.showEnterEmailDialog = false;
+		this.showEnterEmailOTPDialog = false;
+	}
 	
 	@HostListener('scroll', ['$event'])
 	handleScroll(event) {
@@ -195,9 +212,5 @@ export class AppAccountDetail implements OnInit {
 			this.lastScroll = elem.scrollTop();
 		//}
 	}
-	
-	onEmailIDChangeClick(){
-		
-	}
-	
+			
 }
