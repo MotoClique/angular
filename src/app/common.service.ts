@@ -52,5 +52,12 @@ export class CommonService {
 	  return this.sharedService.call('changePassword', "post", detail, true);
   }
   
+  sendEmailOTP(email){
+	  return this.sharedService.call('sendEmailOTP/?email='+email, "get", null, true);
+  }
+  
+  verifyEmailOTP(body){
+	  return this.sharedService.call('verifyEmailOTP', "post", body, true);
+  }
     
 }

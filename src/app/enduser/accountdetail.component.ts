@@ -176,17 +176,51 @@ export class AppAccountDetail implements OnInit {
 	
 	onVerify(){
 		if(this.validateEmail(this.email_address)){
-			this.showEmailVerifyDialog = true;
-			this.showEnterEmailDialog = false;
-			this.showEnterEmailOTPDialog = true;
+			this.commonService.sendEmailOTP(this.email_address)
+			.subscribe( data => {
+				if(data.statusCode=="S"){
+					this.showEmailVerifyDialog = true;
+					this.showEnterEmailDialog = false;
+					this.showEnterEmailOTPDialog = true;
+					this.sharedService.openMessageBox("S","Verification code sent to your email.",null);
+				}
+				else{
+					this.email_address = '';
+					var msg = "Unable to trigger email verification OTP.";
+					if(data.msg)
+						msg = data.msg;
+					this.sharedService.openMessageBox("E",msg,null);
+				}
+			});
 		}
 	}
 	
 	onVerifyOTP(){
-		this.userDetail.email = this.email_address;
-		this.showEmailVerifyDialog = false;
-		this.showEnterEmailDialog = false;
-		this.showEnterEmailOTPDialog = false;
+		if(this.email_verify_otp){
+			var body = { email: this.email_address, otp: this.email_verify_otp};
+			this.commonService.verifyEmailOTP(body)
+			.subscribe( data => {
+				if(data.statusCode=="S"){
+					this.userDetail.email = this.email_address;
+					this.showEmailVerifyDialog = false;
+					this.showEnterEmailDialog = false;
+					this.showEnterEmailOTPDialog = false;
+					this.email_verify_otp = '';
+					this.email_address = '';
+					var msg = "Successfully verified.";
+					if(data.msg)
+						msg = data.msg;
+					this.sharedService.openMessageBox("S",msg,null);
+				}
+				else{
+					this.email_verify_otp = '';
+					var msg = "Unable to verify the code.";
+					if(data.msg)
+						msg = data.msg;
+					this.sharedService.openMessageBox("E",msg,null);
+				}
+			});
+		}
 	}
 	
 	@HostListener('scroll', ['$event'])
