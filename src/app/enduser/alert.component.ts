@@ -512,12 +512,7 @@ export class AppAlert implements OnInit {
 			//this.sharedService.showFooter();
 		}
 		var scroll = elem.scrollTop();
-		if (scroll > this.lastScroll) {	//When scroll down
-			this.sharedService.hideFooter();
-		}
-		else{
-			this.sharedService.showFooter();
-		}
+		
 		this.lastScroll = elem.scrollTop();
 		//}
 	}
