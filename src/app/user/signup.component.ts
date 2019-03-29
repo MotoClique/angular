@@ -170,11 +170,11 @@ export   class   AppSignup  implements OnInit {
   onUpdate() {
 	var that = this;
 	that.newUser.gender = (that.male)?'Male':'Female' ;
-	var dateObj = this.newUser.dob;
+	var dateObj = this.newUser.dobobj;
 	if(dateObj)
 		this.newUser.dob = dateObj.getDate() +"/"+ (dateObj.getMonth() - (-1)) +"/"+ dateObj.getFullYear() ;	
 	  
-	if(that.newUser.name && that.newUser.email){
+	if(that.newUser.name){
 		this.commonService.updateProfile(that.newUser)
 		.subscribe( data => {	
 			if(data.statusCode=="S"){

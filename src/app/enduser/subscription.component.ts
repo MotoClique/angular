@@ -132,5 +132,9 @@ export class AppSubscription implements OnInit {
 				}
 			//}
 		}
+		
+		ngOnDestroy() {
+			this.sharedService.addressCheck();
+		}
 
 }

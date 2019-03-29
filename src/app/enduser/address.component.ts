@@ -313,5 +313,7 @@ export class AppAddress implements OnInit {
 			//}
 		}
  
-
+		ngOnDestroy() {
+			this.sharedService.addressCheck();
+		}
 }

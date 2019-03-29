@@ -537,6 +537,35 @@ export class SharedService {
 			jQuery("#noDeviceRegistrationMessageBox").remove();
 		}
 	}
+	
+	addressCheck(){
+		var userDetail = this.auth.getUserDetails();
+		if(userDetail){
+			this.call('userAddress/?user_id='+userDetail.user_id, "get", null, false)
+			.subscribe( data => {
+				if(!data.results || data.results.length==0){
+					this.openMessageBox("E","Please maintain at least one address.",null);
+					this.router.navigateByUrl('/Container/Address/blank/create');
+				}
+				else{
+					this.subscriptionCheck();
+				}
+			});
+		}
+	}
+	
+	subscriptionCheck(){
+		var userDetail = this.auth.getUserDetails();
+		if(userDetail){
+			this.call('userSubMap/?user_id='+userDetail.user_id, "get", null, false)
+			.subscribe( data => {
+				if(!data.results || data.results.length==0){
+					this.openMessageBox("E","No subscription. Please subscribe!",null);
+					this.router.navigateByUrl('/Container/Subscription');
+				}
+			});
+		}
+	}
   
   isCordovaApp(){
     var Window:any;

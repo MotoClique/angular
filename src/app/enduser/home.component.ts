@@ -378,7 +378,7 @@ export class AppHome implements OnInit {
 				this.startBidTimer(data.bidSlotFrom);
 			}
 			if(data.statusCode === 'F'){
-				if(data.noSubscription){
+				/*if(data.noSubscription){
 				  this.sharedService.noSubscriptionMessageBox(data.msg,function(){
 					that.router.navigateByUrl('/Container/BuySubscription');
 				  });
@@ -387,8 +387,8 @@ export class AppHome implements OnInit {
 				  this.sharedService.noAddressMessageBox(data.msg,function(){
 					that.router.navigateByUrl('/Container/Address/blank/create');
 				  });
-				}
-				else{
+				}*/
+				if(!data.noSubscription && !data.noAddress){
 				  var message = "Unable to load data.";
 				  if(data.msg)
 					message = data.msg;

@@ -77,7 +77,7 @@
 				<div class="form-inline">						
 					<div class="col-sm-12">
 						<mat-form-field style="width:100%;" (click)="dobdp.open()">
-							<input matInput [matDatepicker]="dobdp" placeholder="Date of Birth" [(ngModel)] = "newUser.dob" name="dob" disabled>
+							<input matInput [matDatepicker]="dobdp" placeholder="Date of Birth" [(ngModel)] = "newUser.dobobj" name="dob" disabled>
 							<mat-datepicker-toggle matSuffix [for]="dobdp"></mat-datepicker-toggle>
 							<mat-datepicker touchUi #dobdp [disabled]="false"></mat-datepicker>
 						</mat-form-field>

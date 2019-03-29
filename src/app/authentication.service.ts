@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Router } from '@angular/router';
 import {MatSnackBar} from '@angular/material';
+import { SuccessSnackBarComponent, ErrorSnackBarComponent, InfoSnackBarComponent } from './customSnackBar.component';
 
 declare global {
 	interface Window { GlobalData: any; cordova: any; }
@@ -85,11 +86,12 @@ export class AuthenticationService {
       })
 	  .catch((err: any) => {
 			this.setBusy(false);
-			var message = "Error: ";
+			var message = "";
 			if(err.error.error && err.error.error.message)
 				message = message + err.error.error.message;
-			this.snackBar.open(message, '', {
+			this.snackBar.openFromComponent(ErrorSnackBarComponent, {
 				duration: 2000,
+				data: {message: message}
 			});
 	  });
 

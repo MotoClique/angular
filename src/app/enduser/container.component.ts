@@ -164,6 +164,7 @@ export class AppContainer implements OnInit{
 			
 			this.sharedService.getUserProfile(function(user){
 				that.userDetail = user;
+				that.sharedService.addressCheck();
 				that.screenAccess = [];
 				that.otherAccess = {};
 				var access = user.screenAccess;	
