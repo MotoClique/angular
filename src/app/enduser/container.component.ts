@@ -410,13 +410,15 @@ export class AppContainer implements OnInit{
 	}
 	
 	onPullStart(evt){
-		if(this.sharedService.sharedObj.currentContext.id === "AppHome"){
+		if(this.sharedService.sharedObj.currentContext.id === "AppHome"
+        || this.sharedService.sharedObj.currentContext.id === "AppBid"){
 			this.pull_startY = evt.touches[0].pageY;	
 		}
 	}
 	
 	onPull(evt){
-		if(this.sharedService.sharedObj.currentContext.id === "AppHome"){
+		if(this.sharedService.sharedObj.currentContext.id === "AppHome"
+        || this.sharedService.sharedObj.currentContext.id === "AppBid"){
 			const y = evt.touches[0].pageY;
 			if(document.querySelector('.scrollContainerStyle') && document.querySelector('.scrollContainerStyle').scrollTop === 0 && y > this.pull_startY){
 				var divHeight:any = (document.getElementById('pullToRefresh').style.height).replace(/px/g,'') ;
@@ -430,7 +432,8 @@ export class AppContainer implements OnInit{
 		}
 	}
 	onPullEnd(evt){
-		if(this.sharedService.sharedObj.currentContext.id === "AppHome"){
+		if(this.sharedService.sharedObj.currentContext.id === "AppHome"
+        || this.sharedService.sharedObj.currentContext.id === "AppBid"){
 			const y = evt.changedTouches[0].pageY;
 			if(document.querySelector('.scrollContainerStyle') && document.querySelector('.scrollContainerStyle').scrollTop === 0 && y > this.pull_startY){
 				if(this.sharedService.sharedObj.currentContext.reloadItems
