@@ -407,11 +407,11 @@ export class SharedService {
 		}
 	}*/
   showMyPostFooter(){
-		jQuery('.myPostPageFooter').removeClass('on-canvas-myPost');
-		jQuery('.myPostPageFooter').addClass('on-canvas-myPost');
+		//jQuery('.myPostPageFooter').removeClass('on-canvas-myPost');
+		//jQuery('.myPostPageFooter').addClass('on-canvas-myPost');
 	}
 	hideMyPostFooter(){
-		jQuery('.myPostPageFooter').removeClass('on-canvas-myPost');
+		//jQuery('.myPostPageFooter').removeClass('on-canvas-myPost');
 	}
 	
 	showFooter(){
