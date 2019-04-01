@@ -317,6 +317,7 @@ export class AppDynamicForm implements OnInit {
 	  
 	  generateDisplayField(screen,item){
 		  var that = this;
+      var showInsuranceTill = false;
 		  this.current_product_id = item.product_id;
 		  this.screenConfig = {};
 		  this.fields = [];
@@ -356,6 +357,11 @@ export class AppDynamicForm implements OnInit {
                 if(o.field_path === 'owner_type')
 								  o.field = o.field + ' (Less than)';
 							}
+              
+              if(o.field_path == 'insurance_status'){
+								if(o.value == 'Running')
+									showInsuranceTill = true;
+							}
 							
 							(that.screenConfig[category]).push(o);
 						}
@@ -365,6 +371,14 @@ export class AppDynamicForm implements OnInit {
 						//Sort Fields sequence
 						value.sort((a: any, b: any)=> {return a.field_sequence - b.field_sequence;});//ascending sort
 					});
+          
+          var displayFields = that.screenConfig['Detail'];
+					for(var i=0; i<displayFields.length; i++){
+						if(displayFields[i].field_path == 'insurance_valid_till'){
+							displayFields[i].visible = showInsuranceTill;
+							break;
+						}
+					}
 					
 					this.fields = this.screenConfig["Detail"];
 					this.dynamicTabGroup.selectedIndex = 0;
