@@ -537,6 +537,59 @@ export class SharedService {
 			jQuery("#noDeviceRegistrationMessageBox").remove();
 		}
 	}
+  
+  filterSaveMessageBox(msg,callback){
+		var that = this;
+		if(!document.getElementById('filterSaveMessageBox')){
+            //Create Dialog Wrapper/Container
+            var msgBox = document.createElement('DIV');
+            msgBox.setAttribute("id", "filterSaveMessageBox");
+                                            
+           //Create Dialog Overlay
+           var omsgBox = document.createElement('DIV');
+           omsgBox.setAttribute("id", "filterSaveMessageBox_overlay");
+           omsgBox.className = 'global_msg_dialog_overlay';
+           msgBox.appendChild(omsgBox);
+                                                               
+           //Create Dialog Content Area
+           var dmsgBox = document.createElement('DIV');
+           dmsgBox.setAttribute("id", "filterSaveMessageBox_content");
+           dmsgBox.className = 'global_msg_dialog';
+           msgBox.appendChild(dmsgBox);
+		   
+		   //Create Message Paragraph
+			var pmsgBox = document.createElement('P');
+            pmsgBox.innerHTML = msg;
+            pmsgBox.className = 'global_msg_dialog_text';
+            dmsgBox.appendChild(pmsgBox);
+		   
+		   //Create Footer
+		    var fmsgBox = document.createElement('DIV');
+			fmsgBox.className= 'global_msg_dialog_footer';
+			var tempButton = document.createElement('BUTTON');
+			tempButton.addEventListener("click", function(){
+				callback(false);
+				jQuery("#filterSaveMessageBox").remove();
+			});
+			tempButton.innerHTML+= "Temporary";
+			tempButton.style.backgroundColor = '#E71B03';
+			fmsgBox.appendChild(tempButton);
+			var permanentButton = document.createElement('BUTTON');
+			permanentButton.addEventListener("click", function(){
+				callback(true);
+				jQuery("#filterSaveMessageBox").remove();
+			});
+			permanentButton.innerHTML+= "Permanent";
+			permanentButton.style.backgroundColor = '#E71B03';
+			fmsgBox.appendChild(permanentButton);
+			dmsgBox.appendChild(fmsgBox);
+		   
+		   document.body.appendChild(msgBox);//Append to Body
+		}
+		else{
+			jQuery("#filterSaveMessageBox").remove();
+		}
+	}
 	
 	addressCheck(){
 		var userDetail = this.auth.getUserDetails();
