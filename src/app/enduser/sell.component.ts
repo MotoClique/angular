@@ -246,12 +246,23 @@ export class AppSell implements OnInit {
 	  
 	  createNew(evt){
 		this.commonService.adminService.getProductType("")
-				.subscribe( productTypes => this.productTypes = productTypes.results);		
-		this.showListDialog = true;
-		this.showProductTypeListDialog = true;  			
-		this.showProductModelListDialog = false;
-		this.showProductVariantListDialog = false;
-		this.showBrandListDialog = false;
+			.subscribe( productTypes => {
+				if(productTypes.results){
+					this.productTypes = productTypes.results.filter(function(ele){
+						return ele.product_type_name !== 'Service' ;
+					});
+				}
+				if(this.productTypes && this.productTypes.length==1){
+					this.onPrdTypSelect(null,this.productTypes[0]);
+				}
+				else{
+					this.showProductTypeListDialog = true;  			
+					this.showProductModelListDialog = false;
+					this.showProductVariantListDialog = false;
+					this.showBrandListDialog = false;
+				}
+		});		
+		this.showListDialog = true;		
 		this.showProductColorDialog = false;
 		this.showProductYearDialog = false;
 		this.showAddressListDialog = false;
@@ -266,9 +277,9 @@ export class AppSell implements OnInit {
 	  }
 	  
 	  onPrdTypSelect(evt,prdTyp){
-			this.selectedPrdTyp = prdTyp.product_type_id;
-			this.commonService.adminService.getUniqueBrandBasedOnPrdTyp(this.selectedPrdTyp)
-				.subscribe( brands => {
+		this.selectedPrdTyp = prdTyp.product_type_id;
+		this.commonService.adminService.getUniqueBrandBasedOnPrdTyp(this.selectedPrdTyp)
+			.subscribe( brands => {
 					this.brands = brands.results;
 					this.brands.sort((a: any, b: any)=> {
 												if (a < b)
@@ -277,17 +288,21 @@ export class AppSell implements OnInit {
 												  return 1;
 												return 0;
 											});//ascending sort
-				});
-			
-			this.showProductTypeListDialog = false;
-			this.showProductModelListDialog = false;
-			this.showProductVariantListDialog = false;
-			this.showBrandListDialog = true;
+					if(this.brands && this.brands.length==1){
+						this.onBrandSelect(null,this.brands[0]);
+					}
+					else{
+						this.showProductTypeListDialog = false;
+						this.showProductModelListDialog = false;
+						this.showProductVariantListDialog = false;
+						this.showBrandListDialog = true;
+					}
+		});
 	  }
 	  
 	  onBrandSelect(evt,brand){
-			this.commonService.adminService.getProduct("",this.selectedPrdTyp,brand)
-				.subscribe( products => {
+		this.commonService.adminService.getProduct("",this.selectedPrdTyp,brand)
+			.subscribe( products => {
 					this.products = products.results;
 					this.models = this.extractProductUniqueModels();
 					this.models.sort((a: any, b: any)=> {
@@ -297,12 +312,17 @@ export class AppSell implements OnInit {
 												  return 1;
 												return 0;
 											});//ascending sort
-				});
-			this.showBrandListDialog = false;
-			this.showProductTypeListDialog = false;
-			this.showProductModelListDialog = true;
-			this.showProductVariantListDialog = false;
-	  }
+				if(this.models && this.models.length==1){
+					this.onPrdModelSelect(null,this.models[0]);
+				}
+				else{
+					this.showProductModelListDialog = true;
+					this.showProductVariantListDialog = false;
+				}
+		});
+		this.showBrandListDialog = false;
+		this.showProductTypeListDialog = false;			
+	}
   
     extractProductUniqueModels(){
 		  var productsWithoutVariant = [];
@@ -329,16 +349,21 @@ export class AppSell implements OnInit {
 	  }
   
     onPrdModelSelect(evt,prdModel){
-		  this.variants = prdModel.variantList;
-		  this.variants.sort((a: any, b: any)=> {
+		this.variants = prdModel.variantList;
+		this.variants.sort((a: any, b: any)=> {
 												if (a.product_id < b.product_id)
 												  return -1;
 												if ( a.product_id > b.product_id)
 												  return 1;
 												return 0;
 											});//ascending sort
-		  this.showProductModelListDialog = false;
-		  this.showProductVariantListDialog = true;
+		if(this.variants && this.variants.length==1){
+			this.onPrdVariantSelect(null,this.variants[0]);
+		}
+		else{
+			this.showProductModelListDialog = false;
+			this.showProductVariantListDialog = true;
+		}
 	  }
 	  
 	  
