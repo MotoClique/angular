@@ -492,9 +492,12 @@ export class AppFilter implements OnInit {
 			  }
 		  });
 		  
-		  that.sharedService.openMessageBox("C","Would you like us to remember your filter?",function(state){
+		  that.sharedService.filterSaveMessageBox("Apply filter?",function(state){
 			if(state){
-				that.save(saveItems);
+				that.sharedService.openMessageBox("","This filter will always be applied unless cleared manually.",function(isOk){
+					if(isOk)
+				    that.save(saveItems);
+        });
 			}
 			else{
 				that.sharedService.sharedObj.userFilter = saveItems;
@@ -561,7 +564,7 @@ export class AppFilter implements OnInit {
 	  
 	  onClearFilter(evt){
 		  var that = this;
-		  this.sharedService.openMessageBox("C","Are you sure you want to clear all your settings?",function(flag){
+		  this.sharedService.openMessageBox("C","Are you sure you want to clear all your filter settings?",function(flag){
 			  if(flag){
 				that.commonService.enduserService.deleteMultipleFilter(that.userDetail.user_id)
 					.subscribe( data => {
