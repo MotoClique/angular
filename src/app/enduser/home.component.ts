@@ -65,6 +65,7 @@ export class AppHome implements OnInit {
 		showSubMenu: boolean = false;
 		postTabAccess: any =[];
 		@ViewChild('postTypeTabGroup') postTypeTabGroup;
+    quick_scrollTop: boolean = false;
 		
       constructor(private router: Router, private http: Http, private commonService: CommonService, private sharedService: SharedService) {
               var that = this;;
@@ -588,6 +589,9 @@ export class AppHome implements OnInit {
 		this.loadResult(this.searchSelected);
 	}
 	
+  onScrollUpClick(){
+		document.getElementsByClassName('scrollContainerStyle')[0].scrollTo(0,0);
+	}
 	
 	@HostListener('scroll', ['$event'])
 	handleScroll(event) {
@@ -604,6 +608,17 @@ export class AppHome implements OnInit {
 					this.paginate();
 				}
 			}
+		}
+    if(elem.scrollTop() < this.lastScroll){	//When scroll up									
+			var pos = elem.scrollTop();
+			var max = (elem[0].scrollHeight * 0.30);
+			if(pos >= max)
+				this.quick_scrollTop = true;
+			else
+				this.quick_scrollTop = false;
+		}
+		else{
+			this.quick_scrollTop = false;
 		}
     
     this.controlHomePageFooter(elem);
