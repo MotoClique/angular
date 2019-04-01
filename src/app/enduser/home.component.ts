@@ -400,8 +400,11 @@ export class AppHome implements OnInit {
 								this.noMoreData = true;
 							}
 							this.searchResponse = data;
+              var lastResultCount = this.results.length;
 							this.results = this.results.concat(data.results);
-							jQuery.each(this.results,function(i,v){
+							//jQuery.each(this.results,function(i,v){
+              for(var i = lastResultCount; i<this.results.length; i++){
+                 var v = this.results[i];
 							  if(!(v.data)){
 								//v.fav = false;
 								//v.price = v.net_price;
@@ -416,7 +419,7 @@ export class AppHome implements OnInit {
 								v.busy = true;
 								that.getResultImage(v,transc_id);
 							  }
-						  });
+						  }
 						  this.results.sort((a: any, b: any)=> {
 													//var fromd = a.createdAt.split('/');
 													//var fromdObj = new Date(fromd[2]+'-'+fromd[1]+'-'+fromd[0]);
