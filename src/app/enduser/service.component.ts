@@ -207,13 +207,24 @@ export class AppService implements OnInit {
 	}
 	  
 	  createNew(evt){
-		  this.item = {};
-			this.commonService.adminService.getProductType("")
-				.subscribe( productTypes => this.productTypes = productTypes.results);		
-			this.showListDialog = true;
-			this.showProductListDialog = false;
-			this.showProductTypeListDialog = true;
-			this.showAddressListDialog = false;
+		this.item = {};
+		this.commonService.adminService.getProductType("")
+			.subscribe( productTypes => {
+				if(productTypes.results){
+					this.productTypes = productTypes.results.filter(function(ele){
+						return ele.product_type_name !== 'Service' ;
+					});
+				}
+				if(this.productTypes && this.productTypes.length==1){
+					this.onPrdTypSelect(null,this.productTypes[0]);
+				}
+				else{
+					this.showProductListDialog = false;
+					this.showProductTypeListDialog = true;					
+				}
+		});		
+		this.showListDialog = true;
+		this.showAddressListDialog = false;
 	  }
 	  
 	  openItem(item){
@@ -235,11 +246,15 @@ export class AppService implements OnInit {
 												  return 1;
 												return 0;
 											});//ascending sort
-				});
-			
-			this.showProductTypeListDialog = false;
-			this.showProductListDialog = true;
-			//this.showBrandListDialog = true;
+					if(this.products && this.products.length==1){
+						this.onPrdSelect(null,this.products[0]);
+					}
+					else{
+						this.showProductTypeListDialog = false;
+						this.showProductListDialog = true;
+						//this.showBrandListDialog = true;
+					}
+			});			
 	  }
 	 	  
 	  
