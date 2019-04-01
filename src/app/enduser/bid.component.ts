@@ -42,6 +42,7 @@ interface userDetail {
 
 @Injectable()
 export class AppBid implements OnInit {
+    id:string = "AppBid";
 		localData: any;
 		item: any = {};
 		image_item: any;
@@ -727,7 +728,35 @@ export class AppBid implements OnInit {
 		this.done = true;
 		delete this.sharedService.sharedObj.backUpData.bid;
 		delete this.sharedService.sharedObj.backUpData.home;
-		this.router.navigateByUrl('/Container/Bid');
+		var that = this;
+		if(this.router.url == '/Container/MyPost/Bid'){
+			that.loading = true;
+			that.results = [];
+			that.commonService.enduserService.getBid(that.userDetail.user_id,"","",null,0,10)
+			  .subscribe( data => {
+				if(!(that.results) || that.results.length<=0){
+					that.lastScroll = 0;
+					that.noMoreData = false;
+				}
+				if(data.results && data.results.length<=0){
+					that.noMoreData = true;
+				}
+				that.params = data.params;
+				that.results = data.results;
+				jQuery.each(that.results,function(i,v){
+					v.busy = true;
+					that.getResultImage(v);
+					that.getFav(v,v.bid_id); 
+				});					
+				if(that.sharedService.sharedObj.backUpData){
+					that.sharedService.sharedObj.backUpData['bid'] = {params: that.params, results: that.results};
+				}
+				that.loading = false;
+			});
+		}
+		else{
+			this.router.navigateByUrl('/Container/MyPost/Bid');
+		}
 	  }
 	  
 	  onEdit(evt){
