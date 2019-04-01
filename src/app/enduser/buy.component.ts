@@ -245,18 +245,29 @@ export class AppBuy implements OnInit {
 	}
 	  
 	  createNew(evt){
-			this.commonService.adminService.getProductType("")
-				.subscribe( productTypes => this.productTypes = productTypes.results);		
-			this.showListDialog = true;
-			this.showProductTypeListDialog = true;
-			this.showProductModelListDialog = false;
-			this.showProductVariantListDialog = false;
-			//this.showProductListDialog = false;
-			this.showBrandListDialog = false;
-			this.showProductColorDialog = false;
-			this.showProductYearDialog = false;
-			this.showAddressListDialog = false;
-			this.item = {};
+		this.commonService.adminService.getProductType("")
+			.subscribe( productTypes => {
+				if(productTypes.results){
+					this.productTypes = productTypes.results.filter(function(ele){
+						return ele.product_type_name !== 'Service' ;
+					});
+				}
+				if(this.productTypes && this.productTypes.length==1){
+					this.onPrdTypSelect(null,this.productTypes[0]);
+				}
+				else{
+					this.showProductTypeListDialog = true;
+					this.showProductModelListDialog = false;
+					this.showProductVariantListDialog = false;
+					//this.showProductListDialog = false;
+					this.showBrandListDialog = false;
+				}
+		});		
+		this.showListDialog = true;			
+		this.showProductColorDialog = false;
+		this.showProductYearDialog = false;
+		this.showAddressListDialog = false;
+		this.item = {};
 	  }
 	  
 	  openItem(item){
@@ -278,13 +289,17 @@ export class AppBuy implements OnInit {
 												  return 1;
 												return 0;
 											});//ascending sort
-				});
-			
-			this.showProductTypeListDialog = false;
-			this.showProductModelListDialog = false;
-			this.showProductVariantListDialog = false;
-			//this.showProductListDialog = false;
-			this.showBrandListDialog = true;
+					if(this.brands && this.brands.length==1){
+						this.onBrandSelect(null,this.brands[0]);
+					}
+					else{
+						this.showProductTypeListDialog = false;
+						this.showProductModelListDialog = false;
+						this.showProductVariantListDialog = false;
+						//this.showProductListDialog = false;
+						this.showBrandListDialog = true;
+					}
+			});
 	  }
 	  
 	  onBrandSelect(evt,brand){
@@ -299,11 +314,16 @@ export class AppBuy implements OnInit {
 												  return 1;
 												return 0;
 											});//ascending sort
-				});
+					if(this.models && this.models.length==1){
+						this.onPrdModelSelect(null,this.models[0]);
+					}
+					else{
+						this.showProductModelListDialog = true;
+						this.showProductVariantListDialog = false;						
+					}
+			});
 			this.showBrandListDialog = false;
 			this.showProductTypeListDialog = false;
-			this.showProductModelListDialog = true;
-			this.showProductVariantListDialog = false;
 	  }
   
     extractProductUniqueModels(){
