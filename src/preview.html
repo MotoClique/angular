@@ -32,11 +32,49 @@
 				height  : 100%;
 				overflow: auto;
 			}
+			
+			.image-loaderContainer{
+				display: none;
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background-color: rgba(0,0,0,0.5);
+				z-index: 5;
+			}
+			.image-loader {
+			  z-index: 6;
+			  border: 5px solid #f3f3f3;
+			  border-radius: 50%;
+			  border-top: 5px solid #E71B03;
+			  width: 50px;
+			  height: 50px;
+			  -webkit-animation: spin 2s linear infinite;
+			  animation: spin 2s linear infinite;
+			}
+			@-webkit-keyframes spin {
+			  0% { -webkit-transform: rotate(0deg); }
+			  100% { -webkit-transform: rotate(360deg); }
+			}
+			@keyframes spin {
+			  0% { transform: rotate(0deg); }
+			  100% { transform: rotate(360deg); }
+			}
 		</style>
 	</head>
 	<body onload="onLoad();" >
 		<div style="width:100%; height:100%;"> <!-- set desired position and size to that div -->
-			<canvas id="previewImageCanvas" style="width: 100%; height: 100%"></canvas>
+			<canvas id="previewImageCanvas" style="width: 100%; height: 100%"></canvas>			
+			<div id="preview_thumbnailIndicator" style="width: 100%; display:flex; justify-content:center; position: absolute; bottom: 10%;"></div>
+		</div>
+		
+		<div id="previewImage-loaderContainer" class="image-loaderContainer" >
+			<div style="width:100%; height:100%; display:flex; justify-content:center; align-items:center;">
+				<div class="image-loader"></div>
+			</div>
 		</div>
 		<script src="impetus.js"></script>
 		<script src="pinch-zoom-canvas.js"></script>
@@ -47,13 +85,75 @@
 					path: window.parent.preview_image, 
 					momentum: true,
 					onZoomEnd: function (zoom, zoomed) {
-						console.log("---> is zoomed: %s", zoomed);
-						console.log("---> zoom end at %s", zoom);
+						if(zoomed){
+							document.getElementById('previewImageCanvas').removeEventListener('touchstart', touchStartEvt);
+							document.getElementById('previewImageCanvas').removeEventListener('touchmove', touchMoveEvt);
+							document.getElementById('previewImageCanvas').removeEventListener('touchend', touchEndEvt);
+							document.getElementById('preview_thumbnailIndicator').style.display = 'none';
+						}
+						else{
+							document.getElementById('previewImageCanvas').addEventListener('touchstart', touchStartEvt);
+							document.getElementById('previewImageCanvas').addEventListener('touchmove', touchMoveEvt);
+							document.getElementById('previewImageCanvas').addEventListener('touchend', touchEndEvt);
+							document.getElementById('preview_thumbnailIndicator').style.display = 'flex';
+						}
 					},
 					onZoom: function (zoom) {
 						console.log("---> zoom is %s", zoom);
 					}
 				});
+				
+				//Create thumbnail indicator
+				var preview_thumbnails = window.parent.preview_thumbnails;
+				var indicators = '';
+				for(var i=0; i<preview_thumbnails.length; i++){
+					if(preview_thumbnails[i].selected)
+						indicators += '<span style="background-color: #E71B03; width: 12px; height: 12px; border-radius: 12px; margin: 3px; border: 2px solid #E71B03 !important; box-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white;" ></span>';
+					else
+						indicators += '<span style="width: 12px; height: 12px; border-radius: 12px; margin: 3px; border: 2px solid #E71B03 !important; box-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white;" ></span>';
+				}
+				document.getElementById('preview_thumbnailIndicator').innerHTML = indicators;
+				
+				//Image Slider Effect
+				var touchstartx;
+				var touchmovex;
+				var movedx;
+				var image_portrait = document.getElementById('previewImageCanvas');
+				var image_frame = image_portrait.parentNode;
+				var touchStartEvt = function(evt){
+					touchstartx =  Number(evt.touches[0].pageX);
+				};
+				var touchMoveEvt = function(evt){
+					touchmovex =  Number(evt.touches[0].pageX);
+					movedx = touchmovex - touchstartx;
+					image_portrait.style.transform = 'translate3d('+movedx+'px,0,0)';
+				};
+				var touchEndEvt = function(evt){
+					var slideFrameWidth = image_frame.offsetWidth;
+					if(movedx < 0){//Next
+						if(Math.abs(movedx) > (slideFrameWidth/3)){
+							document.getElementById('previewImage-loaderContainer').style.display = 'block';
+							var canvs_ele = document.getElementById('previewImageCanvas');
+							canvs_ele.parentNode.removeChild(canvs_ele);
+							window.parent.nextPreviewImage();
+						}
+					}
+					else{//Previous
+						if(Math.abs(movedx) > (slideFrameWidth/3)){
+							document.getElementById('previewImage-loaderContainer').style.display = 'block';
+							var canvs_ele = document.getElementById('previewImageCanvas');
+							canvs_ele.parentNode.removeChild(canvs_ele);
+							window.parent.prevPreviewImage();
+						}
+					}
+					image_portrait.style.transform = '';
+					touchstartx = 0;
+					touchmovex = 0;
+					movedx = 0;
+				};
+				document.getElementById('previewImageCanvas').addEventListener('touchstart', touchStartEvt);
+				document.getElementById('previewImageCanvas').addEventListener('touchmove', touchMoveEvt);
+				document.getElementById('previewImageCanvas').addEventListener('touchend', touchEndEvt);
 			};
 		</script>
 	</body>
