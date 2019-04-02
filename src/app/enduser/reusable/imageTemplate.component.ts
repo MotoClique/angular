@@ -27,7 +27,8 @@ declare var jQuery:any;
 		currentImage: any = {no_image: true};
 		showUploadImageDialog: boolean = false;
 		showBidConfirmDialog: boolean = false;
-		newImages: any = [];
+		newImages: any = [];		
+		loadedImages: any = [];		
 		self: any = this;
 		fav: any = [];
 		time_left: string = "";
@@ -288,7 +289,30 @@ declare var jQuery:any;
 				this.currentImage.index = image_index;
 				this.currentImage.default = image.default;
 				image.selected = true;				
-				this.currentImage.busy = false;			
+				this.currentImage.busy = false;
+				
+				if(!(jQuery('#previewImageContainer').is(":hidden"))){
+					this.previewImage(this.currentImage.data);
+				}
+		}
+		else if(image.loadedImgIndx){
+			jQuery.each(this.thumbnails, function(i,v){
+				v.selected = false;
+			});
+			var img = this.loadedImages[image.loadedImgIndx];
+			if(!(img.data))
+				this.currentImage.no_image = true;
+			else
+				this.currentImage.no_image = false;
+			this.currentImage.data = "data:"+img.type+";base64,"+img.data;
+			this.currentImage.index = image_index;
+			this.currentImage.default = image.default;
+			image.selected = true;				
+			this.currentImage.busy = false;
+			
+			if(!(jQuery('#previewImageContainer').is(":hidden"))){
+				this.previewImage(this.currentImage.data);
+			}
 		}
 		else{//Image from server
 			this.commonService.enduserService.getImage(this.userDetail.user_id,image.image_id,this.selected_transc_id)
@@ -307,8 +331,20 @@ declare var jQuery:any;
 						  this.currentImage.index = image_index;
 						  this.currentImage.default = image.default;
 						  image.selected = true;
+						  
+						  image.loadedImgIndx = this.loadedImages.length;
+						  var image_detail = {
+							  data: base64string,
+							  type: prdImage[0].type,
+							  default: image.default
+						  };
+						  this.loadedImages.push(image_detail);
 					  }
 					  this.currentImage.busy = false;
+					  
+					if(!(jQuery('#previewImageContainer').is(":hidden"))){
+						this.previewImage(this.currentImage.data);
+					}
 			  });
 		}
 	}
@@ -390,6 +426,11 @@ declare var jQuery:any;
 			this.currentImage.data = "";
 			this.getImage(this.thumbnails[indx]);
 		}
+		else{
+			if(!(jQuery('#previewImageContainer').is(":hidden"))){
+				this.previewImage(this.currentImage.data);
+			}
+		}
 	}
 	nextImage(evt){
 		var indx = this.currentImage.index;
@@ -397,6 +438,11 @@ declare var jQuery:any;
 		if(indx >= 0 && indx < this.thumbnails.length){
 			this.currentImage.data = "";
 			this.getImage(this.thumbnails[indx]);
+		}
+		else{
+			if(!(jQuery('#previewImageContainer').is(":hidden"))){
+				this.previewImage(this.currentImage.data);
+			}
 		}
 	}
 	
@@ -624,9 +670,14 @@ declare var jQuery:any;
 	}
   
 	previewImage(data){
+		var that = this;
 		var Window:any;
 		Window = window || {};
 		Window.preview_image = data;
+		Window.preview_thumbnails = this.thumbnails;
+		Window.nextPreviewImage = function(){ that.nextImage.call(that,null); };
+		Window.prevPreviewImage = function(){ that.prevImage.call(that,null); };
+		
 		jQuery('#previewImageIframe').remove();
 		document.getElementById('previewImageIframeContainer').innerHTML = '<iframe id="previewImageIframe" src="preview.html" style="height:100%; width:100%; border:none;" ></iframe>';
 		jQuery('#previewImageContainer').show();
