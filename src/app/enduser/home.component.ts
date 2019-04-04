@@ -611,7 +611,7 @@ export class AppHome implements OnInit {
 		}
     if(elem.scrollTop() < this.lastScroll){	//When scroll up									
 			var pos: any = elem.scrollTop();
-			var max: any = (elem[0].scrollHeight * 0.30);
+			var max: any = (elem[0].scrollHeight * 0.10);
 			if(pos >= max)
 				this.quick_scrollTop = true;
 			else
