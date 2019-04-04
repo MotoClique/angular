@@ -295,7 +295,7 @@ declare var jQuery:any;
 					this.previewImage(this.currentImage.data);
 				}
 		}
-		else if(image.loadedImgIndx){
+		else if(image.loadedImgIndx != null && image.loadedImgIndx >= 0){
 			jQuery.each(this.thumbnails, function(i,v){
 				v.selected = false;
 			});
