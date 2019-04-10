@@ -77,7 +77,11 @@ export class AppSubscription implements OnInit {
           onBuySub(evt){
 			  this.showApplicationListDialog = true;
 			  this.commonService.adminService.getApplication("")
-					.subscribe( result => this.applications = result.results);
+					.subscribe( result => {
+						this.applications = result.results;
+						if(this.applications && this.applications.length == 1)
+							this.onAppSelect(null,this.applications[0]);
+				});
                 //this.hidden = {view: true, buy: false};
                 //this.disabled = {field: false};
           }

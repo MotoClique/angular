@@ -854,7 +854,37 @@ export class AppBid implements OnInit {
 	  
 	reloadItems(){
 		//this.loadFavourites();
-		this.onBidCancel();
+		if(this.detail && !this.screenMode.add)
+			this.reloadPostData(this.item.bid_id,this.editMode);
+		else
+			this.onBidCancel();
+	}
+	
+	reloadPostData(id,edit_mode){
+		var that = this;
+		that.commonService.enduserService.getBid("",id,"",null,null,null)
+			.subscribe( data => {
+				if(data.results.length > 0){
+					var item = data.results[0];									
+					that.item = item;
+					that.item.transactionTyp = "Bid";
+					that.dynamicFormComponent.item = that.item;
+					that.imageTemplateComponent.item = that.item;
+					if(edit_mode){
+						that.goEditMode();
+					}
+					else{
+						that.detail = true;
+						that.editMode = false;
+						that.screenMode = {add:false, edit:false};
+						that.dynamicFormComponent.generateDisplayField("Bid",item);
+						that.imageTemplateComponent.getTransactionThumbnails(item.bid_id);
+					}
+				}
+				else{
+					that.sharedService.openMessageBox("E","Unable to reload data.",null);
+				}
+		});
 	}
 	
 	
