@@ -43,43 +43,43 @@
 				<div class="form-group">
 					  <!--<label class="control-label col-sm-2" for="address">Address:</label>
 					  <div class="col-sm-10">
-						<input type="text" class="form-control" id="address" [(ngModel)]="item.address" placeholder="Enter Full Address" name="address" [disabled]="disabled.field" required>
+						<input type="text" class="form-control" id="address" [(ngModel)]="item.address" placeholder="Enter Full Address" name="address" [disabled]="!editMode" required>
 					  </div>-->
 					  
 					  <div class="col-sm-12">
 							<mat-form-field style="width: 100%;">
-								<input matInput placeholder="Address" [(ngModel)] = "item.address" name="address" [disabled]="disabled.field" required>
+								<input matInput placeholder="Address" [(ngModel)] = "item.address" name="address" [disabled]="!editMode" required>
 							</mat-form-field>
 						</div>
 				</div>
 				<div class="form-group">
 					  <!--<label class="control-label col-sm-2" for="pin_code">Pin Code:</label>
 					  <div class="col-sm-10">         
-						<input type="number" class="form-control" id="pin_code" [(ngModel)]="item.pin_code" placeholder="Enter Area Pin Code" name="pin_code" [disabled]="disabled.field">
+						<input type="number" class="form-control" id="pin_code" [(ngModel)]="item.pin_code" placeholder="Enter Area Pin Code" name="pin_code" [disabled]="!editMode">
 					  </div>-->
 					  
 					  <div class="col-sm-12">
 							<mat-form-field style="width: 100%;">
-								<input matInput placeholder="Pin Code" maxlength="6" [(ngModel)] = "item.pin_code" name="pin_code" [disabled]="disabled.field" (keyup)="onPinEnter($event)">
+								<input matInput placeholder="Pin Code" maxlength="6" [(ngModel)] = "item.pin_code" name="pin_code" [disabled]="!editMode" (keyup)="onPinEnter($event)">
 							</mat-form-field>
 						</div>
 				</div>
 				<div class="form-group">
 					<!--<label class="control-label col-sm-2" for="country">Country:</label>
 					<div class="col-sm-10">
-						 <select class="form-control" id="country" [(ngModel)]="item.country" name="country" [disabled]="disabled.field" (change)="locate($event)">
+						 <select class="form-control" id="country" [(ngModel)]="item.country" name="country" [disabled]="!editMode" (change)="locate($event)">
 							  <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
 						 </select>
 					</div>-->
 					
 					<div class="col-sm-12"> 
-						<mat-form-field style="width: 100%;" *ngIf="!disabled.field">
+						<mat-form-field style="width: 100%;" *ngIf="editMode">
 							<mat-select placeholder="Country" name="country" [attr.data-val]="item.country" [(ngModel)]="item.country" (change)="locate($event)" required>
 								  <mat-option *ngFor="let country of countries" [value]="country.country">{{country.country}}</mat-option>
 							</mat-select>
 						</mat-form-field>
 						
-						<mat-form-field style="width: 100%;" *ngIf="disabled.field">
+						<mat-form-field style="width: 100%;" *ngIf="!editMode">
 								<input matInput placeholder="Country" [(ngModel)] = "item.country" name="country" [disabled]=true required>
 						</mat-form-field>
 					</div>
@@ -87,19 +87,19 @@
 				<div class="form-group">
 					<!--<label class="control-label col-sm-2" for="state">State:</label>
 					<div class="col-sm-10">
-						<select class="form-control" id="state" [(ngModel)]="item.state" name="state" [disabled]="disabled.field" (change)="locate($event)">
+						<select class="form-control" id="state" [(ngModel)]="item.state" name="state" [disabled]="!editMode" (change)="locate($event)">
 							  <option *ngFor="let state of states" [value]="state.name">{{state.name}}</option>
 						</select>
 					</div>-->
 					
 					<div class="col-sm-12"> 
-						<mat-form-field style="width: 100%;" *ngIf="!disabled.field">
+						<mat-form-field style="width: 100%;" *ngIf="editMode">
 							<mat-select placeholder="State" name="state" [attr.data-val]="item.state" [(ngModel)]="item.state" (change)="locate($event)" required>
 								  <mat-option *ngFor="let state of states" [value]="state.state">{{state.state}}</mat-option>
 							</mat-select>
 						</mat-form-field>
 						
-						<mat-form-field style="width: 100%;" *ngIf="disabled.field">
+						<mat-form-field style="width: 100%;" *ngIf="!editMode">
 								<input matInput placeholder="State" [(ngModel)] = "item.state" name="state" [disabled]=true required>
 						</mat-form-field>
 					</div>
@@ -107,19 +107,19 @@
 				<div class="form-group">
 					 <!--<label class="control-label col-sm-2" for="city">City:</label>
 					 <div class="col-sm-10">
-						  <select class="form-control" id="city" [(ngModel)]="item.city" name="city" [disabled]="disabled.field" (change)="locate($event)">
+						  <select class="form-control" id="city" [(ngModel)]="item.city" name="city" [disabled]="!editMode" (change)="locate($event)">
 								<option *ngFor="let city of cities" [value]="city.name">{{city.name}}</option>
 						  </select>
 					 </div>-->
 					 
 					 <div class="col-sm-12"> 
-						<mat-form-field style="width: 100%;" *ngIf="!disabled.field">
+						<mat-form-field style="width: 100%;" *ngIf="editMode">
 							<mat-select placeholder="City" name="city" [attr.data-val]="item.city" [(ngModel)]="item.city" (change)="locate($event)" required>
 								  <mat-option *ngFor="let city of cities" [value]="city.city">{{city.city}}</mat-option>
 							</mat-select>
 						</mat-form-field>
 						
-						<mat-form-field style="width: 100%;" *ngIf="disabled.field">
+						<mat-form-field style="width: 100%;" *ngIf="!editMode">
 								<input matInput placeholder="City" [(ngModel)] = "item.city" name="city" [disabled]=true required>
 						</mat-form-field>
 					</div>
@@ -127,19 +127,19 @@
 				<div class="form-group">
 				   <!--<label class="control-label col-sm-2" for="locality">Locality:</label>
 				   <div class="col-sm-10">
-					  <select class="form-control" id="locality" [(ngModel)]="item.locality" name="locality" [disabled]="disabled.field" (change)="locate($event)">
+					  <select class="form-control" id="locality" [(ngModel)]="item.locality" name="locality" [disabled]="!editMode" (change)="locate($event)">
 						   <option *ngFor="let locality of localities" [value]="locality.name">{{locality.name}}</option>
 					  </select>
 				   </div>-->
 				   
 				   <div class="col-sm-12"> 
-						<mat-form-field style="width: 100%;" *ngIf="!disabled.field">
+						<mat-form-field style="width: 100%;" *ngIf="editMode">
 							<mat-select placeholder="Locality" name="locality" [attr.data-val]="item.locality" [(ngModel)]="item.locality" (change)="locate($event)" required>
 								  <mat-option *ngFor="let locality of localities" [value]="locality.location">{{locality.location}}</mat-option>
 							</mat-select>
 						</mat-form-field>
 						
-						<mat-form-field style="width: 100%;" *ngIf="disabled.field">
+						<mat-form-field style="width: 100%;" *ngIf="!editMode">
 								<input matInput placeholder="Locality" [(ngModel)] = "item.locality" name="locality" [disabled]=true required>
 						</mat-form-field>
 					</div>
@@ -154,17 +154,17 @@
 							  <span class="glyphicon glyphicon-search"></span>
 						  </div>
 						  <div id="googleMap" style="width:100%;height:300px;"></div>
-						  <div id="googleMapOverlay" [hidden]="!disabled.field" ></div>
+						  <div id="googleMapOverlay" [hidden]="editMode" ></div>
 						</div>-->
 				  </div>
 				</div>
 				<div class="form-group">       
 					<!--<label class="control-label col-sm-2" for="default">Default:</label>
 					<div class="col-sm-10">
-						<input type="checkbox" style="width:50px" [disabled]="disabled.field"  id="default" [(ngModel)]="item.default_flag" name="default">
+						<input type="checkbox" style="width:50px" [disabled]="!editMode"  id="default" [(ngModel)]="item.default_flag" name="default">
 					</div>-->
 					<div class="col-sm-12">
-						<mat-checkbox style="width:100%;" [disabled]="disabled.field || item.default_flag" [(ngModel)]="item.default_flag" name="default" >Default</mat-checkbox>
+						<mat-checkbox style="width:100%;" [disabled]="!editMode || item.default_flag" [(ngModel)]="item.default_flag" name="default" >Default</mat-checkbox>
 					</div>
 				</div>
 				<!--<div class="form-group">       
@@ -172,7 +172,7 @@
 					<button type="submit" style="width: 100%" class="btn btn-default" (click)="onAddressSaveCancel($event)">
 						 <span class="glyphicon glyphicon-remove"></span> Cancel
 					</button>
-					<button type="submit" style="width: 100%" class="btn btn-default" [hidden]="disabled.field" (click)="onAddressSave($event)">
+					<button type="submit" style="width: 100%" class="btn btn-default" [hidden]="!editMode" (click)="onAddressSave($event)">
 						 <span class="glyphicon glyphicon-floppy-disk"></span> Save
 					</button>
 				  </div>
@@ -192,7 +192,7 @@
 						   
 					</div>
 					<div class="col-xs-6" style="display:flex; justify-content:flex-end;">						
-						  <button type="submit" class="btn btn-default" style="width:100%;" (click)="onAddressSave($event)" [hidden]="hidden.add || disabled.field">
+						  <button type="submit" class="btn btn-default" style="width:100%;" (click)="onAddressSave($event)" [hidden]="hidden.add || !editMode">
 							   <span class="glyphicon glyphicon-floppy-disk"></span> Save
 						  </button>
 						  					
