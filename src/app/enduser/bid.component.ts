@@ -139,6 +139,40 @@ export class AppBid implements OnInit {
 						var id = that.route.snapshot.params.id;
 						var mode = that.route.snapshot.params.mode;
 						if(id && id !== 'blank' && id !== 'new'){
+              if(that.sharedService.sharedObj.postItem && that.sharedService.sharedObj.postItem.bid_id == id){
+									var item = jQuery.extend(true, {}, that.sharedService.sharedObj.postItem);
+									that.sharedService.sharedObj.postItem = {};
+                  that.item = item;
+									that.item.transactionTyp = "Bid";
+									that.dynamicFormComponent.item = that.item;
+									that.imageTemplateComponent.item = that.item;
+                  that.imageTemplateComponent.postImage = jQuery.extend(true, {}, that.sharedService.sharedObj.postImage);
+									that.sharedService.sharedObj.postImage = {};
+									if(mode === 'edit'){
+										that.goEditMode();
+									}
+									else if(mode === 'participate'){
+										that.bidItem = item;
+										that.bidByComponent.bid = that.bidItem;							
+										if(that.bidItem.bid_id){
+											that.participate = true;
+										}
+										else{
+											that.router.navigateByUrl('/Container/Home');
+										}
+									}
+									else{
+										that.detail = true;
+										that.editMode = false;
+										that.screenMode = {add:false, edit:false};
+										that.dynamicFormComponent.generateDisplayField("Bid",item);
+										that.imageTemplateComponent.getTransactionThumbnails(item.bid_id);
+									}
+                    
+                  if(that.item.user_id !== that.userDetail.user_id)
+										  that.sharedService.sharedObj.containerContext.title = "Bid";                
+							}
+							else{
 							that.commonService.enduserService.getBid("",id,"",null,null,null)
 							  .subscribe( data => {
 								  if(data.results.length > 0){
@@ -175,6 +209,7 @@ export class AppBid implements OnInit {
 									 that.sharedService.openMessageBox("E","No data found.",null);
 								  }
 								});
+              }
 						}
             else if(id === 'new'){
 							that.createNew(null);
