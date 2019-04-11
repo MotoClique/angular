@@ -507,6 +507,7 @@ export class AppHome implements OnInit {
 					  if(prdImage.length > 0){
 						  var base64string = this.arrayBufferToBase64(prdImage[0].data.data);
 						  item.data = "data:"+prdImage[0].type+";base64,"+base64string;
+              item.postImage = prdImage[0];
 					  }
 					  item.busy = false;
 			  });
@@ -527,7 +528,9 @@ export class AppHome implements OnInit {
 		if(this.sharedService.sharedObj.backUpData['home']){
 			this.sharedService.sharedObj.backUpData['home'].y_axis = document.getElementsByClassName('scrollContainerStyle')[0].scrollTop;
 		}
-		
+		this.sharedService.sharedObj.postImage = item.postImage;
+		this.sharedService.sharedObj.postItem = jQuery.extend(true, {}, item);
+    
 		if(item.type == "Sale"){
 			if(item.user_id == this.userDetail.user_id)
 				this.router.navigate(['/Container/Sell',item.sell_id,'edit']);
