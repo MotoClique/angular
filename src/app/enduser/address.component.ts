@@ -1,4 +1,4 @@
-//
+//Address Component
 import {Component,OnInit,HostListener} from '@angular/core'
 import {Router, ActivatedRoute} from '@angular/router';
 import { CommonService } from '../common.service';
@@ -38,11 +38,13 @@ export class AppAddress implements OnInit {
 		cities: any = [];
 		localities: any = [];
 		hidden: any;
-		disabled: any;
+		editMode: boolean = false;
 		userDetail: any = {};
 		showPostListDialog: boolean = false;
 		posts: any = [];
 		lastScroll: any = 0;
+		targetUrl: string = "";
+		done: boolean = true;
 
 		constructor(private router: Router, private route: ActivatedRoute, private sharedService: SharedService, private commonService: CommonService) {
 			this.router = router;
@@ -54,12 +56,8 @@ export class AppAddress implements OnInit {
 				this.sharedService.sharedObj.containerContext.title = "My Address";	
                 this.addresses = [];
                 this.item = {};
-                //this.countries = [{name:"India"}];
-                //this.states = [{name:"Karnataka"}];
-                //this.cities = [{name:"Bengaluru"}];
-                //this.localities = [{name:"Koramangala"},{name:"Jayanagar"},{name:"Whitefield"}];
                 this.hidden = {view: false, add: true};
-                this.disabled = {field: false};
+                this.editMode = true;
 				this.sharedService.getUserProfile(function(user){
 					that.userDetail = user;
 					that.commonService.adminService.getCountry()
@@ -100,7 +98,7 @@ export class AppAddress implements OnInit {
 		
 		displayAddress(){
 			this.hidden = {view: true, add: false};
-            this.disabled = {field: true};
+            this.editMode = false;
             //this.item = data;
 			var map_point = this.item.map_point.split("/");
 			this.loadGoogleMap(map_point[0],map_point[1]);
@@ -114,8 +112,8 @@ export class AppAddress implements OnInit {
 		
 		goEditMode(){
 			this.hidden = {view: true, add: false};
-			this.disabled = {field: false};
-			//this.item = doc;
+			this.editMode = true;
+			this.done = false;
 			this.getCountry();
 			this.getState((this.item.country?this.item.country:''));
 			this.getCity((this.item.state?this.item.state:''));
@@ -168,7 +166,8 @@ export class AppAddress implements OnInit {
 		
 		goCreateMode(){
 			this.hidden = {view: true, add: false};
-            this.disabled = {field: false};
+            this.editMode = true;
+			this.done = false;
 			this.item = {};
 			this.commonService.adminService.getCountry()
 				.subscribe( result => this.countries = result.results);
@@ -210,9 +209,7 @@ export class AppAddress implements OnInit {
 		}
 
 		onAddressSaveCancel(evt){
-				/*this.commonService.enduserService.getAddress(this.userDetail.user_id,"")
-					.subscribe( result => this.addresses = result.results);
-                this.hidden = {view: false, add: true};*/
+			this.done = true;
 			this.router.navigateByUrl('/Container/Address');
 		}
 
@@ -288,6 +285,30 @@ export class AppAddress implements OnInit {
 			}
 		}
 		
+		canDeactivate(component,currentRoute,currentState,nextState) {
+			console.log('i am trying to navigating away');
+			var that = this;						
+			if(this.hidden.view && this.editMode && !this.done){			
+				if(!this.targetUrl){
+					this.sharedService.unSaveDataCheck(function(confirmed){
+						if(confirmed){
+							that.router.navigateByUrl(that.targetUrl);
+						}
+						else{
+							that.targetUrl = "";
+						}
+					},this);
+					this.targetUrl = nextState.url;
+					return false;
+				}
+				else{
+					return true;
+				}
+			}
+			else{
+				return true;
+			}
+		}
 		
 		@HostListener('scroll', ['$event'])
 		handleScroll(event) {
