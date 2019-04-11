@@ -208,6 +208,40 @@ declare var jQuery:any;
 			this.selected_transc_id = transaction_id;
 			this.thumbnails = [];
 			this.currentImage = {no_image: true};
+      if((this.item.user_id !== this.userDetail.user_id) || (this.item.transactionTyp === 'Buy')){
+				this.commonService.enduserService.getThumbnailIndicator("",transaction_id)
+				.subscribe( prdThumbnails => {		  
+					var prdThumbnail = prdThumbnails.results;
+					this.thumbnails = [];
+					if(prdThumbnail.length > 0){
+						  var defaultFound = false;
+						  for(var i = 0; i < prdThumbnail.length; i++){
+							var entry = jQuery.extend(true, {}, prdThumbnail[i]);
+							entry.selected = false;
+							if(entry.default){
+								this.thumbnails.unshift(entry);
+								this.getImage(this.thumbnails[0]);
+								defaultFound = true;
+							}
+							else{
+							  this.thumbnails.push(entry);
+							}
+						  }
+						  if(!defaultFound)
+							this.getImage(this.thumbnails[0]);
+					}
+					  
+					that.getFav();
+					that.resizeImage();
+					if(that.item.bid_id && that.item.bid_status === "Active"){
+						that.startTimer(that.item.bid_valid_to);
+					}
+					else{
+						that.time_left = '';
+					}
+			  });
+			}
+			else{
 			this.commonService.enduserService.getThumbnail("",transaction_id)
 			  .subscribe( prdThumbnails => {			  
 					var prdThumbnail = prdThumbnails.results;
@@ -243,7 +277,7 @@ declare var jQuery:any;
 						that.time_left = '';
 					}
 			  });
-			  
+      }
 			
 		}
 		
