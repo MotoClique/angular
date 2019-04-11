@@ -33,6 +33,7 @@ declare var jQuery:any;
 		fav: any = [];
 		time_left: string = "";
 		timer: any ;
+    postImage: any = {};
 		@Input() item;
 		@Input() parentComponent;
 		@Input() editMode;
@@ -315,6 +316,32 @@ declare var jQuery:any;
 			}
 		}
 		else{//Image from server
+      if(this.postImage.image_id && this.postImage.image_id == image.image_id){					
+				jQuery.each(this.thumbnails, function(i,v){
+					v.selected = false;
+				});
+				var base64string = this.arrayBufferToBase64(this.postImage.data.data);
+				if(!(this.postImage.data.data))
+					this.currentImage.no_image = true;
+				else
+					this.currentImage.no_image = false;
+				this.currentImage.data = "data:"+this.postImage.type+";base64,"+base64string;
+				this.currentImage.index = image_index;
+				this.currentImage.default = image.default;
+				image.selected = true;
+				image.loadedImgIndx = this.loadedImages.length;
+				var image_detail = {
+					data: base64string,
+					type: this.postImage.type,
+					default: image.default
+				};
+				this.loadedImages.push(image_detail);
+				this.currentImage.busy = false;
+				if(!(jQuery('#previewImageContainer').is(":hidden"))){
+					this.previewImage(this.currentImage.data);
+				}
+			}
+			else{
 			this.commonService.enduserService.getImage(this.userDetail.user_id,image.image_id,this.selected_transc_id)
 			  .subscribe( prdImages => {			  
 					  var prdImage = prdImages.results;
@@ -346,6 +373,7 @@ declare var jQuery:any;
 						this.previewImage(this.currentImage.data);
 					}
 			  });
+      }
 		}
 	}
 	
