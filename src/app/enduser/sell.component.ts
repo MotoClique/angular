@@ -134,6 +134,29 @@ export class AppSell implements OnInit {
 						var id = that.route.snapshot.params.id;
 						var mode = that.route.snapshot.params.mode;
 						if(id && id !== 'blank' && id !== 'new'){
+              if(that.sharedService.sharedObj.postItem && that.sharedService.sharedObj.postItem.sell_id == id){
+									var item = jQuery.extend(true, {}, that.sharedService.sharedObj.postItem);
+									that.sharedService.sharedObj.postItem = {};
+									that.item = item;
+									that.item.transactionTyp = "Sale";
+									that.dynamicFormComponent.item = that.item;
+									that.imageTemplateComponent.item = that.item;
+									that.imageTemplateComponent.postImage = jQuery.extend(true, {}, that.sharedService.sharedObj.postImage);
+									that.sharedService.sharedObj.postImage = {};
+									if(mode === 'edit'){
+										that.goEditMode();
+									}else{
+										that.dynamicFormComponent.generateDisplayField("Sell",item);
+										that.imageTemplateComponent.getTransactionThumbnails(item.sell_id);
+										that.detail = true;
+										that.editMode = false;
+										that.screenMode = {add:false, edit:false};
+									}
+                    
+									if(that.item.user_id !== that.userDetail.user_id)
+										  that.sharedService.sharedObj.containerContext.title = "Sell";
+							}
+							else{
 							that.commonService.enduserService.getSell("",id,"",null,null,null)
 							  .subscribe( data => {
 								  if(data.results.length > 0){
@@ -159,6 +182,7 @@ export class AppSell implements OnInit {
 									 that.sharedService.openMessageBox("E","No data found.",null);
 								  }
 								});
+              }
 						}
             else if(id === 'new'){
 							that.createNew(null);
