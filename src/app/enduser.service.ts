@@ -161,7 +161,9 @@ export class EndUserService {
 	  return this.sharedService.call('thumbnail', "put", thumbnail, false);
   }
   
-  
+  getThumbnailIndicator(user_id,transaction_id){
+	  return this.sharedService.call('thumbnailIndicator/?user_id='+user_id+'&transaction_id='+transaction_id, "get", null, false);
+  }
   
    ////////////////////////////////////////Image/////////////////////////////////////////////////
   getImage(user_id,image_id,transaction_id){
