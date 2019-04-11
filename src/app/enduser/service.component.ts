@@ -114,7 +114,7 @@ export class AppService implements OnInit {
 									that.sharedService.sharedObj.postItem = {};
 									that.item = item;
 									that.item.transactionTyp = "Service";
-									that.dynamicFormComponent.item = that.item;
+									that.serviceFormComponent.serviceItem = that.item;
 									that.imageTemplateComponent.item = that.item;
 									that.imageTemplateComponent.postImage = jQuery.extend(true, {}, that.sharedService.sharedObj.postImage);
 									that.sharedService.sharedObj.postImage = {};
