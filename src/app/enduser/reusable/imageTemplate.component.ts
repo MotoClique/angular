@@ -454,6 +454,11 @@ declare var jQuery:any;
 			this.currentImage.data = "";
 			this.getImage(this.thumbnails[indx]);
 		}
+    else if(indx < 0 && this.thumbnails.length>1){
+			indx = this.thumbnails.length - 1;
+			this.currentImage.data = "";
+			this.getImage(this.thumbnails[indx]);
+		}
 		else{
 			if(!(jQuery('#previewImageContainer').is(":hidden"))){
 				this.previewImage(this.currentImage.data);
@@ -464,6 +469,11 @@ declare var jQuery:any;
 		var indx = this.currentImage.index;
 		indx = indx - (-1);
 		if(indx >= 0 && indx < this.thumbnails.length){
+			this.currentImage.data = "";
+			this.getImage(this.thumbnails[indx]);
+		}
+    else if(indx >= this.thumbnails.length && this.thumbnails.length>1){
+			indx = 0;
 			this.currentImage.data = "";
 			this.getImage(this.thumbnails[indx]);
 		}
