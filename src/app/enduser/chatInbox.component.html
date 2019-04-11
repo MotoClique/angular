@@ -9,7 +9,7 @@
 		<mat-tab label="Bid" style="">
 		</mat-tab>		
 	</mat-tab-group>
-			<div style="height:100%; padding:5px; overflow-y:auto;">
+			<div class="scrollContainerStyle" style="height:100%; padding:5px; overflow-y:auto;">
 			  <div *ngFor="let item of filteredPost" class="postitemstyle" (click)="onChatSelect($event,item)">
 					<div style="width:100%; border-bottom: 1px solid rgba(0,0,0,0.16);">
 						<div style="display:flex; width:100%; padding:5px;" *ngIf="!(item.post_deletion)">
