@@ -141,10 +141,9 @@
 <!-- -->
 <app-dialog [(visible)]="showBidConfirmDialog">
 	<div style="padding:10px;">
-      <div style="font-size:18px; text-align:center; margin-top:20px; background-color:#dddddd">Participate Info</div>
-		
+      <div style="font-size:18px; text-align:center; margin-top:20px; background-color:#dddddd">Participate Info</div>		
 			<div class="padding">
-				<div>Participating in the Bidding process is chargeable of Rs. 150/- <br> Do you want to proceed?</div>
+				<div style="padding: 15px; text-align: center;">A one time security deposit of Rs.<span>{{securityDeposit}}</span> is chargeable for participating in the Bidding process.<br> Do you want to proceed?</div>
 				<div style="display:flex;">
 					<button class="btn btn-default" style="width: 50%;" (click)="onParticipateYes($event)">Yes</button>
 					<button class="btn btn-default" style="width: 50%;" (click)="onParticipateNo($event)">No</button>

@@ -33,11 +33,12 @@ declare var jQuery:any;
 		fav: any = [];
 		time_left: string = "";
 		timer: any ;
-    postImage: any = {};
+		postImage: any = {};
 		@Input() item;
 		@Input() parentComponent;
 		@Input() editMode;
 		isCordova: boolean = false;
+		securityDeposit: number = 0;
 		
 		constructor(private router: Router, private http: Http, private commonService: CommonService, private sharedService: SharedService) {
 			   
@@ -527,12 +528,33 @@ declare var jQuery:any;
 				else
 					this.showBidConfirmDialog = true;
 		});*/
-		this.onParticipateYes(null);
+		if(this.userDetail.security_deposit > 0){
+			this.onParticipateYes(null);
+		}
+		else{
+			if(this.sharedService.sharedObj.configParams['security_deposit']){
+				this.securityDeposit = Number(this.sharedService.sharedObj.configParams['security_deposit']);
+				this.showBidConfirmDialog = true;
+			}
+		}
 	}
 	onParticipateYes(evt){
-		this.showBidConfirmDialog = false;
-		this.parentComponent.prepareForParticipation();
-		this.router.navigate(['/Container/Bid',this.item.bid_id,'participate']);
+		if(this.userDetail.terms_cond_deposit){
+			this.showBidConfirmDialog = false;
+			this.parentComponent.prepareForParticipation();
+			this.router.navigate(['/Container/Bid',this.item.bid_id,'participate']);
+		}
+		else{
+			var that = this;
+			var tnc_msg = 'Terms n conditon will be here.';
+			this.sharedService.termsConditionMessageBox(tnc_msg,function(state){
+				if(state){
+					that.showBidConfirmDialog = false;
+					that.parentComponent.prepareForParticipation();
+					that.router.navigate(['/Container/Bid',that.item.bid_id,'participate']);
+				}
+			});
+		}
 	}
 	
 	onParticipateNo(evt){

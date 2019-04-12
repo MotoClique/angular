@@ -90,11 +90,26 @@ export class AppBuySubscription implements OnInit {
   
 	buySubscription(item){
 		var that = this;
+		if(this.userDetail.terms_cond_app){
+			that.processBuySubscription(item);
+		}
+		else{
+			var tnc_msg = 'Terms n conditon will be here.';
+			this.sharedService.termsConditionMessageBox(tnc_msg,function(state){
+				if(state){
+					that.processBuySubscription(item);
+				}				
+			});
+		}
+	}
+	
+	processBuySubscription(item){
+		var that = this;
 		var token = this.auth.getToken();
 		var header: any = {
 			headers: { Authorization: 'Bearer '+token }
 		};
-		this.http.post(that.auth.fullhost+"/api/public/node/buySubscription", item, header).toPromise().then(function(data: any){
+		that.http.post(that.auth.fullhost+"/api/public/node/buySubscription", item, header).toPromise().then(function(data: any){
 			if(data.statusCode == "F"){
 				var msg = "Unable to subscribe.";
 				if(data.msg)

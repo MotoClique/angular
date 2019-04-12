@@ -591,6 +591,67 @@ export class SharedService {
 		}
 	}
 	
+	termsConditionMessageBox(msg,callback){
+		var that = this;
+		if(!document.getElementById('termsConditionMessageBox')){
+            //Create Dialog Wrapper/Container
+            var msgBox = document.createElement('DIV');
+            msgBox.setAttribute("id", "termsConditionMessageBox");
+                                            
+           //Create Dialog Overlay
+           var omsgBox = document.createElement('DIV');
+           omsgBox.setAttribute("id", "termsConditionMessageBox_overlay");
+           omsgBox.className = 'global_msg_dialog_overlay';
+           msgBox.appendChild(omsgBox);
+                                                               
+           //Create Dialog Content Area
+           var dmsgBox = document.createElement('DIV');
+           dmsgBox.setAttribute("id", "termsConditionMessageBox_content");
+           dmsgBox.className = 'global_tnc_msg_dialog';
+           msgBox.appendChild(dmsgBox);
+		   
+		   //Create Dialog Header
+           var h = document.createElement('DIV');
+           h.className = 'global_msg_dialog_header';
+		   var title = document.createElement('SPAN');//Header Title
+		   title.innerHTML = 'Terms & Conditions';
+           h.appendChild(title);
+           dmsgBox.appendChild(h);
+		   
+		   //Create Message Paragraph
+			var pmsgBox = document.createElement('P');
+            pmsgBox.innerHTML = msg;
+            pmsgBox.className = 'global_msg_dialog_text';
+            dmsgBox.appendChild(pmsgBox);
+		   
+		   //Create Footer
+		    var fmsgBox = document.createElement('DIV');
+			fmsgBox.className= 'global_tnc_msg_dialog_footer';
+			var agreeButton = document.createElement('BUTTON');
+			agreeButton.addEventListener("click", function(){
+				callback(true);
+				jQuery("#termsConditionMessageBox").remove();
+			});
+			agreeButton.innerHTML+= "Agree";
+			agreeButton.style.backgroundColor = 'green';
+			fmsgBox.appendChild(agreeButton);
+			var disagreeButton = document.createElement('BUTTON');
+			disagreeButton.addEventListener("click", function(){
+				callback(false);
+				jQuery("#termsConditionMessageBox").remove();
+			});
+			disagreeButton.innerHTML+= "Disagree";
+			disagreeButton.style.backgroundColor = '#E71B03';
+			fmsgBox.appendChild(disagreeButton);
+			dmsgBox.appendChild(fmsgBox);
+		   
+		   document.body.appendChild(msgBox);//Append to Body
+		}
+		else{
+			jQuery("#termsConditionMessageBox").remove();
+		}
+	}
+	
 	addressCheck(){
 		var userDetail = this.auth.getUserDetails();
 		if(userDetail){
