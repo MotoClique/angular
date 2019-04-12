@@ -1,7 +1,7 @@
 //
 import {Component, OnInit,ViewChild} from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Router, ActivatedRoute, NavigationEnd} from '@angular/router';
 import { CommonService } from '../common.service';
 import { SharedService } from '../shared.service';
 import {Observable} from 'rxjs/Rx';
@@ -143,20 +143,29 @@ export class AppContainer implements OnInit{
 			//});
 			
 			//jQuery('.footerStyle').addClass('on-canvas');
-      jQuery(".dropdown").hover(function(){
-            jQuery(".dropdown-content").css("display", "block");
-          }, function(){
-            jQuery(".dropdown-content").css("display", "none");
-      });
-      
-      document.body.addEventListener("click",function(e:any){
-          if(e.target.id === 'userProfileSpan'){
-            jQuery(".dropdown-content").css("display", "block"); 
-          }
-          else{
-            jQuery(".dropdown-content").css("display", "none");
-          }
-      });
+			jQuery(".dropbtn").click(function(){
+				if(jQuery(".dropdown-content").css("display") == "none"){
+					jQuery(".dropdown-content").css("display", "block");
+				}
+				else{
+					jQuery(".dropdown-content").css("display", "none");
+				}
+			});		  
+			document.body.addEventListener("click",function(e:any){
+				if(e.target.id !== 'userProfileSpan'){
+					jQuery(".dropdown-content").css("display", "none");
+				}
+			});
+			jQuery(".scrollContainerStyle").scroll(function(){
+				jQuery(".dropdown-content").css("display", "none");
+			});
+			that.router.events.subscribe((val) => {
+				if(val instanceof NavigationEnd){
+					jQuery(".scrollContainerStyle").scroll(function(){
+						jQuery(".dropdown-content").css("display", "none");
+					});
+				}
+			});
       			
 			document.getElementById('userscreen_frame').addEventListener('dblclick',function(e){
 				that.sharedService.showFooter();
