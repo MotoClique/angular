@@ -169,7 +169,6 @@
 	 
 	 
 	 "fuel_type": [
-				   {"name": ""},
 		   {"name": "Petrol"},
 				   {"name": "Diesel"},
 		   {"name": "Electric"},

@@ -317,6 +317,7 @@
 						<div class="col-sm-6"> 
 							<mat-form-field style="width: 100%;">
 								<mat-select placeholder="Year of Registration(From)" name="year_reg_from" [attr.data-val]="item.year_reg_from" [(ngModel)]="item.year_reg_from" [disabled]="disabled.field" (focusout)="validateReg()">
+									<mat-option value=""></mat-option>
 									  <mat-option *ngFor="let yr of years" [value]="yr.name">{{yr.name}}</mat-option>
 								</mat-select>
 							</mat-form-field>
@@ -324,6 +325,7 @@
 						<div class="col-sm-6"> 
 							<mat-form-field style="width: 100%;">
 								<mat-select placeholder="Year of Registration(To)" name="year_reg_to" [attr.data-val]="item.year_reg_to" [(ngModel)]="item.year_reg_to" [disabled]="disabled.field" (focusout)="validateReg()">
+									<mat-option value=""></mat-option>
 									  <mat-option *ngFor="let yr of years" [value]="yr.name">{{yr.name}}</mat-option>
 								</mat-select>
 							</mat-form-field>
