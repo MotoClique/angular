@@ -3,6 +3,7 @@
 		<div style="width: 80px;">
 			<!--<button mat-button class="nav_menu" style="margin-top:5px;" (click)="sidenav.toggle()"><span class="glyphicon glyphicon-menu-hamburger"></span></button>-->
 			<button mat-button class="home_icon" style="margin-top:5px;" (click)="onHome()"><span class="glyphicon glyphicon-home"></span></button>
+			<button mat-button *ngIf="enableFav" class="home_icon" style="margin-top:5px;" (click)="onFavClick($event)"><span class="glyphicon glyphicon-star"></span></button>
 		</div>
 		
 		<div [hidden]="title === undefined || title === null || title === ''" style="font-size: 18px; padding: 12px; display:flex; flex-direction:column; line-height:18px;"><span style="font-weight:800; text-align:center;">{{title}}</span> <span style="font-size:13px; text-align:center;">@{{application}}</span></div>
@@ -26,7 +27,7 @@
 						<button *ngIf="enableAddress" style="text-align:left; text-indent:5px; padding: 10px;" class="btn btn-link" (click)="onAddressClick($event)">Address</button>
 						<button *ngIf="enableSubscription" style="text-align:left; text-indent:5px; padding: 10px;" class="btn btn-link" (click)="onSubscriptionClick($event)">Subscription</button>
 						<button *ngIf="enableAlert" style="text-align:left; text-indent:5px; padding: 10px;" class="btn btn-link" (click)="onAlertClick($event)">Alerts</button>
-						<button *ngIf="enableFav" style="text-align:left; text-indent:5px; padding: 10px;" class="btn btn-link" (click)="onFavClick($event)">Favourite</button>
+						<!--<button *ngIf="enableFav" style="text-align:left; text-indent:5px; padding: 10px;" class="btn btn-link" (click)="onFavClick($event)">Favourite</button>-->
 						<button style="width: 100%;" mat-raised-button style="background:#E71B03; color:white;" (click)="logout($event)"><span class="glyphicon glyphicon-off"></span> Sign Out</button>
 					</div>
 				  </div>
