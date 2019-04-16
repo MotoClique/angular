@@ -3,6 +3,7 @@ import {Component,OnInit,Input} from '@angular/core';
 import { Injectable }     from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import {Router} from '@angular/router';
+import { AuthenticationService } from '../authentication.service';
 import { CommonService } from '../../common.service';
 import { SharedService } from '../../shared.service';
 import {Observable} from 'rxjs/Rx';
@@ -40,7 +41,7 @@ declare var jQuery:any;
 		isCordova: boolean = false;
 		securityDeposit: number = 0;
 		
-		constructor(private router: Router, private http: Http, private commonService: CommonService, private sharedService: SharedService) {
+		constructor(private router: Router, private auth: AuthenticationService, private http: Http, private commonService: CommonService, private sharedService: SharedService) {
 			   
 		}
 
@@ -549,9 +550,11 @@ declare var jQuery:any;
 			var tnc_msg = 'Terms n conditon will be here.';
 			this.sharedService.termsConditionMessageBox(tnc_msg,function(state){
 				if(state){
-					that.showBidConfirmDialog = false;
-					that.parentComponent.prepareForParticipation();
-					that.router.navigate(['/Container/Bid',that.item.bid_id,'participate']);
+					localStorage.setItem("lastRoute",that.router.url);
+					that.makeDeposit();
+					//that.showBidConfirmDialog = false;
+					//that.parentComponent.prepareForParticipation();
+					//that.router.navigate(['/Container/Bid',that.item.bid_id,'participate']);
 				}
 			});
 		}
@@ -559,6 +562,34 @@ declare var jQuery:any;
 	
 	onParticipateNo(evt){
 		this.showBidConfirmDialog = false;
+	}
+	
+	makeDeposit(){
+		var item = {
+			amount: this.securityDeposit,
+			mobile: this.userDetail.mobile,
+			email: this.userDetail.email
+		};
+		var that = this;
+		var token = this.auth.getToken();
+		var header: any = {
+			headers: { Authorization: 'Bearer '+token }
+		};
+		that.http.post(that.auth.fullhost+"/api/public/node/makeDeposit", item, header).toPromise().then(function(data: any){
+			if(data.statusCode == "F"){
+				var msg = "Unable to pay.";
+				if(data.msg)
+					msg = data.msg;
+				that.sharedService.openMessageBox("E",msg,null);
+			}
+			else{
+				document.open();
+				document.write(data._body);
+				document.close();
+			}		  
+		}).catch(function(err: any){
+			that.sharedService.openMessageBox("E","Cannot make payment currently.",null);
+		});
 	}
 	
 	addImage(){
