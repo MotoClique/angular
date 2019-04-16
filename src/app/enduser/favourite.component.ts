@@ -76,7 +76,8 @@ export class AppFav implements OnInit {
 	loadFavourites(){
 		this.commonService.enduserService.getFav(this.userDetail.user_id,"")
 			  .subscribe( data => {			  
-					  this.results = data.results;						
+						this.results = data.results;
+						this.sortFavList();
 						this.getItemDetails();
 			  });
 	}
@@ -254,9 +255,9 @@ export class AppFav implements OnInit {
 	
 	sortFavList(){
 		this.results.sort(function(a, b){
-			if(a.post_createdAt && b.post_createdAt){
-					var aDateObj = new Date(a.post_createdAt);
-					var bDateObj = new Date(b.post_createdAt);					
+			if(a.createdAt && b.createdAt){
+					var aDateObj = new Date(a.createdAt);
+					var bDateObj = new Date(b.createdAt);					
 					if (aDateObj < bDateObj)
 						return 1;
 					else if (aDateObj > bDateObj)

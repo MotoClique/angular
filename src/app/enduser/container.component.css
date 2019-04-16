@@ -117,8 +117,7 @@
 	min-width: 50px !important;
 	background: transparent;
     border: transparent;
-	margin-top:5px;	
-	padding:5px;
+	padding: 4px;
 }
 .dropdown {
     display: inline-block;

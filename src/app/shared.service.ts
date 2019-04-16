@@ -87,7 +87,7 @@ export class SharedService {
 				this.callCount = this.callCount - 1;
 				this.setBusyWithCountCheck(false);
 			}
-			var message = "Error: Unable to process your request. Please refresh your page.";
+			var message = "Unable to process your request. Please check your internet connection and refresh your page.";
       if(err.statusCode === 'F')
          message = err.msg;
 			else if(err.error.error && err.error.error.message)
@@ -671,7 +671,7 @@ export class SharedService {
 	subscriptionCheck(){
 		var userDetail = this.auth.getUserDetails();
 		if(userDetail){
-			this.call('userSubMap/?user_id='+userDetail.user_id, "get", null, false)
+			this.call('userSubCheck/?user_id='+userDetail.user_id, "get", null, false)
 			.subscribe( data => {
 				if(!data.results || data.results.length==0){
 					this.openMessageBox("E","No subscription. Please subscribe!",null);
