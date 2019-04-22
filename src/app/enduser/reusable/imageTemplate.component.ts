@@ -3,7 +3,7 @@ import {Component,OnInit,Input} from '@angular/core';
 import { Injectable }     from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import {Router} from '@angular/router';
-import { AuthenticationService } from '../authentication.service';
+import { AuthenticationService } from '../../authentication.service';
 import { CommonService } from '../../common.service';
 import { SharedService } from '../../shared.service';
 import {Observable} from 'rxjs/Rx';
